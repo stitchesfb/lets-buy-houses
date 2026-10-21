@@ -75,7 +75,7 @@ export const towns: Town[] = [
       'Discover upscale suburban neighborhoods, top-tier schools, and spacious properties with 17 years of local market expertise.',
     idxCity: 'Manalapan',
     intro:
-      'Manalapan offers the ultimate suburban lifestyle in Western Monmouth County, blending sprawling estate properties, exceptional community amenities, and top-rated school districts. Whether you are looking for luxury custom homes in estates like Four Seasons or private acreage, living here provides a sophisticated retreat while staying connected to major commuting routes.',
+      'Manalapan offers the ultimate suburban lifestyle in Western Monmouth County, blending sprawling estate properties, exceptional community amenities, and top-rated school districts. Whether you are looking for custom luxury homes or private acreage, living here provides a sophisticated retreat while staying connected to major commuting routes.',
     highlights: [
       'Manalapan-Englishtown Regional Schools & Freehold Regional High School District',
       'Large-lot colonials, luxury new construction, and active-adult (55+) communities',
@@ -162,9 +162,9 @@ export const towns: Town[] = [
           'Brick is a thriving year-round community with a strong local economy, excellent municipal parks, and full-time school systems, though it experiences a seasonal influx of summer residents.',
       },
       {
-        question: 'What are the taxes like in Brick compared to neighboring towns?',
+        question: 'What are the taxes like in Brick compared to neighboring coastal towns?',
         answer:
-          'Brick generally offers competitive property tax rates relative to surrounding coastal towns while still providing robust municipal services and beach access.',
+          'Brick generally offers attractive relative tax rates for the coastal region, providing a strong balance between property values, municipal services, and public beach access.',
       },
     ],
   },
@@ -219,7 +219,7 @@ export const towns: Town[] = [
       {
         question: 'Are there good commuter options from Point Pleasant?',
         answer:
-          'Yes, Point Pleasant has its own NJ Transit train station on the North Jersey Coast Line, making commutes to Newark and New York City highly accessible.',
+          'Yes, residents enjoy easy access to the nearby Point Pleasant Beach station on the NJ Transit North Jersey Coast Line, offering convenient rail service north toward Newark and New York City.',
       },
     ],
   },
@@ -237,7 +237,7 @@ export const towns: Town[] = [
     headline: 'The Gateway to LBI: Real Estate in Manahawkin, NJ',
     subheadline:
       'Enjoy spacious suburban neighborhoods, excellent value, and immediate access to Long Beach Island.',
-    idxCity: 'Manahawkin',
+    idxCity: 'Manahawkin,Stafford Township', // TODO: or 'Stafford' — confirm with your IDX vendor how it accepts multiple cities
     intro:
       'Manahawkin (Stafford Township) serves as the vibrant mainland gateway to Long Beach Island. It offers the best of both worlds: larger residential lots, modern suburban developments, and lower price points than the barrier island, all while keeping you just minutes away from LBI beaches, dining, and bay activities.',
     highlights: [

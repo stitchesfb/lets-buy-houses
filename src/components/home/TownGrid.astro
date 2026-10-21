@@ -23,7 +23,7 @@ const list = towns.filter((t) => t.slug !== exclude);
           >
             <img src={t.cardImage} alt="" loading="lazy" width="800" height="600" class="absolute inset-0 -z-10 h-full w-full object-cover transition duration-500 group-hover:scale-105" />
             <div class="absolute inset-0 -z-10 bg-gradient-to-t from-brand-900/90 via-brand-900/30 to-transparent" />
-            <p class="text-xs font-semibold tracking-widest text-accent-400 uppercase">{t.county} County</p>
+            <p class="text-xs font-semibold tracking-widest text-accent-400 uppercase">{t.county}</p>
             <h3 class="mt-1 text-2xl !text-white">{t.name}, NJ</h3>
             <p class="mt-1 text-sm text-brand-100">{t.angle}</p>
             <span class="mt-4 text-sm font-semibold">View homes &amp; market data →</span>

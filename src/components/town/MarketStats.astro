@@ -8,9 +8,10 @@ const { town } = Astro.props;
 ---
 
 <section aria-labelledby="market-heading">
-  <h2 id="market-heading" class="text-3xl">{town.name} Real Estate Market Snapshot</h2>
-  <p class="mt-2 text-sm text-slate-500">Source: MLS data. Updated {town.marketStats.asOf}.</p>
-  <dl class="mt-6 grid grid-cols-2 gap-4 lg:grid-cols-4">
+  <h2 id="market-heading" class="text-3xl">{town.name} Real Estate Market Overview</h2>
+  <p class="mt-4 text-lg leading-relaxed text-slate-700">{town.marketOverview}</p>
+  <p class="mt-6 text-sm text-slate-500">Market snapshot · Source: MLS data. Updated {town.marketStats.asOf}.</p>
+  <dl class="mt-3 grid grid-cols-2 gap-4 lg:grid-cols-4">
     {
       town.marketStats.stats.map((s) => (
         <div class="rounded-2xl bg-brand-50 p-5 text-center">

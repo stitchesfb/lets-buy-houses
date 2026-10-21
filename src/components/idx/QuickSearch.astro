@@ -10,7 +10,7 @@ import { towns } from '@/data/towns';
   <label class="sr-only" for="qs-city">Town</label>
   <select id="qs-city" name="city" class="form-input !ring-0">
     <option value="">All Towns</option>
-    {towns.map((t) => <option value={t.idx.city}>{t.name}, NJ</option>)}
+    {towns.map((t) => <option value={t.idxCity}>{t.name}, NJ</option>)}
   </select>
   <label class="sr-only" for="qs-max">Max price</label>
   <select id="qs-max" name="max" class="form-input !ring-0">

@@ -3,7 +3,7 @@
  * Validate output at https://search.google.com/test/rich-results
  */
 import { site } from '@/data/site';
-import { towns, type Town } from '@/data/towns';
+import { towns, type Faq, type Town } from '@/data/towns';
 
 const agentId = `${site.url}/#agent`;
 
@@ -33,7 +33,7 @@ export function realEstateAgentSchema() {
     areaServed: towns.map((t) => ({
       '@type': 'City',
       name: `${t.name}, NJ`,
-      containedInPlace: { '@type': 'AdministrativeArea', name: `${t.county} County, NJ` },
+      containedInPlace: { '@type': 'AdministrativeArea', name: `${t.county}, NJ` },
     })),
     knowsAbout: ['Residential real estate', 'Waterfront homes', 'Home valuation', 'Jersey Shore real estate'],
     parentOrganization: { '@type': 'RealEstateOrganization', name: brokerage.name },
@@ -66,14 +66,14 @@ export function breadcrumbSchema(items: { name: string; url: string }[]) {
   };
 }
 
-export function faqSchema(faqs: { q: string; a: string }[]) {
+export function faqSchema(faqs: Faq[]) {
   return {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
     mainEntity: faqs.map((f) => ({
       '@type': 'Question',
-      name: f.q,
-      acceptedAnswer: { '@type': 'Answer', text: f.a },
+      name: f.question,
+      acceptedAnswer: { '@type': 'Answer', text: f.answer },
     })),
   };
 }
@@ -90,7 +90,7 @@ export function townPageSchema(town: Town) {
       '@type': 'City',
       name: `${town.name}, NJ`,
       geo: { '@type': 'GeoCoordinates', latitude: town.geo.latitude, longitude: town.geo.longitude },
-      containedInPlace: { '@type': 'AdministrativeArea', name: `${town.county} County, NJ` },
+      containedInPlace: { '@type': 'AdministrativeArea', name: `${town.county}, NJ` },
     },
     provider: { '@id': agentId },
   };

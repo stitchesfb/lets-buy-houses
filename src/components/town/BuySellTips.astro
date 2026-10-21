@@ -1,0 +1,30 @@
+---
+/** Side-by-side buyer and seller advice, each paired with the matching CTA. */
+import type { Town } from '@/data/towns';
+
+interface Props {
+  town: Town;
+}
+const { town } = Astro.props;
+const enc = encodeURIComponent(town.name);
+---
+
+<div class="grid gap-6 md:grid-cols-2">
+  <section aria-labelledby="buyer-tips-heading" class="flex flex-col rounded-2xl p-6 ring-1 ring-slate-200">
+    <p class="eyebrow">For Buyers</p>
+    <h2 id="buyer-tips-heading" class="mt-2 text-2xl">Tips for Buying a Home in {town.name}, NJ</h2>
+    <ul class="mt-5 flex-1 space-y-4 text-slate-700">
+      {town.buyerTips.map((tip) => <li class="flex gap-3"><span class="text-accent-500" aria-hidden="true">✔</span>{tip}</li>)}
+    </ul>
+    <a href="#listings" class="btn-secondary mt-6">Browse {town.name} Listings</a>
+  </section>
+
+  <section aria-labelledby="seller-tips-heading" class="flex flex-col rounded-2xl bg-brand-50 p-6">
+    <p class="eyebrow">For Sellers</p>
+    <h2 id="seller-tips-heading" class="mt-2 text-2xl">Tips for Selling Your {town.name} Home</h2>
+    <ul class="mt-5 flex-1 space-y-4 text-slate-700">
+      {town.sellerTips.map((tip) => <li class="flex gap-3"><span class="text-accent-500" aria-hidden="true">✔</span>{tip}</li>)}
+    </ul>
+    <a href={`/home-valuation/?town=${enc}`} class="btn-primary mt-6">Get My Free Home Valuation</a>
+  </section>
+</div>

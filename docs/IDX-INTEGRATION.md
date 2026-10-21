@@ -6,7 +6,7 @@ Every listing search on the site goes through **one component**,
 | Location | Usage |
 | --- | --- |
 | `/search/` | `<IdxSearch minHeight={900} />` (all markets, receives hero quick-search params) |
-| Each town page (`/{town}-nj/#listings`) | `<IdxSearch city={town.idx.city} heading="…" />` |
+| Each town page (`/{town}-nj/#listings`) | `<IdxSearch city={town.idxCity} heading="…" />` |
 
 You switch providers with **environment variables only**. Until one is set, a
 branded placeholder is shown that still captures leads ("Get Listings by Email").
@@ -35,8 +35,8 @@ PUBLIC_IDX_PROVIDER=iframe
 PUBLIC_IDX_IFRAME_URL=https://search.example-idx.com/results?city={city}
 ```
 
-- `{city}` is replaced with each town's `idx.city` value from `src/data/towns.ts`
-  (e.g. `Point Pleasant`, `Stafford` for Manahawkin — match how your MLS names it).
+- `{city}` is replaced with each town's `idxCity` value from `src/data/towns.ts`
+  (e.g. `Point Pleasant`, `Manahawkin` — match how your MLS names it; it may file these under `Stafford`).
 - The hero quick search sends `?city=&max=&beds=` to `/search/`. Map these to your
   vendor's query parameter names in `IDX_PARAM_MAP` at the bottom of
   `src/pages/search.astro`.
@@ -94,7 +94,7 @@ Keep `IdxSearch` for the interactive map/search and use the API grid for SEO.
 ## Checklist before launch
 
 - [ ] MLS IDX agreement signed; vendor approved
-- [ ] `idx.city` values in `towns.ts` match MLS city names
+- [ ] `idxCity` values in `towns.ts` match MLS city names
 - [ ] Vendor lead capture/registration is routed to the same CRM as site forms
 - [ ] MLS-required disclaimer and logo in the footer and on search pages
 - [ ] Lighthouse mobile score checked **after** the widget is live

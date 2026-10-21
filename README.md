@@ -25,7 +25,7 @@ forms work with no setup (Netlify Forms). On other hosts, set `PUBLIC_FORM_ENDPO
 src/
 ├── data/                  ← EDIT CONTENT HERE (no HTML needed)
 │   ├── site.ts            agent/brokerage NAP, phone, license, social, stats
-│   ├── towns.ts           all 4 town pages: H1s, copy, FAQs, stats, IDX city
+│   ├── towns.ts           all 4 town pages: headline, intro, market overview, buyer/seller tips, FAQs, stats
 │   ├── testimonials.ts    client reviews (placeholders, replace with real ones)
 │   └── videos.ts          YouTube video IDs for the Video Hub
 ├── layouts/
@@ -33,7 +33,7 @@ src/
 ├── components/
 │   ├── layout/            Header (Communities menu), Footer (NAP + NJ disclosures), MobileCtaBar
 │   ├── home/              Hero, StatsBanner, TownGrid, Testimonials, VideoHub
-│   ├── town/              MarketStats, FaqList
+│   ├── town/              MarketStats, BuySellTips, FaqList
 │   ├── forms/LeadForm     home-valuation + contact form (variant prop)
 │   ├── idx/               IdxSearch (the IDX container), QuickSearch (hero bar)
 │   ├── seo/               SEO meta tags, JsonLd
@@ -70,7 +70,7 @@ docs/IDX-INTEGRATION.md    how to plug in the MLS search
 - [ ] Real headshot → `public/images/agent/`; real town photos → `public/images/towns/` (WebP, about 200 KB or less)
 - [ ] Replace sample testimonials with **real** reviews. Never publish invented ones.
 - [ ] Replace placeholder stats (`site.stats`) and town `marketStats` with verified MLS numbers
-- [ ] Rewrite each town's `sections` copy (marked TODO) in the agent's own voice. This first-hand local content is what ranks.
+- [ ] Confirm each town's `idxCity` matches how the MLS spells it (Manahawkin listings are often filed under Stafford Township)
 - [ ] Add YouTube video IDs to `src/data/videos.ts`
 - [ ] Set `PUBLIC_FORM_ENDPOINT` (or deploy on Netlify) and send a test lead
 - [ ] Set up the IDX provider (see `docs/IDX-INTEGRATION.md`)

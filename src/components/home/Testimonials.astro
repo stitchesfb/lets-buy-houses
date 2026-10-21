@@ -1,0 +1,30 @@
+---
+import { testimonials } from '@/data/testimonials';
+import { site } from '@/data/site';
+---
+
+<section class="section" aria-labelledby="reviews-heading">
+  <div class="container-page">
+    <div class="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
+      <div>
+        <p class="eyebrow">Client Reviews</p>
+        <h2 id="reviews-heading" class="mt-2 text-3xl sm:text-4xl">What Jersey Shore Families Say</h2>
+      </div>
+      {site.social.googleBusiness && <a href={site.social.googleBusiness} class="btn-secondary" rel="noopener" target="_blank">Read all reviews on Google</a>}
+    </div>
+    <div class="mt-10 grid gap-6 md:grid-cols-3">
+      {
+        testimonials.map((t) => (
+          <figure class="flex flex-col rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200">
+            <div class="text-accent-500" aria-label={`${t.rating} out of 5 stars`}>{'★'.repeat(t.rating)}</div>
+            <blockquote class="mt-4 flex-1 text-lg leading-relaxed text-slate-700">“{t.quote}”</blockquote>
+            <figcaption class="mt-6 text-sm">
+              <span class="font-semibold text-brand-900">{t.name}</span>
+              <span class="text-slate-500"> · {t.type} in {t.town}{t.source && ` · via ${t.source}`}</span>
+            </figcaption>
+          </figure>
+        ))
+      }
+    </div>
+  </div>
+</section>

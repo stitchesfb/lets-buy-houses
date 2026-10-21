@@ -1,0 +1,33 @@
+---
+/**
+ * Hero quick-search bar. Submits to /search/ (GET) which hosts the full IDX
+ * widget pre-filtered by the chosen town — works with any IDX provider.
+ */
+import { towns } from '@/data/towns';
+---
+
+<form action="/search/" method="get" class="grid gap-2 rounded-2xl bg-white p-2 shadow-2xl sm:grid-cols-[1.4fr_1fr_1fr_auto]" role="search" aria-label="Quick home search">
+  <label class="sr-only" for="qs-city">Town</label>
+  <select id="qs-city" name="city" class="form-input !ring-0">
+    <option value="">All Towns</option>
+    {towns.map((t) => <option value={t.idx.city}>{t.name}, NJ</option>)}
+  </select>
+  <label class="sr-only" for="qs-max">Max price</label>
+  <select id="qs-max" name="max" class="form-input !ring-0">
+    <option value="">Any Price</option>
+    <option value="400000">Up to $400K</option>
+    <option value="600000">Up to $600K</option>
+    <option value="800000">Up to $800K</option>
+    <option value="1000000">Up to $1M</option>
+    <option value="1500000">Up to $1.5M</option>
+  </select>
+  <label class="sr-only" for="qs-beds">Bedrooms</label>
+  <select id="qs-beds" name="beds" class="form-input !ring-0">
+    <option value="">Any Beds</option>
+    <option value="2">2+ Beds</option>
+    <option value="3">3+ Beds</option>
+    <option value="4">4+ Beds</option>
+    <option value="5">5+ Beds</option>
+  </select>
+  <button type="submit" class="btn-primary !rounded-xl">Search</button>
+</form>

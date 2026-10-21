@@ -1,0 +1,53 @@
+---
+import { videos, type Video } from '@/data/videos';
+import { site } from '@/data/site';
+import YouTubeEmbed from '@/components/ui/YouTubeEmbed.astro';
+import JsonLd from '@/components/seo/JsonLd.astro';
+import { videoSchema } from '@/lib/schema';
+
+interface Props {
+  heading?: string;
+  items?: Video[];
+}
+const { heading = 'Watch: Inside Our Jersey Shore Towns', items = videos } = Astro.props;
+const [featured, ...rest] = items;
+const published = items.filter((v) => v.id);
+---
+
+{
+  featured && (
+    <section id="videos" class="section scroll-mt-20 bg-slate-50" aria-labelledby="videos-heading">
+      <div class="container-page">
+        <div class="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
+          <div>
+            <p class="eyebrow">Video Hub</p>
+            <h2 id="videos-heading" class="mt-2 text-3xl sm:text-4xl">{heading}</h2>
+            <p class="mt-2 max-w-2xl text-slate-600">Neighborhood tours, market updates, and honest buyer &amp; seller advice — straight from the street.</p>
+          </div>
+          {site.social.youtube && (
+            <a href={`${site.social.youtube}?sub_confirmation=1`} class="btn-secondary" rel="noopener" target="_blank">
+              ▶ Subscribe on YouTube
+            </a>
+          )}
+        </div>
+
+        <div class="mt-10 grid gap-8 lg:grid-cols-3">
+          <article class="lg:col-span-2">
+            <YouTubeEmbed id={featured.id} title={featured.title} />
+            <h3 class="mt-4 text-2xl">{featured.title}</h3>
+            <p class="mt-1 text-slate-600">{featured.description}</p>
+          </article>
+          <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-1">
+            {rest.slice(0, 3).map((v) => (
+              <article>
+                <YouTubeEmbed id={v.id} title={v.title} />
+                <h3 class="mt-2 font-sans text-base font-semibold">{v.title}</h3>
+              </article>
+            ))}
+          </div>
+        </div>
+      </div>
+      {published.length > 0 && <JsonLd schema={published.map(videoSchema)} />}
+    </section>
+  )
+}

@@ -1,0 +1,122 @@
+---
+/**
+ * Town landing page template → /manalapan-nj/, /brick-nj/, /point-pleasant-nj/, /manahawkin-nj/
+ * Content lives in src/data/towns.ts. Add a town there and a page is generated.
+ */
+import type { GetStaticPaths } from 'astro';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/ui/Breadcrumbs.astro';
+import IdxSearch from '@/components/idx/IdxSearch.astro';
+import MarketStats from '@/components/town/MarketStats.astro';
+import FaqList from '@/components/town/FaqList.astro';
+import AgentCta from '@/components/ui/AgentCta.astro';
+import LeadForm from '@/components/forms/LeadForm.astro';
+import VideoHub from '@/components/home/VideoHub.astro';
+import TownGrid from '@/components/home/TownGrid.astro';
+import { towns, type Town } from '@/data/towns';
+import { videos } from '@/data/videos';
+import { breadcrumbSchema, faqSchema, townPageSchema } from '@/lib/schema';
+
+export const getStaticPaths = (() => towns.map((town) => ({ params: { town: town.slug }, props: { town } }))) satisfies GetStaticPaths;
+
+interface Props {
+  town: Town;
+}
+const { town } = Astro.props;
+
+const crumbs = [
+  { name: 'Home', url: '/' },
+  { name: `${town.name}, NJ Real Estate`, url: `/${town.slug}/` },
+];
+const townVideos = videos.filter((v) => v.town === town.slug);
+---
+
+<BaseLayout
+  title={town.metaTitle}
+  description={town.metaDescription}
+  image={town.heroImage}
+  schema={[townPageSchema(town), breadcrumbSchema(crumbs), faqSchema(town.faqs)]}
+>
+  <!-- Hero -->
+  <section class="relative isolate overflow-hidden text-white">
+    <img src={town.heroImage} alt="" width="1920" height="900" fetchpriority="high" class="absolute inset-0 -z-10 h-full w-full object-cover" />
+    <div class="absolute inset-0 -z-10 bg-gradient-to-r from-brand-900/90 to-brand-900/40"></div>
+    <div class="container-page py-16 sm:py-24">
+      <div class="text-brand-100"><Breadcrumbs items={crumbs} /></div>
+      <p class="eyebrow mt-6 !text-accent-400">{town.county} County · {town.zipCodes.join(', ')}</p>
+      <h1 class="mt-3 max-w-4xl text-4xl leading-tight font-bold !text-white sm:text-5xl">{town.h1}</h1>
+      <p class="mt-4 max-w-2xl text-lg text-brand-100 sm:text-xl">{town.subhead}</p>
+      <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+        <a href="#listings" class="btn-primary text-lg">See {town.name} Listings</a>
+        <a href={`/home-valuation/?town=${encodeURIComponent(town.name)}`} class="btn-ghost-light text-lg">What's My {town.name} Home Worth?</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="container-page grid gap-12 py-14 lg:grid-cols-[1fr_320px]">
+    <div class="min-w-0 space-y-16">
+      <!-- Intro + highlights -->
+      <section aria-labelledby="living-heading">
+        <h2 id="living-heading" class="text-3xl">Living in {town.name}, NJ</h2>
+        <p class="mt-4 text-lg leading-relaxed text-slate-700">{town.intro}</p>
+        <ul class="mt-6 grid gap-3 sm:grid-cols-2">
+          {town.highlights.map((h) => <li class="flex gap-3 rounded-xl bg-slate-50 p-4"><span class="text-accent-500">✔</span>{h}</li>)}
+        </ul>
+      </section>
+
+      <MarketStats town={town} />
+
+      <!-- IDX listings -->
+      <div id="listings" class="scroll-mt-24">
+        <IdxSearch city={town.idx.city} heading={`${town.name}, NJ Homes for Sale`} />
+      </div>
+
+      <!-- Neighborhoods -->
+      <section aria-labelledby="hoods-heading">
+        <h2 id="hoods-heading" class="text-3xl">{town.name} Neighborhoods &amp; Home Styles</h2>
+        <div class="mt-6 grid gap-4 sm:grid-cols-3">
+          {
+            town.neighborhoods.map((n) => (
+              <div class="rounded-2xl p-5 ring-1 ring-slate-200">
+                <h3 class="text-xl">{n.name}</h3>
+                <p class="mt-2 text-slate-600">{n.blurb}</p>
+              </div>
+            ))
+          }
+        </div>
+      </section>
+
+      <!-- Long-form local content (buyer/seller intent H2s) -->
+      {
+        town.sections.map((s) => (
+          <section class="prose-local">
+            <h2 class="mb-4 text-3xl">{s.heading}</h2>
+            {s.body.map((p) => <p>{p}</p>)}
+          </section>
+        ))
+      }
+
+      <FaqList heading={`${town.name} Real Estate FAQs`} faqs={town.faqs} />
+    </div>
+
+    <!-- Sticky sidebar -->
+    <div class="space-y-6 lg:sticky lg:top-28 lg:self-start">
+      <AgentCta town={town.name} />
+      <div class="rounded-3xl bg-brand-900 p-6 text-white">
+        <p class="font-display text-xl font-bold">Selling in {town.name}?</p>
+        <p class="mt-2 text-sm text-brand-100">Get a free, data-backed valuation from someone who knows your street.</p>
+        <a href={`/home-valuation/?town=${encodeURIComponent(town.name)}`} class="btn-primary mt-4 w-full">Free Home Value</a>
+      </div>
+    </div>
+  </div>
+
+  {townVideos.length > 0 && <VideoHub heading={`${town.name} Video Tours & Market Updates`} items={townVideos} />}
+
+  <section class="section">
+    <div class="container-page max-w-3xl">
+      <LeadForm variant="contact" town={town.name} heading={`Questions About ${town.name} Real Estate?`} id={`${town.slug}-contact`} />
+    </div>
+  </section>
+
+  <TownGrid heading="Explore Nearby Communities" exclude={town.slug} />
+</BaseLayout>

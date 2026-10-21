@@ -1,0 +1,43 @@
+---
+/**
+ * Lightweight YouTube "facade": renders a thumbnail + play button and only
+ * loads the ~1MB YouTube player when clicked. Keeps Core Web Vitals green
+ * even with many videos on a page. Uses youtube-nocookie.com for privacy.
+ */
+interface Props {
+  id: string;
+  title: string;
+}
+const { id, title } = Astro.props;
+---
+
+{
+  id ? (
+    <div class="yt-facade relative aspect-video overflow-hidden rounded-2xl bg-slate-900 shadow-lg" data-yt-id={id} data-yt-title={title}>
+      <img src={`https://i.ytimg.com/vi/${id}/hqdefault.jpg`} alt="" loading="lazy" width="480" height="360" class="h-full w-full object-cover opacity-90" />
+      <button type="button" class="absolute inset-0 flex items-center justify-center" aria-label={`Play video: ${title}`}>
+        <span class="flex h-16 w-16 items-center justify-center rounded-full bg-red-600 shadow-xl transition hover:scale-110">
+          <svg class="ml-1 h-7 w-7 text-white" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z" /></svg>
+        </span>
+      </button>
+    </div>
+  ) : (
+    <div class="flex aspect-video items-center justify-center rounded-2xl bg-gradient-to-br from-brand-700 to-brand-500 p-6 text-center text-white shadow-lg">
+      <p class="font-semibold">🎬 Video coming soon<br /><span class="text-sm font-normal text-brand-100">{title}</span></p>
+    </div>
+  )
+}
+
+<script>
+  document.querySelectorAll<HTMLElement>('.yt-facade').forEach((el) => {
+    el.querySelector('button')?.addEventListener('click', () => {
+      const iframe = document.createElement('iframe');
+      iframe.src = `https://www.youtube-nocookie.com/embed/${el.dataset.ytId}?autoplay=1&rel=0`;
+      iframe.title = el.dataset.ytTitle ?? 'YouTube video';
+      iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+      iframe.allowFullscreen = true;
+      iframe.className = 'absolute inset-0 h-full w-full';
+      el.replaceChildren(iframe);
+    }, { once: true });
+  });
+</script>

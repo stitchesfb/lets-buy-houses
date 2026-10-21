@@ -1,0 +1,150 @@
+---
+/**
+ * Lead capture form — home valuation, contact, or buyer inquiry.
+ *
+ * Submission target (no backend required):
+ *   - PUBLIC_FORM_ENDPOINT set  → POSTs there (Formspree, Basin, CRM webhook, …)
+ *   - otherwise                 → Netlify Forms (detected at deploy time)
+ * Progressive enhancement: works with JS disabled; with JS it submits via
+ * fetch, then redirects to /thank-you/ (the conversion page for ads/analytics).
+ */
+import { site } from '@/data/site';
+import { towns } from '@/data/towns';
+
+type Variant = 'valuation' | 'contact';
+
+interface Props {
+  variant?: Variant;
+  heading?: string;
+  subheading?: string;
+  /** Pre-select a town (page context). */
+  town?: string;
+  id?: string;
+  dark?: boolean;
+}
+
+const {
+  variant = 'contact',
+  heading = variant === 'valuation' ? 'What’s My Home Worth?' : 'Let’s Talk About Your Move',
+  subheading = variant === 'valuation'
+    ? 'Get a free, no-obligation market analysis based on real local sales — not an online guess.'
+    : `Questions about buying or selling? Reach ${site.agent.firstName} directly.`,
+  town,
+  id = `${variant}-form`,
+  dark = false,
+} = Astro.props;
+
+const endpoint = import.meta.env.PUBLIC_FORM_ENDPOINT || '';
+const formName = `lead-${variant}`;
+const action = endpoint || '/thank-you/';
+---
+
+<div class:list={['rounded-3xl p-6 shadow-xl sm:p-8', dark ? 'bg-brand-900 text-white' : 'bg-white ring-1 ring-slate-200']}>
+  <h2 class:list={['text-2xl sm:text-3xl', dark && '!text-white']}>{heading}</h2>
+  <p class:list={['mt-2', dark ? 'text-brand-100' : 'text-slate-600']}>{subheading}</p>
+
+  <form
+    id={id}
+    name={formName}
+    method="POST"
+    action={action}
+    data-lead-form
+    data-endpoint={endpoint}
+    data-netlify={endpoint ? undefined : 'true'}
+    netlify-honeypot="company_website"
+    class="mt-6 grid gap-4 sm:grid-cols-2"
+  >
+    <input type="hidden" name="form-name" value={formName} />
+    <input type="hidden" name="lead_type" value={variant} />
+    <input type="hidden" name="source_page" value={Astro.url.pathname} />
+    <input type="hidden" name="utm" value="" data-utm />
+    <p class="hidden" aria-hidden="true">
+      <label>Leave blank <input name="company_website" tabindex="-1" autocomplete="off" /></label>
+    </p>
+
+    {
+      variant === 'valuation' && (
+        <>
+          <div class="sm:col-span-2">
+            <label for={`${id}-address`} class:list={['form-label', dark && '!text-brand-100']}>Property address</label>
+            <input id={`${id}-address`} name="address" required autocomplete="street-address" class="form-input" placeholder="123 Ocean Ave" />
+          </div>
+          <div>
+            <label for={`${id}-town`} class:list={['form-label', dark && '!text-brand-100']}>Town</label>
+            <select id={`${id}-town`} name="town" class="form-input" data-prefill="town">
+              {towns.map((t) => <option selected={t.name === town}>{t.name}</option>)}
+              <option>Other</option>
+            </select>
+          </div>
+          <div>
+            <label for={`${id}-timeline`} class:list={['form-label', dark && '!text-brand-100']}>When are you thinking of selling?</label>
+            <select id={`${id}-timeline`} name="timeline" class="form-input">
+              <option>0–3 months</option>
+              <option>3–6 months</option>
+              <option>6–12 months</option>
+              <option>Just curious</option>
+            </select>
+          </div>
+        </>
+      )
+    }
+
+    <div>
+      <label for={`${id}-name`} class:list={['form-label', dark && '!text-brand-100']}>Full name</label>
+      <input id={`${id}-name`} name="name" required autocomplete="name" class="form-input" />
+    </div>
+    <div>
+      <label for={`${id}-phone`} class:list={['form-label', dark && '!text-brand-100']}>Phone</label>
+      <input id={`${id}-phone`} name="phone" type="tel" autocomplete="tel" inputmode="tel" class="form-input" />
+    </div>
+    <div class="sm:col-span-2">
+      <label for={`${id}-email`} class:list={['form-label', dark && '!text-brand-100']}>Email</label>
+      <input id={`${id}-email`} name="email" type="email" required autocomplete="email" class="form-input" />
+    </div>
+
+    {
+      variant === 'contact' && (
+        <>
+          <div>
+            <label for={`${id}-interest`} class:list={['form-label', dark && '!text-brand-100']}>I'm interested in</label>
+            <select id={`${id}-interest`} name="interest" class="form-input" data-prefill="interest">
+              <option value="buying">Buying</option>
+              <option value="selling">Selling</option>
+              <option value="both">Buying &amp; Selling</option>
+              <option value="other">Something else</option>
+            </select>
+          </div>
+          <div>
+            <label for={`${id}-town`} class:list={['form-label', dark && '!text-brand-100']}>Town</label>
+            <select id={`${id}-town`} name="town" class="form-input" data-prefill="town">
+              <option value="">Not sure yet</option>
+              {towns.map((t) => <option selected={t.name === town}>{t.name}</option>)}
+            </select>
+          </div>
+          <div class="sm:col-span-2">
+            <label for={`${id}-message`} class:list={['form-label', dark && '!text-brand-100']}>How can I help?</label>
+            <textarea id={`${id}-message`} name="message" rows="4" class="form-input" />
+          </div>
+        </>
+      )
+    }
+
+    <div class="sm:col-span-2">
+      <button type="submit" class="btn-primary w-full text-lg">
+        {variant === 'valuation' ? 'Get My Free Home Valuation' : 'Send Message'}
+      </button>
+      <p class:list={['mt-3 text-xs', dark ? 'text-brand-200' : 'text-slate-500']}>
+        By submitting, you agree to be contacted by {site.agent.name} by phone, text, or email about your real estate
+        needs. Consent is not a condition of any purchase. Msg &amp; data rates may apply. Reply STOP to opt out.
+      </p>
+      <p class="mt-2 hidden text-sm font-medium text-red-600" role="alert" data-form-error>
+        Something went wrong. Please call or text {site.contact.phone}.
+      </p>
+    </div>
+  </form>
+</div>
+
+<script>
+  import { initLeadForms } from '@/lib/lead-form';
+  initLeadForms();
+</script>

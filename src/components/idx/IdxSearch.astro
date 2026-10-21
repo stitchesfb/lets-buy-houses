@@ -1,0 +1,95 @@
+---
+/**
+ * IDX / MLS search container.
+ *
+ * One component, every provider. Drop it anywhere:
+ *   <IdxSearch />                               // all markets
+ *   <IdxSearch city="Brick" heading="..." />    // pre-filtered to a town
+ *
+ * Performance: third-party IDX code is the #1 thing that slows real estate
+ * sites down, so iframes use loading="lazy" and vendor scripts are injected
+ * only when the container scrolls near the viewport.
+ */
+import { idxConfig, idxSearchUrl } from '@/lib/idx';
+
+interface Props {
+  city?: string;
+  heading?: string;
+  /** Vendor-specific widget ID (script provider), e.g. a per-town saved search widget. */
+  widgetId?: string;
+  minHeight?: number;
+}
+
+const { city, heading, widgetId, minHeight = 720 } = Astro.props;
+const { provider, scriptSrc } = idxConfig;
+const url = idxSearchUrl(city);
+const label = city ? `${city}, NJ` : 'Monmouth & Ocean County';
+---
+
+<section class="rounded-2xl bg-white p-4 shadow-sm ring-1 ring-slate-200 sm:p-6" aria-label={`Search homes for sale in ${label}`}>
+  {heading && <h2 class="mb-4 text-2xl sm:text-3xl">{heading}</h2>}
+
+  {
+    (provider === 'iframe' || provider === 'idx-broker') && url ? (
+      <iframe
+        src={url}
+        title={`Homes for sale in ${label}`}
+        loading="lazy"
+        class="w-full rounded-xl border-0"
+        style={`min-height:${minHeight}px`}
+        referrerpolicy="no-referrer-when-downgrade"
+      />
+    ) : provider === 'script' && scriptSrc ? (
+      <div
+        class="idx-widget"
+        data-idx-src={scriptSrc}
+        data-idx-widget={widgetId}
+        data-idx-city={city}
+        style={`min-height:${minHeight}px`}
+      >
+        <p class="p-8 text-center text-slate-500">Loading listings…</p>
+      </div>
+    ) : (
+      <div
+        class="flex flex-col items-center justify-center gap-4 rounded-xl border-2 border-dashed border-brand-200 bg-brand-50/60 p-10 text-center"
+        style={`min-height:${Math.min(minHeight, 420)}px`}
+        data-idx-placeholder
+      >
+        <svg class="h-12 w-12 text-brand-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-4.35-4.35M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15Z" />
+        </svg>
+        <p class="font-display text-2xl text-brand-900">Live MLS search for {label}</p>
+        <p class="max-w-md text-slate-600">
+          Listing search is coming soon. In the meantime, tell us what you're looking for and we'll send matching
+          homes — including ones that haven't hit the market yet.
+        </p>
+        <a href={`/contact/?interest=buying${city ? `&town=${encodeURIComponent(city)}` : ''}`} class="btn-primary">
+          Get Listings by Email
+        </a>
+        <p class="text-xs text-slate-400">Developer: set PUBLIC_IDX_PROVIDER — see docs/IDX-INTEGRATION.md</p>
+      </div>
+    )
+  }
+</section>
+
+<script>
+  // Lazy-inject vendor IDX scripts when the widget nears the viewport.
+  const widgets = document.querySelectorAll<HTMLElement>('.idx-widget[data-idx-src]');
+  const load = (el: HTMLElement) => {
+    const s = document.createElement('script');
+    s.src = el.dataset.idxSrc!;
+    s.async = true;
+    if (el.dataset.idxWidget) s.dataset.widgetId = el.dataset.idxWidget;
+    if (el.dataset.idxCity) s.dataset.city = el.dataset.idxCity;
+    el.replaceChildren(s);
+  };
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver(
+      (entries) => entries.forEach((e) => e.isIntersecting && (io.unobserve(e.target), load(e.target as HTMLElement))),
+      { rootMargin: '400px' },
+    );
+    widgets.forEach((w) => io.observe(w));
+  } else {
+    widgets.forEach(load);
+  }
+</script>

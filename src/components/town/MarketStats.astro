@@ -1,0 +1,27 @@
+---
+import type { Town } from '@/data/towns';
+
+interface Props {
+  town: Town;
+}
+const { town } = Astro.props;
+---
+
+<section aria-labelledby="market-heading">
+  <h2 id="market-heading" class="text-3xl">{town.name} Real Estate Market Snapshot</h2>
+  <p class="mt-2 text-sm text-slate-500">Source: MLS data. Updated {town.marketStats.asOf}.</p>
+  <dl class="mt-6 grid grid-cols-2 gap-4 lg:grid-cols-4">
+    {
+      town.marketStats.stats.map((s) => (
+        <div class="rounded-2xl bg-brand-50 p-5 text-center">
+          <dt class="text-sm text-slate-600">{s.label}</dt>
+          <dd class="mt-1 font-display text-3xl font-bold text-brand-700">{s.value}</dd>
+          {s.note && <dd class="mt-1 text-xs text-slate-500">{s.note}</dd>}
+        </div>
+      ))
+    }
+  </dl>
+  <a href={`/home-valuation/?town=${encodeURIComponent(town.name)}`} class="mt-6 inline-block font-semibold text-brand-600 hover:underline">
+    See what your {town.name} home is worth in today’s market →
+  </a>
+</section>

@@ -1,0 +1,55 @@
+---
+import { site } from '@/data/site';
+import { towns } from '@/data/towns';
+
+const { agent, brokerage, contact } = site;
+const year = new Date().getFullYear();
+---
+
+<footer class="bg-brand-900 text-brand-100">
+  <div class="container-page grid gap-10 py-14 md:grid-cols-4">
+    <!-- NAP block: keep identical to Google Business Profile -->
+    <div class="md:col-span-2">
+      <p class="font-display text-2xl font-bold text-white">{site.brand}</p>
+      <address class="mt-4 space-y-1 not-italic">
+        <p class="font-semibold text-white">{agent.name}, {agent.title}</p>
+        <p>{brokerage.name}</p>
+        <p>{brokerage.address.street}, {brokerage.address.city}, {brokerage.address.region} {brokerage.address.postalCode}</p>
+        <p>Mobile: <a href={contact.phoneHref} class="underline hover:text-white">{contact.phone}</a></p>
+        <p>Office: {brokerage.officePhone}</p>
+        <p><a href={`mailto:${contact.email}`} class="underline hover:text-white">{contact.email}</a></p>
+      </address>
+    </div>
+
+    <nav aria-label="Communities">
+      <p class="font-semibold text-white">Communities</p>
+      <ul class="mt-4 space-y-2">
+        {towns.map((t) => <li><a href={`/${t.slug}/`} class="hover:text-white">{t.name} Homes for Sale</a></li>)}
+      </ul>
+    </nav>
+
+    <nav aria-label="Resources">
+      <p class="font-semibold text-white">Resources</p>
+      <ul class="mt-4 space-y-2">
+        <li><a href="/search/" class="hover:text-white">Search All Listings</a></li>
+        <li><a href="/home-valuation/" class="hover:text-white">Free Home Valuation</a></li>
+        <li><a href="/contact/" class="hover:text-white">Contact</a></li>
+        {site.social.youtube && <li><a href={site.social.youtube} rel="noopener" target="_blank" class="hover:text-white">YouTube Channel</a></li>}
+      </ul>
+    </nav>
+  </div>
+
+  <div class="border-t border-white/10">
+    <div class="container-page space-y-2 py-6 text-xs text-brand-200">
+      <p>
+        {agent.name} is a licensed real estate salesperson ({agent.licenseNumber}) affiliated with {brokerage.name},
+        {brokerage.address.city}, NJ. Office: {brokerage.officePhone}.
+      </p>
+      <p>
+        <span aria-hidden="true">⌂</span> Equal Housing Opportunity. Information deemed reliable but not guaranteed.
+        Listing data provided courtesy of the MLS via IDX.
+      </p>
+      <p>&copy; {year} {site.brand}. All rights reserved.</p>
+    </div>
+  </div>
+</footer>

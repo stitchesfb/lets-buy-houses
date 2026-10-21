@@ -1,0 +1,63 @@
+---
+import '@fontsource-variable/inter';
+import '@fontsource-variable/playfair-display';
+import '@/styles/global.css';
+
+import SEO from '@/components/seo/SEO.astro';
+import JsonLd from '@/components/seo/JsonLd.astro';
+import Header from '@/components/layout/Header.astro';
+import Footer from '@/components/layout/Footer.astro';
+import MobileCtaBar from '@/components/layout/MobileCtaBar.astro';
+import { realEstateAgentSchema, websiteSchema } from '@/lib/schema';
+
+interface Props {
+  title: string;
+  description: string;
+  image?: string;
+  noindex?: boolean;
+  /** Page-specific JSON-LD, merged with the sitewide agent + website schema. */
+  schema?: object[];
+}
+
+const { title, description, image, noindex, schema = [] } = Astro.props;
+const gaId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
+---
+
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#134766" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="preconnect" href="https://i.ytimg.com" crossorigin />
+    <SEO title={title} description={description} image={image} noindex={noindex} />
+    <JsonLd schema={[realEstateAgentSchema(), websiteSchema(), ...schema]} />
+    <slot name="head" />
+    {
+      gaId && (
+        <>
+          <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`} />
+          <script is:inline define:vars={{ gaId }}>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() { dataLayer.push(arguments); }
+            gtag('js', new Date());
+            gtag('config', gaId);
+          </script>
+        </>
+      )
+    }
+  </head>
+  <body class="flex min-h-screen flex-col pb-16 md:pb-0">
+    <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:rounded focus:bg-white focus:px-4 focus:py-2">
+      Skip to content
+    </a>
+    <Header />
+    <main id="main" class="flex-1">
+      <slot />
+    </main>
+    <Footer />
+    <MobileCtaBar />
+  </body>
+</html>

@@ -1,0 +1,10 @@
+---
+/** Sticky bottom bar on phones — the highest-converting element on mobile real estate sites. */
+import { site } from '@/data/site';
+---
+
+<div class="fixed inset-x-0 bottom-0 z-40 grid grid-cols-3 border-t border-slate-200 bg-white text-center text-sm font-semibold shadow-[0_-4px_12px_rgba(0,0,0,0.06)] md:hidden">
+  <a href={site.contact.phoneHref} class="py-3 text-brand-700" data-track="call">📞 Call</a>
+  <a href={site.contact.smsHref} class="border-x border-slate-200 py-3 text-brand-700" data-track="text">💬 Text</a>
+  <a href="/home-valuation/" class="bg-accent-500 py-3 text-white" data-track="valuation">Home Value</a>
+</div>

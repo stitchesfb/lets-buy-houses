@@ -1,0 +1,20 @@
+---
+/** Compact agent card used in sidebars and closing sections. */
+import { site } from '@/data/site';
+const { agent, contact } = site;
+
+interface Props {
+  town?: string;
+}
+const { town } = Astro.props;
+---
+
+<aside class="rounded-3xl bg-sand-100 p-6 text-center">
+  <img src={agent.headshot} alt={agent.name} width="120" height="150" loading="lazy" class="mx-auto h-28 w-28 rounded-full object-cover object-top ring-4 ring-white" />
+  <p class="mt-4 font-display text-xl font-bold text-brand-900">{agent.name}</p>
+  <p class="text-sm text-slate-600">{agent.title} · {agent.yearsExperience} years{town ? ` selling ${town}` : ' local experience'}</p>
+  <div class="mt-5 grid gap-2">
+    <a href={contact.phoneHref} class="btn-primary">Call {contact.phone}</a>
+    <a href={contact.smsHref} class="btn-secondary">Text Me</a>
+  </div>
+</aside>

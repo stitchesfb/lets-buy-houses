@@ -1,0 +1,38 @@
+---
+/**
+ * <head> SEO tags: title, description, canonical, Open Graph, Twitter, robots.
+ */
+import { site } from '@/data/site';
+
+interface Props {
+  title: string;
+  description: string;
+  image?: string;
+  noindex?: boolean;
+  type?: 'website' | 'article';
+}
+
+const { title, description, image = site.agent.headshot, noindex = false, type = 'website' } = Astro.props;
+const canonical = new URL(Astro.url.pathname, site.url).href;
+const ogImage = new URL(image, site.url).href;
+---
+
+<title>{title}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
+<meta name="robots" content={noindex ? 'noindex, follow' : 'index, follow, max-image-preview:large'} />
+
+<meta property="og:type" content={type} />
+<meta property="og:site_name" content={site.brand} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+<meta property="og:image" content={ogImage} />
+<meta property="og:locale" content="en_US" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImage} />
+
+<meta name="geo.region" content="US-NJ" />

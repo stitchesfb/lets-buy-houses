@@ -1,0 +1,49 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import IdxSearch from '@/components/idx/IdxSearch.astro';
+import Breadcrumbs from '@/components/ui/Breadcrumbs.astro';
+import { towns } from '@/data/towns';
+import { idxConfig } from '@/lib/idx';
+import { breadcrumbSchema } from '@/lib/schema';
+
+const crumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Search Homes', url: '/search/' },
+];
+---
+
+<BaseLayout
+  title="Search Homes for Sale in Monmouth & Ocean County, NJ | MLS Listings"
+  description="Search every MLS listing in Manalapan, Brick, Point Pleasant, Manahawkin and surrounding Jersey Shore towns. Updated throughout the day."
+  schema={[breadcrumbSchema(crumbs)]}
+>
+  <div class="container-page py-10">
+    <Breadcrumbs items={crumbs} />
+    <h1 class="mt-4 text-4xl font-bold">Search Jersey Shore &amp; Central NJ Homes for Sale</h1>
+    <p class="mt-2 text-slate-600">
+      Browse by town:
+      {towns.map((t, i) => <>{i > 0 && ' · '}<a href={`/${t.slug}/`} class="font-medium text-brand-600 hover:underline">{t.name}</a></>)}
+    </p>
+    <div class="mt-8" data-idx-forward={idxConfig.provider}>
+      <IdxSearch minHeight={900} />
+    </div>
+  </div>
+</BaseLayout>
+
+<script>
+  /**
+   * Forwards hero quick-search params (?city=&max=&beds=) into the IDX iframe.
+   * Map these to your vendor's query-string names in IDX_PARAM_MAP.
+   */
+  const IDX_PARAM_MAP: Record<string, string> = { city: 'city', max: 'maxPrice', beds: 'minBeds' };
+  const params = new URLSearchParams(location.search);
+  const iframe = document.querySelector<HTMLIFrameElement>('[data-idx-forward] iframe');
+  if (iframe && [...params.keys()].length) {
+    const url = new URL(iframe.src);
+    for (const [ours, theirs] of Object.entries(IDX_PARAM_MAP)) {
+      const v = params.get(ours);
+      if (v) url.searchParams.set(theirs, v);
+    }
+    iframe.src = url.href;
+  }
+</script>

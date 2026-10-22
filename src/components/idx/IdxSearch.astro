@@ -5,15 +5,18 @@
  * One component, every provider. Drop it anywhere:
  *   <IdxSearch />                               // all markets
  *   <IdxSearch city="Brick" heading="..." />    // pre-filtered to a town
+ *   <IdxSearch city={['Manahawkin', 'Stafford Township']} town="Manahawkin" />
  *
  * Performance: third-party IDX code is the #1 thing that slows real estate
  * sites down, so iframes use loading="lazy" and vendor scripts are injected
  * only when the container scrolls near the viewport.
  */
-import { idxConfig, idxSearchUrl } from '@/lib/idx';
+import { idxConfig, idxSearchUrl, toCityList, type IdxCity } from '@/lib/idx';
 
 interface Props {
-  city?: string;
+  city?: IdxCity;
+  /** Display name for headings/labels; defaults to the first city. */
+  town?: string;
   heading?: string;
   /** Vendor-specific widget ID (script provider), e.g. a per-town saved search widget. */
   widgetId?: string;
@@ -21,9 +24,10 @@ interface Props {
 }
 
 const { city, heading, widgetId, minHeight = 720 } = Astro.props;
+const town = Astro.props.town ?? toCityList(city)[0];
 const { provider, scriptSrc } = idxConfig;
 const url = idxSearchUrl(city);
-const label = city ? `${city}, NJ` : 'Monmouth & Ocean County';
+const label = town ? `${town}, NJ` : 'Monmouth & Ocean County';
 ---
 
 <section class="rounded-2xl bg-white p-4 shadow-sm ring-1 ring-slate-200 sm:p-6" aria-label={`Search homes for sale in ${label}`}>
@@ -44,7 +48,7 @@ const label = city ? `${city}, NJ` : 'Monmouth & Ocean County';
         class="idx-widget"
         data-idx-src={scriptSrc}
         data-idx-widget={widgetId}
-        data-idx-city={city}
+        data-idx-city={toCityList(city).join(',') || undefined}
         style={`min-height:${minHeight}px`}
       >
         <p class="p-8 text-center text-slate-500">Loading listings…</p>
@@ -63,7 +67,7 @@ const label = city ? `${city}, NJ` : 'Monmouth & Ocean County';
           Listing search is coming soon. In the meantime, tell us what you're looking for and we'll send matching
           homes — including ones that haven't hit the market yet.
         </p>
-        <a href={`/contact/?interest=buying${city ? `&town=${encodeURIComponent(city)}` : ''}`} class="btn-primary">
+        <a href={`/contact/?interest=buying${town ? `&town=${encodeURIComponent(town)}` : ''}`} class="btn-primary">
           Get Listings by Email
         </a>
         <p class="text-xs text-slate-400">Developer: set PUBLIC_IDX_PROVIDER — see docs/IDX-INTEGRATION.md</p>

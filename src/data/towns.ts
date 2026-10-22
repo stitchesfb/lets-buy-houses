@@ -8,6 +8,8 @@
  *  - `marketStats` values are TODO placeholders; update monthly from MLS data.
  */
 
+import type { IdxCity } from '@/lib/idx';
+
 export type TownSlug = 'manalapan-nj' | 'brick-nj' | 'point-pleasant-nj' | 'manahawkin-nj';
 
 export interface MarketStat {
@@ -35,8 +37,11 @@ export interface Town {
   /** Page H1. */
   headline: string;
   subheadline: string;
-  /** Pre-filters the IDX widget — must match the city name as the MLS stores it. */
-  idxCity: string;
+  /**
+   * Pre-filters the IDX widget — must match how the MLS stores the city.
+   * Use a list when listings are filed under several names.
+   */
+  idxCity: IdxCity;
   intro: string;
   highlights: string[];
   neighborhoods: { name: string; blurb: string }[];
@@ -237,7 +242,8 @@ export const towns: Town[] = [
     headline: 'The Gateway to LBI: Real Estate in Manahawkin, NJ',
     subheadline:
       'Enjoy spacious suburban neighborhoods, excellent value, and immediate access to Long Beach Island.',
-    idxCity: 'Manahawkin,Stafford Township', // TODO: or 'Stafford' — confirm with your IDX vendor how it accepts multiple cities
+    // Manahawkin listings are filed under any of these names depending on the listing agent.
+    idxCity: ['Manahawkin', 'Stafford Township', 'Stafford Twp'],
     intro:
       'Manahawkin (Stafford Township) serves as the vibrant mainland gateway to Long Beach Island. It offers the best of both worlds: larger residential lots, modern suburban developments, and lower price points than the barrier island, all while keeping you just minutes away from LBI beaches, dining, and bay activities.',
     highlights: [

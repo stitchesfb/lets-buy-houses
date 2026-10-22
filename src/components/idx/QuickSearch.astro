@@ -2,15 +2,16 @@
 /**
  * Hero quick-search bar. Submits to /search/ (GET) which hosts the full IDX
  * widget pre-filtered by the chosen town — works with any IDX provider.
+ * Options carry the town slug; /search/ expands it to the town's MLS city names.
  */
 import { towns } from '@/data/towns';
 ---
 
 <form action="/search/" method="get" class="grid gap-2 rounded-2xl bg-white p-2 shadow-2xl sm:grid-cols-[1.4fr_1fr_1fr_auto]" role="search" aria-label="Quick home search">
-  <label class="sr-only" for="qs-city">Town</label>
-  <select id="qs-city" name="city" class="form-input !ring-0">
+  <label class="sr-only" for="qs-town">Town</label>
+  <select id="qs-town" name="town" class="form-input !ring-0">
     <option value="">All Towns</option>
-    {towns.map((t) => <option value={t.idxCity}>{t.name}, NJ</option>)}
+    {towns.map((t) => <option value={t.slug}>{t.name}, NJ</option>)}
   </select>
   <label class="sr-only" for="qs-max">Max price</label>
   <select id="qs-max" name="max" class="form-input !ring-0">

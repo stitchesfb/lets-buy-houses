@@ -69,7 +69,7 @@ const townVideos = videos.filter((v) => v.town === town.slug);
 
       <!-- IDX listings -->
       <div id="listings" class="scroll-mt-24">
-        <IdxSearch city={town.idxCity} heading={`${town.name}, NJ Homes for Sale`} />
+        <IdxSearch city={town.idxCity} town={town.name} heading={`${town.name}, NJ Homes for Sale`} />
       </div>
 
       <!-- Neighborhoods -->

@@ -3,8 +3,11 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import IdxSearch from '@/components/idx/IdxSearch.astro';
 import Breadcrumbs from '@/components/ui/Breadcrumbs.astro';
 import { towns } from '@/data/towns';
-import { idxConfig } from '@/lib/idx';
+import { idxConfig, toCityList } from '@/lib/idx';
 import { breadcrumbSchema } from '@/lib/schema';
+
+// Town slug → MLS city names, so ?town=manahawkin-nj expands to every spelling.
+const townCities = Object.fromEntries(towns.map((t) => [t.slug, toCityList(t.idxCity)]));
 
 const crumbs = [
   { name: 'Home', url: '/' },
@@ -24,7 +27,12 @@ const crumbs = [
       Browse by town:
       {towns.map((t, i) => <>{i > 0 && ' · '}<a href={`/${t.slug}/`} class="font-medium text-brand-600 hover:underline">{t.name}</a></>)}
     </p>
-    <div class="mt-8" data-idx-forward={idxConfig.provider}>
+    <div
+      class="mt-8"
+      data-idx-forward={idxConfig.provider}
+      data-idx-towns={JSON.stringify(townCities)}
+      data-idx-city-param={idxConfig.cityParam}
+    >
       <IdxSearch minHeight={900} />
     </div>
   </div>
@@ -32,14 +40,25 @@ const crumbs = [
 
 <script>
   /**
-   * Forwards hero quick-search params (?city=&max=&beds=) into the IDX iframe.
-   * Map these to your vendor's query-string names in IDX_PARAM_MAP.
+   * Forwards hero quick-search params (?town=&max=&beds=) into the IDX iframe.
+   * `town` (a slug) expands to one city param per MLS spelling, e.g.
+   *   city[]=Manahawkin&city[]=Stafford+Township&city[]=Stafford+Twp
+   * Map max/beds to your vendor's query-string names in IDX_PARAM_MAP;
+   * the city param name comes from PUBLIC_IDX_CITY_PARAM.
    */
-  const IDX_PARAM_MAP: Record<string, string> = { city: 'city', max: 'maxPrice', beds: 'minBeds' };
+  const IDX_PARAM_MAP: Record<string, string> = { max: 'maxPrice', beds: 'minBeds' };
   const params = new URLSearchParams(location.search);
-  const iframe = document.querySelector<HTMLIFrameElement>('[data-idx-forward] iframe');
-  if (iframe && [...params.keys()].length) {
+  const wrapper = document.querySelector<HTMLElement>('[data-idx-forward]');
+  const iframe = wrapper?.querySelector<HTMLIFrameElement>('iframe');
+  if (wrapper && iframe && [...params.keys()].length) {
     const url = new URL(iframe.src);
+    const townCities: Record<string, string[]> = JSON.parse(wrapper.dataset.idxTowns ?? '{}');
+    const cityParam = wrapper.dataset.idxCityParam ?? 'city[]';
+    const cities = townCities[params.get('town') ?? ''] ?? [];
+    if (cities.length) {
+      url.searchParams.delete(cityParam);
+      cities.forEach((c) => url.searchParams.append(cityParam, c));
+    }
     for (const [ours, theirs] of Object.entries(IDX_PARAM_MAP)) {
       const v = params.get(ours);
       if (v) url.searchParams.set(theirs, v);

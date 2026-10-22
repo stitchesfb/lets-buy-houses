@@ -32,14 +32,18 @@ pages, etc.
 
 ```env
 PUBLIC_IDX_PROVIDER=iframe
-PUBLIC_IDX_IFRAME_URL=https://search.example-idx.com/results?city={city}
+PUBLIC_IDX_IFRAME_URL=https://search.example-idx.com/results?{cities}
+PUBLIC_IDX_CITY_PARAM=city[]   # whatever your vendor calls its city filter
 ```
 
-- `{city}` is replaced with each town's `idxCity` value from `src/data/towns.ts`
-  (e.g. `Point Pleasant`, `Manahawkin` — match how your MLS names it; it may file these under `Stafford`).
-- The hero quick search sends `?city=&max=&beds=` to `/search/`. Map these to your
-  vendor's query parameter names in `IDX_PARAM_MAP` at the bottom of
-  `src/pages/search.astro`.
+- `idxCity` in `src/data/towns.ts` is one name or a list of every spelling the
+  MLS uses, e.g. `['Manahawkin', 'Stafford Township', 'Stafford Twp']`.
+- `{cities}` becomes one param per name:
+  `city[]=Manahawkin&city[]=Stafford+Township&city[]=Stafford+Twp`.
+  `{city}` becomes just the first name, for vendors that accept only one.
+- The hero quick search sends `?town=<slug>&max=&beds=` to `/search/`, which expands
+  the town into the same city params. Map `max`/`beds` to your vendor's
+  parameter names in `IDX_PARAM_MAP` at the bottom of `src/pages/search.astro`.
 - Iframes use `loading="lazy"` so they don't slow the first paint.
 
 ## Option B — IDX Broker
@@ -49,7 +53,10 @@ PUBLIC_IDX_PROVIDER=idx-broker
 PUBLIC_IDX_BROKER_DOMAIN=https://letsbuyhouses.idxbroker.com
 ```
 
-This loads IDX Broker's hosted results page for each town. For the best
+This loads IDX Broker's hosted results page for each town, with one `city[]=`
+per name in `idxCity`. **Check this against your account:** IDX Broker's own
+links often use numeric city IDs (`city[]=12345`) rather than names. If yours
+do, put the IDs in `idxCity` instead of the names. For the best
 result, create a **Saved Link** per town in the IDX Broker dashboard and swap
 `idxSearchUrl()` in `src/lib/idx.ts` to return those URLs. Also set the IDX
 Broker "wrapper" to `https://letsbuyhouses.com/search/` so the hosted

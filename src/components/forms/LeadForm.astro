@@ -134,12 +134,15 @@ const action = endpoint || withBase('/thank-you/');
       <button type="submit" class="btn-primary w-full text-lg">
         {variant === 'valuation' ? 'Get My Free Home Valuation' : 'Send Message'}
       </button>
+      <p class:list={['mt-3 text-center text-sm', dark ? 'text-brand-100' : 'text-slate-600']}>
+        Prefer email? <a href={`mailto:${site.contact.email}`} class="font-semibold underline">{site.contact.email}</a>
+      </p>
       <p class:list={['mt-3 text-xs', dark ? 'text-brand-200' : 'text-slate-500']}>
         By submitting, you agree to be contacted by {site.agent.name} by phone, text, or email about your real estate
         needs. Consent is not a condition of any purchase. Msg &amp; data rates may apply. Reply STOP to opt out.
       </p>
       <p class="mt-2 hidden text-sm font-medium text-red-600" role="alert" data-form-error>
-        Something went wrong. Please call or text {site.contact.phone}.
+        Something went wrong. Please call or text {site.contact.phone}, or email <a href={`mailto:${site.contact.email}`} class="underline">{site.contact.email}</a>.
       </p>
     </div>
   </form>

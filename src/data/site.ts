@@ -27,7 +27,7 @@ export const site = {
     /** NJ Real Estate Commission license — must appear on all advertising. */
     licenseNumber: '1005595',
     headshot: '/images/jackie-guevara.jpg', // 1200x1200
-    bio: 'Hello, I’m Jacquelyn Guevara, a proud Ocean County resident for over 35 years and a licensed real estate agent for more than 15. When you work with me, you don’t get an agent who waits for things to happen—you get someone who makes them happen. I built my business on hard work, rapid communication, and fierce negotiation. My clients know that when I take on a listing or represent a buyer, I move fast, stay organized, and fight for the strongest possible outcome. I treat every home as if it were my own investment, and I don’t stop until the deal is closed on your terms.',
+    bio: 'Hello, I’m Jacquelyn \'Jackie\' Guevara. As an Ocean County resident for over 35 years and a licensed real estate professional with RE/MAX Revolution for over 15 years, I don’t just know the Jersey Shore and Monmouth County markets—I’ve lived them. When you work with me, you don’t get an agent who waits for things to happen—you get a partner who makes them happen. I’ve built my career on relentless work ethic, rapid communication, and fierce negotiation. Whether marketing a listing in Manalapan, navigating waterfront properties in Point Pleasant and Brick, or guiding buyers near Manahawkin, I treat every home as if it were my own investment. Over 15+ years, my reputation has been built on quick turnarounds, seamless closings, and exceptional outcomes. Whether selling a family estate, acquiring an investment, or relocating to the Shore, I deliver what you need—faster, smarter, and stronger than expected.',
   },
 
   brokerage: {
@@ -46,7 +46,7 @@ export const site = {
     phone: '(732) 773-3075', // direct line — the number leads call/text
     phoneHref: 'tel:+17327733075',
     smsHref: 'sms:+17327733075',
-    email: 'hello@letsbuyhouses.com', // TODO
+    email: 'jackienguevara@gmail.com',
   },
 
   /** Office coordinates for schema. TODO: copy from the Google Business Profile pin. */

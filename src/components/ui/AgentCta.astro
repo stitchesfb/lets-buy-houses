@@ -17,5 +17,6 @@ const { town } = Astro.props;
   <div class="mt-5 grid gap-2">
     <a href={contact.phoneHref} class="btn-primary">Call {contact.phone}</a>
     <a href={contact.smsHref} class="btn-secondary">Text Me</a>
+    <a href={`mailto:${contact.email}`} class="btn-secondary">Email Me</a>
   </div>
 </aside>

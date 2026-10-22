@@ -22,12 +22,16 @@ Pushing to `main` deploys to **GitHub Pages** via `.github/workflows/deploy.yml`
 (type-check, build, publish). One-time setup:
 
 1. Repo **Settings → Pages → Source: GitHub Actions**.
-2. **Custom domain:** in **Settings → Pages → Custom domain**, enter `letsbuyhouses.com`
-   (Actions deploys ignore a `CNAME` file). At the domain registrar, remove any domain
-   forwarding, point the apex `A` records to GitHub Pages (185.199.108.153, .109.153,
-   .110.153, .111.153) and `www` as a `CNAME` to `<owner>.github.io`. Then tick
-   **Enforce HTTPS**. Until the domain is set, the `github.io/lets-buy-houses/` URL loads
-   without styles, because the site is built for the domain root.
+2. **Preview URL:** the site currently builds with `base: '/lets-buy-houses'` so it works at
+   https://stitchesfb.github.io/lets-buy-houses/. In code, wrap every root-relative link or
+   asset path in `withBase()` from `src/lib/paths.ts` so it keeps working under the base.
+   Canonical URLs and the sitemap always use `letsbuyhouses.com` paths.
+   **Moving to the custom domain later:**
+   1. Change `base` to `'/'` in `astro.config.mjs`.
+   2. Enter `letsbuyhouses.com` under **Settings → Pages → Custom domain**. Actions deploys ignore a `CNAME` file.
+   3. At the registrar, remove any domain forwarding.
+   4. Point the apex `A` records to 185.199.108.153, .109.153, .110.153 and .111.153, and `www` as a `CNAME` to `<owner>.github.io`.
+   5. Tick **Enforce HTTPS**.
 3. **Settings → Secrets and variables → Actions → Variables:** add the `PUBLIC_*` values
    from `.env.example`. **`PUBLIC_FORM_ENDPOINT` is required on GitHub Pages**, because
    Netlify Forms only work on Netlify.

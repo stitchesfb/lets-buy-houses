@@ -1,5 +1,6 @@
 ---
 import { site } from '@/data/site';
+import { withBase } from '@/lib/paths';
 import { towns } from '@/data/towns';
 
 const path = Astro.url.pathname;
@@ -13,8 +14,8 @@ const nav = [
 
 <header class="sticky top-0 z-40 border-b border-slate-200/80 bg-white/95 backdrop-blur">
   <div class="container-page flex h-16 items-center justify-between gap-4 lg:h-20">
-    <a href="/" class="flex items-center gap-2" aria-label={`${site.brand} home`}>
-      <img src="/favicon.svg" alt="" width="36" height="36" class="h-9 w-9" />
+    <a href={withBase('/')} class="flex items-center gap-2" aria-label={`${site.brand} home`}>
+      <img src={withBase('/favicon.svg')} alt="" width="36" height="36" class="h-9 w-9" />
       <span class="font-display text-xl font-bold text-brand-900">{site.brand}</span>
     </a>
 
@@ -31,7 +32,7 @@ const nav = [
           {
             towns.map((t) => (
               <li>
-                <a href={`/${t.slug}/`} class="block rounded-lg px-3 py-2 hover:bg-brand-50">
+                <a href={withBase(`/${t.slug}/`)} class="block rounded-lg px-3 py-2 hover:bg-brand-50">
                   <span class="font-semibold text-brand-900">{t.name}, NJ</span>
                   <span class="block text-xs text-slate-500">{t.angle}</span>
                 </a>
@@ -43,12 +44,12 @@ const nav = [
       {
         nav.map((item) => (
           <a
-            href={item.href}
+            href={withBase(item.href)}
             class:list={[
               'rounded-md px-3 py-2 font-medium hover:text-brand-600',
-              path === item.href ? 'text-brand-600' : 'text-slate-700',
+              path === withBase(item.href) ? 'text-brand-600' : 'text-slate-700',
             ]}
-            aria-current={path === item.href ? 'page' : undefined}
+            aria-current={path === withBase(item.href) ? 'page' : undefined}
           >
             {item.label}
           </a>
@@ -58,7 +59,7 @@ const nav = [
 
     <div class="flex items-center gap-2">
       <a href={site.contact.phoneHref} class="hidden font-semibold text-brand-700 sm:inline">{site.contact.phone}</a>
-      <a href="/home-valuation/" class="btn-primary hidden !px-5 !py-2 text-sm md:inline-flex">Free Home Value</a>
+      <a href={withBase('/home-valuation/')} class="btn-primary hidden !px-5 !py-2 text-sm md:inline-flex">Free Home Value</a>
 
       <!-- Mobile menu: <details> works without JavaScript -->
       <details class="relative lg:hidden">
@@ -69,9 +70,9 @@ const nav = [
         </summary>
         <nav aria-label="Mobile" class="absolute right-0 mt-2 w-72 rounded-2xl bg-white p-3 shadow-2xl ring-1 ring-slate-200">
           <p class="px-3 pt-1 pb-2 text-xs font-semibold tracking-widest text-slate-400 uppercase">Communities</p>
-          {towns.map((t) => <a href={`/${t.slug}/`} class="block rounded-lg px-3 py-2 font-medium hover:bg-brand-50">{t.name}, NJ</a>)}
+          {towns.map((t) => <a href={withBase(`/${t.slug}/`)} class="block rounded-lg px-3 py-2 font-medium hover:bg-brand-50">{t.name}, NJ</a>)}
           <hr class="my-2 border-slate-200" />
-          {nav.map((item) => <a href={item.href} class="block rounded-lg px-3 py-2 font-medium hover:bg-brand-50">{item.label}</a>)}
+          {nav.map((item) => <a href={withBase(item.href)} class="block rounded-lg px-3 py-2 font-medium hover:bg-brand-50">{item.label}</a>)}
         </nav>
       </details>
     </div>

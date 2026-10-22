@@ -1,6 +1,7 @@
 ---
 /** Side-by-side buyer and seller advice, each paired with the matching CTA. */
 import type { Town } from '@/data/towns';
+import { withBase } from '@/lib/paths';
 
 interface Props {
   town: Town;
@@ -25,6 +26,6 @@ const enc = encodeURIComponent(town.name);
     <ul class="mt-5 flex-1 space-y-4 text-slate-700">
       {town.sellerTips.map((tip) => <li class="flex gap-3"><span class="text-accent-500" aria-hidden="true">✔</span>{tip}</li>)}
     </ul>
-    <a href={`/home-valuation/?town=${enc}`} class="btn-primary mt-6">Get My Free Home Valuation</a>
+    <a href={withBase(`/home-valuation/?town=${enc}`)} class="btn-primary mt-6">Get My Free Home Valuation</a>
   </section>
 </div>

@@ -4,6 +4,7 @@
  * Content lives in src/data/towns.ts. Add a town there and a page is generated.
  */
 import type { GetStaticPaths } from 'astro';
+import { withBase } from '@/lib/paths';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Breadcrumbs from '@/components/ui/Breadcrumbs.astro';
 import IdxSearch from '@/components/idx/IdxSearch.astro';
@@ -40,7 +41,7 @@ const townVideos = videos.filter((v) => v.town === town.slug);
 >
   <!-- Hero -->
   <section class="relative isolate overflow-hidden text-white">
-    <img src={town.heroImage} alt="" width="1920" height="900" fetchpriority="high" class="absolute inset-0 -z-10 h-full w-full object-cover" />
+    <img src={withBase(town.heroImage)} alt="" width="1920" height="900" fetchpriority="high" class="absolute inset-0 -z-10 h-full w-full object-cover" />
     <div class="absolute inset-0 -z-10 bg-gradient-to-r from-brand-900/90 to-brand-900/40"></div>
     <div class="container-page py-16 sm:py-24">
       <div class="text-brand-100"><Breadcrumbs items={crumbs} /></div>
@@ -49,7 +50,7 @@ const townVideos = videos.filter((v) => v.town === town.slug);
       <p class="mt-4 max-w-2xl text-lg text-brand-100 sm:text-xl">{town.subheadline}</p>
       <div class="mt-8 flex flex-col gap-3 sm:flex-row">
         <a href="#listings" class="btn-primary text-lg">See {town.name} Listings</a>
-        <a href={`/home-valuation/?town=${encodeURIComponent(town.name)}`} class="btn-ghost-light text-lg">What's My {town.name} Home Worth?</a>
+        <a href={withBase(`/home-valuation/?town=${encodeURIComponent(town.name)}`)} class="btn-ghost-light text-lg">What's My {town.name} Home Worth?</a>
       </div>
     </div>
   </section>
@@ -99,7 +100,7 @@ const townVideos = videos.filter((v) => v.town === town.slug);
       <div class="rounded-3xl bg-brand-900 p-6 text-white">
         <p class="font-display text-xl font-bold">Selling in {town.name}?</p>
         <p class="mt-2 text-sm text-brand-100">Get a free, data-backed valuation from someone who knows your street.</p>
-        <a href={`/home-valuation/?town=${encodeURIComponent(town.name)}`} class="btn-primary mt-4 w-full">Free Home Value</a>
+        <a href={withBase(`/home-valuation/?town=${encodeURIComponent(town.name)}`)} class="btn-primary mt-4 w-full">Free Home Value</a>
       </div>
     </div>
   </div>

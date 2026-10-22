@@ -1,5 +1,6 @@
 ---
 import { site } from '@/data/site';
+import { withBase } from '@/lib/paths';
 import QuickSearch from '@/components/idx/QuickSearch.astro';
 
 const { agent } = site;
@@ -20,8 +21,8 @@ const { agent } = site;
       </p>
 
       <div class="mt-8 flex flex-col gap-3 sm:flex-row">
-        <a href="/search/" class="btn-primary text-lg">Find Your Dream Home</a>
-        <a href="/home-valuation/" class="btn-ghost-light text-lg">Get a Free Home Valuation</a>
+        <a href={withBase('/search/')} class="btn-primary text-lg">Find Your Dream Home</a>
+        <a href={withBase('/home-valuation/')} class="btn-ghost-light text-lg">Get a Free Home Valuation</a>
       </div>
 
       <div class="mt-10 max-w-2xl text-slate-800">
@@ -32,7 +33,7 @@ const { agent } = site;
     <figure class="relative mx-auto w-full max-w-sm lg:max-w-md">
       <div class="absolute -inset-3 rotate-3 rounded-[2rem] bg-accent-400/30" aria-hidden="true"></div>
       <img
-        src={agent.headshot}
+        src={withBase(agent.headshot)}
         alt={`${agent.name}, ${agent.title} serving Monmouth and Ocean County, NJ`}
         width="600"
         height="750"

@@ -1,5 +1,6 @@
 ---
 import '@fontsource-variable/inter';
+import { withBase } from '@/lib/paths';
 import '@fontsource-variable/playfair-display';
 import '@/styles/global.css';
 
@@ -29,8 +30,8 @@ const gaId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#134766" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="icon" type="image/svg+xml" href={withBase('/favicon.svg')} />
+    <link rel="sitemap" href={withBase('/sitemap-index.xml')} />
     <link rel="preconnect" href="https://i.ytimg.com" crossorigin />
     <SEO title={title} description={description} image={image} noindex={noindex} />
     <JsonLd schema={[realEstateAgentSchema(), websiteSchema(), ...schema]} />

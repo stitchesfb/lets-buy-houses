@@ -1,5 +1,6 @@
 ---
 import type { Town } from '@/data/towns';
+import { withBase } from '@/lib/paths';
 
 interface Props {
   town: Town;
@@ -22,7 +23,7 @@ const { town } = Astro.props;
       ))
     }
   </dl>
-  <a href={`/home-valuation/?town=${encodeURIComponent(town.name)}`} class="mt-6 inline-block font-semibold text-brand-600 hover:underline">
+  <a href={withBase(`/home-valuation/?town=${encodeURIComponent(town.name)}`)} class="mt-6 inline-block font-semibold text-brand-600 hover:underline">
     See what your {town.name} home is worth in today’s market →
   </a>
 </section>

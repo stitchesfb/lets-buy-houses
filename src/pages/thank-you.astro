@@ -1,6 +1,7 @@
 ---
 /** Conversion page — use as the goal URL in Google Ads / GA4. Not indexed. */
 import BaseLayout from '@/layouts/BaseLayout.astro';
+import { withBase } from '@/lib/paths';
 import { site } from '@/data/site';
 ---
 
@@ -13,7 +14,7 @@ import { site } from '@/data/site';
       <a href={site.contact.phoneHref} class="font-semibold text-brand-600">{site.contact.phone}</a>.
     </p>
     <div class="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
-      <a href="/search/" class="btn-primary">Browse Homes</a>
+      <a href={withBase('/search/')} class="btn-primary">Browse Homes</a>
       {site.social.youtube && <a href={site.social.youtube} class="btn-secondary" rel="noopener" target="_blank">Watch Local Videos</a>}
     </div>
   </section>

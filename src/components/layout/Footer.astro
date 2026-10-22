@@ -1,5 +1,6 @@
 ---
 import { site } from '@/data/site';
+import { withBase } from '@/lib/paths';
 import { towns } from '@/data/towns';
 
 const { agent, brokerage, contact } = site;
@@ -24,16 +25,16 @@ const year = new Date().getFullYear();
     <nav aria-label="Communities">
       <p class="font-semibold text-white">Communities</p>
       <ul class="mt-4 space-y-2">
-        {towns.map((t) => <li><a href={`/${t.slug}/`} class="hover:text-white">{t.name} Homes for Sale</a></li>)}
+        {towns.map((t) => <li><a href={withBase(`/${t.slug}/`)} class="hover:text-white">{t.name} Homes for Sale</a></li>)}
       </ul>
     </nav>
 
     <nav aria-label="Resources">
       <p class="font-semibold text-white">Resources</p>
       <ul class="mt-4 space-y-2">
-        <li><a href="/search/" class="hover:text-white">Search All Listings</a></li>
-        <li><a href="/home-valuation/" class="hover:text-white">Free Home Valuation</a></li>
-        <li><a href="/contact/" class="hover:text-white">Contact</a></li>
+        <li><a href={withBase('/search/')} class="hover:text-white">Search All Listings</a></li>
+        <li><a href={withBase('/home-valuation/')} class="hover:text-white">Free Home Valuation</a></li>
+        <li><a href={withBase('/contact/')} class="hover:text-white">Contact</a></li>
         {site.social.youtube && <li><a href={site.social.youtube} rel="noopener" target="_blank" class="hover:text-white">YouTube Channel</a></li>}
       </ul>
     </nav>

@@ -2,9 +2,10 @@
 #
 # One-time setup in the GitHub repo:
 #   1. Settings → Pages → Build and deployment → Source: "GitHub Actions"
-#   2. Settings → Pages → Custom domain: letsbuyhouses.com. Actions deploys ignore a CNAME
-#      file, so the domain lives only in this setting. The site is built for the domain
-#      root, so the <owner>.github.io/lets-buy-houses/ URL loads unstyled until it's set.
+#   2. The site is built with base '/lets-buy-houses' (astro.config.mjs) for the
+#      <owner>.github.io/lets-buy-houses/ preview. When moving to a custom domain, set it
+#      under Settings → Pages → Custom domain (Actions deploys ignore a CNAME file) and
+#      change `base` to '/'.
 #   3. Settings → Secrets and variables → Actions → Variables: add the PUBLIC_* values
 #      from .env.example. PUBLIC_FORM_ENDPOINT is required on GitHub Pages — Netlify
 #      Forms only work when hosted on Netlify.

@@ -12,6 +12,7 @@
  * only when the container scrolls near the viewport.
  */
 import { idxConfig, idxSearchUrl, toCityList, type IdxCity } from '@/lib/idx';
+import { withBase } from '@/lib/paths';
 
 interface Props {
   city?: IdxCity;
@@ -67,7 +68,7 @@ const label = town ? `${town}, NJ` : 'Monmouth & Ocean County';
           Listing search is coming soon. In the meantime, tell us what you're looking for and we'll send matching
           homes — including ones that haven't hit the market yet.
         </p>
-        <a href={`/contact/?interest=buying${town ? `&town=${encodeURIComponent(town)}` : ''}`} class="btn-primary">
+        <a href={withBase(`/contact/?interest=buying${town ? `&town=${encodeURIComponent(town)}` : ''}`)} class="btn-primary">
           Get Listings by Email
         </a>
         <p class="text-xs text-slate-400">Developer: set PUBLIC_IDX_PROVIDER — see docs/IDX-INTEGRATION.md</p>

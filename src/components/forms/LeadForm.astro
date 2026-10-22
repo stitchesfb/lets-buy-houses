@@ -9,6 +9,7 @@
  * fetch, then redirects to /thank-you/ (the conversion page for ads/analytics).
  */
 import { site } from '@/data/site';
+import { withBase } from '@/lib/paths';
 import { towns } from '@/data/towns';
 
 type Variant = 'valuation' | 'contact';
@@ -36,7 +37,7 @@ const {
 
 const endpoint = import.meta.env.PUBLIC_FORM_ENDPOINT || '';
 const formName = `lead-${variant}`;
-const action = endpoint || '/thank-you/';
+const action = endpoint || withBase('/thank-you/');
 ---
 
 <div class:list={['rounded-3xl p-6 shadow-xl sm:p-8', dark ? 'bg-brand-900 text-white' : 'bg-white ring-1 ring-slate-200']}>

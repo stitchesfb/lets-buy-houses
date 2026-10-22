@@ -5,6 +5,8 @@
  * - Submits via fetch to the configured endpoint or Netlify Forms
  * - Fires a `generate_lead` analytics event, then redirects to /thank-you/
  */
+import { withBase } from './paths';
+
 const ATTRIBUTION_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'gclid', 'fbclid'];
 
 function captureAttribution(): string {
@@ -46,7 +48,7 @@ export function initLeadForms() {
       try {
         const res = endpoint
           ? await fetch(endpoint, { method: 'POST', body: data, headers: { Accept: 'application/json' } })
-          : await fetch('/', {
+          : await fetch(withBase('/'), {
               method: 'POST',
               headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
               body: new URLSearchParams(data as unknown as Record<string, string>).toString(),
@@ -55,7 +57,7 @@ export function initLeadForms() {
 
         const w = window as unknown as { gtag?: (...args: unknown[]) => void };
         w.gtag?.('event', 'generate_lead', { lead_type: data.get('lead_type'), town: data.get('town') ?? '' });
-        location.href = `/thank-you/?type=${encodeURIComponent(String(data.get('lead_type') ?? ''))}`;
+        location.href = withBase(`/thank-you/?type=${encodeURIComponent(String(data.get('lead_type') ?? ''))}`);
       } catch {
         error?.classList.remove('hidden');
         button?.removeAttribute('disabled');

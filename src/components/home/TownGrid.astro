@@ -1,5 +1,6 @@
 ---
 import { towns } from '@/data/towns';
+import { withBase } from '@/lib/paths';
 
 interface Props {
   heading?: string;
@@ -18,10 +19,10 @@ const list = towns.filter((t) => t.slug !== exclude);
       {
         list.map((t) => (
           <a
-            href={`/${t.slug}/`}
+            href={withBase(`/${t.slug}/`)}
             class="group relative isolate flex aspect-[4/3] flex-col sm:aspect-[4/5] justify-end overflow-hidden rounded-2xl p-6 text-white shadow-lg ring-1 ring-black/5 transition hover:-translate-y-1 hover:shadow-2xl"
           >
-            <img src={t.cardImage} alt="" loading="lazy" width="800" height="600" class="absolute inset-0 -z-10 h-full w-full object-cover transition duration-500 group-hover:scale-105" />
+            <img src={withBase(t.cardImage)} alt="" loading="lazy" width="800" height="600" class="absolute inset-0 -z-10 h-full w-full object-cover transition duration-500 group-hover:scale-105" />
             <div class="absolute inset-0 -z-10 bg-gradient-to-t from-brand-900/90 via-brand-900/30 to-transparent" />
             <p class="text-xs font-semibold tracking-widest text-accent-400 uppercase">{t.county}</p>
             <h3 class="mt-1 text-2xl !text-white">{t.name}, NJ</h3>

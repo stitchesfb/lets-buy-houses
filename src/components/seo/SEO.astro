@@ -3,6 +3,7 @@
  * <head> SEO tags: title, description, canonical, Open Graph, Twitter, robots.
  */
 import { site } from '@/data/site';
+import { stripBase } from '@/lib/paths';
 
 interface Props {
   title: string;
@@ -13,7 +14,8 @@ interface Props {
 }
 
 const { title, description, image = site.agent.headshot, noindex = false, type = 'website' } = Astro.props;
-const canonical = new URL(Astro.url.pathname, site.url).href;
+// Canonical always names the production domain, without the preview's base path.
+const canonical = new URL(stripBase(Astro.url.pathname), site.url).href;
 const ogImage = new URL(image, site.url).href;
 ---
 

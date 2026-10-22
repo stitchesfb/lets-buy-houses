@@ -1,0 +1,20 @@
+---
+interface Props {
+  eyebrow?: string;
+  title: string;
+  intro?: string;
+  id?: string;
+  align?: 'left' | 'center';
+  /** Heading level; sections use h2. */
+  as?: 'h1' | 'h2';
+  dark?: boolean;
+}
+const { eyebrow, title, intro, id, align = 'left', as: Tag = 'h2', dark = false } = Astro.props;
+---
+
+<div class:list={['max-w-2xl', align === 'center' && 'mx-auto text-center']}>
+  {eyebrow && <p class:list={['eyebrow', dark && '!text-gold']}>{eyebrow}</p>}
+  <Tag id={id} class:list={['mt-3 text-3xl sm:text-4xl', Tag === 'h1' && 'sm:text-5xl', dark && '!text-white']}>{title}</Tag>
+  <span class:list={['rule-gold mt-5', align === 'center' && 'mx-auto']}></span>
+  {intro && <p class:list={['mt-5 text-lg', dark ? 'text-navy-soft' : 'text-muted']}>{intro}</p>}
+</div>

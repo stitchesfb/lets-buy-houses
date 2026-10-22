@@ -30,8 +30,8 @@ export interface Town {
   zipCodes: string[];
   /** Short positioning used on cards. */
   angle: string;
-  cardImage: string;
-  heroImage: string;
+  /** Key in src/data/photos.ts; falls back to a styled placeholder until a photo is added. */
+  photo?: string;
   metaTitle: string;
   metaDescription: string;
   /** Page H1. */
@@ -69,18 +69,17 @@ export const towns: Town[] = [
     name: 'Manalapan',
     county: 'Monmouth County',
     zipCodes: ['07726'],
-    angle: 'Luxury suburban living & top-rated schools',
-    cardImage: '/images/towns/manalapan.svg',
-    heroImage: '/images/towns/manalapan-hero.svg',
+    angle: 'Spacious homes & established suburban neighborhoods',
+    photo: 'manalapan',
     metaTitle: 'Manalapan NJ Homes for Sale & Real Estate | Local Expert',
     metaDescription:
-      'Search Manalapan, NJ homes for sale — luxury colonials, 55+ communities, and family neighborhoods. 17 years of local expertise. Get a free home valuation.',
+      'Search Manalapan, NJ homes for sale — colonials, 55+ communities, and established neighborhoods, with local guidance from Jackie Guevara of RE/MAX Revolution.',
     headline: 'Luxury Living & Premier Estates in Manalapan, NJ',
     subheadline:
-      'Discover upscale suburban neighborhoods, top-tier schools, and spacious properties with 17 years of local market expertise.',
+      'Discover upscale suburban neighborhoods and spacious properties with guidance from an agent licensed for over 15 years.',
     idxCity: 'Manalapan',
     intro:
-      'Manalapan offers the ultimate suburban lifestyle in Western Monmouth County, blending sprawling estate properties, exceptional community amenities, and top-rated school districts. Whether you are looking for custom luxury homes or private acreage, living here provides a sophisticated retreat while staying connected to major commuting routes.',
+      'Manalapan offers the ultimate suburban lifestyle in Western Monmouth County, blending sprawling estate properties, community amenities, and established school districts. Whether you are looking for custom luxury homes or private acreage, living here provides a sophisticated retreat while staying connected to major commuting routes.',
     highlights: [
       'Manalapan-Englishtown Regional Schools & Freehold Regional High School District',
       'Large-lot colonials, luxury new construction, and active-adult (55+) communities',
@@ -90,10 +89,10 @@ export const towns: Town[] = [
     neighborhoods: [
       { name: 'Luxury Estates', blurb: 'Custom and executive colonials on acre-plus lots.' },
       { name: '55+ Communities', blurb: 'Active-adult options including Covered Bridge.' },
-      { name: 'Family Subdivisions', blurb: 'Established neighborhoods close to schools and parks.' },
+      { name: 'Established Subdivisions', blurb: 'Mature neighborhoods close to schools and parks.' },
     ],
     marketOverview:
-      'The Manalapan real estate market favors well-priced, high-end homes and properties offering modern updates and acreage. Demand remains exceptionally strong among families relocating from North Jersey and New York for space, privacy, and educational excellence.',
+      'The Manalapan real estate market favors well-priced, high-end homes and properties offering modern updates and acreage. Buyers relocating from North Jersey and New York often look here for more space and privacy.',
     buyerTips: [
       'Be prepared to act quickly on homes in prime school districts as inventory moves fast.',
       'Factor in property taxes and lot sizes when evaluating long-term value in different sections of the township.',
@@ -115,7 +114,7 @@ export const towns: Town[] = [
       {
         question: 'How are the schools in Manalapan?',
         answer:
-          'Manalapan-Englishtown Regional School District and the Freehold Regional High School District (including Manalapan High School) consistently rank high for academics and extracurriculars.',
+          'Manalapan-Englishtown Regional School District and the Freehold Regional High School District (including Manalapan High School) serve the township. The NJ Department of Education publishes School Performance Reports for each school.',
       },
     ],
   },
@@ -124,17 +123,16 @@ export const towns: Town[] = [
     name: 'Brick',
     county: 'Ocean County',
     zipCodes: ['08723', '08724'],
-    angle: 'Bayfront, riverfront & family-friendly value',
-    cardImage: '/images/towns/brick.svg',
-    heroImage: '/images/towns/brick-hero.svg',
-    metaTitle: 'Brick NJ Homes for Sale | Waterfront & Family Homes | Local Realtor',
+    angle: 'Bayfront, riverfront & suburban neighborhoods',
+    photo: 'brick',
+    metaTitle: 'Brick NJ Homes for Sale | Waterfront & Suburban Homes | Jackie Guevara',
     metaDescription:
-      'Find Brick Township, NJ homes for sale — Barnegat Bay and Metedeconk River waterfront, lagoon homes, and family neighborhoods. Free home value report.',
-    headline: 'Waterfront Living & Family Neighborhoods in Brick, NJ',
+      'Find Brick Township, NJ homes for sale — Barnegat Bay and Metedeconk River waterfront, lagoon homes, and established neighborhoods. Request a home value review.',
+    headline: 'Waterfront Living & Established Neighborhoods in Brick, NJ',
     subheadline: 'From tranquil lagoon-front properties to thriving suburban communities near the Jersey Shore.',
     idxCity: 'Brick',
     intro:
-      'Brick Township is a boater’s paradise and a premier family community rolled into one. Bordered by the Metedeconk River, Barnegat Bay, and just minutes from the Atlantic Ocean, Brick offers incredible waterfront access, a thriving local dining scene, and diverse housing options ranging from cozy starter homes to grand waterfront estates.',
+      'Brick Township is a boater’s paradise and a well-established year-round community rolled into one. Bordered by the Metedeconk River, Barnegat Bay, and just minutes from the Atlantic Ocean, Brick offers incredible waterfront access, a thriving local dining scene, and diverse housing options ranging from cozy starter homes to grand waterfront estates.',
     highlights: [
       'Waterfront on the Barnegat Bay and Metedeconk River',
       'Brick Township public schools and parks system',
@@ -179,17 +177,16 @@ export const towns: Town[] = [
     county: 'Ocean County',
     zipCodes: ['08742'],
     angle: 'Waterfront homes, river & beach living',
-    cardImage: '/images/towns/point-pleasant.svg',
-    heroImage: '/images/towns/point-pleasant-hero.svg',
+    photo: 'point-pleasant',
     metaTitle: 'Point Pleasant NJ Waterfront Homes for Sale | Beach & Riverfront',
     metaDescription:
-      'Browse Point Pleasant & Point Pleasant Beach, NJ waterfront homes for sale — riverfront, lagoon, and beach-block properties. 17 years of Jersey Shore expertise.',
+      'Browse Point Pleasant & Point Pleasant Beach, NJ waterfront homes for sale — riverfront, lagoon, and beach-block properties. Local guidance from Jackie Guevara of RE/MAX Revolution.',
     headline: 'Coastal Charm & Prime Real Estate in Point Pleasant, NJ',
     subheadline:
-      'Experience classic shore living, top-rated schools, and exceptional walkability to local beaches and rivers.',
+      'Experience classic shore living with easy access to local beaches and rivers.',
     idxCity: 'Point Pleasant',
     intro:
-      'Point Pleasant (Point Pleasant Borough) is the quintessential Jersey Shore coastal town. Famed for its tight-knit community feel, excellent local schools, Riverfront park system, and proximity to the Manasquan Inlet, it is one of the most desirable places to call home along the Jersey coast.',
+      'Point Pleasant (Point Pleasant Borough) is the quintessential Jersey Shore coastal town. Known for its community feel, its own public school district, the Riverfront park system, and proximity to the Manasquan Inlet, it is one of the most desirable places to call home along the Jersey coast.',
     highlights: [
       'Two distinct towns: Point Pleasant Borough & Point Pleasant Beach',
       'Manasquan Inlet access for ocean boating and fishing',
@@ -219,7 +216,7 @@ export const towns: Town[] = [
       {
         question: 'What is the difference between Point Pleasant and Point Pleasant Beach?',
         answer:
-          'Point Pleasant (the Borough) is a primarily residential, family-oriented town with its own school district and river access, whereas Point Pleasant Beach is directly on the oceanfront and features the commercial boardwalk.',
+          'Point Pleasant (the Borough) is a primarily residential town with its own school district and river access, whereas Point Pleasant Beach is directly on the oceanfront and features the commercial boardwalk.',
       },
       {
         question: 'Are there good commuter options from Point Pleasant?',
@@ -234,11 +231,10 @@ export const towns: Town[] = [
     county: 'Ocean County',
     zipCodes: ['08050'],
     angle: 'Gateway to LBI — shore life, year-round',
-    cardImage: '/images/towns/manahawkin.svg',
-    heroImage: '/images/towns/manahawkin-hero.svg',
+    photo: 'manahawkin',
     metaTitle: 'Manahawkin NJ Homes for Sale | Stafford Township & LBI Gateway',
     metaDescription:
-      'Search Manahawkin & Stafford Township, NJ homes for sale — lagoon homes, Ocean Acres, and minutes to Long Beach Island. Free home valuation from a local expert.',
+      'Search Manahawkin & Stafford Township, NJ homes for sale — lagoon homes, Ocean Acres, and minutes to Long Beach Island. Home value reviews from a local agent.',
     headline: 'The Gateway to LBI: Real Estate in Manahawkin, NJ',
     subheadline:
       'Enjoy spacious suburban neighborhoods, excellent value, and immediate access to Long Beach Island.',
@@ -254,11 +250,11 @@ export const towns: Town[] = [
     ],
     neighborhoods: [
       { name: 'Beach Haven West', blurb: 'Lagoon-front homes with docks and bay access.' },
-      { name: 'Ocean Acres', blurb: 'Wooded, family-friendly neighborhoods with newer homes.' },
+      { name: 'Ocean Acres', blurb: 'Wooded neighborhoods with many newer homes.' },
       { name: 'Mill Creek', blurb: 'Waterfront pockets close to the causeway.' },
     ],
     marketOverview:
-      'Manahawkin is experiencing strong growth as buyers look for more square footage and property value without sacrificing proximity to the shore. It appeals heavily to families, remote professionals, and retirees looking for a strategic coastal location.',
+      'Manahawkin is experiencing strong growth as buyers look for more square footage and property value without sacrificing proximity to the shore. Its location appeals to buyers who want year-round living close to the shore.',
     buyerTips: [
       'Explore the different pockets of Stafford Township—some offer quiet wooded settings while others put you right next to the Route 72 retail corridor.',
       'Factor in bridge traffic patterns during peak summer weekends when planning your property visits.',
@@ -285,5 +281,11 @@ export const towns: Town[] = [
     ],
   },
 ];
+
+/**
+ * Areas mentioned as possible service areas but NOT yet confirmed by Jackie.
+ * Shown only as a preview note; add a full entry above once confirmed.
+ */
+export const candidateAreas = ['Toms River', 'Manchester', 'Whiting'];
 
 export const getTown = (slug: string) => towns.find((t) => t.slug === slug);

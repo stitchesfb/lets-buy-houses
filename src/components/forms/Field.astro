@@ -1,0 +1,55 @@
+---
+/** One labeled form control with an error slot that lead-form.ts fills in. */
+import { ui } from '@/i18n/en';
+
+interface Props {
+  form: string;
+  name: string;
+  label: string;
+  type?: 'text' | 'email' | 'tel' | 'select' | 'textarea';
+  required?: boolean;
+  autocomplete?: string;
+  options?: { value: string; label: string }[];
+  /** Value selected by default (select only). */
+  value?: string;
+  hint?: string;
+  class?: string;
+}
+
+const { form, name, label, type = 'text', required = false, autocomplete, options = [], value, hint, class: className } = Astro.props;
+const id = `${form}-${name}`;
+const describedBy = [hint && `${id}-hint`, `${id}-error`].filter(Boolean).join(' ');
+---
+
+<div class={className}>
+  <label for={id} class="form-label">
+    {label}
+    {!required && <span class="font-normal text-muted"> ({ui.form.optional})</span>}
+  </label>
+  {hint && <p id={`${id}-hint`} class="-mt-0.5 mb-1.5 text-sm text-muted">{hint}</p>}
+  {
+    type === 'select' ? (
+      <select id={id} name={name} class="form-input" required={required} aria-describedby={describedBy} data-prefill={name}>
+        {options.map((o) => (
+          <option value={o.value} selected={o.value === value}>
+            {o.label}
+          </option>
+        ))}
+      </select>
+    ) : type === 'textarea' ? (
+      <textarea id={id} name={name} rows="4" class="form-input" required={required} aria-describedby={describedBy} />
+    ) : (
+      <input
+        id={id}
+        name={name}
+        type={type}
+        class="form-input"
+        required={required}
+        autocomplete={autocomplete}
+        inputmode={type === 'tel' ? 'tel' : undefined}
+        aria-describedby={describedBy}
+      />
+    )
+  }
+  <p id={`${id}-error`} class="mt-1.5 hidden text-sm font-medium text-red-700" data-error-for={name}></p>
+</div>

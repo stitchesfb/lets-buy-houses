@@ -14,7 +14,7 @@ export default defineConfig({
   trailingSlash: 'always',
   integrations: [
     sitemap({
-      filter: (page) => !page.includes('/thank-you/'),
+      filter: (page) => !/\/(search|home-valuation)\/$/.test(page),
       // List production URLs (no preview base path), matching each page's canonical.
       serialize: (item) => ({ ...item, url: item.url.replace(`${base}/`, '/') }),
     }),

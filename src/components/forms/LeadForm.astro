@@ -1,152 +1,153 @@
 ---
 /**
- * Lead capture form — home valuation, contact, or buyer inquiry.
+ * Lead form: general contact, home value review, or buyer inquiry.
  *
- * Submission target (no backend required):
- *   - PUBLIC_FORM_ENDPOINT set  → POSTs there (Formspree, Basin, CRM webhook, …)
- *   - otherwise                 → Netlify Forms (detected at deploy time)
- * Progressive enhancement: works with JS disabled; with JS it submits via
- * fetch, then redirects to /thank-you/ (the conversion page for ads/analytics).
+ * Submissions go to PUBLIC_FORM_ENDPOINT (Formspree, Basin, a CRM webhook, …),
+ * which decides where the email is delivered. With no endpoint the form is
+ * clearly marked preview-only and never pretends to have sent anything.
+ * Behaviour (validation, sending, error, success) lives in src/lib/lead-form.ts.
  */
+import Field from './Field.astro';
 import { site } from '@/data/site';
-import { withBase } from '@/lib/paths';
 import { towns } from '@/data/towns';
+import { ui } from '@/i18n/en';
+import { formEndpoint } from '@/lib/mode';
 
-type Variant = 'valuation' | 'contact';
+type Variant = 'contact' | 'home-value' | 'buyer';
 
 interface Props {
   variant?: Variant;
-  heading?: string;
-  subheading?: string;
-  /** Pre-select a town (page context). */
+  /** Unique per page; prefixes every field id. */
+  id: string;
+  /** Pre-select a town (e.g. on a community page). */
   town?: string;
-  id?: string;
+  submitLabel?: string;
+  /** Render for a navy background. */
   dark?: boolean;
 }
 
-const {
-  variant = 'contact',
-  heading = variant === 'valuation' ? 'What’s My Home Worth?' : 'Let’s Talk About Your Move',
-  subheading = variant === 'valuation'
-    ? 'Get a free, no-obligation market analysis based on real local sales — not an online guess.'
-    : `Questions about buying or selling? Reach ${site.agent.firstName} directly.`,
-  town,
-  id = `${variant}-form`,
-  dark = false,
-} = Astro.props;
+const { variant = 'contact', id, town, dark = false } = Astro.props;
+const submitLabel =
+  Astro.props.submitLabel ??
+  { contact: 'Send Message', 'home-value': 'Request My Home Value Review', buyer: 'Send My Home Search' }[variant];
 
-const endpoint = import.meta.env.PUBLIC_FORM_ENDPOINT || '';
-const formName = `lead-${variant}`;
-const action = endpoint || withBase('/thank-you/');
+const townOptions = [
+  { value: '', label: 'Not sure yet' },
+  ...towns.map((t) => ({ value: t.name, label: `${t.name}, NJ` })),
+  { value: 'Other', label: 'Somewhere else' },
+];
+const { phone, phoneHref, smsHref, email } = site.contact;
 ---
 
-<div class:list={['rounded-3xl p-6 shadow-xl sm:p-8', dark ? 'bg-brand-900 text-white' : 'bg-white ring-1 ring-slate-200']}>
-  <h2 class:list={['text-2xl sm:text-3xl', dark && '!text-white']}>{heading}</h2>
-  <p class:list={['mt-2', dark ? 'text-brand-100' : 'text-slate-600']}>{subheading}</p>
+<form
+  id={id}
+  method="post"
+  action={formEndpoint || undefined}
+  novalidate
+  data-lead-form
+  data-endpoint={formEndpoint}
+  class:list={['grid gap-5 sm:grid-cols-2', dark && 'on-dark']}
+>
+  <input type="hidden" name="form_type" value={variant} />
+  <input type="hidden" name="source_page" value={Astro.url.pathname} />
+  <input type="hidden" name="attribution" value="" data-attribution />
+  <div class="hidden" aria-hidden="true">
+    <label>Leave this field blank <input name="company_website" tabindex="-1" autocomplete="off" /></label>
+  </div>
 
-  <form
-    id={id}
-    name={formName}
-    method="POST"
-    action={action}
-    data-lead-form
-    data-endpoint={endpoint}
-    data-netlify={endpoint ? undefined : 'true'}
-    netlify-honeypot="company_website"
-    class="mt-6 grid gap-4 sm:grid-cols-2"
-  >
-    <input type="hidden" name="form-name" value={formName} />
-    <input type="hidden" name="lead_type" value={variant} />
-    <input type="hidden" name="source_page" value={Astro.url.pathname} />
-    <input type="hidden" name="utm" value="" data-utm />
-    <p class="hidden" aria-hidden="true">
-      <label>Leave blank <input name="company_website" tabindex="-1" autocomplete="off" /></label>
+  <p class="hidden rounded-md border border-red-700/30 bg-red-50 p-3 text-sm font-medium text-red-800 sm:col-span-2" role="alert" data-error-summary>
+    {ui.form.errors.summary}
+  </p>
+
+  {
+    variant === 'home-value' && (
+      <Field form={id} name="address" label="Property address" required autocomplete="street-address" class="sm:col-span-2" />
+    )
+  }
+
+  <Field form={id} name="name" label="Your name" required autocomplete="name" class="sm:col-span-2" />
+  <Field form={id} name="email" label="Email" type="email" required autocomplete="email" />
+  <Field form={id} name="phone" label="Phone" type="tel" autocomplete="tel" />
+
+  {
+    variant === 'contact' && (
+      <>
+        <Field
+          form={id}
+          name="interest"
+          label="I’m interested in"
+          type="select"
+          class="sm:col-span-2"
+          options={[
+            { value: 'Buying', label: 'Buying a home' },
+            { value: 'Selling', label: 'Selling a home' },
+            { value: 'Buying and selling', label: 'Buying and selling' },
+            { value: 'Something else', label: 'Something else' },
+          ]}
+        />
+        <Field form={id} name="message" label="How can Jackie help?" type="textarea" class="sm:col-span-2" />
+      </>
+    )
+  }
+
+  {
+    variant === 'buyer' && (
+      <>
+        <Field form={id} name="town" label="Where are you looking?" type="select" options={townOptions} value={town} />
+        <Field
+          form={id}
+          name="budget"
+          label="Price range"
+          type="select"
+          options={[
+            { value: '', label: 'Not sure yet' },
+            { value: 'Under $400K', label: 'Under $400K' },
+            { value: '$400K–$600K', label: '$400K–$600K' },
+            { value: '$600K–$800K', label: '$600K–$800K' },
+            { value: '$800K–$1M', label: '$800K–$1M' },
+            { value: '$1M+', label: '$1M+' },
+          ]}
+        />
+        <Field form={id} name="message" label="What matters most in your next home?" type="textarea" class="sm:col-span-2" />
+      </>
+    )
+  }
+
+  <div class="sm:col-span-2">
+    {
+      !formEndpoint && (
+        <p class="mb-4 rounded-md border border-dashed border-gold-700/60 bg-gold-200/40 p-3 text-sm text-ink" data-preview-notice>
+          {ui.form.previewNotice}
+        </p>
+      )
+    }
+    <button type="submit" class:list={['w-full text-lg sm:w-auto', dark ? 'btn-light' : 'btn-primary']} data-submit>
+      <span data-submit-label>{submitLabel}</span>
+    </button>
+    <p class:list={['mt-4 text-xs leading-relaxed', dark ? 'text-navy-soft' : 'text-muted']}>{ui.form.consent}</p>
+  </div>
+
+  <!-- Result panels: lead-form.ts reveals exactly one after a submit attempt -->
+  <div class="hidden rounded-md border border-red-700/30 bg-red-50 p-4 text-ink sm:col-span-2" role="alert" data-result="error">
+    <p>{ui.form.errors.network}</p>
+    <p class="mt-2 font-semibold"><a href={phoneHref} class="underline">{phone}</a> · <a href={`mailto:${email}`} class="break-all underline">{email}</a></p>
+  </div>
+  <div class="hidden rounded-md border border-gold-700/40 bg-white p-4 text-ink sm:col-span-2" role="status" tabindex="-1" data-result="preview">
+    <p class="font-semibold">{ui.form.previewResult}</p>
+    <p class="mt-2">
+      Call <a href={phoneHref} class="font-semibold underline">{phone}</a>, text <a href={smsHref} class="font-semibold underline">{phone}</a>,
+      or email <a href={`mailto:${email}`} class="font-semibold break-all underline">{email}</a>.
     </p>
+  </div>
+</form>
 
-    {
-      variant === 'valuation' && (
-        <>
-          <div class="sm:col-span-2">
-            <label for={`${id}-address`} class:list={['form-label', dark && '!text-brand-100']}>Property address</label>
-            <input id={`${id}-address`} name="address" required autocomplete="street-address" class="form-input" placeholder="123 Ocean Ave" />
-          </div>
-          <div>
-            <label for={`${id}-town`} class:list={['form-label', dark && '!text-brand-100']}>Town</label>
-            <select id={`${id}-town`} name="town" class="form-input" data-prefill="town">
-              {towns.map((t) => <option selected={t.name === town}>{t.name}</option>)}
-              <option>Other</option>
-            </select>
-          </div>
-          <div>
-            <label for={`${id}-timeline`} class:list={['form-label', dark && '!text-brand-100']}>When are you thinking of selling?</label>
-            <select id={`${id}-timeline`} name="timeline" class="form-input">
-              <option>0–3 months</option>
-              <option>3–6 months</option>
-              <option>6–12 months</option>
-              <option>Just curious</option>
-            </select>
-          </div>
-        </>
-      )
-    }
-
-    <div>
-      <label for={`${id}-name`} class:list={['form-label', dark && '!text-brand-100']}>Full name</label>
-      <input id={`${id}-name`} name="name" required autocomplete="name" class="form-input" />
-    </div>
-    <div>
-      <label for={`${id}-phone`} class:list={['form-label', dark && '!text-brand-100']}>Phone</label>
-      <input id={`${id}-phone`} name="phone" type="tel" autocomplete="tel" inputmode="tel" class="form-input" />
-    </div>
-    <div class="sm:col-span-2">
-      <label for={`${id}-email`} class:list={['form-label', dark && '!text-brand-100']}>Email</label>
-      <input id={`${id}-email`} name="email" type="email" required autocomplete="email" class="form-input" />
-    </div>
-
-    {
-      variant === 'contact' && (
-        <>
-          <div>
-            <label for={`${id}-interest`} class:list={['form-label', dark && '!text-brand-100']}>I'm interested in</label>
-            <select id={`${id}-interest`} name="interest" class="form-input" data-prefill="interest">
-              <option value="buying">Buying</option>
-              <option value="selling">Selling</option>
-              <option value="both">Buying &amp; Selling</option>
-              <option value="other">Something else</option>
-            </select>
-          </div>
-          <div>
-            <label for={`${id}-town`} class:list={['form-label', dark && '!text-brand-100']}>Town</label>
-            <select id={`${id}-town`} name="town" class="form-input" data-prefill="town">
-              <option value="">Not sure yet</option>
-              {towns.map((t) => <option selected={t.name === town}>{t.name}</option>)}
-            </select>
-          </div>
-          <div class="sm:col-span-2">
-            <label for={`${id}-message`} class:list={['form-label', dark && '!text-brand-100']}>How can I help?</label>
-            <textarea id={`${id}-message`} name="message" rows="4" class="form-input" />
-          </div>
-        </>
-      )
-    }
-
-    <div class="sm:col-span-2">
-      <button type="submit" class="btn-primary w-full text-lg">
-        {variant === 'valuation' ? 'Get My Free Home Valuation' : 'Send Message'}
-      </button>
-      <p class:list={['mt-3 text-center text-sm', dark ? 'text-brand-100' : 'text-slate-600']}>
-        Prefer email? <a href={`mailto:${site.contact.email}`} class="font-semibold underline">{site.contact.email}</a>
-      </p>
-      <p class:list={['mt-3 text-xs', dark ? 'text-brand-200' : 'text-slate-500']}>
-        By submitting, you agree to be contacted by {site.agent.name} by phone, text, or email about your real estate
-        needs. Consent is not a condition of any purchase. Msg &amp; data rates may apply. Reply STOP to opt out.
-      </p>
-      <p class="mt-2 hidden text-sm font-medium text-red-600" role="alert" data-form-error>
-        Something went wrong. Please call or text {site.contact.phone}, or email <a href={`mailto:${site.contact.email}`} class="underline">{site.contact.email}</a>.
-      </p>
-    </div>
-  </form>
+<div class="hidden rounded-xl border border-line bg-white p-6 text-ink" role="status" tabindex="-1" data-success-for={id}>
+  <p class="font-serif text-2xl text-navy">{ui.form.successTitle}</p>
+  <p class="mt-2">{ui.form.successBody}</p>
+  <p class="mt-3 font-semibold"><a href={phoneHref} class="underline">{phone}</a></p>
 </div>
+
+{!formEndpoint && <noscript><p class="mt-3 text-sm">This preview form needs JavaScript. Please call or email Jackie instead.</p></noscript>}
 
 <script>
   import { initLeadForms } from '@/lib/lead-form';

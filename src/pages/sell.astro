@@ -1,0 +1,88 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHeader from '@/components/ui/PageHeader.astro';
+import SectionHeading from '@/components/ui/SectionHeading.astro';
+import Steps from '@/components/ui/Steps.astro';
+import AwaitingContent from '@/components/ui/AwaitingContent.astro';
+import SellerInvite from '@/components/home/SellerInvite.astro';
+import { breadcrumbSchema } from '@/lib/schema';
+import { site } from '@/data/site';
+
+const crumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Sell', url: '/sell/' },
+];
+
+const steps = [
+  {
+    title: 'Walk through your home together',
+    body: 'Jackie visits, listens to your goals and timing, and points out what buyers are likely to notice first.',
+  },
+  {
+    title: 'Prepare it to show well',
+    body: 'Get practical suggestions on repairs, decluttering, and presentation, focused on what’s worth doing before you list.',
+  },
+  {
+    title: 'Price it with care',
+    body: 'Review recent sales of similar homes nearby and current competition, then choose a list price and strategy together.',
+  },
+  {
+    title: 'Market it to buyers',
+    body: 'Jackie plans how your home will be presented online and to buyers’ agents, and coordinates showings around your schedule.',
+  },
+  {
+    title: 'Negotiate the best terms',
+    body: 'When offers arrive, Jackie walks you through price, terms, and contingencies and negotiates for the strongest possible outcome.',
+  },
+  {
+    title: 'Close smoothly',
+    body: 'She keeps inspections, appraisal, and attorney review on track and keeps you informed until the closing is complete.',
+  },
+];
+---
+
+<BaseLayout
+  title={`Selling Your Home in Brick, Point Pleasant, Manahawkin & Manalapan | ${site.agent.legalName}`}
+  description={`Request a personal home value review and learn how Jackie Guevara of ${site.brokerage.name} prepares, prices, and markets homes in Ocean and Monmouth County, NJ.`}
+  schema={[breadcrumbSchema(crumbs)]}
+>
+  <PageHeader
+    crumbs={crumbs}
+    eyebrow="Selling Your Home"
+    title="Sell with a plan, and someone in your corner"
+    intro="From the first walkthrough to closing day, Jackie helps you prepare, price, and market your home, then negotiates hard on your behalf."
+  >
+    <a href="#home-value" class="btn-primary">Request a Home Value Review</a>
+    <a href={site.contact.phoneHref} class="btn-outline">Call {site.contact.phone}</a>
+  </PageHeader>
+
+  <section class="section" aria-labelledby="sell-steps-heading">
+    <div class="container-page">
+      <SectionHeading id="sell-steps-heading" eyebrow="The Process" title="How selling with Jackie works" />
+      <div class="mt-12"><Steps steps={steps} /></div>
+      <div class="mt-12">
+        <AwaitingContent title="Jackie’s specific marketing services">
+          <p>
+            List the services Jackie provides for every listing (for example photography, video, open houses, or specific
+            online channels) so this page can describe them exactly. Shown in preview only.
+          </p>
+        </AwaitingContent>
+      </div>
+    </div>
+  </section>
+
+  <SellerInvite formId="sell-home-value" />
+
+  <section class="py-12 sm:py-14" aria-label="Talk with Jackie">
+    <div class="container-page flex flex-col items-start justify-between gap-6 md:flex-row md:items-center">
+      <div>
+        <h2 class="text-2xl sm:text-3xl">Prefer to talk it through first?</h2>
+        <p class="mt-2 text-muted">Call or text Jackie directly. There’s no obligation to list.</p>
+      </div>
+      <div class="flex flex-col gap-3 sm:flex-row">
+        <a href={site.contact.phoneHref} class="btn-primary">Call {site.contact.phone}</a>
+        <a href={site.contact.smsHref} class="btn-outline">Text Jackie</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

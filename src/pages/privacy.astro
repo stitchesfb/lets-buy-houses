@@ -1,0 +1,48 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHeader from '@/components/ui/PageHeader.astro';
+import { site } from '@/data/site';
+import { isPreview } from '@/lib/mode';
+
+const gaEnabled = Boolean(import.meta.env.PUBLIC_GA_MEASUREMENT_ID);
+---
+
+<BaseLayout title={`Privacy | ${site.agent.legalName}`} description="How this website handles the information you share through its forms.">
+  <PageHeader title="Privacy" intro="How this website handles the information you share." />
+  <section class="section pt-10 sm:pt-12">
+    <div class="container-page max-w-3xl space-y-6 text-lg">
+      {
+        isPreview && (
+          <p class="rounded-md border border-dashed border-gold-700/60 bg-gold-200/40 p-4 text-base">
+            <strong>Draft for review.</strong> This plain-language summary describes how the site is built today. Have it reviewed
+            (and expanded if needed) by Jackie’s broker or an attorney before launch, and update it if tracking or new services are added.
+          </p>
+        )
+      }
+      <h2 class="text-2xl">What we collect</h2>
+      <p>
+        When you send a form, we receive what you enter: typically your name, email, and optionally your phone number, a property
+        address, and your message. We use it only to respond to you about your real estate questions.
+      </p>
+      <h2 class="text-2xl">How forms are delivered</h2>
+      <p>
+        Form submissions are delivered to {site.agent.legalName} through a third-party form service, which stores them on our
+        behalf. We do not sell your information.
+      </p>
+      <h2 class="text-2xl">Analytics and cookies</h2>
+      <p>
+        {
+          gaEnabled
+            ? 'This site uses Google Analytics to understand how visitors use it. Google may set cookies for this purpose.'
+            : 'This site does not use analytics or advertising cookies.'
+        }
+        {' '}If you arrive from an ad or campaign link, the campaign name may be included with a form you send so we know how you found us.
+      </p>
+      <h2 class="text-2xl">Contact</h2>
+      <p>
+        Questions or requests to update or delete your information: <a href={`mailto:${site.contact.email}`} class="text-navy underline">{site.contact.email}</a>
+        or {site.contact.phone}.
+      </p>
+    </div>
+  </section>
+</BaseLayout>

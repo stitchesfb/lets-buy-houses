@@ -12,6 +12,7 @@
  * only when the container scrolls near the viewport.
  */
 import { idxConfig, idxSearchUrl, toCityList, type IdxCity } from '@/lib/idx';
+import { isPreview } from '@/lib/mode';
 import { withBase } from '@/lib/paths';
 
 interface Props {
@@ -28,23 +29,24 @@ const { city, heading, widgetId, minHeight = 720 } = Astro.props;
 const town = Astro.props.town ?? toCityList(city)[0];
 const { provider, scriptSrc } = idxConfig;
 const url = idxSearchUrl(city);
-const label = town ? `${town}, NJ` : 'Monmouth & Ocean County';
+const label = town ? `${town}, NJ` : 'Ocean & Monmouth County';
+const connected = ((provider === 'iframe' || provider === 'idx-broker') && Boolean(url)) || (provider === 'script' && Boolean(scriptSrc));
 ---
 
-<section class="rounded-2xl bg-white p-4 shadow-sm ring-1 ring-slate-200 sm:p-6" aria-label={`Search homes for sale in ${label}`}>
-  {heading && <h2 class="mb-4 text-2xl sm:text-3xl">{heading}</h2>}
+<section class="card p-4 sm:p-6" aria-label={`Search homes for sale in ${label}`}>
+  {heading && <h2 class="mb-5 text-2xl sm:text-3xl">{heading}</h2>}
 
   {
-    (provider === 'iframe' || provider === 'idx-broker') && url ? (
+    connected && (provider === 'iframe' || provider === 'idx-broker') ? (
       <iframe
         src={url}
         title={`Homes for sale in ${label}`}
         loading="lazy"
-        class="w-full rounded-xl border-0"
+        class="w-full rounded-md border-0"
         style={`min-height:${minHeight}px`}
         referrerpolicy="no-referrer-when-downgrade"
       />
-    ) : provider === 'script' && scriptSrc ? (
+    ) : connected ? (
       <div
         class="idx-widget"
         data-idx-src={scriptSrc}
@@ -52,26 +54,26 @@ const label = town ? `${town}, NJ` : 'Monmouth & Ocean County';
         data-idx-city={toCityList(city).join(',') || undefined}
         style={`min-height:${minHeight}px`}
       >
-        <p class="p-8 text-center text-slate-500">Loading listings…</p>
+        <p class="p-8 text-center text-muted">Loading listings…</p>
       </div>
     ) : (
-      <div
-        class="flex flex-col items-center justify-center gap-4 rounded-xl border-2 border-dashed border-brand-200 bg-brand-50/60 p-10 text-center"
-        style={`min-height:${Math.min(minHeight, 420)}px`}
-        data-idx-placeholder
-      >
-        <svg class="h-12 w-12 text-brand-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-          <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-4.35-4.35M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15Z" />
-        </svg>
-        <p class="font-display text-2xl text-brand-900">Live MLS search for {label}</p>
-        <p class="max-w-md text-slate-600">
-          Listing search is coming soon. In the meantime, tell us what you're looking for and we'll send matching
-          homes — including ones that haven't hit the market yet.
-        </p>
-        <a href={withBase(`/contact/?interest=buying${town ? `&town=${encodeURIComponent(town)}` : ''}`)} class="btn-primary">
-          Get Listings by Email
+      <div class="grid items-center gap-6 rounded-md bg-ivory p-6 sm:p-8 md:grid-cols-[1fr_auto]">
+        <div>
+          <p class="font-serif text-2xl text-navy">Looking for homes in {label}?</p>
+          <p class="mt-2 max-w-xl text-muted">
+            Tell Jackie your must-haves and price range, and she’ll send you homes for sale that match, including new
+            listings as they come up.
+          </p>
+          {isPreview && (
+            <p class="mt-3 text-sm text-gold-700">
+              Preview note: a live MLS search can appear here once an IDX provider is approved and connected
+              (see docs/IDX-INTEGRATION.md).
+            </p>
+          )}
+        </div>
+        <a href={withBase(`/buy/${town ? `?town=${encodeURIComponent(town)}` : ''}#buyer-inquiry`)} class="btn-primary">
+          Send Me Matching Homes
         </a>
-        <p class="text-xs text-slate-400">Developer: set PUBLIC_IDX_PROVIDER — see docs/IDX-INTEGRATION.md</p>
       </div>
     )
   }

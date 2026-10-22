@@ -1,11 +1,14 @@
 ---
 import { site } from '@/data/site';
-import { withBase } from '@/lib/paths';
 import { towns } from '@/data/towns';
+import { ui } from '@/i18n/en';
+import { isPreview } from '@/lib/mode';
+import { withBase } from '@/lib/paths';
 
-const { agent, brokerage, contact } = site;
-const year = new Date().getFullYear();
+const { agent, brokerage, contact, social } = site;
 const { address } = brokerage;
+const year = new Date().getFullYear();
+
 // NJ advertising disclosure: licensee name, license #, and brokerage.
 const disclosure = [
   `${agent.legalName} is a licensed real estate salesperson (NJ License #${agent.licenseNumber}) affiliated with`,
@@ -15,52 +18,93 @@ const disclosure = [
 ]
   .filter(Boolean)
   .join(' ');
+
+const socialLinks = [
+  { label: 'Facebook', href: social.facebook },
+  { label: 'Instagram', href: social.instagram },
+  { label: 'YouTube', href: social.youtube },
+  { label: 'Zillow', href: social.zillow },
+].filter((s) => s.href);
+
+// Items a broker or attorney should confirm before launch (shown in preview only).
+const launchReview = [
+  !brokerage.officePhone && 'Brokerage office phone number',
+  'MLS/IDX disclaimer wording (required once listings are shown)',
+  'Privacy policy review',
+  'Confirmation that “Associate” is the title Jackie should advertise',
+].filter(Boolean);
 ---
 
-<footer class="bg-brand-900 text-brand-100">
-  <div class="container-page grid gap-10 py-14 md:grid-cols-4">
-    <!-- NAP block: keep identical to Google Business Profile -->
-    <div class="md:col-span-2">
-      <p class="font-display text-2xl font-bold text-white">{site.brand}</p>
-      <address class="mt-4 space-y-1 not-italic">
-        <p class="font-semibold text-white">{agent.name}, {agent.title}</p>
-        <p>{brokerage.name}</p>
-        <p>{brokerage.address.street}, {brokerage.address.city}, {brokerage.address.region} {brokerage.address.postalCode}</p>
-        <p>Direct: <a href={contact.phoneHref} class="underline hover:text-white">{contact.phone}</a></p>
-        {brokerage.officePhone && <p>Office: {brokerage.officePhone}</p>}
+<footer class="on-dark bg-navy text-navy-soft">
+  <div class="container-page grid gap-10 py-14 md:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr]">
+    <div>
+      <p class="font-serif text-2xl text-white">{agent.name}</p>
+      <p class="mt-1 text-sm tracking-wide">{agent.title} · {brokerage.name}</p>
+      <span class="rule-gold mt-5"></span>
+      <address class="mt-5 space-y-1.5 not-italic">
+        <p>{brokerage.name}<br />{address.street}, {address.city}, {address.region} {address.postalCode}</p>
+        <p>Direct: <a href={contact.phoneHref} class="text-white underline-offset-4 hover:underline">{contact.phone}</a></p>
+        <p>Email: <a href={`mailto:${contact.email}`} class="break-all text-white underline-offset-4 hover:underline">{contact.email}</a></p>
         <p>NJ License #{agent.licenseNumber}</p>
-        <p><a href={`mailto:${contact.email}`} class="underline hover:text-white">{contact.email}</a></p>
       </address>
+      {
+        socialLinks.length > 0 && (
+          <ul class="mt-5 flex flex-wrap gap-4">
+            {socialLinks.map((s) => (
+              <li>
+                <a href={s.href} rel="noopener" target="_blank" class="text-white underline-offset-4 hover:underline">
+                  {s.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        )
+      }
     </div>
 
-    <nav aria-label="Communities">
-      <p class="font-semibold text-white">Communities</p>
-      <ul class="mt-4 space-y-2">
-        {towns.map((t) => <li><a href={withBase(`/${t.slug}/`)} class="hover:text-white">{t.name} Homes for Sale</a></li>)}
+    <nav aria-label="Footer">
+      <p class="font-semibold text-white">Explore</p>
+      <ul class="mt-4 space-y-2.5">
+        <li><a href={withBase('/buy/')} class="hover:text-white">Buying a Home</a></li>
+        <li><a href={withBase('/sell/')} class="hover:text-white">Selling Your Home</a></li>
+        <li><a href={withBase('/communities/')} class="hover:text-white">Communities</a></li>
+        <li><a href={withBase('/about/')} class="hover:text-white">{ui.nav.about}</a></li>
+        <li><a href={withBase('/contact/')} class="hover:text-white">{ui.nav.contact}</a></li>
       </ul>
     </nav>
 
-    <nav aria-label="Resources">
-      <p class="font-semibold text-white">Resources</p>
-      <ul class="mt-4 space-y-2">
-        <li><a href={withBase('/search/')} class="hover:text-white">Search All Listings</a></li>
-        <li><a href={withBase('/home-valuation/')} class="hover:text-white">Free Home Valuation</a></li>
-        <li><a href={withBase('/contact/')} class="hover:text-white">Contact</a></li>
-        {site.social.youtube && <li><a href={site.social.youtube} rel="noopener" target="_blank" class="hover:text-white">YouTube Channel</a></li>}
+    <nav aria-label="Communities">
+      <p class="font-semibold text-white">Communities</p>
+      <ul class="mt-4 space-y-2.5">
+        {towns.map((t) => <li><a href={withBase(`/${t.slug}/`)} class="hover:text-white">{t.name}, NJ</a></li>)}
       </ul>
     </nav>
   </div>
 
   <div class="border-t border-white/10">
-    <div class="container-page space-y-2 py-6 text-xs text-brand-200">
-      <p>
-        {disclosure}
+    <div class="container-page space-y-3 py-8 text-sm leading-relaxed">
+      <p>{disclosure}</p>
+      <p class="flex items-center gap-2">
+        <svg class="h-5 w-5 shrink-0 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+          <path d="M3 11 12 4l9 7" stroke-linejoin="round"></path><path d="M5 10v10h14V10"></path><path d="M9 14h6M9 17h6"></path>
+        </svg>
+        <span class="font-semibold text-white">Equal Housing Opportunity</span>
       </p>
-      <p>
-        <span aria-hidden="true">⌂</span> Equal Housing Opportunity. Information deemed reliable but not guaranteed.
-        Listing data provided courtesy of the MLS via IDX.
+      <p class="flex flex-wrap gap-x-5 gap-y-1">
+        <a href={withBase('/privacy/')} class="text-white underline-offset-4 hover:underline">Privacy</a>
+        <a href={withBase('/photo-credits/')} class="text-white underline-offset-4 hover:underline">Photo credits</a>
+        <span>&copy; {year} {agent.legalName}</span>
       </p>
-      <p>&copy; {year} {site.brand}. All rights reserved.</p>
+      {
+        isPreview && (
+          <div class="rounded-md border border-gold/50 p-4 text-navy-soft">
+            <p class="font-semibold text-gold">Preview note: confirm before launch</p>
+            <ul class="mt-1 list-disc pl-5">
+              {launchReview.map((item) => <li>{item}</li>)}
+            </ul>
+          </div>
+        )
+      }
     </div>
   </div>
 </footer>

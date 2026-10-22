@@ -16,8 +16,20 @@ npm run build            # type-check + static build to dist/
 npm run preview          # serve the production build
 ```
 
-Deploy `dist/` to Netlify, Vercel, or Cloudflare Pages. On **Netlify**, the lead
-forms work with no setup (Netlify Forms). On other hosts, set `PUBLIC_FORM_ENDPOINT`.
+## Deployment
+
+Pushing to `main` deploys to **GitHub Pages** via `.github/workflows/deploy.yml`
+(type-check, build, publish). One-time setup:
+
+1. Repo **Settings → Pages → Source: GitHub Actions**.
+2. **Custom domain:** `public/CNAME` sets `letsbuyhouses.com`. At the domain registrar, point
+   the apex `A` records to GitHub Pages (185.199.108.153, .109.153, .110.153, .111.153) and
+   `www` as a `CNAME` to `<owner>.github.io`. Then tick **Enforce HTTPS**.
+3. **Settings → Secrets and variables → Actions → Variables:** add the `PUBLIC_*` values
+   from `.env.example`. **`PUBLIC_FORM_ENDPOINT` is required on GitHub Pages**, because
+   Netlify Forms only work on Netlify.
+
+The site is plain static files, so `dist/` also deploys to Netlify, Vercel or Cloudflare Pages unchanged.
 
 ## Project structure
 

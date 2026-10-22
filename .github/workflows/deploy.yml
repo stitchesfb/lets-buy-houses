@@ -1,0 +1,59 @@
+# Builds the Astro site and deploys it to GitHub Pages on every push to main.
+#
+# One-time setup in the GitHub repo:
+#   1. Settings → Pages → Build and deployment → Source: "GitHub Actions"
+#   2. Settings → Pages → Custom domain: letsbuyhouses.com (public/CNAME keeps it set)
+#   3. Settings → Secrets and variables → Actions → Variables: add the PUBLIC_* values
+#      from .env.example. PUBLIC_FORM_ENDPOINT is required on GitHub Pages — Netlify
+#      Forms only work when hosted on Netlify.
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# One deployment at a time; don't cancel a deploy that's already running.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Warn if lead forms have no endpoint
+        if: vars.PUBLIC_FORM_ENDPOINT == ''
+        run: echo "::warning::PUBLIC_FORM_ENDPOINT is not set — lead forms will not submit on GitHub Pages. Add it under Settings → Secrets and variables → Actions → Variables."
+
+      - name: Install, type-check and build
+        uses: withastro/action@v6
+        with:
+          node-version: 22
+        env:
+          PUBLIC_FORM_ENDPOINT: ${{ vars.PUBLIC_FORM_ENDPOINT }}
+          PUBLIC_IDX_PROVIDER: ${{ vars.PUBLIC_IDX_PROVIDER }}
+          PUBLIC_IDX_BROKER_DOMAIN: ${{ vars.PUBLIC_IDX_BROKER_DOMAIN }}
+          PUBLIC_IDX_IFRAME_URL: ${{ vars.PUBLIC_IDX_IFRAME_URL }}
+          PUBLIC_IDX_CITY_PARAM: ${{ vars.PUBLIC_IDX_CITY_PARAM }}
+          PUBLIC_IDX_SCRIPT_SRC: ${{ vars.PUBLIC_IDX_SCRIPT_SRC }}
+          PUBLIC_GA_MEASUREMENT_ID: ${{ vars.PUBLIC_GA_MEASUREMENT_ID }}
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5

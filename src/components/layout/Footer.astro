@@ -5,6 +5,16 @@ import { towns } from '@/data/towns';
 
 const { agent, brokerage, contact } = site;
 const year = new Date().getFullYear();
+const { address } = brokerage;
+// NJ advertising disclosure: licensee name, license #, and brokerage.
+const disclosure = [
+  `${agent.legalName} is a licensed real estate salesperson (NJ License #${agent.licenseNumber}) affiliated with`,
+  `${brokerage.name}, ${address.street}, ${address.city}, ${address.region} ${address.postalCode}.`,
+  brokerage.officePhone && `Office: ${brokerage.officePhone}.`,
+  'Each RE/MAX office is independently owned and operated.',
+]
+  .filter(Boolean)
+  .join(' ');
 ---
 
 <footer class="bg-brand-900 text-brand-100">
@@ -16,8 +26,9 @@ const year = new Date().getFullYear();
         <p class="font-semibold text-white">{agent.name}, {agent.title}</p>
         <p>{brokerage.name}</p>
         <p>{brokerage.address.street}, {brokerage.address.city}, {brokerage.address.region} {brokerage.address.postalCode}</p>
-        <p>Mobile: <a href={contact.phoneHref} class="underline hover:text-white">{contact.phone}</a></p>
-        <p>Office: {brokerage.officePhone}</p>
+        <p>Direct: <a href={contact.phoneHref} class="underline hover:text-white">{contact.phone}</a></p>
+        {brokerage.officePhone && <p>Office: {brokerage.officePhone}</p>}
+        <p>NJ License #{agent.licenseNumber}</p>
         <p><a href={`mailto:${contact.email}`} class="underline hover:text-white">{contact.email}</a></p>
       </address>
     </div>
@@ -43,8 +54,7 @@ const year = new Date().getFullYear();
   <div class="border-t border-white/10">
     <div class="container-page space-y-2 py-6 text-xs text-brand-200">
       <p>
-        {agent.name} is a licensed real estate salesperson ({agent.licenseNumber}) affiliated with {brokerage.name},
-        {brokerage.address.city}, NJ. Office: {brokerage.officePhone}.
+        {disclosure}
       </p>
       <p>
         <span aria-hidden="true">⌂</span> Equal Housing Opportunity. Information deemed reliable but not guaranteed.

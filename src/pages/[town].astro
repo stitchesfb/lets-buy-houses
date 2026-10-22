@@ -36,7 +36,6 @@ const townVideos = videos.filter((v) => v.town === town.slug);
 <BaseLayout
   title={town.metaTitle}
   description={town.metaDescription}
-  image={town.heroImage}
   schema={[townPageSchema(town), breadcrumbSchema(crumbs), faqSchema(town.faqs)]}
 >
   <!-- Hero -->

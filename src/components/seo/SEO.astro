@@ -3,7 +3,7 @@
  * <head> SEO tags: title, description, canonical, Open Graph, Twitter, robots.
  */
 import { site } from '@/data/site';
-import { stripBase } from '@/lib/paths';
+import { absoluteUrl, stripBase } from '@/lib/paths';
 
 interface Props {
   title: string;
@@ -16,7 +16,7 @@ interface Props {
 const { title, description, image = site.agent.headshot, noindex = false, type = 'website' } = Astro.props;
 // Canonical always names the production domain, without the preview's base path.
 const canonical = new URL(stripBase(Astro.url.pathname), site.url).href;
-const ogImage = new URL(image, site.url).href;
+const ogImage = absoluteUrl(image);
 ---
 
 <title>{title}</title>
@@ -30,6 +30,7 @@ const ogImage = new URL(image, site.url).href;
 <meta property="og:description" content={description} />
 <meta property="og:url" content={canonical} />
 <meta property="og:image" content={ogImage} />
+<meta property="og:image:alt" content={`${site.agent.legalName}, ${site.agent.title} at ${site.brokerage.name}`} />
 <meta property="og:locale" content="en_US" />
 
 <meta name="twitter:card" content="summary_large_image" />

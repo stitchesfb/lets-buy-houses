@@ -4,6 +4,7 @@
  */
 import { site } from '@/data/site';
 import { towns, type Faq, type Town } from '@/data/towns';
+import { absoluteUrl } from '@/lib/paths';
 
 const agentId = `${site.url}/#agent`;
 
@@ -13,11 +14,12 @@ export function realEstateAgentSchema() {
     '@context': 'https://schema.org',
     '@type': 'RealEstateAgent',
     '@id': agentId,
-    name: `${agent.name} — ${site.brand}`,
+    name: agent.legalName,
+    alternateName: [agent.name, site.brand],
     url: site.url,
-    image: new URL(agent.headshot, site.url).href,
-    logo: new URL('/favicon.svg', site.url).href,
-    description: `${agent.title} with ${agent.yearsExperience} years of experience helping buyers and sellers in Manalapan, Brick, Point Pleasant, and Manahawkin, NJ.`,
+    image: absoluteUrl(agent.headshot),
+    logo: absoluteUrl('/favicon.svg'),
+    description: `${agent.legalName}, ${agent.title} with ${brokerage.name}, helping buyers and sellers in Manalapan, Brick, Point Pleasant, and Manahawkin, NJ.`,
     telephone: contact.phone,
     email: contact.email,
     priceRange: '$$$',
@@ -29,14 +31,18 @@ export function realEstateAgentSchema() {
       postalCode: brokerage.address.postalCode,
       addressCountry: brokerage.address.country,
     },
-    geo: { '@type': 'GeoCoordinates', latitude: geo.latitude, longitude: geo.longitude },
+    ...(geo && { geo: { '@type': 'GeoCoordinates', latitude: geo.latitude, longitude: geo.longitude } }),
     areaServed: towns.map((t) => ({
       '@type': 'City',
       name: `${t.name}, NJ`,
       containedInPlace: { '@type': 'AdministrativeArea', name: `${t.county}, NJ` },
     })),
     knowsAbout: ['Residential real estate', 'Waterfront homes', 'Home valuation', 'Jersey Shore real estate'],
-    parentOrganization: { '@type': 'RealEstateOrganization', name: brokerage.name },
+    parentOrganization: {
+      '@type': 'RealEstateOrganization',
+      name: brokerage.name,
+      ...(brokerage.officePhone ? { telephone: brokerage.officePhone } : {}),
+    },
     sameAs: Object.values(social).filter(Boolean),
     // TODO: once you have verifiable reviews on-site, add aggregateRating here.
   };

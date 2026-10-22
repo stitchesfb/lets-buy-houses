@@ -7,6 +7,7 @@ import Testimonials from '@/components/home/Testimonials.astro';
 import VideoHub from '@/components/home/VideoHub.astro';
 import LeadForm from '@/components/forms/LeadForm.astro';
 import { site } from '@/data/site';
+import { withBase } from '@/lib/paths';
 
 const title = 'Jersey Shore & Central NJ Real Estate | Manalapan, Brick, Point Pleasant, Manahawkin';
 const description = `${site.agent.yearsExperience} years helping buyers and sellers in Manalapan, Brick, Point Pleasant & Manahawkin, NJ. Search homes for sale or get a free home valuation today.`;
@@ -20,7 +21,21 @@ const description = `${site.agent.yearsExperience} years helping buyers and sell
   <section class="section" aria-labelledby="about-heading">
     <div class="container-page grid items-center gap-12 lg:grid-cols-2">
       <div>
-        <p class="eyebrow">Why Work With Me</p>
+        <div class="flex items-center gap-4">
+          <img
+            src={withBase(site.agent.headshot)}
+            alt={site.agent.legalName}
+            width="96"
+            height="96"
+            loading="lazy"
+            class="h-20 w-20 rounded-full object-cover ring-4 ring-sand-100 sm:h-24 sm:w-24"
+          />
+          <div>
+            <p class="font-display text-xl font-bold text-brand-900">{site.agent.name}</p>
+            <p class="text-sm text-slate-600">{site.agent.title} · {site.brokerage.name}</p>
+          </div>
+        </div>
+        <p class="eyebrow mt-8">Why Work With Me</p>
         <h2 id="about-heading" class="mt-2 text-3xl sm:text-4xl">{site.agent.yearsExperience} Years. Four Towns. Thousands of Local Insights.</h2>
         <p class="mt-6 text-lg leading-relaxed text-slate-700">{site.agent.bio}</p>
         <ul class="mt-6 space-y-3 text-slate-700">

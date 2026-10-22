@@ -22,9 +22,12 @@ Pushing to `main` deploys to **GitHub Pages** via `.github/workflows/deploy.yml`
 (type-check, build, publish). One-time setup:
 
 1. Repo **Settings → Pages → Source: GitHub Actions**.
-2. **Custom domain:** `public/CNAME` sets `letsbuyhouses.com`. At the domain registrar, point
-   the apex `A` records to GitHub Pages (185.199.108.153, .109.153, .110.153, .111.153) and
-   `www` as a `CNAME` to `<owner>.github.io`. Then tick **Enforce HTTPS**.
+2. **Custom domain:** in **Settings → Pages → Custom domain**, enter `letsbuyhouses.com`
+   (Actions deploys ignore a `CNAME` file). At the domain registrar, remove any domain
+   forwarding, point the apex `A` records to GitHub Pages (185.199.108.153, .109.153,
+   .110.153, .111.153) and `www` as a `CNAME` to `<owner>.github.io`. Then tick
+   **Enforce HTTPS**. Until the domain is set, the `github.io/lets-buy-houses/` URL loads
+   without styles, because the site is built for the domain root.
 3. **Settings → Secrets and variables → Actions → Variables:** add the `PUBLIC_*` values
    from `.env.example`. **`PUBLIC_FORM_ENDPOINT` is required on GitHub Pages**, because
    Netlify Forms only work on Netlify.

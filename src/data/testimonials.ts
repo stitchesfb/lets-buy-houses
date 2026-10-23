@@ -27,12 +27,43 @@ export interface Testimonial {
   date?: string;
 }
 
-// TODO: paste the exact review text (and town, platform, date) for each client.
+// Exact review text as published on each platform. Do not edit the wording.
 export const testimonials: Testimonial[] = [
-  { name: 'Danielle Melapioni', rating: 5, quote: '' },
-  { name: 'Domenica Bergin', rating: 5, quote: '' },
-  { name: 'Steven Humphrey', rating: 5, quote: '' },
-  { name: 'John', rating: 5, quote: '' },
+  {
+    name: 'Danielle Melapioni',
+    town: 'Forked River',
+    source: 'RealSatisfied',
+    date: 'March 11, 2023',
+    rating: 5,
+    quote:
+      "Jackie was amazing she went above and beyond. I didn't have a word in the world. Trusted her completely and would highly recommend Jackie was amazing. We had a contingent sale and the stress of finding a home was huge. She had sold our house within 4 days pending us finding something. Encouraged us not to settle and we would find something. She kept her word. She found us not just any home. But our dream home. She made sure our contingent sale went off flawlessly and we are currently sitting in our dream home writing this review :).",
+  },
+  {
+    name: 'Domenica Bergin',
+    town: 'Freehold',
+    source: 'RealSatisfied',
+    date: 'March 6, 2023',
+    rating: 5,
+    quote: 'Jackie has helped me close 4 deals in 4 years. She is 4/4! Thank you again for your professionalism and patience.',
+  },
+  {
+    name: 'Steven Humphrey',
+    town: 'Barnegat',
+    source: 'RealSatisfied',
+    date: 'May 13, 2022',
+    rating: 5,
+    quote:
+      'Jacquelyn is a very aggressive agent, very attentive and gets the job done. She makes everything go as painless as possible and is always there when you need her. She did flawless execution of both sale and purchase of our new home to both close the same day. Couldn’t of asked for a better experience and she performed at a very high level as expected. We will always use her and recommend her for all real estate needs Always there when needed, she went above and beyond to ensure things went well and to calm nerves She made magic happen, I can’t say enough good things about her.',
+  },
+  {
+    name: 'John',
+    town: 'Toms River',
+    source: 'Realtor.com',
+    date: 'January 2, 2020',
+    rating: 5,
+    quote:
+      'Ms. Guevara was exceptional as a realtor. She was highly knowledgeable about the local market. With a smile and encouragement, she guided us through the whole process, always quick to respond to an e-mail, text or call. She made what could be a daunting process both fun and exciting, and ultimately got us into our dream home. I would recommend her to anyone.',
+  },
 ];
 
 /** Reviews ready to display (quote filled in). */

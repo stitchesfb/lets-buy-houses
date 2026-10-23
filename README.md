@@ -19,7 +19,8 @@ npm run preview          # serve the build
 
 ## Preview vs. production
 
-`PUBLIC_SITE_MODE` controls sample content.
+`PUBLIC_SITE_MODE` controls sample content. Local development defaults to `preview`; the GitHub Pages
+deploy defaults to `production` (set the repository variable to `preview` to publish a review build).
 
 | | `preview` (default) | `production` |
 |---|---|---|

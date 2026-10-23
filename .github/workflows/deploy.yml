@@ -8,7 +8,7 @@
 #      change `base` to '/'.
 #   3. Settings → Secrets and variables → Actions → Variables: add the PUBLIC_* values
 #      from .env.example. Forms send nothing until PUBLIC_FORM_ENDPOINT is set, and
-#      PUBLIC_SITE_MODE=production hides sample content (default: preview).
+#      Deploys build in production mode (no sample content) unless PUBLIC_SITE_MODE=preview.
 name: Deploy to GitHub Pages
 
 on:
@@ -42,7 +42,8 @@ jobs:
         with:
           node-version: 22
         env:
-          PUBLIC_SITE_MODE: ${{ vars.PUBLIC_SITE_MODE }}
+          # The live site hides sample content; set the variable to 'preview' to show it.
+          PUBLIC_SITE_MODE: ${{ vars.PUBLIC_SITE_MODE || 'production' }}
           PUBLIC_FORM_ENDPOINT: ${{ vars.PUBLIC_FORM_ENDPOINT }}
           PUBLIC_IDX_PROVIDER: ${{ vars.PUBLIC_IDX_PROVIDER }}
           PUBLIC_IDX_BROKER_DOMAIN: ${{ vars.PUBLIC_IDX_BROKER_DOMAIN }}

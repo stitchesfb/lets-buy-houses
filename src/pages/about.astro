@@ -4,6 +4,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import Breadcrumbs from '@/components/ui/Breadcrumbs.astro';
 import AwaitingContent from '@/components/ui/AwaitingContent.astro';
 import WhyJacquelyn from '@/components/home/WhyJacquelyn.astro';
+import Testimonials from '@/components/home/Testimonials.astro';
 import ContactSection from '@/components/home/ContactSection.astro';
 import portrait from '@/assets/jacquelyn-guevara.jpg';
 import { site } from '@/data/site';
@@ -101,5 +102,6 @@ const facts = [
   </section>
 
   <WhyJacquelyn />
+  <Testimonials limit={8} />
   <ContactSection formId="about-contact" />
 </BaseLayout>

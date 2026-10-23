@@ -3,9 +3,10 @@ import { Picture } from 'astro:assets';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Breadcrumbs from '@/components/ui/Breadcrumbs.astro';
 import AwaitingContent from '@/components/ui/AwaitingContent.astro';
-import WhyJackie from '@/components/home/WhyJackie.astro';
+import WhyJacquelyn from '@/components/home/WhyJacquelyn.astro';
+import Testimonials from '@/components/home/Testimonials.astro';
 import ContactSection from '@/components/home/ContactSection.astro';
-import portrait from '@/assets/jackie-guevara.jpg';
+import portrait from '@/assets/jacquelyn-guevara.jpg';
 import { site } from '@/data/site';
 import { towns } from '@/data/towns';
 import { breadcrumbSchema } from '@/lib/schema';
@@ -14,7 +15,7 @@ import { withBase } from '@/lib/paths';
 const { agent, brokerage } = site;
 const crumbs = [
   { name: 'Home', url: '/' },
-  { name: 'About Jackie', url: '/about/' },
+  { name: 'About Jacquelyn', url: '/about/' },
 ];
 const facts = [
   { label: 'Brokerage', value: `${brokerage.name}, ${brokerage.address.city}, NJ` },
@@ -27,7 +28,7 @@ const facts = [
 
 <BaseLayout
   title={`About ${agent.legalName} | ${brokerage.name}`}
-  description={`Get to know Jacquelyn “Jackie” Guevara: an Ocean County resident for over 35 years and a real estate professional with ${brokerage.name} for over 15.`}
+  description={`Get to know Jacquelyn Guevara: an Ocean County resident for over 35 years and a real estate professional with ${brokerage.name} for over 15.`}
   schema={[breadcrumbSchema(crumbs)]}
 >
   <section class="section pt-10 sm:pt-12" aria-labelledby="about-heading">
@@ -57,7 +58,7 @@ const facts = [
         </div>
 
         <div>
-          <p class="eyebrow">About Jackie</p>
+          <p class="eyebrow">About Jacquelyn</p>
           <h1 id="about-heading" class="mt-3 text-4xl sm:text-5xl">{agent.name}</h1>
           <p class="mt-2 text-lg text-muted">{agent.title} · {brokerage.name}</p>
           <span class="rule-gold mt-6"></span>
@@ -65,7 +66,7 @@ const facts = [
             {agent.bio.split(/(?<=[.?!])\s+(?=Whether marketing|Over 15\+)/).map((p) => <p>{p}</p>)}
           </div>
 
-          <h2 class="mt-12 text-2xl sm:text-3xl">Where Jackie works</h2>
+          <h2 class="mt-12 text-2xl sm:text-3xl">Where Jacquelyn works</h2>
           <ul class="mt-5 grid gap-3 sm:grid-cols-2">
             {
               towns.map((t) => (
@@ -88,7 +89,7 @@ const facts = [
           </div>
 
           <div class="mt-12">
-            <AwaitingContent title="More about Jackie">
+            <AwaitingContent title="More about Jacquelyn">
               <p>
                 Optional details to confirm before adding: professional designations, languages spoken, community involvement,
                 and a few personal touches (favorite local spots, family, interests). Nothing is shown until confirmed.
@@ -100,6 +101,7 @@ const facts = [
     </div>
   </section>
 
-  <WhyJackie />
+  <WhyJacquelyn />
+  <Testimonials limit={8} />
   <ContactSection formId="about-contact" />
 </BaseLayout>

@@ -14,7 +14,7 @@ interface Props {
   asPageTitle?: boolean;
 }
 const {
-  heading = 'Explore the communities Jackie serves',
+  heading = 'Explore the communities Jacquelyn serves',
   intro = 'Housing, getting around, and local resources in each town, with links to start your search.',
   exclude,
   asPageTitle = false,
@@ -50,8 +50,8 @@ const CardHeading = asPageTitle ? 'h2' : 'h3';
     {
       isPreview && candidateAreas.length > 0 && (
         <p class="mt-8 rounded-md border border-dashed border-gold-700/60 p-4 text-sm text-muted">
-          <strong class="text-ink">Preview note:</strong> {candidateAreas.join(', ')} were suggested as possible service areas. They’ll
-          get community pages once Jackie confirms she serves them.
+          <strong class="text-ink">Preview note:</strong> Jacquelyn’s RE/MAX Revolution site also lists {candidateAreas.join(', ')}.
+          Add any of them to <code class="text-xs">src/data/towns.ts</code> to give it a community page.
         </p>
       )
     }

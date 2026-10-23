@@ -1,45 +1,64 @@
 ---
-/** Genuine testimonials only. Hidden on the live site when there are none. */
+/**
+ * Genuine client reviews from src/data/testimonials.ts. Up to three quotes, no
+ * carousel. Hidden on the live site until at least one review has its text.
+ */
 import AwaitingContent from '@/components/ui/AwaitingContent.astro';
 import SectionHeading from '@/components/ui/SectionHeading.astro';
-import { testimonials } from '@/data/testimonials';
+import { pendingTestimonials, publishedTestimonials } from '@/data/testimonials';
 import { isPreview } from '@/lib/mode';
 
-const quotes = testimonials.slice(0, 3);
+interface Props {
+  /** How many reviews to show (the homepage shows three). */
+  limit?: number;
+}
+const { limit = 3 } = Astro.props;
+const quotes = publishedTestimonials().slice(0, limit);
+const pending = pendingTestimonials();
 ---
 
 {
-  quotes.length > 0 ? (
+  quotes.length > 0 && (
     <section class="section bg-white/60" aria-labelledby="testimonials-heading">
       <div class="container-page">
-        <SectionHeading id="testimonials-heading" eyebrow="Client Stories" title="In their words" />
-        <div class:list={['mt-10 grid gap-6', quotes.length > 1 && 'md:grid-cols-2', quotes.length > 2 && 'lg:grid-cols-3']}>
+        <SectionHeading id="testimonials-heading" eyebrow="Client Reviews" title="In their words" />
+        <div class:list={['mt-10 grid gap-6', quotes.length > 1 && 'md:grid-cols-2', quotes.length === 3 && 'lg:grid-cols-3']}>
           {quotes.map((t) => (
             <figure class="card flex flex-col p-7">
-              <span class="font-serif text-5xl leading-none text-gold" aria-hidden="true">“</span>
-              <blockquote class="mt-2 flex-1 text-lg">{t.quote}</blockquote>
+              {t.rating && (
+                <p class="text-lg tracking-widest text-gold-700" role="img" aria-label={`${t.rating} out of 5 stars`}>
+                  {'★'.repeat(t.rating)}
+                </p>
+              )}
+              <blockquote class="mt-3 flex-1 text-lg">“{t.quote}”</blockquote>
               <figcaption class="mt-6 border-t border-line pt-4 text-sm">
                 <span class="font-semibold text-ink">{t.name}</span>
-                {t.context && <span class="text-muted"> · {t.context}</span>}
-                {t.source && <span class="block text-muted">{t.source}</span>}
+                {(t.context || t.town) && <span class="text-muted"> · {[t.context, t.town].filter(Boolean).join(' in ')}</span>}
+                {t.source && (
+                  <span class="mt-1 block text-muted">
+                    {t.url ? <a href={t.url} rel="noopener" target="_blank" class="underline underline-offset-4">Review on {t.source}</a> : `Review on ${t.source}`}
+                    {t.date && ` · ${t.date}`}
+                  </span>
+                )}
               </figcaption>
             </figure>
           ))}
         </div>
       </div>
     </section>
-  ) : (
-    isPreview && (
-      <section class="section bg-white/60 py-12 sm:py-16" aria-label="Client testimonials (awaiting content)">
-        <div class="container-page">
-          <AwaitingContent title="Client testimonials">
-            <p>
-              Two or three genuine quotes from past clients go here, with their permission. Add them to{' '}
-              <code class="text-sm">src/data/testimonials.ts</code>. This section stays hidden on the live site until then.
-            </p>
-          </AwaitingContent>
-        </div>
-      </section>
-    )
+  )
+}
+{
+  isPreview && pending.length > 0 && (
+    <section class="py-12 sm:py-16" aria-label="Client reviews awaiting text">
+      <div class="container-page">
+        <AwaitingContent title={`${pending.length} client review${pending.length > 1 ? 's' : ''} waiting for their text`}>
+          <p>
+            {pending.map((t) => t.name).join(', ')}. Paste each review’s exact wording from RealSatisfied, Zillow, or Realtor.com
+            into <code class="text-sm">src/data/testimonials.ts</code> and it will appear here automatically.
+          </p>
+        </AwaitingContent>
+      </div>
+    </section>
   )
 }

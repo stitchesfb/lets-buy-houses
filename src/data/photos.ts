@@ -6,7 +6,7 @@
  *
  * Current photos are public-domain or Creative Commons images from Flickr,
  * credited on /photo-credits/ (CC BY licenses require it). Replace them with
- * Jackie's own photography whenever it's available.
+ * Jacquelyn's own photography whenever it's available.
  */
 import type { ImageMetadata } from 'astro';
 
@@ -43,6 +43,14 @@ export const credits: Record<string, PhotoCredit> = {
     sourceUrl: 'https://www.flickr.com/photos/thisisbossi/3903167556/',
     alt: 'Sunset over the bay at Manahawkin, New Jersey',
     position: '50% 65%',
+  },
+  'toms-river': {
+    title: 'Just After Sunrise On Toms River',
+    author: 'James Loesch',
+    ...BY2,
+    sourceUrl: 'https://www.flickr.com/photos/jal33/32749916852/',
+    alt: 'Sunrise over the Toms River framed by bare trees along the shore',
+    position: '50% 55%',
   },
   'point-pleasant': {
     title: 'Above the Manasquan Inlet jetty and Point Pleasant Beach',

@@ -9,6 +9,7 @@ import FeaturedListings from '@/components/home/FeaturedListings.astro';
 import CommunityGrid from '@/components/home/CommunityGrid.astro';
 import { breadcrumbSchema } from '@/lib/schema';
 import { site } from '@/data/site';
+import { listingsUrl } from '@/lib/listings-links';
 
 const crumbs = [
   { name: 'Home', url: '/' },
@@ -22,7 +23,7 @@ const steps = [
   },
   {
     title: 'Search with focus',
-    body: 'Jackie sends homes that match your list and helps you compare neighborhoods, commutes, and the trade-offs between them.',
+    body: 'Jacquelyn sends homes that match your list and helps you compare neighborhoods, commutes, and the trade-offs between them.',
   },
   {
     title: 'Tour and evaluate',
@@ -30,7 +31,7 @@ const steps = [
   },
   {
     title: 'Make a strong offer',
-    body: 'Jackie reviews recent sales with you, helps you decide on price and terms, and negotiates on your behalf.',
+    body: 'Jacquelyn reviews recent sales with you, helps you decide on price and terms, and negotiates on your behalf.',
   },
   {
     title: 'Inspections, appraisal, and attorney review',
@@ -38,21 +39,21 @@ const steps = [
   },
   {
     title: 'Closing day',
-    body: 'A final walkthrough, the signing, and the keys. Jackie stays with you through the finish.',
+    body: 'A final walkthrough, the signing, and the keys. Jacquelyn stays with you through the finish.',
   },
 ];
 ---
 
 <BaseLayout
-  title={`Buying a Home in Brick, Point Pleasant, Manahawkin & Manalapan | ${site.agent.legalName}`}
-  description={`How Jackie Guevara of ${site.brokerage.name} helps buyers search, tour, negotiate, and close on homes in Ocean and Monmouth County, NJ.`}
+  title={`Buying a Home in Toms River, Brick & Ocean County, NJ | ${site.agent.legalName}`}
+  description={`How Jacquelyn Guevara of ${site.brokerage.name} helps buyers search, tour, negotiate, and close on homes in Ocean and Monmouth County, NJ.`}
   schema={[breadcrumbSchema(crumbs)]}
 >
   <PageHeader
     crumbs={crumbs}
     eyebrow="Buying a Home"
     title="Find the home that fits your next chapter"
-    intro="Buying a home is a big decision. Jackie helps you search with focus, understand each neighborhood, and move confidently from first showing to closing."
+    intro="Buying a home is a big decision. Jacquelyn helps you search with focus, understand each neighborhood, and move confidently from first showing to closing."
   >
     <a href="#buyer-inquiry" class="btn-primary">Start My Home Search</a>
     <a href="#home-search" class="btn-outline">Browse Homes</a>
@@ -60,14 +61,14 @@ const steps = [
 
   <section class="section" aria-labelledby="buy-steps-heading">
     <div class="container-page">
-      <SectionHeading id="buy-steps-heading" eyebrow="The Process" title="How buying with Jackie works" />
+      <SectionHeading id="buy-steps-heading" eyebrow="The Process" title="How buying with Jacquelyn works" />
       <div class="mt-12"><Steps steps={steps} /></div>
     </div>
   </section>
 
   <section id="home-search" class="section bg-white/60 pt-0 sm:pt-0" aria-label="Home search">
     <div class="container-page pt-16 sm:pt-20">
-      <IdxSearch heading="Search homes for sale" minHeight={900} />
+      <IdxSearch heading="Search homes for sale" minHeight={900} listingsUrl={listingsUrl()} />
     </div>
   </section>
 
@@ -78,7 +79,7 @@ const steps = [
       <SectionHeading
         id="buyer-inquiry-heading"
         eyebrow="Your Home Search"
-        title="Tell Jackie what you’re looking for"
+        title="Tell Jacquelyn what you’re looking for"
         intro="A few details are all she needs to start. She’ll follow up to learn more and send homes that fit."
       />
       <div class="card p-6 sm:p-8">

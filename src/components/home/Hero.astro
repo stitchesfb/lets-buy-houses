@@ -1,20 +1,18 @@
 ---
 /**
- * Opening section: local photo (or calm navy fallback), headline, Jackie's
+ * Opening section: local photo (or calm navy fallback), headline, Jacquelyn's
  * name and portrait, and the two primary paths.
  */
 import { Picture } from 'astro:assets';
 import Photo from '@/components/ui/Photo.astro';
-import portrait from '@/assets/jackie-guevara.jpg';
+import portrait from '@/assets/jacquelyn-guevara.jpg';
 import { site } from '@/data/site';
 import { photo } from '@/data/photos';
-import { towns } from '@/data/towns';
+import { townList } from '@/data/towns';
 import { withBase } from '@/lib/paths';
 
 const hero = photo('hero');
 const { agent, brokerage } = site;
-const areas = towns.map((t) => t.name);
-const areaList = `${areas.slice(0, -1).join(', ')}, and ${areas.at(-1)}`;
 ---
 
 <section class="on-dark relative isolate overflow-hidden bg-navy text-white">
@@ -49,7 +47,7 @@ const areaList = `${areas.slice(0, -1).join(', ')}, and ${areas.at(-1)}`;
 
       <h1 class="mt-8 text-[2.6rem] leading-[1.08] !text-white sm:text-6xl lg:text-7xl">Your Next Chapter Starts at Home.</h1>
       <p class="mt-6 max-w-xl text-lg text-navy-soft sm:text-xl">
-        Jackie helps buyers and sellers find their way home in {areaList}, New Jersey.
+        Jacquelyn helps buyers and sellers find their way home in {townList(4).replace(', and', ',')}, and nearby Ocean and Monmouth County towns.
       </p>
 
       <div class="mt-9 flex flex-col gap-3 sm:flex-row">

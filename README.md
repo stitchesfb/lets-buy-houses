@@ -1,7 +1,7 @@
-# Jacquelyn “Jackie” Guevara: Real Estate Website
+# Jacquelyn Guevara: Real Estate Website
 
-The personal website of Jackie Guevara, Associate with RE/MAX Revolution, serving
-**Brick, Point Pleasant, Manahawkin, and Manalapan, NJ**. The site name is Let's Buy
+The personal website of Jacquelyn Guevara, Associate with RE/MAX Revolution, serving
+**Toms River, Brick, Manahawkin, Whiting, Tinton Falls, Point Pleasant, and Manalapan, NJ**. The site name is Let's Buy
 Houses (letsbuyhouses.com).
 
 **Stack:** [Astro](https://astro.build) (static HTML, very little JavaScript) · Tailwind CSS v4 ·
@@ -19,7 +19,8 @@ npm run preview          # serve the build
 
 ## Preview vs. production
 
-`PUBLIC_SITE_MODE` controls sample content.
+`PUBLIC_SITE_MODE` controls sample content. Local development defaults to `preview`; the GitHub Pages
+deploy defaults to `production` (set the repository variable to `preview` to publish a review build).
 
 | | `preview` (default) | `production` |
 |---|---|---|
@@ -35,11 +36,11 @@ confirms receipt.
 
 | What | Where |
 |---|---|
-| Name, title, license, brokerage, phone, email, bio, “Why work with Jackie” points | `src/data/site.ts` |
+| Name, title, license, brokerage, phone, email, bio, “Why work with Jacquelyn” points | `src/data/site.ts` |
 | Community pages (copy, highlights, neighborhoods, tips, FAQs, market stats) | `src/data/towns.ts` |
 | Featured listings (real, approved only) | `src/data/listings.ts` |
 | Sample listings for the preview | `src/data/demo/listings.ts` |
-| Client testimonials (genuine, approved only) | `src/data/testimonials.ts` |
+| Client reviews: paste each review’s exact text; it appears automatically | `src/data/testimonials.ts` |
 | Photos and their credits | `src/assets/photos/` + `src/data/photos.ts` |
 | Interface text (nav, buttons, form messages) | `src/i18n/en.ts` |
 | Colors and fonts | `src/styles/global.css` (`@theme`) |
@@ -55,17 +56,19 @@ credited on `/photo-credits/`.
 
 ## Pages
 
-`/` · `/buy/` · `/sell/` · `/communities/` · `/about/` · `/contact/` · four community pages
-(`/brick-nj/`, `/point-pleasant-nj/`, `/manahawkin-nj/`, `/manalapan-nj/`) · `/privacy/` (draft) ·
+`/` · `/buy/` · `/sell/` · `/communities/` · `/about/` · `/contact/` · seven community pages
+(`/toms-river-nj/`, `/brick-nj/`, `/manahawkin-nj/`, `/whiting-nj/`, `/tinton-falls-nj/`, `/point-pleasant-nj/`, `/manalapan-nj/`) · `/privacy/` (draft) ·
 `/photo-credits/` · 404. The old `/search/` and `/home-valuation/` addresses redirect to `/buy/` and `/sell/`.
 
 ## Integrations
 
 - **Forms:** set `PUBLIC_FORM_ENDPOINT` to a service that accepts a POST and answers JSON
-  (e.g. a free Formspree form set to deliver to Jackie’s email). Forms validate input and show
+  (e.g. a free Formspree form set to deliver to Jacquelyn’s email). Forms validate input and show
   sending, error and success states.
+- **Listings:** until an IDX widget is connected, each community’s listings section links to the live MLS
+  search on her RE/MAX Revolution site (`site.listingsSite` + each town’s `remaxArea`).
 - **MLS/IDX search:** see `docs/IDX-INTEGRATION.md`. Without a provider, search areas invite
-  visitors to send Jackie their criteria instead of showing a fake search.
+  visitors to send Jacquelyn their criteria instead of showing a fake search.
 - **Analytics:** off unless `PUBLIC_GA_MEASUREMENT_ID` is set. If you turn it on, update `/privacy/`.
 
 ## Deployment
@@ -86,12 +89,11 @@ https://stitchesfb.github.io/lets-buy-houses/. Wrap root-relative links in `with
 
 ## Before launch
 
-- [ ] Jackie confirms her preferred professional name and the title “Associate”
 - [ ] Broker reviews the footer disclosure; add the brokerage office phone (`site.brokerage.officePhone`)
 - [ ] Form service connected (`PUBLIC_FORM_ENDPOINT`) and a test message received
 - [ ] Privacy page reviewed by the broker or an attorney
-- [ ] Testimonials, listings, market stats, and marketing services added, or left hidden
-- [ ] Confirm whether Toms River, Manchester, and Whiting are service areas
+- [ ] Review text pasted for each client in `src/data/testimonials.ts` (Danielle Melapioni, Domenica Bergin, Steven Humphrey, John, …)
+- [ ] Real listings added to `src/data/listings.ts`, plus market stats and marketing services (or left hidden)
 - [ ] IDX approved and connected, with the MLS disclaimer added (or leave the inquiry fallback)
 - [ ] `PUBLIC_SITE_MODE=production`
 - [ ] Validate structured data: https://search.google.com/test/rich-results

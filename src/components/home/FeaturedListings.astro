@@ -2,7 +2,7 @@
 /**
  * Featured properties. Shows real listings from src/data/listings.ts.
  * With none: preview shows labeled samples; production shows an invitation
- * to let Jackie search instead of an empty grid.
+ * to let Jacquelyn search instead of an empty grid.
  */
 import ListingCard from '@/components/listings/ListingCard.astro';
 import SectionHeading from '@/components/ui/SectionHeading.astro';
@@ -19,7 +19,7 @@ const isDemo = items.length > 0 && items.every((l) => l.demo);
       items.length > 0 ? (
         <>
           <div class="flex flex-col justify-between gap-6 md:flex-row md:items-end">
-            <SectionHeading id="listings-heading" eyebrow="Featured Properties" title="Homes Jackie is featuring" />
+            <SectionHeading id="listings-heading" eyebrow="Featured Properties" title="Homes Jacquelyn is featuring" />
             <a href={withBase('/buy/')} class="btn-outline self-start md:self-auto">Help Me Find a Home</a>
           </div>
           {isDemo && (
@@ -28,7 +28,7 @@ const isDemo = items.length > 0 && items.every((l) => l.demo);
               inquiry button, and never appear on the live site.
             </p>
           )}
-          <div class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div class:list={['mt-8 grid gap-6 sm:grid-cols-2', items.length === 4 ? 'xl:grid-cols-4' : 'lg:grid-cols-3']}>
             {items.map((l) => <ListingCard listing={l} />)}
           </div>
         </>
@@ -36,9 +36,9 @@ const isDemo = items.length > 0 && items.every((l) => l.demo);
         <div class="card grid items-center gap-6 p-8 sm:p-10 md:grid-cols-[1fr_auto]">
           <div>
             <p class="eyebrow">Looking for a home?</p>
-            <h2 id="listings-heading" class="mt-3 text-3xl">Let Jackie search for you</h2>
+            <h2 id="listings-heading" class="mt-3 text-3xl">Let Jacquelyn search for you</h2>
             <p class="mt-3 max-w-2xl text-muted">
-              Tell Jackie what you’re looking for (the town, the price range, the must-haves) and she’ll send homes that fit.
+              Tell Jacquelyn what you’re looking for (the town, the price range, the must-haves) and she’ll send homes that fit.
             </p>
           </div>
           <a href={withBase('/buy/#buyer-inquiry')} class="btn-primary">Start My Home Search</a>

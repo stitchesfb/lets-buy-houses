@@ -1,30 +1,45 @@
 ---
+/** Genuine testimonials only. Hidden on the live site when there are none. */
+import AwaitingContent from '@/components/ui/AwaitingContent.astro';
+import SectionHeading from '@/components/ui/SectionHeading.astro';
 import { testimonials } from '@/data/testimonials';
-import { site } from '@/data/site';
+import { isPreview } from '@/lib/mode';
+
+const quotes = testimonials.slice(0, 3);
 ---
 
-<section class="section" aria-labelledby="reviews-heading">
-  <div class="container-page">
-    <div class="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
-      <div>
-        <p class="eyebrow">Client Reviews</p>
-        <h2 id="reviews-heading" class="mt-2 text-3xl sm:text-4xl">What Jersey Shore Families Say</h2>
+{
+  quotes.length > 0 ? (
+    <section class="section bg-white/60" aria-labelledby="testimonials-heading">
+      <div class="container-page">
+        <SectionHeading id="testimonials-heading" eyebrow="Client Stories" title="In their words" />
+        <div class:list={['mt-10 grid gap-6', quotes.length > 1 && 'md:grid-cols-2', quotes.length > 2 && 'lg:grid-cols-3']}>
+          {quotes.map((t) => (
+            <figure class="card flex flex-col p-7">
+              <span class="font-serif text-5xl leading-none text-gold" aria-hidden="true">“</span>
+              <blockquote class="mt-2 flex-1 text-lg">{t.quote}</blockquote>
+              <figcaption class="mt-6 border-t border-line pt-4 text-sm">
+                <span class="font-semibold text-ink">{t.name}</span>
+                {t.context && <span class="text-muted"> · {t.context}</span>}
+                {t.source && <span class="block text-muted">{t.source}</span>}
+              </figcaption>
+            </figure>
+          ))}
+        </div>
       </div>
-      {site.social.googleBusiness && <a href={site.social.googleBusiness} class="btn-secondary" rel="noopener" target="_blank">Read all reviews on Google</a>}
-    </div>
-    <div class="mt-10 grid gap-6 md:grid-cols-3">
-      {
-        testimonials.map((t) => (
-          <figure class="flex flex-col rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200">
-            <div class="text-accent-500" aria-label={`${t.rating} out of 5 stars`}>{'★'.repeat(t.rating)}</div>
-            <blockquote class="mt-4 flex-1 text-lg leading-relaxed text-slate-700">“{t.quote}”</blockquote>
-            <figcaption class="mt-6 text-sm">
-              <span class="font-semibold text-brand-900">{t.name}</span>
-              <span class="text-slate-500"> · {t.type} in {t.town}{t.source && ` · via ${t.source}`}</span>
-            </figcaption>
-          </figure>
-        ))
-      }
-    </div>
-  </div>
-</section>
+    </section>
+  ) : (
+    isPreview && (
+      <section class="section bg-white/60 py-12 sm:py-16" aria-label="Client testimonials (awaiting content)">
+        <div class="container-page">
+          <AwaitingContent title="Client testimonials">
+            <p>
+              Two or three genuine quotes from past clients go here, with their permission. Add them to{' '}
+              <code class="text-sm">src/data/testimonials.ts</code>. This section stays hidden on the live site until then.
+            </p>
+          </AwaitingContent>
+        </div>
+      </section>
+    )
+  )
+}

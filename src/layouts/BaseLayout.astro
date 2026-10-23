@@ -9,6 +9,9 @@ import JsonLd from '@/components/seo/JsonLd.astro';
 import Header from '@/components/layout/Header.astro';
 import Footer from '@/components/layout/Footer.astro';
 import MobileCtaBar from '@/components/layout/MobileCtaBar.astro';
+import PreviewBanner from '@/components/layout/PreviewBanner.astro';
+import { site } from '@/data/site';
+import { isPreview } from '@/lib/mode';
 import { realEstateAgentSchema, websiteSchema } from '@/lib/schema';
 
 interface Props {
@@ -25,15 +28,14 @@ const gaId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
 ---
 
 <!doctype html>
-<html lang="en-US">
+<html lang={site.lang}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#134766" />
+    <meta name="theme-color" content="#14283f" />
     <link rel="icon" type="image/svg+xml" href={withBase('/favicon.svg')} />
     <link rel="sitemap" href={withBase('/sitemap-index.xml')} />
-    <link rel="preconnect" href="https://i.ytimg.com" crossorigin />
-    <SEO title={title} description={description} image={image} noindex={noindex} />
+        <SEO title={title} description={description} image={image} noindex={noindex} />
     <JsonLd schema={[realEstateAgentSchema(), websiteSchema(), ...schema]} />
     <slot name="head" />
     {
@@ -50,10 +52,11 @@ const gaId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
       )
     }
   </head>
-  <body class="flex min-h-screen flex-col pb-16 md:pb-0">
-    <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:rounded focus:bg-white focus:px-4 focus:py-2">
+  <body class="flex min-h-screen flex-col pb-[calc(3.5rem+env(safe-area-inset-bottom))] md:pb-0">
+    <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:rounded focus:bg-white focus:px-4 focus:py-2">
       Skip to content
     </a>
+    {isPreview && <PreviewBanner />}
     <Header />
     <main id="main" class="flex-1">
       <slot />

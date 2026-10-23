@@ -1,0 +1,10 @@
+---
+/** Thin notice shown on every page in preview mode only. */
+import { formEndpoint } from '@/lib/mode';
+---
+
+<aside aria-label="Preview notice" class="bg-gold-200 text-center text-sm text-ink">
+  <p class="container-page py-2">
+    <strong class="font-semibold">Preview site.</strong> Sample content is labeled{formEndpoint ? '' : ', and forms are not connected yet'}.
+  </p>
+</aside>

@@ -15,14 +15,13 @@ export function realEstateAgentSchema() {
     '@type': 'RealEstateAgent',
     '@id': agentId,
     name: agent.legalName,
-    alternateName: [agent.name, site.brand],
+    alternateName: agent.name,
     url: site.url,
     image: absoluteUrl(agent.headshot),
     logo: absoluteUrl('/favicon.svg'),
     description: `${agent.legalName}, ${agent.title} with ${brokerage.name}, helping buyers and sellers in Manalapan, Brick, Point Pleasant, and Manahawkin, NJ.`,
     telephone: contact.phone,
     email: contact.email,
-    priceRange: '$$$',
     address: {
       '@type': 'PostalAddress',
       streetAddress: brokerage.address.street,
@@ -37,14 +36,13 @@ export function realEstateAgentSchema() {
       name: `${t.name}, NJ`,
       containedInPlace: { '@type': 'AdministrativeArea', name: `${t.county}, NJ` },
     })),
-    knowsAbout: ['Residential real estate', 'Waterfront homes', 'Home valuation', 'Jersey Shore real estate'],
     parentOrganization: {
       '@type': 'RealEstateOrganization',
       name: brokerage.name,
       ...(brokerage.officePhone ? { telephone: brokerage.officePhone } : {}),
     },
     sameAs: Object.values(social).filter(Boolean),
-    // TODO: once you have verifiable reviews on-site, add aggregateRating here.
+    // Only verified facts belong here: no ratings, awards or credentials until confirmed.
   };
 }
 

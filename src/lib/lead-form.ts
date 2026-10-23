@@ -1,13 +1,15 @@
 /**
- * Client-side enhancement for every <form data-lead-form>.
- * - Captures UTM/gclid params (persisted for the session) for attribution
- * - Prefills fields from the URL (?interest=selling&town=Brick)
- * - Submits via fetch to the configured endpoint or Netlify Forms
- * - Fires a `generate_lead` analytics event, then redirects to /thank-you/
+ * Client-side behaviour for every <form data-lead-form>:
+ *  - inline validation with accessible error messages
+ *  - a "Sending…" state while the request is in flight
+ *  - success shown only after the form service confirms receipt
+ *  - a clear "nothing was sent" result when no endpoint is configured
+ *  - UTM/gclid capture for attribution, and URL prefill (?interest=Selling&town=Brick)
  */
-import { withBase } from './paths';
+import { ui } from '@/i18n/en';
 
 const ATTRIBUTION_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'gclid', 'fbclid'];
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
 function captureAttribution(): string {
   const params = new URLSearchParams(location.search);
@@ -20,6 +22,39 @@ function captureAttribution(): string {
   }
 }
 
+type Control = HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
+
+function fieldError(control: Control): string {
+  const value = control.value.trim();
+  if (control.required && !value) return ui.form.errors.required;
+  if (control.type === 'email' && value && !EMAIL_RE.test(value)) return ui.form.errors.email;
+  if (control.type === 'tel' && value && value.replace(/\D/g, '').replace(/^1/, '').length !== 10) return ui.form.errors.phone;
+  return '';
+}
+
+function showFieldError(form: HTMLFormElement, control: Control, message: string) {
+  const slot = form.querySelector<HTMLElement>(`[data-error-for="${control.name}"]`);
+  control.setAttribute('aria-invalid', message ? 'true' : 'false');
+  if (slot) {
+    slot.textContent = message;
+    slot.classList.toggle('hidden', !message);
+  }
+}
+
+function validate(form: HTMLFormElement): Control | null {
+  let firstInvalid: Control | null = null;
+  form.querySelectorAll<Control>('input:not([type=hidden]):not([name=company_website]), select, textarea').forEach((control) => {
+    const message = fieldError(control);
+    showFieldError(form, control, message);
+    if (message && !firstInvalid) firstInvalid = control;
+  });
+  return firstInvalid;
+}
+
+function show(el: Element | null, visible = true) {
+  el?.classList.toggle('hidden', !visible);
+}
+
 export function initLeadForms() {
   const attribution = captureAttribution();
   const params = new URLSearchParams(location.search);
@@ -28,39 +63,66 @@ export function initLeadForms() {
     if (form.dataset.enhanced) return;
     form.dataset.enhanced = 'true';
 
-    form.querySelectorAll<HTMLInputElement>('[data-utm]').forEach((el) => (el.value = attribution));
-    form.querySelectorAll<HTMLSelectElement>('[data-prefill]').forEach((el) => {
+    form.querySelectorAll<HTMLInputElement>('[data-attribution]').forEach((el) => (el.value = attribution));
+    form.querySelectorAll<HTMLSelectElement>('select[data-prefill]').forEach((el) => {
       const v = params.get(el.dataset.prefill!);
-      if (v && [...el.options].some((o) => (o.value || o.text) === v)) el.value = v;
+      if (v && [...el.options].some((o) => o.value === v)) el.value = v;
     });
+
+    // Re-check a field once the visitor has corrected it
+    form.addEventListener('input', (e) => {
+      const control = e.target as Control;
+      if (control.getAttribute('aria-invalid') === 'true') showFieldError(form, control, fieldError(control));
+    });
+
+    const submit = form.querySelector<HTMLButtonElement>('[data-submit]');
+    const submitLabel = form.querySelector<HTMLElement>('[data-submit-label]');
+    const idleLabel = submitLabel?.textContent ?? '';
+    const summary = form.querySelector('[data-error-summary]');
+    const errorPanel = form.querySelector('[data-result="error"]');
+    const previewPanel = form.querySelector<HTMLElement>('[data-result="preview"]');
+    const successPanel = document.querySelector<HTMLElement>(`[data-success-for="${form.id}"]`);
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
-      const button = form.querySelector<HTMLButtonElement>('button[type=submit]');
-      const error = form.querySelector<HTMLElement>('[data-form-error]');
-      const data = new FormData(form);
-      if (data.get('company_website')) return; // bot
+      show(errorPanel, false);
+      show(previewPanel, false);
 
-      button?.setAttribute('disabled', 'true');
-      error?.classList.add('hidden');
+      const invalid = validate(form);
+      show(summary, Boolean(invalid));
+      if (invalid) {
+        invalid.focus();
+        return;
+      }
+
+      const data = new FormData(form);
+      if (data.get('company_website')) return; // bot honeypot
 
       const endpoint = form.dataset.endpoint;
-      try {
-        const res = endpoint
-          ? await fetch(endpoint, { method: 'POST', body: data, headers: { Accept: 'application/json' } })
-          : await fetch(withBase('/'), {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-              body: new URLSearchParams(data as unknown as Record<string, string>).toString(),
-            });
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      if (!endpoint) {
+        // Preview: never pretend the message was sent.
+        show(previewPanel);
+        previewPanel?.focus();
+        return;
+      }
 
+      submit?.setAttribute('disabled', '');
+      form.setAttribute('aria-busy', 'true');
+      if (submitLabel) submitLabel.textContent = ui.form.sending;
+      try {
+        const res = await fetch(endpoint, { method: 'POST', body: data, headers: { Accept: 'application/json' } });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const w = window as unknown as { gtag?: (...args: unknown[]) => void };
-        w.gtag?.('event', 'generate_lead', { lead_type: data.get('lead_type'), town: data.get('town') ?? '' });
-        location.href = withBase(`/thank-you/?type=${encodeURIComponent(String(data.get('lead_type') ?? ''))}`);
+        w.gtag?.('event', 'generate_lead', { form_type: data.get('form_type') });
+        form.hidden = true;
+        show(successPanel);
+        successPanel?.focus();
       } catch {
-        error?.classList.remove('hidden');
-        button?.removeAttribute('disabled');
+        show(errorPanel);
+      } finally {
+        submit?.removeAttribute('disabled');
+        form.removeAttribute('aria-busy');
+        if (submitLabel) submitLabel.textContent = idleLabel;
       }
     });
   });

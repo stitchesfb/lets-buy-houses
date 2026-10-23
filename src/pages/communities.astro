@@ -1,0 +1,21 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import CommunityGrid from '@/components/home/CommunityGrid.astro';
+import ContactSection from '@/components/home/ContactSection.astro';
+import { breadcrumbSchema } from '@/lib/schema';
+import { site } from '@/data/site';
+
+const crumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Communities', url: '/communities/' },
+];
+---
+
+<BaseLayout
+  title={`Communities: Brick, Point Pleasant, Manahawkin & Manalapan, NJ | ${site.agent.legalName}`}
+  description="Local guides to the New Jersey communities Jackie Guevara serves: housing, getting around, local resources, and homes for sale."
+  schema={[breadcrumbSchema(crumbs)]}
+>
+  <CommunityGrid asPageTitle heading="Communities Jackie serves" />
+  <ContactSection formId="communities-contact" />
+</BaseLayout>

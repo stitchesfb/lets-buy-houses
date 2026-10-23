@@ -1,68 +1,32 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Hero from '@/components/home/Hero.astro';
-import StatsBanner from '@/components/home/StatsBanner.astro';
-import TownGrid from '@/components/home/TownGrid.astro';
+import MeetJackie from '@/components/home/MeetJackie.astro';
+import Paths from '@/components/home/Paths.astro';
+import FeaturedListings from '@/components/home/FeaturedListings.astro';
+import CommunityGrid from '@/components/home/CommunityGrid.astro';
+import WhyJackie from '@/components/home/WhyJackie.astro';
 import Testimonials from '@/components/home/Testimonials.astro';
 import VideoHub from '@/components/home/VideoHub.astro';
-import LeadForm from '@/components/forms/LeadForm.astro';
+import SellerInvite from '@/components/home/SellerInvite.astro';
+import ContactSection from '@/components/home/ContactSection.astro';
 import { site } from '@/data/site';
-import { withBase } from '@/lib/paths';
+import { videos } from '@/data/videos';
 
-const title = 'Jersey Shore & Central NJ Real Estate | Manalapan, Brick, Point Pleasant, Manahawkin';
-const description = `${site.agent.yearsExperience} years helping buyers and sellers in Manalapan, Brick, Point Pleasant & Manahawkin, NJ. Search homes for sale or get a free home valuation today.`;
+const title = `${site.agent.legalName} | Real Estate in Brick, Point Pleasant, Manahawkin & Manalapan, NJ`;
+const description = `Jacquelyn “Jackie” Guevara of ${site.brokerage.name} helps buyers and sellers in Brick, Point Pleasant, Manahawkin, and Manalapan, NJ. Licensed for over 15 years.`;
+const hasVideos = videos.some((v) => v.id);
 ---
 
 <BaseLayout title={title} description={description}>
   <Hero />
-  <StatsBanner />
-  <TownGrid />
-
-  <section class="section" aria-labelledby="about-heading">
-    <div class="container-page grid items-center gap-12 lg:grid-cols-2">
-      <div>
-        <div class="flex items-center gap-4">
-          <img
-            src={withBase(site.agent.headshot)}
-            alt={site.agent.legalName}
-            width="96"
-            height="96"
-            loading="lazy"
-            class="h-20 w-20 rounded-full object-cover ring-4 ring-sand-100 sm:h-24 sm:w-24"
-          />
-          <div>
-            <p class="font-display text-xl font-bold text-brand-900">{site.agent.name}</p>
-            <p class="text-sm text-slate-600">{site.agent.title} · {site.brokerage.name}</p>
-          </div>
-        </div>
-        <p class="eyebrow mt-8">Why Work With Me</p>
-        <h2 id="about-heading" class="mt-2 text-3xl sm:text-4xl">{site.agent.yearsExperience} Years. Four Towns. Thousands of Local Insights.</h2>
-        <p class="mt-6 text-lg leading-relaxed text-slate-700">{site.agent.bio}</p>
-        <ul class="mt-6 space-y-3 text-slate-700">
-          <li class="flex gap-3"><span class="text-accent-500">✔</span> Pricing built on real comparable sales — not Zestimates</li>
-          <li class="flex gap-3"><span class="text-accent-500">✔</span> Waterfront expertise: flood zones, bulkheads, elevation &amp; insurance</li>
-          <li class="flex gap-3"><span class="text-accent-500">✔</span> Off-market and coming-soon access across Monmouth &amp; Ocean County</li>
-          <li class="flex gap-3"><span class="text-accent-500">✔</span> Direct line to me — never handed off to a call center</li>
-        </ul>
-      </div>
-      <LeadForm variant="valuation" id="home-valuation-form" />
-    </div>
-  </section>
-
-  <VideoHub />
+  <MeetJackie />
+  <Paths />
+  <FeaturedListings />
+  <CommunityGrid />
+  <WhyJackie />
   <Testimonials />
-
-  <section class="section bg-gradient-to-br from-brand-700 to-brand-900" aria-label="Contact">
-    <div class="container-page grid items-center gap-12 lg:grid-cols-2">
-      <div class="text-white">
-        <h2 class="text-3xl !text-white sm:text-4xl">Thinking About a Move? Let’s Make a Plan.</h2>
-        <p class="mt-4 text-lg text-brand-100">
-          Whether you're buying your first home in Brick or selling a waterfront property in Point Pleasant, a 15-minute
-          call will give you clarity on price, timing, and next steps.
-        </p>
-        <a href={site.contact.phoneHref} class="btn-primary mt-8">Call {site.contact.phone}</a>
-      </div>
-      <LeadForm variant="contact" id="home-contact-form" />
-    </div>
-  </section>
+  {hasVideos && <VideoHub />}
+  <SellerInvite />
+  <ContactSection formId="home-contact" />
 </BaseLayout>

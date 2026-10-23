@@ -1,0 +1,51 @@
+---
+import LeadForm from '@/components/forms/LeadForm.astro';
+import { site } from '@/data/site';
+
+interface Props {
+  formId?: string;
+  /** Render the heading as the page H1 (on /contact/). */
+  asPageTitle?: boolean;
+  town?: string;
+}
+const { formId = 'contact-form', asPageTitle = false, town } = Astro.props;
+const { contact, brokerage } = site;
+const Heading = asPageTitle ? 'h1' : 'h2';
+---
+
+<section class="section" aria-labelledby={`${formId}-heading`}>
+  <div class="container-page grid gap-10 lg:grid-cols-[5fr_7fr] lg:gap-16">
+    <div>
+      <p class="eyebrow">Contact</p>
+      <Heading id={`${formId}-heading`} class:list={['mt-3 text-3xl sm:text-4xl', asPageTitle && 'sm:text-5xl']}>
+        {town ? `Questions about ${town}?` : 'Let’s talk about your next move'}
+      </Heading>
+      <span class="rule-gold mt-5"></span>
+      <p class="mt-6 text-lg text-muted">
+        Whether you’re just starting to think about a move or ready to go, Jackie is glad to talk it through. Send a note, or reach
+        her directly.
+      </p>
+      <dl class="mt-8 space-y-5">
+        <div>
+          <dt class="text-sm font-semibold text-muted">Call or text</dt>
+          <dd class="mt-1 text-xl">
+            <a href={contact.phoneHref} class="text-navy underline decoration-gold underline-offset-4">{contact.phone}</a>
+          </dd>
+        </div>
+        <div>
+          <dt class="text-sm font-semibold text-muted">Email</dt>
+          <dd class="mt-1 text-xl break-all">
+            <a href={`mailto:${contact.email}`} class="text-navy underline decoration-gold underline-offset-4">{contact.email}</a>
+          </dd>
+        </div>
+        <div>
+          <dt class="text-sm font-semibold text-muted">Office</dt>
+          <dd class="mt-1">{brokerage.name}<br />{brokerage.address.street}, {brokerage.address.city}, {brokerage.address.region} {brokerage.address.postalCode}</dd>
+        </div>
+      </dl>
+    </div>
+    <div class="card p-6 sm:p-8">
+      <LeadForm variant="contact" id={formId} />
+    </div>
+  </div>
+</section>

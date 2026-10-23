@@ -1,0 +1,58 @@
+---
+import { Picture } from 'astro:assets';
+import Photo from '@/components/ui/Photo.astro';
+import type { Listing } from '@/data/listings';
+import { site } from '@/data/site';
+
+interface Props {
+  listing: Listing;
+}
+const { listing: l } = Astro.props;
+
+const price = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(l.price);
+const sourceLabel = {
+  jackie: 'Jackie’s Listing',
+  brokerage: `${site.brokerage.name} Listing`,
+  mls: 'MLS Listing',
+}[l.source];
+const statusTone = {
+  'For Sale': 'bg-white text-navy',
+  'Under Contract': 'bg-gold-200 text-ink',
+  Sold: 'bg-navy text-white',
+}[l.status];
+const address = `${l.street}, ${l.city}, NJ${l.zip ? ` ${l.zip}` : ''}`;
+---
+
+<article class="card flex flex-col overflow-hidden">
+  <div class="relative aspect-[4/3] overflow-hidden">
+    {
+      l.photo ? (
+        <Picture src={l.photo} alt={`Exterior of ${address}`} widths={[400, 640, 900]} sizes="(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 92vw" formats={['avif', 'webp']} class="h-full w-full object-cover" />
+      ) : (
+        <Photo label={l.demo ? 'Sample photo' : 'Photo coming soon'} />
+      )
+    }
+    <span class:list={['absolute top-3 left-3 rounded px-2.5 py-1 text-xs font-semibold tracking-wide uppercase', statusTone]}>{l.status}</span>
+    {l.demo && <span class="absolute top-3 right-3 rounded bg-red-800 px-2.5 py-1 text-xs font-semibold tracking-wide text-white uppercase">Sample</span>}
+  </div>
+  <div class="flex flex-1 flex-col p-5">
+    <p class="eyebrow">{sourceLabel}</p>
+    <p class="mt-2 font-serif text-2xl text-navy">{price}</p>
+    <h3 class="mt-1 font-sans text-base font-medium text-ink">{address}</h3>
+    <p class="mt-2 text-muted">
+      {l.beds} beds · {l.baths} baths{l.sqft && ` · ${l.sqft.toLocaleString('en-US')} sq ft`}
+    </p>
+    {l.source === 'mls' && l.listingBrokerage && <p class="mt-2 text-sm text-muted">Courtesy of {l.listingBrokerage}</p>}
+    <div class="mt-auto pt-5">
+      {
+        l.demo ? (
+          <p class="rounded-md border border-dashed border-line px-4 py-3 text-center text-sm text-muted">Demonstration listing · not a real property</p>
+        ) : (
+          <a href={l.url} class="btn-outline w-full" rel={l.source === 'jackie' ? undefined : 'noopener'}>
+            View Property<span class="sr-only">: {address}</span>
+          </a>
+        )
+      }
+    </div>
+  </div>
+</article>

@@ -1,67 +1,99 @@
 @import 'tailwindcss';
 
-/* Brand tokens — tweak these to re-skin the whole site. */
+/*
+ * Design tokens — change these to re-skin the whole site.
+ * Contrast (WCAG): ink/navy on ivory ≥12:1. Gold #B69A63 is decorative only on
+ * light backgrounds (2.5:1); use gold-700 for gold-tinted text on light (5.2:1)
+ * and plain gold for text only on navy (5.6:1).
+ */
 @theme {
-  --color-brand-50: #eef6fb;
-  --color-brand-100: #d5e9f5;
-  --color-brand-200: #a9d2eb;
-  --color-brand-500: #1f6f9f;
-  --color-brand-600: #185a83;
-  --color-brand-700: #134766;
-  --color-brand-900: #0b2a3d;
-
-  --color-sand-50: #fbf8f2;
-  --color-sand-100: #f4ecdc;
-
-  --color-accent-400: #f5a524;
-  --color-accent-500: #e08e0b;
-  --color-accent-600: #b97206;
+  --color-ivory: #f8f6f2;
+  --color-ivory-deep: #f0ebe2;
+  --color-navy: #14283f;
+  --color-navy-800: #1d3754;
+  --color-navy-100: #dfe5ec;
+  --color-navy-soft: #c9d2dc; /* body text on navy */
+  --color-gold: #b69a63;
+  --color-gold-200: #e6dac3;
+  --color-gold-700: #7c6436;
+  --color-ink: #26313b;
+  --color-muted: #5b6670;
+  --color-line: #e3ddd2;
 
   --font-sans: 'Inter Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-  --font-display: 'Playfair Display Variable', ui-serif, Georgia, serif;
+  --font-serif: 'Playfair Display Variable', ui-serif, Georgia, serif;
 }
 
 @layer base {
   html {
-    scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
+    scroll-padding-top: 6rem;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
   }
   body {
-    @apply bg-white font-sans text-slate-800 antialiased;
+    @apply bg-ivory font-sans text-[1.0625rem] leading-relaxed text-ink antialiased;
   }
-  h1, h2, h3 {
-    @apply font-display text-brand-900 tracking-tight;
+  h1,
+  h2,
+  h3 {
+    @apply font-serif font-medium tracking-tight text-navy;
+    text-wrap: balance;
   }
   :focus-visible {
-    @apply outline-2 outline-offset-2 outline-accent-500;
+    @apply outline-2 outline-offset-2 outline-navy;
+  }
+  .on-dark :focus-visible {
+    @apply outline-gold;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      transition-duration: 0.01ms !important;
+      animation-duration: 0.01ms !important;
+    }
   }
 }
 
-/* Reusable component utilities (Tailwind v4 @utility so they compose with variants). */
 @utility container-page {
   @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
 }
 @utility section {
-  @apply py-16 sm:py-20;
+  @apply py-16 sm:py-24;
 }
+/* Small caps label above headings */
 @utility eyebrow {
-  @apply text-sm font-semibold tracking-widest text-brand-500 uppercase;
+  @apply text-xs font-semibold tracking-[0.18em] text-gold-700 uppercase;
+}
+/* Short gold rule used as a restrained decorative accent */
+@utility rule-gold {
+  @apply block h-px w-12 bg-gold;
 }
 @utility btn {
-  @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-base font-semibold transition;
+  @apply inline-flex min-h-12 items-center justify-center gap-2 rounded-md px-6 py-3 text-base font-semibold transition-colors;
 }
 @utility btn-primary {
-  @apply btn bg-accent-500 text-white shadow-lg shadow-accent-500/20 hover:bg-accent-600;
+  @apply btn bg-navy text-white hover:bg-navy-800;
 }
-@utility btn-secondary {
-  @apply btn bg-white text-brand-700 ring-1 ring-brand-200 hover:bg-brand-50;
+@utility btn-outline {
+  @apply btn border border-navy/30 bg-white text-navy hover:border-navy hover:bg-ivory;
+}
+@utility btn-light {
+  @apply btn bg-white text-navy hover:bg-ivory;
 }
 @utility btn-ghost-light {
-  @apply btn text-white ring-1 ring-white/60 hover:bg-white/10;
+  @apply btn border border-white/60 text-white hover:bg-white/10;
+}
+@utility card {
+  @apply rounded-xl border border-line bg-white;
 }
 @utility form-input {
-  @apply block w-full rounded-lg border-0 bg-white px-4 py-3 text-slate-900 ring-1 ring-slate-300 placeholder:text-slate-400 focus:ring-2 focus:ring-brand-500 focus:outline-none;
+  @apply block min-h-12 w-full rounded-md border border-line bg-white px-4 py-3 text-base text-ink placeholder:text-muted/70 focus:border-navy focus:ring-2 focus:ring-navy/20 focus:outline-none aria-[invalid=true]:border-red-700;
 }
 @utility form-label {
-  @apply mb-1 block text-sm font-medium text-slate-700;
+  @apply mb-1.5 block text-sm font-semibold text-ink;
 }

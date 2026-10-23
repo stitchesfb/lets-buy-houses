@@ -1,103 +1,97 @@
-# Let's Buy Houses — letsbuyhouses.com
+# Jacquelyn “Jackie” Guevara: Real Estate Website
 
-A fast, SEO-focused real estate website for a REALTOR® with 17 years of
-experience serving **Manalapan, Brick, Point Pleasant, and Manahawkin, NJ**.
+The personal website of Jackie Guevara, Associate with RE/MAX Revolution, serving
+**Brick, Point Pleasant, Manahawkin, and Manalapan, NJ**. The site name is Let's Buy
+Houses (letsbuyhouses.com).
 
-**Stack:** [Astro](https://astro.build) (static HTML, almost no JavaScript sent to the browser) ·
-Tailwind CSS v4 · self-hosted variable fonts · JSON-LD structured data · automatic sitemap.
+**Stack:** [Astro](https://astro.build) (static HTML, very little JavaScript) · Tailwind CSS v4 ·
+Astro image optimization (AVIF/WebP) · self-hosted fonts · JSON-LD structured data · sitemap.
 
 ## Quick start
 
 ```bash
 npm install
-cp .env.example .env     # optional: form endpoint, IDX provider, GA4
-npm run dev              # http://localhost:4321
+cp .env.example .env     # optional: site mode, form endpoint, IDX provider
+npm run dev              # http://localhost:4321/lets-buy-houses/
 npm run build            # type-check + static build to dist/
-npm run preview          # serve the production build
+npm run preview          # serve the build
 ```
+
+## Preview vs. production
+
+`PUBLIC_SITE_MODE` controls sample content.
+
+| | `preview` (default) | `production` |
+|---|---|---|
+| Sample listings | Shown, labeled **Sample**, no inquiry button | Never shown |
+| Missing content (testimonials, market stats, marketing services) | Dashed “Awaiting content” notes | Section hidden |
+| Top banner and footer launch notes | Shown | Hidden |
+
+Forms are separate. Until `PUBLIC_FORM_ENDPOINT` is set, every form says it’s preview-only and shows
+“Nothing was sent” after submitting, in either mode. Success appears only after the form service
+confirms receipt.
+
+## Editing content (no HTML needed)
+
+| What | Where |
+|---|---|
+| Name, title, license, brokerage, phone, email, bio, “Why work with Jackie” points | `src/data/site.ts` |
+| Community pages (copy, highlights, neighborhoods, tips, FAQs, market stats) | `src/data/towns.ts` |
+| Featured listings (real, approved only) | `src/data/listings.ts` |
+| Sample listings for the preview | `src/data/demo/listings.ts` |
+| Client testimonials (genuine, approved only) | `src/data/testimonials.ts` |
+| Photos and their credits | `src/assets/photos/` + `src/data/photos.ts` |
+| Interface text (nav, buttons, form messages) | `src/i18n/en.ts` |
+| Colors and fonts | `src/styles/global.css` (`@theme`) |
+
+**Rules for content:** never add awards, sales numbers, reviews, languages or affiliations until they’re
+confirmed in writing. Community copy should describe housing, amenities, transportation and local
+resources. It must not describe who lives there or who a town “appeals to” (fair housing).
+
+**Photos:** add a JPG to `src/assets/photos/` named after its key (`hero`, `brick`, `point-pleasant`,
+`manahawkin`, `manalapan`, `path-buy`, `path-sell`), then add its credit in `src/data/photos.ts`.
+Astro resizes it automatically. Current photos are public-domain or Creative Commons images,
+credited on `/photo-credits/`.
+
+## Pages
+
+`/` · `/buy/` · `/sell/` · `/communities/` · `/about/` · `/contact/` · four community pages
+(`/brick-nj/`, `/point-pleasant-nj/`, `/manahawkin-nj/`, `/manalapan-nj/`) · `/privacy/` (draft) ·
+`/photo-credits/` · 404. The old `/search/` and `/home-valuation/` addresses redirect to `/buy/` and `/sell/`.
+
+## Integrations
+
+- **Forms:** set `PUBLIC_FORM_ENDPOINT` to a service that accepts a POST and answers JSON
+  (e.g. a free Formspree form set to deliver to Jackie’s email). Forms validate input and show
+  sending, error and success states.
+- **MLS/IDX search:** see `docs/IDX-INTEGRATION.md`. Without a provider, search areas invite
+  visitors to send Jackie their criteria instead of showing a fake search.
+- **Analytics:** off unless `PUBLIC_GA_MEASUREMENT_ID` is set. If you turn it on, update `/privacy/`.
 
 ## Deployment
 
-Pushing to `main` deploys to **GitHub Pages** via `.github/workflows/deploy.yml`
-(type-check, build, publish). One-time setup:
+Pushing to `main` deploys to GitHub Pages via `.github/workflows/deploy.yml`. Set the `PUBLIC_*`
+values as repository variables (Settings → Secrets and variables → Actions → Variables).
 
-1. Repo **Settings → Pages → Source: GitHub Actions**.
-2. **Preview URL:** the site currently builds with `base: '/lets-buy-houses'` so it works at
-   https://stitchesfb.github.io/lets-buy-houses/. In code, wrap every root-relative link or
-   asset path in `withBase()` from `src/lib/paths.ts` so it keeps working under the base.
-   Canonical URLs and the sitemap always use `letsbuyhouses.com` paths.
-   **Moving to the custom domain later:**
-   1. Change `base` to `'/'` in `astro.config.mjs`.
-   2. Enter `letsbuyhouses.com` under **Settings → Pages → Custom domain**. Actions deploys ignore a `CNAME` file.
-   3. At the registrar, remove any domain forwarding.
-   4. Point the apex `A` records to 185.199.108.153, .109.153, .110.153 and .111.153, and `www` as a `CNAME` to `<owner>.github.io`.
-   5. Tick **Enforce HTTPS**.
-3. **Settings → Secrets and variables → Actions → Variables:** add the `PUBLIC_*` values
-   from `.env.example`. **`PUBLIC_FORM_ENDPOINT` is required on GitHub Pages**, because
-   Netlify Forms only work on Netlify.
+The site currently builds with `base: '/lets-buy-houses'` for the preview at
+https://stitchesfb.github.io/lets-buy-houses/. Wrap root-relative links in `withBase()` from
+`src/lib/paths.ts`.
 
-The site is plain static files, so `dist/` also deploys to Netlify, Vercel or Cloudflare Pages unchanged.
+**Moving to letsbuyhouses.com later:**
+1. Set `base` to `'/'` in `astro.config.mjs`, and `liveOrigin` to `site.url` in `src/data/site.ts`.
+2. Enter the domain under Settings → Pages → Custom domain. Actions deploys ignore a `CNAME` file.
+3. At the registrar, remove any forwarding. Point the apex `A` records to 185.199.108.153,
+   185.199.109.153, 185.199.110.153 and 185.199.111.153, and `www` (CNAME) to `stitchesfb.github.io`.
+4. Turn on Enforce HTTPS.
 
-## Project structure
+## Before launch
 
-```
-src/
-├── data/                  ← EDIT CONTENT HERE (no HTML needed)
-│   ├── site.ts            agent/brokerage NAP, phone, license, social, stats
-│   ├── towns.ts           all 4 town pages: headline, intro, market overview, buyer/seller tips, FAQs, stats
-│   ├── testimonials.ts    client reviews (placeholders, replace with real ones)
-│   └── videos.ts          YouTube video IDs for the Video Hub
-├── layouts/
-│   └── BaseLayout.astro   <head>, SEO, sitewide schema, header/footer, GA4
-├── components/
-│   ├── layout/            Header (Communities menu), Footer (NAP + NJ disclosures), MobileCtaBar
-│   ├── home/              Hero, StatsBanner, TownGrid, Testimonials, VideoHub
-│   ├── town/              MarketStats, BuySellTips, FaqList
-│   ├── forms/LeadForm     home-valuation + contact form (variant prop)
-│   ├── idx/               IdxSearch (the IDX container), QuickSearch (hero bar)
-│   ├── seo/               SEO meta tags, JsonLd
-│   └── ui/                YouTubeEmbed (click-to-load), Breadcrumbs, AgentCta
-├── lib/
-│   ├── schema.ts          RealEstateAgent, WebSite, Breadcrumb, FAQ, Video JSON-LD
-│   ├── idx.ts             IDX provider config (env-driven)
-│   └── lead-form.ts       form submit, UTM capture, GA4 lead event
-├── pages/
-│   ├── index.astro        homepage
-│   ├── [town].astro       → /manalapan-nj/ /brick-nj/ /point-pleasant-nj/ /manahawkin-nj/
-│   ├── search.astro       full IDX search
-│   ├── home-valuation.astro, contact.astro, thank-you.astro (conversion page), 404.astro
-│   └── robots.txt.ts
-└── styles/global.css      brand colors/fonts (@theme) + button/form utilities
-public/images/             placeholder SVGs; swap for real photos
-docs/IDX-INTEGRATION.md    how to plug in the MLS search
-```
-
-## SEO features included
-
-- A unique title, meta description, canonical URL, and Open Graph/Twitter tags on every page
-- **RealEstateAgent** schema with `areaServed` for all four towns and the brokerage as `parentOrganization`
-- **BreadcrumbList**, **FAQPage**, and **WebPage → City** schema on town pages; **VideoObject** for published videos
-- One H1 per page; H2s on town pages target buyer and seller searches ("waterfront homes", "selling your home")
-- URLs like `/point-pleasant-nj/` that match "Point Pleasant NJ real estate" searches
-- Sitemap (`/sitemap-index.xml`), robots.txt, `noindex` on the thank-you page
-- Speed: static HTML, self-hosted fonts, lazy-loaded images, YouTube players that load only on click, IDX scripts that load only when scrolled into view
-
-## Pre-launch checklist
-
-- [ ] Fill in every `TODO` in `src/data/site.ts`. Name, address, and phone must match the Google Business Profile **exactly**.
-- [ ] NJ advertising rules: agent license #, brokerage name, and office phone are shown in the footer. Have the broker review it.
-- [ ] Real headshot → `public/images/agent/`; real town photos → `public/images/towns/` (WebP, about 200 KB or less)
-- [ ] Replace sample testimonials with **real** reviews. Never publish invented ones.
-- [ ] Replace placeholder stats (`site.stats`) and town `marketStats` with verified MLS numbers
-- [ ] Confirm each town's `idxCity` matches how the MLS spells it (Manahawkin listings are often filed under Stafford Township)
-- [ ] Add YouTube video IDs to `src/data/videos.ts`
-- [ ] Set `PUBLIC_FORM_ENDPOINT` (or deploy on Netlify) and send a test lead
-- [ ] Set up the IDX provider (see `docs/IDX-INTEGRATION.md`)
-- [ ] Validate schema: https://search.google.com/test/rich-results
-- [ ] Submit the sitemap in Google Search Console; link the site from the Google Business Profile
-
-## Adding a town
-
-Add an entry to `src/data/towns.ts` (and a photo in `public/images/towns/`).
-The page, nav menu, footer link, homepage card, sitemap entry, form dropdowns,
-and `areaServed` schema are all generated from that entry automatically.
+- [ ] Jackie confirms her preferred professional name and the title “Associate”
+- [ ] Broker reviews the footer disclosure; add the brokerage office phone (`site.brokerage.officePhone`)
+- [ ] Form service connected (`PUBLIC_FORM_ENDPOINT`) and a test message received
+- [ ] Privacy page reviewed by the broker or an attorney
+- [ ] Testimonials, listings, market stats, and marketing services added, or left hidden
+- [ ] Confirm whether Toms River, Manchester, and Whiting are service areas
+- [ ] IDX approved and connected, with the MLS disclaimer added (or leave the inquiry fallback)
+- [ ] `PUBLIC_SITE_MODE=production`
+- [ ] Validate structured data: https://search.google.com/test/rich-results

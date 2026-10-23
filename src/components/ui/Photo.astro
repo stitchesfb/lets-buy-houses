@@ -1,0 +1,52 @@
+---
+/**
+ * Responsive photo with reserved space. Uses Astro's <Picture> (AVIF/WebP,
+ * srcset) when a photo exists, otherwise a calm placeholder of the same shape.
+ */
+import { Picture } from 'astro:assets';
+import type { Photo as PhotoData } from '@/data/photos';
+
+interface Props {
+  photo?: PhotoData;
+  /** CSS aspect-ratio for the frame, e.g. '4 / 3'. Omit to fill the parent. */
+  aspect?: string;
+  sizes?: string;
+  widths?: number[];
+  eager?: boolean;
+  class?: string;
+  /** Placeholder label when no photo is available. */
+  label?: string;
+}
+
+const { photo, aspect, sizes = '100vw', widths = [480, 800, 1200, 1600], eager = false, class: className, label } = Astro.props;
+const frame = aspect ? `aspect-ratio:${aspect}` : undefined;
+---
+
+{
+  photo ? (
+    <Picture
+      src={photo.src}
+      alt={photo.alt}
+      formats={['avif', 'webp']}
+      widths={widths.filter((w) => w <= photo.src.width)}
+      sizes={sizes}
+      loading={eager ? 'eager' : 'lazy'}
+      fetchpriority={eager ? 'high' : undefined}
+      class:list={['h-full w-full object-cover', className]}
+      style={[frame, photo.position && `object-position:${photo.position}`].filter(Boolean).join(';')}
+    />
+  ) : (
+    <div
+      class:list={['relative flex h-full w-full items-end overflow-hidden bg-navy-100', className]}
+      style={frame}
+      role={label ? 'img' : undefined}
+      aria-label={label}
+    >
+      <svg class="absolute inset-0 h-full w-full text-navy/10" preserveAspectRatio="xMidYMax slice" viewBox="0 0 400 300" aria-hidden="true">
+        <path fill="currentColor" d="M0 230 L60 190 L110 215 L170 170 L230 205 L290 160 L350 195 L400 175 V300 H0Z" />
+        <path fill="currentColor" d="M0 262 Q100 245 200 262 T400 258 V300 H0Z" />
+      </svg>
+      {label && <span class="relative m-4 rounded bg-white/85 px-2 py-1 text-xs font-semibold text-muted">{label}</span>}
+    </div>
+  )
+}

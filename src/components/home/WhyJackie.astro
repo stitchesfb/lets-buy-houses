@@ -1,0 +1,26 @@
+---
+import SectionHeading from '@/components/ui/SectionHeading.astro';
+import { site } from '@/data/site';
+---
+
+<section class="section" aria-labelledby="why-heading">
+  <div class="container-page">
+    <SectionHeading
+      id="why-heading"
+      eyebrow="Why Work With Jackie?"
+      title="Hard work, quick answers, and care for your home"
+      intro="Her own words say it best: she treats every home as if it were her own investment, and she doesn’t stop until the deal is closed on your terms."
+    />
+    <ol class="mt-12 grid gap-8 md:grid-cols-3">
+      {
+        site.agent.approach.map((a, i) => (
+          <li class="border-t border-line pt-6">
+            <p class="font-serif text-lg text-gold-700">{String(i + 1).padStart(2, '0')}</p>
+            <h3 class="mt-2 text-2xl">{a.title}</h3>
+            <p class="mt-3 text-muted">{a.body}</p>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>

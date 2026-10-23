@@ -1,29 +1,37 @@
 ---
+import AwaitingContent from '@/components/ui/AwaitingContent.astro';
 import type { Town } from '@/data/towns';
-import { withBase } from '@/lib/paths';
 
 interface Props {
   town: Town;
 }
 const { town } = Astro.props;
+// Only real figures are shown; 'TBD' placeholders count as missing.
+const stats = town.marketStats.stats.filter((s) => s.value && s.value !== 'TBD');
 ---
 
 <section aria-labelledby="market-heading">
-  <h2 id="market-heading" class="text-3xl">{town.name} Real Estate Market Overview</h2>
-  <p class="mt-4 text-lg leading-relaxed text-slate-700">{town.marketOverview}</p>
-  <p class="mt-6 text-sm text-slate-500">Market snapshot · Source: MLS data. Updated {town.marketStats.asOf}.</p>
-  <dl class="mt-3 grid grid-cols-2 gap-4 lg:grid-cols-4">
-    {
-      town.marketStats.stats.map((s) => (
-        <div class="rounded-2xl bg-brand-50 p-5 text-center">
-          <dt class="text-sm text-slate-600">{s.label}</dt>
-          <dd class="mt-1 font-display text-3xl font-bold text-brand-700">{s.value}</dd>
-          {s.note && <dd class="mt-1 text-xs text-slate-500">{s.note}</dd>}
-        </div>
-      ))
-    }
-  </dl>
-  <a href={withBase(`/home-valuation/?town=${encodeURIComponent(town.name)}`)} class="mt-6 inline-block font-semibold text-brand-600 hover:underline">
-    See what your {town.name} home is worth in today’s market →
-  </a>
+  <h2 id="market-heading" class="text-3xl">The {town.name} market</h2>
+  <p class="mt-4 text-lg">{town.marketOverview}</p>
+  {
+    stats.length > 0 ? (
+      <>
+        <dl class="mt-6 grid grid-cols-2 gap-4 lg:grid-cols-4">
+          {stats.map((s) => (
+            <div class="card flex flex-col p-5 text-center">
+              <dt class="text-sm text-muted">{s.label}</dt>
+              <dd class="order-first font-serif text-3xl text-navy">{s.value}</dd>
+            </div>
+          ))}
+        </dl>
+        <p class="mt-3 text-sm text-muted">Source: MLS data, {town.marketStats.asOf}.</p>
+      </>
+    ) : (
+      <div class="mt-6">
+        <AwaitingContent title={`${town.name} market statistics`}>
+          <p>Median price, days on market, and inventory from the MLS, updated monthly. Hidden on the live site until real figures are added.</p>
+        </AwaitingContent>
+      </div>
+    )
+  }
 </section>

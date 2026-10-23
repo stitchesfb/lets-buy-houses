@@ -7,8 +7,8 @@
 #      under Settings → Pages → Custom domain (Actions deploys ignore a CNAME file) and
 #      change `base` to '/'.
 #   3. Settings → Secrets and variables → Actions → Variables: add the PUBLIC_* values
-#      from .env.example. PUBLIC_FORM_ENDPOINT is required on GitHub Pages — Netlify
-#      Forms only work when hosted on Netlify.
+#      from .env.example. Forms send nothing until PUBLIC_FORM_ENDPOINT is set, and
+#      PUBLIC_SITE_MODE=production hides sample content (default: preview).
 name: Deploy to GitHub Pages
 
 on:
@@ -35,13 +35,14 @@ jobs:
 
       - name: Warn if lead forms have no endpoint
         if: vars.PUBLIC_FORM_ENDPOINT == ''
-        run: echo "::warning::PUBLIC_FORM_ENDPOINT is not set — lead forms will not submit on GitHub Pages. Add it under Settings → Secrets and variables → Actions → Variables."
+        run: echo "::warning::PUBLIC_FORM_ENDPOINT is not set, so lead forms are preview-only and send nothing. Add it under Settings → Secrets and variables → Actions → Variables."
 
       - name: Install, type-check and build
         uses: withastro/action@v6
         with:
           node-version: 22
         env:
+          PUBLIC_SITE_MODE: ${{ vars.PUBLIC_SITE_MODE }}
           PUBLIC_FORM_ENDPOINT: ${{ vars.PUBLIC_FORM_ENDPOINT }}
           PUBLIC_IDX_PROVIDER: ${{ vars.PUBLIC_IDX_PROVIDER }}
           PUBLIC_IDX_BROKER_DOMAIN: ${{ vars.PUBLIC_IDX_BROKER_DOMAIN }}

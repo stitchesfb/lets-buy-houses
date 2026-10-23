@@ -1,0 +1,23 @@
+---
+/** Static redirect page for old URLs (GitHub Pages has no server-side redirects). */
+import { withBase } from '@/lib/paths';
+
+interface Props {
+  to: string;
+}
+const target = withBase(Astro.props.to);
+---
+
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="robots" content="noindex" />
+    <meta http-equiv="refresh" content={`0; url=${target}`} />
+    <link rel="canonical" href={target} />
+    <title>Redirecting…</title>
+  </head>
+  <body>
+    <p><a href={target}>Continue</a></p>
+  </body>
+</html>

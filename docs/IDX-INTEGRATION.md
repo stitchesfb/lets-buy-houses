@@ -5,11 +5,12 @@ Every listing search on the site goes through **one component**,
 
 | Location | Usage |
 | --- | --- |
-| `/search/` | `<IdxSearch minHeight={900} />` (all markets, receives hero quick-search params) |
+| `/buy/#home-search` | `<IdxSearch minHeight={900} />` (all markets) |
 | Each town page (`/{town}-nj/#listings`) | `<IdxSearch city={town.idxCity} heading="…" />` |
 
 You switch providers with **environment variables only**. Until one is set, a
-branded placeholder is shown that still captures leads ("Get Listings by Email").
+invitation is shown instead (“Send Me Matching Homes”), which links to the buyer inquiry form.
+The site never shows a search box that looks real but can’t return listings.
 
 ```bash
 cp .env.example .env
@@ -41,9 +42,6 @@ PUBLIC_IDX_CITY_PARAM=city[]   # whatever your vendor calls its city filter
 - `{cities}` becomes one param per name:
   `city[]=Manahawkin&city[]=Stafford+Township&city[]=Stafford+Twp`.
   `{city}` becomes just the first name, for vendors that accept only one.
-- The hero quick search sends `?town=<slug>&max=&beds=` to `/search/`, which expands
-  the town into the same city params. Map `max`/`beds` to your vendor's
-  parameter names in `IDX_PARAM_MAP` at the bottom of `src/pages/search.astro`.
 - Iframes use `loading="lazy"` so they don't slow the first paint.
 
 ## Option B — IDX Broker
@@ -59,7 +57,7 @@ links often use numeric city IDs (`city[]=12345`) rather than names. If yours
 do, put the IDs in `idxCity` instead of the names. For the best
 result, create a **Saved Link** per town in the IDX Broker dashboard and swap
 `idxSearchUrl()` in `src/lib/idx.ts` to return those URLs. Also set the IDX
-Broker "wrapper" to `https://letsbuyhouses.com/search/` so the hosted
+Broker "wrapper" to `https://letsbuyhouses.com/buy/` so the hosted
 listing-detail pages share your header and footer.
 
 ## Option C — Vendor JavaScript widget

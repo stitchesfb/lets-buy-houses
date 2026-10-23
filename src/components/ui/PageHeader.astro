@@ -1,0 +1,23 @@
+---
+/** Simple interior page header: breadcrumb, H1, intro, optional actions. */
+import Breadcrumbs from '@/components/ui/Breadcrumbs.astro';
+
+interface Props {
+  eyebrow?: string;
+  title: string;
+  intro?: string;
+  crumbs?: { name: string; url: string }[];
+}
+const { eyebrow, title, intro, crumbs } = Astro.props;
+---
+
+<section class="border-b border-line bg-white/60">
+  <div class="container-page py-12 sm:py-16">
+    {crumbs && <div class="text-sm text-muted"><Breadcrumbs items={crumbs} /></div>}
+    {eyebrow && <p class="eyebrow mt-6">{eyebrow}</p>}
+    <h1 class="mt-3 max-w-3xl text-4xl sm:text-5xl">{title}</h1>
+    <span class="rule-gold mt-5"></span>
+    {intro && <p class="mt-5 max-w-2xl text-lg text-muted">{intro}</p>}
+    <div class="mt-8 empty:hidden flex flex-col gap-3 sm:flex-row"><slot /></div>
+  </div>
+</section>

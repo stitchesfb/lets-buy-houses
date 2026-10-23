@@ -1,22 +1,25 @@
 ---
-/** Compact agent card used in sidebars and closing sections. */
+/** Compact agent card for page sidebars. */
+import { Picture } from 'astro:assets';
+import portrait from '@/assets/jackie-guevara.jpg';
 import { site } from '@/data/site';
 import { withBase } from '@/lib/paths';
-const { agent, contact } = site;
 
 interface Props {
   town?: string;
 }
 const { town } = Astro.props;
+const { agent, contact, brokerage } = site;
 ---
 
-<aside class="rounded-3xl bg-sand-100 p-6 text-center">
-  <img src={withBase(agent.headshot)} alt={agent.legalName} width="120" height="120" loading="lazy" class="mx-auto h-28 w-28 rounded-full object-cover object-top ring-4 ring-white" />
-  <p class="mt-4 font-display text-xl font-bold text-brand-900">{agent.name}</p>
-  <p class="text-sm text-slate-600">{agent.title} · {agent.yearsExperience} years{town ? ` selling ${town}` : ' local experience'}</p>
+<aside class="card p-6 text-center" aria-label={`Contact ${agent.legalName}`}>
+  <Picture src={portrait} alt="" widths={[112, 224]} sizes="112px" formats={['avif', 'webp']} class="mx-auto h-28 w-28 rounded-full object-cover" />
+  <p class="mt-4 font-serif text-xl text-navy">{agent.name}</p>
+  <p class="text-sm text-muted">{agent.title} · {brokerage.name}</p>
+  {town && <p class="mt-3 text-[0.9375rem]">Questions about {town}? Jackie is glad to help.</p>}
   <div class="mt-5 grid gap-2">
     <a href={contact.phoneHref} class="btn-primary">Call {contact.phone}</a>
-    <a href={contact.smsHref} class="btn-secondary">Text Me</a>
-    <a href={`mailto:${contact.email}`} class="btn-secondary">Email Me</a>
+    <a href={contact.smsHref} class="btn-outline">Text Jackie</a>
+    <a href={withBase('/contact/')} class="btn-outline">Send a Message</a>
   </div>
 </aside>

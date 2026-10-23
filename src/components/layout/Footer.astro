@@ -1,6 +1,6 @@
 ---
 import { site } from '@/data/site';
-import { towns } from '@/data/towns';
+import ServiceAreaList from '@/components/town/ServiceAreaList.astro';
 import { ui } from '@/i18n/en';
 import { isPreview } from '@/lib/mode';
 import { withBase } from '@/lib/paths';
@@ -35,7 +35,7 @@ const launchReview = [
 ---
 
 <footer class="on-dark bg-navy text-navy-soft">
-  <div class="container-page grid gap-10 py-14 md:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr]">
+  <div class="container-page grid gap-10 py-14 md:grid-cols-[1.4fr_1fr]">
     <div>
       <p class="font-serif text-2xl text-white">{agent.name}</p>
       <p class="mt-1 text-sm tracking-wide">{agent.title} · {brokerage.name}</p>
@@ -67,18 +67,19 @@ const launchReview = [
         <li><a href={withBase('/buy/')} class="hover:text-white">Buying a Home</a></li>
         <li><a href={withBase('/sell/')} class="hover:text-white">Selling Your Home</a></li>
         <li><a href={withBase('/communities/')} class="hover:text-white">Communities</a></li>
+        <li><a href={withBase('/reviews/')} class="hover:text-white">Client Reviews</a></li>
+        <li><a href={withBase('/buy/#mortgage-calculator')} class="hover:text-white">Mortgage Calculator</a></li>
         <li><a href={withBase('/about/')} class="hover:text-white">{ui.nav.about}</a></li>
         <li><a href={withBase('/contact/')} class="hover:text-white">{ui.nav.contact}</a></li>
       </ul>
     </nav>
 
-    <nav aria-label="Communities">
-      <p class="font-semibold text-white">Communities</p>
-      <ul class="mt-4 space-y-2.5">
-        {towns.map((t) => <li><a href={withBase(`/${t.slug}/`)} class="hover:text-white">{t.name}, NJ</a></li>)}
-      </ul>
-    </nav>
   </div>
+
+  <nav aria-label="Service areas" class="container-page pb-12">
+    <p class="font-semibold text-white">Service areas</p>
+    <ServiceAreaList dark class="mt-4 text-[0.9375rem]" />
+  </nav>
 
   <div class="border-t border-white/10">
     <div class="container-page space-y-3 py-8 text-sm leading-relaxed">

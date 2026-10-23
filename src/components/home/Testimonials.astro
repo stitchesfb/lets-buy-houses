@@ -1,48 +1,54 @@
 ---
 /**
- * Genuine client reviews from src/data/testimonials.ts. Up to three quotes, no
- * carousel. Hidden on the live site until at least one review has its text.
+ * Genuine client reviews from src/data/testimonials.ts, with the review total
+ * in the header. No carousel: a few quotes, then "View All Reviews".
+ * Hidden on the live site until at least one review has its text.
  */
 import AwaitingContent from '@/components/ui/AwaitingContent.astro';
-import SectionHeading from '@/components/ui/SectionHeading.astro';
-import { pendingTestimonials, publishedTestimonials } from '@/data/testimonials';
+import ReviewCard from '@/components/reviews/ReviewCard.astro';
+import { pendingTestimonials, publishedTestimonials, reviewSummary } from '@/data/testimonials';
 import { isPreview } from '@/lib/mode';
+import { withBase } from '@/lib/paths';
 
 interface Props {
   /** How many reviews to show (the homepage shows three). */
   limit?: number;
+  /** Show the "View All Reviews" button (off on the reviews page itself). */
+  showAllLink?: boolean;
 }
-const { limit = 3 } = Astro.props;
+const { limit = 3, showAllLink = true } = Astro.props;
 const quotes = publishedTestimonials().slice(0, limit);
 const pending = pendingTestimonials();
+const platforms = reviewSummary.platforms;
+const platformList = `${platforms.slice(0, -1).join(', ')}, and ${platforms.at(-1)}`;
 ---
 
 {
   quotes.length > 0 && (
     <section class="section bg-white/60" aria-labelledby="testimonials-heading">
       <div class="container-page">
-        <SectionHeading id="testimonials-heading" eyebrow="Client Reviews" title="In their words" />
+        <div class="flex flex-col justify-between gap-6 md:flex-row md:items-end">
+          <div class="max-w-2xl">
+            <p class="eyebrow">Client Reviews</p>
+            <h2 id="testimonials-heading" class="mt-3 text-3xl sm:text-4xl">
+              {reviewSummary.total} five-star reviews
+            </h2>
+            <span class="rule-gold mt-5" />
+            <p class="mt-5 flex flex-wrap items-center gap-x-3 gap-y-1 text-lg text-muted">
+              <span class="tracking-widest text-gold-700" role="img" aria-label={`${reviewSummary.rating} out of 5 stars`}>
+                {'★'.repeat(reviewSummary.rating)}
+              </span>
+              <span>From verified clients on {platformList}.</span>
+            </p>
+          </div>
+          {showAllLink && (
+            <a href={withBase('/reviews/')} class="btn-primary self-start md:self-auto">
+              View All Reviews
+            </a>
+          )}
+        </div>
         <div class:list={['mt-10 grid gap-6', quotes.length > 1 && 'md:grid-cols-2', quotes.length === 3 && 'lg:grid-cols-3']}>
-          {quotes.map((t) => (
-            <figure class="card flex flex-col p-7">
-              {t.rating && (
-                <p class="text-lg tracking-widest text-gold-700" role="img" aria-label={`${t.rating} out of 5 stars`}>
-                  {'★'.repeat(t.rating)}
-                </p>
-              )}
-              <blockquote class="mt-3 flex-1 text-lg">“{t.quote}”</blockquote>
-              <figcaption class="mt-6 border-t border-line pt-4 text-sm">
-                <span class="font-semibold text-ink">{t.name}</span>
-                {(t.context || t.town) && <span class="text-muted"> · {[t.context, t.town].filter(Boolean).join(' in ')}</span>}
-                {t.source && (
-                  <span class="mt-1 block text-muted">
-                    {t.url ? <a href={t.url} rel="noopener" target="_blank" class="underline underline-offset-4">Review on {t.source}</a> : `Review on ${t.source}`}
-                    {t.date && ` · ${t.date}`}
-                  </span>
-                )}
-              </figcaption>
-            </figure>
-          ))}
+          {quotes.map((t) => <ReviewCard review={t} />)}
         </div>
       </div>
     </section>
@@ -54,8 +60,8 @@ const pending = pendingTestimonials();
       <div class="container-page">
         <AwaitingContent title={`${pending.length} client review${pending.length > 1 ? 's' : ''} waiting for their text`}>
           <p>
-            {pending.map((t) => t.name).join(', ')}. Paste each review’s exact wording from RealSatisfied, Zillow, or Realtor.com
-            into <code class="text-sm">src/data/testimonials.ts</code> and it will appear here automatically.
+            {pending.map((t) => t.name).join(', ')}. Paste each review’s exact wording into{' '}
+            <code class="text-sm">src/data/testimonials.ts</code> and it will appear automatically.
           </p>
         </AwaitingContent>
       </div>

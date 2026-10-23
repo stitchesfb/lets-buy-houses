@@ -1,7 +1,7 @@
 # Jacquelyn Guevara: Real Estate Website
 
-The personal website of Jacquelyn Guevara, Associate with RE/MAX Revolution, serving
-**Toms River, Brick, Manahawkin, Whiting, Tinton Falls, Point Pleasant, and Manalapan, NJ**. The site name is Let's Buy
+The personal website of Jacquelyn Guevara, Associate with RE/MAX Revolution, serving **20 Ocean and Monmouth County service areas**, from Toms River, Brick, and Manahawkin to
+Long Beach Island and the barrier-island towns (full list in `src/data/towns.ts`). The site name is Let's Buy
 Houses (letsbuyhouses.com).
 
 **Stack:** [Astro](https://astro.build) (static HTML, very little JavaScript) · Tailwind CSS v4 ·
@@ -40,7 +40,8 @@ confirms receipt.
 | Community pages (copy, highlights, neighborhoods, tips, FAQs, market stats) | `src/data/towns.ts` |
 | Featured listings (real, approved only) | `src/data/listings.ts` |
 | Sample listings for the preview | `src/data/demo/listings.ts` |
-| Client reviews: paste each review’s exact text; it appears automatically | `src/data/testimonials.ts` |
+| Client reviews (exact text) and the review total shown in the header | `src/data/testimonials.ts` |
+| Links to her Zillow, Realtor.com, and RealSatisfied profiles (for “Read all reviews”) | `src/data/site.ts` (`social`) |
 | Photos and their credits | `src/assets/photos/` + `src/data/photos.ts` |
 | Interface text (nav, buttons, form messages) | `src/i18n/en.ts` |
 | Colors and fonts | `src/styles/global.css` (`@theme`) |
@@ -56,8 +57,8 @@ credited on `/photo-credits/`.
 
 ## Pages
 
-`/` · `/buy/` · `/sell/` · `/communities/` · `/about/` · `/contact/` · seven community pages
-(`/toms-river-nj/`, `/brick-nj/`, `/manahawkin-nj/`, `/whiting-nj/`, `/tinton-falls-nj/`, `/point-pleasant-nj/`, `/manalapan-nj/`) · `/privacy/` (draft) ·
+`/` · `/buy/` (with the mortgage calculator) · `/sell/` · `/communities/` · `/reviews/` · `/about/` · `/contact/` ·
+19 community pages (one per town in `src/data/towns.ts`; “Point Pleasant Boro” redirects to Point Pleasant) · `/privacy/` (draft) ·
 `/photo-credits/` · 404. The old `/search/` and `/home-valuation/` addresses redirect to `/buy/` and `/sell/`.
 
 ## Integrations
@@ -92,7 +93,8 @@ https://stitchesfb.github.io/lets-buy-houses/. Wrap root-relative links in `with
 - [ ] Broker reviews the footer disclosure; add the brokerage office phone (`site.brokerage.officePhone`)
 - [ ] Form service connected (`PUBLIC_FORM_ENDPOINT`) and a test message received
 - [ ] Privacy page reviewed by the broker or an attorney
-- [ ] Review text pasted for each client in `src/data/testimonials.ts` (Danielle Melapioni, Domenica Bergin, Steven Humphrey, John, …)
+- [ ] Add her Zillow, Realtor.com, and RealSatisfied profile links so visitors can read all 30+ reviews
+- [ ] Photos for Bayville, Lacey, Lakewood, Little Egg Harbor, and Tinton Falls (placeholders today)
 - [ ] Real listings added to `src/data/listings.ts`, plus market stats and marketing services (or left hidden)
 - [ ] IDX approved and connected, with the MLS disclaimer added (or leave the inquiry fallback)
 - [ ] `PUBLIC_SITE_MODE=production`

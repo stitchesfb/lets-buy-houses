@@ -11,6 +11,16 @@
  */
 export type ReviewSource = 'RealSatisfied' | 'Zillow' | 'Realtor.com' | 'Google';
 
+/**
+ * Review totals shown in the testimonials header, as provided by Jacquelyn.
+ * Update `total` when the count on her profiles changes.
+ */
+export const reviewSummary = {
+  total: '30+',
+  rating: 5,
+  platforms: ['Zillow', 'Realtor.com', 'RealSatisfied'] as ReviewSource[],
+};
+
 export interface Testimonial {
   /** Exact review text. Leave empty until copied from the source. */
   quote: string;
@@ -66,7 +76,9 @@ export const testimonials: Testimonial[] = [
   },
 ];
 
-/** Reviews ready to display (quote filled in). */
-export const publishedTestimonials = () => testimonials.filter((t) => t.quote.trim().length > 0);
+const time = (t: Testimonial) => (t.date ? Date.parse(t.date) || 0 : 0);
+/** Reviews ready to display (quote filled in), newest first. */
+export const publishedTestimonials = () =>
+  testimonials.filter((t) => t.quote.trim().length > 0).sort((a, b) => time(b) - time(a));
 /** Reviews still waiting for their text (shown as a preview note only). */
 export const pendingTestimonials = () => testimonials.filter((t) => !t.quote.trim());

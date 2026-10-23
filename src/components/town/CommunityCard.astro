@@ -1,0 +1,32 @@
+---
+import Photo from '@/components/ui/Photo.astro';
+import { photo } from '@/data/photos';
+import type { Town } from '@/data/towns';
+import { withBase } from '@/lib/paths';
+
+interface Props {
+  town: Town;
+  headingLevel?: 'h2' | 'h3';
+}
+const { town: t, headingLevel: Heading = 'h3' } = Astro.props;
+---
+
+<a href={withBase(`/${t.slug}/`)} class="group card block h-full overflow-hidden transition-colors hover:border-navy/40">
+  <div class="aspect-[4/3] overflow-hidden">
+    <Photo
+      photo={photo(t.photo)}
+      aspect="4 / 3"
+      sizes="(min-width: 1024px) 23vw, (min-width: 640px) 45vw, 92vw"
+      widths={[400, 640, 900]}
+      class="transition-transform duration-500 group-hover:scale-[1.03]"
+    />
+  </div>
+  <div class="p-5">
+    <p class="text-xs font-semibold tracking-[0.16em] text-muted uppercase">{t.county}</p>
+    <Heading class="mt-1 text-2xl">{t.name}</Heading>
+    <p class="mt-2 text-muted">{t.angle}</p>
+    <span class="mt-4 inline-block font-semibold text-navy underline decoration-gold underline-offset-4 group-hover:decoration-navy">
+      Explore {t.name}
+    </span>
+  </div>
+</a>

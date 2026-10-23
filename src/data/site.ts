@@ -89,7 +89,9 @@ export const site = {
     youtube: '', // TODO: add once the channel exists
     facebook: '', // TODO
     instagram: '', // TODO
-    zillow: '', // TODO: Zillow agent profile (reviews!)
+    zillow: '', // TODO: Zillow agent profile URL (reviews)
+    realtorCom: '', // TODO: Realtor.com agent profile URL (reviews)
+    realSatisfied: '', // TODO: RealSatisfied profile URL (reviews)
     googleBusiness: '', // TODO: Google Business Profile share link
   },
 } as const;

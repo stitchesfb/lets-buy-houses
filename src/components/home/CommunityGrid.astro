@@ -1,58 +1,44 @@
 ---
-import Photo from '@/components/ui/Photo.astro';
+/**
+ * Community cards. By default shows the featured towns plus a compact list of
+ * every service area; pass `items` to show a specific set (e.g. nearby towns).
+ */
+import CommunityCard from '@/components/town/CommunityCard.astro';
+import ServiceAreaList from '@/components/town/ServiceAreaList.astro';
 import SectionHeading from '@/components/ui/SectionHeading.astro';
-import { photo } from '@/data/photos';
-import { candidateAreas, towns } from '@/data/towns';
-import { isPreview } from '@/lib/mode';
+import { featuredTowns, serviceAreas, type Town } from '@/data/towns';
 import { withBase } from '@/lib/paths';
 
 interface Props {
   heading?: string;
   intro?: string;
-  exclude?: string;
-  /** Render the heading as the page H1 (on /communities/). */
-  asPageTitle?: boolean;
+  items?: Town[];
+  /** Show the full service-area list and a "View all communities" link. */
+  showAllAreas?: boolean;
 }
 const {
   heading = 'Explore the communities Jacquelyn serves',
   intro = 'Housing, getting around, and local resources in each town, with links to start your search.',
-  exclude,
-  asPageTitle = false,
+  items = featuredTowns(),
+  showAllAreas = !Astro.props.items,
 } = Astro.props;
-const list = towns.filter((t) => t.slug !== exclude);
-const CardHeading = asPageTitle ? 'h2' : 'h3';
 ---
 
 <section class="section bg-white/60" aria-labelledby="communities-heading">
   <div class="container-page">
-    <SectionHeading id="communities-heading" eyebrow="Communities" title={heading} intro={intro} as={asPageTitle ? 'h1' : 'h2'} />
-    <ul class:list={['mt-10 grid gap-6 sm:grid-cols-2', list.length >= 4 ? 'lg:grid-cols-4' : 'lg:grid-cols-3']}>
-      {
-        list.map((t) => (
-          <li>
-            <a href={withBase(`/${t.slug}/`)} class="group card block h-full overflow-hidden transition-colors hover:border-navy/40">
-              <div class="aspect-[4/3] overflow-hidden">
-                <Photo photo={photo(t.photo)} aspect="4 / 3" sizes="(min-width: 1024px) 23vw, (min-width: 640px) 45vw, 92vw" widths={[400, 640, 900]} class="transition-transform duration-500 group-hover:scale-[1.03]" />
-              </div>
-              <div class="p-5">
-                <p class="text-xs font-semibold tracking-[0.16em] text-muted uppercase">{t.county}</p>
-                <CardHeading class="mt-1 text-2xl">{t.name}</CardHeading>
-                <p class="mt-2 text-muted">{t.angle}</p>
-                <span class="mt-4 inline-block font-semibold text-navy underline decoration-gold underline-offset-4 group-hover:decoration-navy">
-                  Explore {t.name}
-                </span>
-              </div>
-            </a>
-          </li>
-        ))
-      }
+    <SectionHeading id="communities-heading" eyebrow="Communities" title={heading} intro={intro || undefined} />
+    <ul class:list={['mt-10 grid gap-6 sm:grid-cols-2', items.length >= 4 ? 'lg:grid-cols-4' : 'lg:grid-cols-3']}>
+      {items.map((t) => <li><CommunityCard town={t} /></li>)}
     </ul>
     {
-      isPreview && candidateAreas.length > 0 && (
-        <p class="mt-8 rounded-md border border-dashed border-gold-700/60 p-4 text-sm text-muted">
-          <strong class="text-ink">Preview note:</strong> Jacquelyn’s RE/MAX Revolution site also lists {candidateAreas.join(', ')}.
-          Add any of them to <code class="text-xs">src/data/towns.ts</code> to give it a community page.
-        </p>
+      showAllAreas && (
+        <div class="mt-12 rounded-xl border border-line bg-white p-6 sm:p-8">
+          <div class="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
+            <h3 class="text-2xl">All {serviceAreas.length} service areas</h3>
+            <a href={withBase('/communities/')} class="btn-outline self-start sm:self-auto">View All Communities</a>
+          </div>
+          <ServiceAreaList class="mt-6" />
+        </div>
       )
     }
   </div>

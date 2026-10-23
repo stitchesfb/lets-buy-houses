@@ -1,0 +1,219 @@
+---
+/**
+ * Interactive mortgage payment estimator. Results are calculated at build time
+ * for the defaults (so the section is useful without JavaScript) and update live
+ * as visitors change any input. Figures are estimates only.
+ */
+import { mortgage, usd } from '@/lib/mortgage';
+import { withBase } from '@/lib/paths';
+
+interface Props {
+  id?: string;
+}
+const { id = 'mortgage-calculator' } = Astro.props;
+
+// Illustrative defaults: visitors should replace them with their own numbers.
+const defaults = { price: 450000, downPct: 20, ratePct: 6.5, years: 30, taxesYearly: 8000, insuranceYearly: 1800 };
+const result = mortgage({ ...defaults, downPayment: (defaults.price * defaults.downPct) / 100 });
+const share = (part: number) => `${result.total ? (part / result.total) * 100 : 0}%`;
+const f = (name: string) => `${id}-${name}`;
+---
+
+<section id={id} class="section bg-ivory-deep" aria-labelledby={f('heading')}>
+  <div class="container-page">
+    <div class="max-w-2xl">
+      <p class="eyebrow">Buyer Tools</p>
+      <h2 id={f('heading')} class="mt-3 text-3xl sm:text-4xl">Estimate your monthly payment</h2>
+      <span class="rule-gold mt-5"></span>
+      <p class="mt-5 text-lg text-muted">
+        Adjust the numbers to see how price, down payment, rate, and taxes change a monthly payment. These are estimates, not a
+        loan offer.
+      </p>
+    </div>
+
+    <div class="mt-10 grid gap-6 lg:grid-cols-[7fr_5fr]" data-mortgage-calculator>
+      <form class="card grid gap-6 p-6 sm:grid-cols-2 sm:p-8" onsubmit="return false" aria-label="Mortgage inputs">
+        <div class="sm:col-span-2">
+          <div class="flex items-baseline justify-between gap-4">
+            <label for={f('price')} class="form-label">Home price</label>
+            <output for={f('price')} class="text-sm font-semibold text-navy" data-show="price">{usd(defaults.price)}</output>
+          </div>
+          <input id={f('price')} name="price" type="number" inputmode="numeric" min="0" step="1000" value={defaults.price} class="form-input" />
+          <input type="range" min="50000" max="2000000" step="5000" value={defaults.price} class="mt-3 w-full accent-navy" aria-label="Home price slider" data-mirror="price" />
+        </div>
+
+        <div class="sm:col-span-2">
+          <div class="flex items-baseline justify-between gap-4">
+            <label for={f('down-pct')} class="form-label">Down payment</label>
+            <output for={f('down-pct') + ' ' + f('down-amount')} class="text-sm font-semibold text-navy" data-show="down">
+              {usd((defaults.price * defaults.downPct) / 100)} ({defaults.downPct}%)
+            </output>
+          </div>
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <div class="relative">
+                <input id={f('down-pct')} name="downPct" type="number" inputmode="decimal" min="0" max="100" step="0.5" value={defaults.downPct} class="form-input pr-9" aria-describedby={f('down-hint')} />
+                <span class="pointer-events-none absolute top-1/2 right-4 -translate-y-1/2 text-muted" aria-hidden="true">%</span>
+              </div>
+            </div>
+            <div>
+              <label for={f('down-amount')} class="sr-only">Down payment amount in dollars</label>
+              <div class="relative">
+                <span class="pointer-events-none absolute top-1/2 left-4 -translate-y-1/2 text-muted" aria-hidden="true">$</span>
+                <input id={f('down-amount')} name="downAmount" type="number" inputmode="numeric" min="0" step="1000" value={(defaults.price * defaults.downPct) / 100} class="form-input pl-8" />
+              </div>
+            </div>
+          </div>
+          <input type="range" min="0" max="50" step="0.5" value={defaults.downPct} class="mt-3 w-full accent-navy" aria-label="Down payment percent slider" data-mirror="downPct" />
+          <p id={f('down-hint')} class="mt-1 text-sm text-muted">Enter a percent or a dollar amount; the other updates to match.</p>
+        </div>
+
+        <div>
+          <label for={f('rate')} class="form-label">Interest rate</label>
+          <div class="relative">
+            <input id={f('rate')} name="rate" type="number" inputmode="decimal" min="0" max="20" step="0.125" value={defaults.ratePct} class="form-input pr-9" aria-describedby={f('rate-hint')} />
+            <span class="pointer-events-none absolute top-1/2 right-4 -translate-y-1/2 text-muted" aria-hidden="true">%</span>
+          </div>
+          <p id={f('rate-hint')} class="mt-1 text-sm text-muted">Example rate. Ask a lender for current rates.</p>
+        </div>
+
+        <div>
+          <label for={f('term')} class="form-label">Loan term</label>
+          <select id={f('term')} name="term" class="form-input">
+            {[30, 20, 15, 10].map((y) => <option value={y} selected={y === defaults.years}>{y} years</option>)}
+          </select>
+        </div>
+
+        <div>
+          <label for={f('taxes')} class="form-label">Property taxes (per year)</label>
+          <div class="relative">
+            <span class="pointer-events-none absolute top-1/2 left-4 -translate-y-1/2 text-muted" aria-hidden="true">$</span>
+            <input id={f('taxes')} name="taxes" type="number" inputmode="numeric" min="0" step="100" value={defaults.taxesYearly} class="form-input pl-8" aria-describedby={f('taxes-hint')} />
+          </div>
+          <p id={f('taxes-hint')} class="mt-1 text-sm text-muted">Taxes vary widely by town. Check the listing or ask Jacquelyn.</p>
+        </div>
+
+        <div>
+          <label for={f('insurance')} class="form-label">Homeowners insurance (per year)</label>
+          <div class="relative">
+            <span class="pointer-events-none absolute top-1/2 left-4 -translate-y-1/2 text-muted" aria-hidden="true">$</span>
+            <input id={f('insurance')} name="insurance" type="number" inputmode="numeric" min="0" step="100" value={defaults.insuranceYearly} class="form-input pl-8" />
+          </div>
+        </div>
+
+        <p class="flex items-baseline justify-between gap-4 rounded-md bg-ivory px-4 py-3 sm:col-span-2 lg:hidden" aria-hidden="true">
+          <span class="text-sm font-semibold text-muted">Estimated payment</span>
+          <span class="font-serif text-2xl text-navy"><span data-out="total">{usd(result.total)}</span><span class="text-base text-muted">/mo</span></span>
+        </p>
+      </form>
+
+      <div class="on-dark flex flex-col rounded-xl bg-navy p-6 text-white sm:p-8" aria-labelledby={f('result-label')}>
+        <p id={f('result-label')} class="text-sm font-semibold tracking-[0.16em] text-gold uppercase">Estimated monthly payment</p>
+        <p class="mt-2 font-serif text-5xl sm:text-6xl" aria-live="polite" aria-atomic="true">
+          <span data-out="total">{usd(result.total)}</span><span class="text-xl text-navy-soft">/mo</span>
+        </p>
+
+        <div class="mt-6 flex h-3 overflow-hidden rounded-full bg-white/10" aria-hidden="true">
+          <span class="bg-gold" style={`width:${share(result.principalInterest)}`} data-bar="pi"></span>
+          <span class="bg-navy-soft" style={`width:${share(result.taxes)}`} data-bar="taxes"></span>
+          <span class="bg-white/60" style={`width:${share(result.insurance)}`} data-bar="insurance"></span>
+        </div>
+
+        <dl class="mt-6 space-y-3 text-[0.9375rem]">
+          <div class="flex items-center justify-between gap-4">
+            <dt class="flex items-center gap-2"><span class="h-2.5 w-2.5 rounded-full bg-gold" aria-hidden="true"></span>Principal &amp; interest</dt>
+            <dd class="font-semibold" data-out="pi">{usd(result.principalInterest)}</dd>
+          </div>
+          <div class="flex items-center justify-between gap-4">
+            <dt class="flex items-center gap-2"><span class="h-2.5 w-2.5 rounded-full bg-navy-soft" aria-hidden="true"></span>Property taxes</dt>
+            <dd class="font-semibold" data-out="taxes">{usd(result.taxes)}</dd>
+          </div>
+          <div class="flex items-center justify-between gap-4">
+            <dt class="flex items-center gap-2"><span class="h-2.5 w-2.5 rounded-full bg-white/60" aria-hidden="true"></span>Homeowners insurance</dt>
+            <dd class="font-semibold" data-out="insurance">{usd(result.insurance)}</dd>
+          </div>
+        </dl>
+
+        <dl class="mt-6 grid grid-cols-2 gap-4 border-t border-white/15 pt-6 text-sm text-navy-soft">
+          <div>
+            <dt>Loan amount</dt>
+            <dd class="mt-1 text-lg font-semibold text-white" data-out="loan">{usd(result.loan)}</dd>
+          </div>
+          <div>
+            <dt>Total interest</dt>
+            <dd class="mt-1 text-lg font-semibold text-white" data-out="interest">{usd(result.totalInterest)}</dd>
+          </div>
+        </dl>
+
+        <p class="mt-6 hidden rounded-md bg-white/10 p-3 text-sm text-navy-soft" data-pmi-note>
+          With less than 20% down, lenders usually require private mortgage insurance (PMI), which isn’t included here.
+        </p>
+
+        <div class="mt-auto pt-6">
+          <a href={withBase('/buy/#buyer-inquiry')} class="btn-light w-full">Talk With Jacquelyn About Buying</a>
+        </div>
+      </div>
+    </div>
+
+    <p class="mt-6 max-w-4xl text-sm text-muted">
+      For illustration only. This is not a loan offer, commitment, or rate quote. Estimates don’t include PMI, HOA fees, flood
+      insurance, or closing costs, which may apply. Contact a licensed mortgage lender for actual rates, terms, and payments.
+    </p>
+  </div>
+</section>
+
+<script>
+  import { mortgage, usd } from '@/lib/mortgage';
+
+  document.querySelectorAll<HTMLElement>('[data-mortgage-calculator]').forEach((root) => {
+    const form = root.querySelector('form')!;
+    const input = (name: string) => form.elements.namedItem(name) as HTMLInputElement | HTMLSelectElement;
+    const num = (name: string) => {
+      const v = parseFloat(input(name).value);
+      return Number.isFinite(v) && v >= 0 ? v : 0;
+    };
+    const out = (key: string, text: string) => root.querySelectorAll(`[data-out="${key}"]`).forEach((el) => (el.textContent = text));
+
+    const render = () => {
+      const price = num('price');
+      const downAmount = Math.min(num('downAmount'), price);
+      const r = mortgage({ price, downPayment: downAmount, ratePct: num('rate'), years: num('term'), taxesYearly: num('taxes'), insuranceYearly: num('insurance') });
+      out('total', usd(r.total));
+      out('pi', usd(r.principalInterest));
+      out('taxes', usd(r.taxes));
+      out('insurance', usd(r.insurance));
+      out('loan', usd(r.loan));
+      out('interest', usd(r.totalInterest));
+      const pct = price ? (downAmount / price) * 100 : 0;
+      root.querySelector('[data-show="price"]')!.textContent = usd(price);
+      root.querySelector('[data-show="down"]')!.textContent = `${usd(downAmount)} (${+pct.toFixed(1)}%)`;
+      const share = (part: number) => `${r.total ? (part / r.total) * 100 : 0}%`;
+      (root.querySelector('[data-bar="pi"]') as HTMLElement).style.width = share(r.principalInterest);
+      (root.querySelector('[data-bar="taxes"]') as HTMLElement).style.width = share(r.taxes);
+      (root.querySelector('[data-bar="insurance"]') as HTMLElement).style.width = share(r.insurance);
+      root.querySelector('[data-pmi-note]')!.classList.toggle('hidden', !(price > 0 && pct < 20));
+    };
+
+    // Keep percent and dollar down payment in sync, and sliders in sync with their fields.
+    const syncFromPct = () => {
+      input('downAmount').value = String(Math.round((num('price') * num('downPct')) / 100));
+    };
+    const syncFromAmount = () => {
+      const price = num('price');
+      input('downPct').value = price ? String(+((Math.min(num('downAmount'), price) / price) * 100).toFixed(2)) : '0';
+    };
+    const sliders = root.querySelectorAll<HTMLInputElement>('input[data-mirror]');
+    const syncSliders = () => sliders.forEach((s) => (s.value = input(s.dataset.mirror!).value));
+
+    form.addEventListener('input', (e) => {
+      const el = e.target as HTMLInputElement;
+      if (el.dataset.mirror) input(el.dataset.mirror).value = el.value;
+      const name = el.dataset.mirror ?? el.name;
+      if (name === 'price' || name === 'downPct') syncFromPct();
+      if (name === 'downAmount') syncFromAmount();
+      if (!el.dataset.mirror) syncSliders();
+      render();
+    });
+    render();
+  });
+</script>

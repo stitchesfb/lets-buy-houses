@@ -1,0 +1,37 @@
+---
+import type { Testimonial } from '@/data/testimonials';
+
+interface Props {
+  review: Testimonial;
+}
+const { review: t } = Astro.props;
+---
+
+<figure class="card flex flex-col p-7">
+  {
+    t.rating && (
+      <p class="text-lg tracking-widest text-gold-700" role="img" aria-label={`${t.rating} out of 5 stars`}>
+        {'★'.repeat(t.rating)}
+      </p>
+    )
+  }
+  <blockquote class="mt-3 flex-1 text-lg">“{t.quote}”</blockquote>
+  <figcaption class="mt-6 border-t border-line pt-4 text-sm">
+    <span class="font-semibold text-ink">{t.name}</span>
+    {(t.context || t.town) && <span class="text-muted"> · {[t.context, t.town].filter(Boolean).join(' in ')}</span>}
+    {
+      t.source && (
+        <span class="mt-1 block text-muted">
+          {t.url ? (
+            <a href={t.url} rel="noopener" target="_blank" class="underline underline-offset-4">
+              Review on {t.source}
+            </a>
+          ) : (
+            `Review on ${t.source}`
+          )}
+          {t.date && ` · ${t.date}`}
+        </span>
+      )
+    }
+  </figcaption>
+</figure>

@@ -15,8 +15,20 @@ export type TownSlug =
   | 'brick-nj'
   | 'manahawkin-nj'
   | 'whiting-nj'
-  | 'tinton-falls-nj'
   | 'point-pleasant-nj'
+  | 'barnegat-nj'
+  | 'bayville-nj'
+  | 'beach-haven-nj'
+  | 'beachwood-nj'
+  | 'lacey-nj'
+  | 'lakewood-nj'
+  | 'lavallette-nj'
+  | 'little-egg-harbor-nj'
+  | 'manchester-nj'
+  | 'seaside-heights-nj'
+  | 'seaside-park-nj'
+  | 'tuckerton-nj'
+  | 'tinton-falls-nj'
   | 'manalapan-nj';
 
 export interface MarketStat {
@@ -49,6 +61,8 @@ export interface Town {
    * Use a list when listings are filed under several names.
    */
   idxCity: IdxCity;
+  /** Other names the MLS or her service-area list uses for this same place (e.g. "Point Pleasant Boro"). */
+  aliases?: string[];
   /** Area slug on her RE/MAX Revolution site's live MLS search, e.g. 'toms+river'. */
   remaxArea: string;
   intro: string;
@@ -297,6 +311,709 @@ export const towns: Town[] = [
     ],
   },
   {
+    slug: 'point-pleasant-nj',
+    name: 'Point Pleasant',
+    county: 'Ocean County',
+    zipCodes: ['08742'],
+    angle: 'Waterfront homes, river & beach living',
+    photo: 'point-pleasant',
+    metaTitle: 'Point Pleasant NJ Waterfront Homes for Sale | Beach & Riverfront',
+    metaDescription:
+      'Browse Point Pleasant & Point Pleasant Beach, NJ waterfront homes for sale — riverfront, lagoon, and beach-block properties. Local guidance from Jacquelyn Guevara of RE/MAX Revolution.',
+    headline: 'Coastal Charm & Prime Real Estate in Point Pleasant, NJ',
+    subheadline:
+      'Experience classic shore living with easy access to local beaches and rivers.',
+    idxCity: 'Point Pleasant',
+    remaxArea: 'point+pleasant',
+    aliases: ['Point Pleasant Boro'],
+    intro:
+      'Point Pleasant (Point Pleasant Borough) is the quintessential Jersey Shore coastal town. Known for its community feel, its own public school district, the Riverfront park system, and proximity to the Manasquan Inlet, it is one of the most desirable places to call home along the Jersey coast.',
+    highlights: [
+      'Two distinct towns: Point Pleasant Borough & Point Pleasant Beach',
+      'Manasquan Inlet access for ocean boating and fishing',
+      'Boardwalk, beaches, and a walkable downtown in Point Pleasant Beach',
+      'NJ Transit North Jersey Coast Line station in Point Pleasant Beach',
+    ],
+    neighborhoods: [
+      { name: 'Manasquan Riverfront', blurb: 'Deep-water homes with quick inlet access.' },
+      { name: 'Beaver Dam Creek', blurb: 'Lagoon homes with docks, close to the bay.' },
+      { name: 'Point Pleasant Beach', blurb: 'Beach-block living steps from the boardwalk.' },
+    ],
+    marketOverview:
+      'Inventory in Point Pleasant moves rapidly, especially for properties within cycling distance of the water or downtown merchant areas. Demand spans both year-round residents seeking a vibrant coastal lifestyle and investors looking for premium shore properties.',
+    buyerTips: [
+      'Move decisively when you find a well-maintained home; properties in Point Pleasant rarely sit long on the market.',
+      'Evaluate elevation and insurance requirements, as proximity to the Manasquan River and the ocean impacts flood zone designations.',
+      'Look beyond surface cosmetics—prime location and lot orientation are the hardest things to change later.',
+    ],
+    sellerTips: [
+      'Curb appeal is king in Point Pleasant; coastal landscaping and fresh exterior paint instantly attract eager buyers.',
+      'Highlight lifestyle perks in your listing descriptions, such as walkability to local marinas, parks, and dining.',
+      'Use professional twilight photography to showcase outdoor entertaining spaces.',
+    ],
+    marketStats: placeholderStats(),
+    geo: { latitude: 40.0832, longitude: -74.0682 },
+    faqs: [
+      {
+        question: 'What is the difference between Point Pleasant and Point Pleasant Beach?',
+        answer:
+          'Point Pleasant (the Borough) is a primarily residential town with its own school district and river access, whereas Point Pleasant Beach is directly on the oceanfront and features the commercial boardwalk.',
+      },
+      {
+        question: 'Are there good commuter options from Point Pleasant?',
+        answer:
+          'Yes, residents enjoy easy access to the nearby Point Pleasant Beach station on the NJ Transit North Jersey Coast Line, offering convenient rail service north toward Newark and New York City.',
+      },
+    ],
+  },
+  {
+    slug: 'barnegat-nj',
+    name: 'Barnegat',
+    county: 'Ocean County',
+    zipCodes: ['08005'],
+    angle: 'Bayfront village with homes on both sides of the Parkway',
+    photo: 'barnegat',
+    metaTitle: 'Barnegat NJ Homes for Sale & Real Estate | Jacquelyn Guevara',
+    metaDescription:
+      'Search Barnegat, NJ homes for sale, from bayfront neighborhoods to 55+ communities, with local guidance from Jacquelyn Guevara of RE/MAX Revolution.',
+    headline: 'Barnegat, NJ Homes for Sale & Real Estate',
+    subheadline: 'Bay access, a historic village center, and neighborhoods on both sides of the Parkway.',
+    idxCity: 'Barnegat',
+    remaxArea: 'barnegat',
+    intro:
+      'Barnegat Township sits along Barnegat Bay in southern Ocean County. Its historic village center lines Route 9, neighborhoods east of Route 9 reach toward the bay and the municipal dock, and newer developments and active-adult communities spread west toward the Pinelands.',
+    highlights: [
+      'Garden State Parkway and Route 9 run through the township',
+      'Bay access and a municipal dock on Barnegat Bay',
+      'Barnegat Township School District, including Barnegat High School',
+      'Single-family homes, townhomes, and active-adult (55+) communities',
+    ],
+    neighborhoods: [
+      { name: 'Bayside', blurb: 'Neighborhoods east of Route 9, closer to the bay and the dock.' },
+      { name: 'Village Center', blurb: 'Older homes near the historic Route 9 corridor.' },
+      { name: 'West of the Parkway', blurb: 'Newer subdivisions and active-adult communities.' },
+    ],
+    marketOverview:
+      'Barnegat offers a mix of established bay-side neighborhoods, newer subdivisions, and age-restricted communities. Location relative to the bay and the Parkway shapes both price and flood-insurance considerations.',
+    buyerTips: [
+      'Compare homes east and west of the Parkway; commute, flood zone, and lot size often differ.',
+      'In 55+ communities, review HOA fees, rules, and age requirements early.',
+      'Ask for an elevation certificate on any home near the bay.',
+    ],
+    sellerTips: [
+      'Price against recent sales in your own section of the township.',
+      'Highlight bay access, updates, and outdoor space in your listing.',
+      'Have HOA documents ready if your home is in a planned or 55+ community.',
+    ],
+    marketStats: placeholderStats(),
+    geo: { latitude: 39.7529, longitude: -74.2229 },
+    faqs: [
+      {
+        question: 'Is Barnegat the same as Barnegat Light?',
+        answer:
+          'No. Barnegat is a mainland township on Route 9. Barnegat Light is a separate borough at the northern tip of Long Beach Island, home to the Barnegat Lighthouse.',
+      },
+      {
+        question: 'Which schools serve Barnegat?',
+        answer:
+          'The Barnegat Township School District serves the township from elementary grades through Barnegat High School. The NJ Department of Education publishes School Performance Reports for each school.',
+      },
+    ],
+  },
+  {
+    slug: 'bayville-nj',
+    name: 'Bayville',
+    county: 'Ocean County',
+    zipCodes: ['08721'],
+    angle: 'Berkeley Township living along Barnegat Bay',
+    photo: 'bayville',
+    metaTitle: 'Bayville NJ Homes for Sale | Berkeley Township | Jacquelyn Guevara',
+    metaDescription:
+      'Search Bayville, NJ homes for sale in Berkeley Township, including bay-area neighborhoods and single-family homes, with local guidance from Jacquelyn Guevara of RE/MAX Revolution.',
+    headline: 'Bayville, NJ Homes for Sale & Real Estate',
+    subheadline: 'Berkeley Township neighborhoods between Route 9 and Barnegat Bay.',
+    idxCity: ['Bayville', 'Berkeley'],
+    remaxArea: 'bayville',
+    intro:
+      'Bayville is a community within Berkeley Township, set along Route 9 and the western shore of Barnegat Bay. It offers established single-family neighborhoods, homes on lagoons and near the bay, and easy access to Toms River to the north.',
+    highlights: [
+      'Part of Berkeley Township (ZIP 08721)',
+      'Route 9 corridor with access to the Garden State Parkway',
+      'Berkeley Township schools for younger grades; Central Regional for grades 7–12',
+      'Bay and lagoon neighborhoods along Barnegat Bay',
+    ],
+    neighborhoods: [
+      { name: 'Bayfront & Lagoons', blurb: 'Homes on or near the water east of Route 9.' },
+      { name: 'Route 9 Corridor', blurb: 'Established neighborhoods close to shopping and services.' },
+      { name: 'Western Berkeley', blurb: 'Larger lots and quieter streets toward the Pinelands.' },
+    ],
+    marketOverview:
+      'Bayville’s housing ranges from modest single-family homes to bay and lagoon properties. Its location between Toms River and the southern shore towns makes it a practical choice for buyers who want water nearby and room to spread out.',
+    buyerTips: [
+      'For bay and lagoon homes, check bulkheads, flood zones, and insurance costs before you offer.',
+      'Confirm whether a home is in Bayville or another Berkeley Township section; it can affect services and schools.',
+      'Drive the Route 9 commute at the times you’ll actually travel.',
+    ],
+    sellerTips: [
+      'Price against recent Berkeley Township sales close to your street.',
+      'Have flood, elevation, and bulkhead paperwork ready for waterfront homes.',
+      'Small updates and clean outdoor space help homes stand out online.',
+    ],
+    marketStats: placeholderStats(),
+    geo: { latitude: 39.9093, longitude: -74.1549 },
+    faqs: [
+      {
+        question: 'Is Bayville its own town?',
+        answer:
+          'No. Bayville is a community within Berkeley Township in Ocean County. Property taxes and municipal services are handled by Berkeley Township.',
+      },
+      {
+        question: 'Which schools serve Bayville?',
+        answer:
+          'Younger students attend the Berkeley Township School District, and students in grades 7–12 attend the Central Regional School District. The NJ Department of Education publishes School Performance Reports for each school.',
+      },
+    ],
+  },
+  {
+    slug: 'beach-haven-nj',
+    name: 'Beach Haven',
+    county: 'Ocean County',
+    zipCodes: ['08008'],
+    angle: 'Walkable Long Beach Island borough',
+    photo: 'beach-haven',
+    metaTitle: 'Beach Haven NJ Homes for Sale | Long Beach Island | Jacquelyn Guevara',
+    metaDescription:
+      'Search Beach Haven, NJ homes for sale on Long Beach Island, from ocean-block homes to bayside properties, with local guidance from Jacquelyn Guevara of RE/MAX Revolution.',
+    headline: 'Beach Haven, NJ Homes for Sale on Long Beach Island',
+    subheadline: 'Ocean-block, bayside, and in-town homes in one of LBI’s most walkable boroughs.',
+    idxCity: 'Beach Haven',
+    remaxArea: 'beach+haven',
+    intro:
+      'Beach Haven is a borough on the southern end of Long Beach Island, reached from the mainland by the Route 72 causeway from Manahawkin. Its compact grid of streets puts beaches, the bay, shops, restaurants, and summer attractions within walking or biking distance.',
+    highlights: [
+      'On Long Beach Island, via the Route 72 causeway',
+      'Ocean beaches and bayfront within a few blocks of each other',
+      'Walkable in-town streets with shops and restaurants',
+      'Year-round homes, second homes, and seasonal rentals',
+    ],
+    neighborhoods: [
+      { name: 'Ocean Side', blurb: 'Homes on the blocks closest to the beach.' },
+      { name: 'In Town', blurb: 'Streets near the shops, restaurants, and summer attractions.' },
+      { name: 'Bay Side', blurb: 'Homes with bay views and access toward Little Egg Harbor Bay.' },
+    ],
+    marketOverview:
+      'Beach Haven attracts both year-round owners and second-home buyers. Pricing depends heavily on distance to the ocean or bay, elevation, and rental history, so close comparisons matter.',
+    buyerTips: [
+      'Review flood zone, elevation, and insurance quotes before making an offer on the island.',
+      'If you plan to rent the home, ask about rental history and local rental rules.',
+      'Consider summer traffic on the causeway when planning year-round use.',
+    ],
+    sellerTips: [
+      'Share rental income history if the home has been rented; investors will ask.',
+      'Have elevation certificates and recent improvements documented.',
+      'Time your listing with Jacquelyn around the season buyers are searching most.',
+    ],
+    marketStats: placeholderStats(),
+    geo: { latitude: 39.5593, longitude: -74.2432 },
+    faqs: [
+      {
+        question: 'How do you get to Beach Haven?',
+        answer:
+          'Beach Haven is on Long Beach Island. From the mainland, take Route 72 across the causeway from Manahawkin, then head south on Long Beach Boulevard.',
+      },
+      {
+        question: 'Do I need flood insurance in Beach Haven?',
+        answer:
+          'Many island homes are in FEMA flood zones, and lenders typically require flood insurance there. Review the elevation certificate and get insurance quotes before you make an offer.',
+      },
+    ],
+  },
+  {
+    slug: 'beachwood-nj',
+    name: 'Beachwood',
+    county: 'Ocean County',
+    zipCodes: ['08722'],
+    angle: 'Small borough on the Toms River',
+    photo: 'beachwood',
+    metaTitle: 'Beachwood NJ Homes for Sale & Real Estate | Jacquelyn Guevara',
+    metaDescription:
+      'Search Beachwood, NJ homes for sale in this borough on the Toms River, with local guidance from Jacquelyn Guevara of RE/MAX Revolution.',
+    headline: 'Beachwood, NJ Homes for Sale & Real Estate',
+    subheadline: 'A residential borough on the south shore of the Toms River.',
+    idxCity: 'Beachwood',
+    remaxArea: 'beachwood',
+    intro:
+      'Beachwood is a small, mostly residential borough on the south shore of the Toms River, next to Pine Beach and South Toms River. It has a river beach and marina area, single-family neighborhoods, and quick access to Route 9 and downtown Toms River.',
+    highlights: [
+      'On the Toms River, with a river beach and marina area',
+      'Route 9 and the Garden State Parkway nearby',
+      'Part of the Toms River Regional Schools',
+      'Mostly single-family neighborhoods',
+    ],
+    neighborhoods: [
+      { name: 'Riverside', blurb: 'Streets near the Toms River and the borough’s beach.' },
+      { name: 'Central Beachwood', blurb: 'Established single-family neighborhoods.' },
+      { name: 'Route 9 Area', blurb: 'Homes close to shopping and commuter routes.' },
+    ],
+    marketOverview:
+      'Beachwood is mostly single-family homes on modest lots, with river proximity shaping value in the neighborhoods closest to the water. Its small size means a handful of recent sales can tell you a lot about pricing.',
+    buyerTips: [
+      'Near the river, check flood zones and insurance costs even if the home isn’t waterfront.',
+      'Compare recent sales street by street; the borough is small and values vary by location.',
+      'Check drive times to the Parkway and downtown Toms River.',
+    ],
+    sellerTips: [
+      'Price against the most recent Beachwood sales near your street.',
+      'Highlight updates such as roofs, HVAC, and windows.',
+      'Note proximity to the river beach and marina in your listing.',
+    ],
+    marketStats: placeholderStats(),
+    geo: { latitude: 39.939, longitude: -74.1929 },
+    faqs: [
+      {
+        question: 'Which schools serve Beachwood?',
+        answer:
+          'Beachwood is part of the Toms River Regional Schools. The NJ Department of Education publishes School Performance Reports for each school.',
+      },
+      {
+        question: 'Is Beachwood on the water?',
+        answer:
+          'Yes. The borough sits on the south shore of the Toms River and has a river beach and marina area.',
+      },
+    ],
+  },
+  {
+    slug: 'lacey-nj',
+    name: 'Lacey',
+    county: 'Ocean County',
+    zipCodes: ['08731', '08734'],
+    angle: 'Forked River & Lanoka Harbor lagoons and woods',
+    photo: 'lacey',
+    metaTitle: 'Lacey Township NJ Homes for Sale | Forked River | Jacquelyn Guevara',
+    metaDescription:
+      'Search Lacey Township, NJ homes for sale in Forked River and Lanoka Harbor, from lagoon homes to wooded neighborhoods, with local guidance from Jacquelyn Guevara of RE/MAX Revolution.',
+    headline: 'Lacey Township, NJ Homes for Sale & Real Estate',
+    subheadline: 'Lagoon homes in Forked River and Lanoka Harbor, plus wooded neighborhoods to the west.',
+    idxCity: ['Lacey', 'Forked River', 'Lanoka Harbor'],
+    remaxArea: 'lacey',
+    intro:
+      'Lacey Township includes the communities of Forked River and Lanoka Harbor. East of Route 9, lagoon neighborhoods reach toward Barnegat Bay; to the west, wooded neighborhoods stretch toward the Pinelands.',
+    highlights: [
+      'Communities of Forked River and Lanoka Harbor',
+      'Lagoon homes with bay access east of Route 9',
+      'Lacey Township School District, including Lacey Township High School',
+      'Garden State Parkway and Route 9 access',
+    ],
+    neighborhoods: [
+      { name: 'Forked River Lagoons', blurb: 'Lagoon homes with docks and bay access.' },
+      { name: 'Lanoka Harbor', blurb: 'Neighborhoods in the township’s northern section.' },
+      { name: 'Western Lacey', blurb: 'Wooded lots and quieter streets toward the Pinelands.' },
+    ],
+    marketOverview:
+      'Lacey’s market spans lagoon homes for boaters and inland homes on wooded lots. Water access, bulkhead condition, and flood zone are the biggest swing factors in pricing on the east side of the township.',
+    buyerTips: [
+      'For lagoon homes, check bulkheads, dock condition, and water depth for your boat.',
+      'Ask for elevation certificates and flood insurance quotes early.',
+      'Compare east and west of Route 9; lifestyle and price differ.',
+    ],
+    sellerTips: [
+      'Have bulkhead, dock, and elevation documentation ready for buyers.',
+      'Highlight boating access and outdoor space.',
+      'Price against recent sales on similar lagoons or streets.',
+    ],
+    marketStats: placeholderStats(),
+    geo: { latitude: 39.8398, longitude: -74.1901 },
+    faqs: [
+      {
+        question: 'Is Forked River the same as Lacey Township?',
+        answer:
+          'Forked River is a community within Lacey Township, along with Lanoka Harbor. Mailing addresses may say Forked River or Lanoka Harbor, but taxes and services are handled by Lacey Township.',
+      },
+      {
+        question: 'Which schools serve Lacey?',
+        answer:
+          'The Lacey Township School District serves the township through Lacey Township High School. The NJ Department of Education publishes School Performance Reports for each school.',
+      },
+    ],
+  },
+  {
+    slug: 'lakewood-nj',
+    name: 'Lakewood',
+    county: 'Ocean County',
+    zipCodes: ['08701'],
+    angle: 'Large township with a wide range of housing',
+    photo: 'lakewood',
+    metaTitle: 'Lakewood NJ Homes for Sale & Real Estate | Jacquelyn Guevara',
+    metaDescription:
+      'Search Lakewood, NJ homes for sale, from single-family homes and townhomes to active-adult communities, with local guidance from Jacquelyn Guevara of RE/MAX Revolution.',
+    headline: 'Lakewood, NJ Homes for Sale & Real Estate',
+    subheadline: 'Single-family homes, townhomes, condos, and active-adult communities in northern Ocean County.',
+    idxCity: 'Lakewood',
+    remaxArea: 'lakewood',
+    intro:
+      'Lakewood Township is one of the largest municipalities in Ocean County. It is home to Lake Carasaljo, Georgian Court University, and ShoreTown Ballpark, and it is served by the Garden State Parkway, Routes 9, 70, and 88, and nearby Interstate 195.',
+    highlights: [
+      'Garden State Parkway, Routes 9, 70, and 88; Interstate 195 nearby',
+      'Lake Carasaljo and surrounding parkland',
+      'Georgian Court University and ShoreTown Ballpark',
+      'Single-family homes, townhomes, condos, and active-adult communities',
+    ],
+    neighborhoods: [
+      { name: 'Lake Carasaljo Area', blurb: 'Neighborhoods near the lake and its park paths.' },
+      { name: 'Townhomes & Condos', blurb: 'Planned communities with lower-maintenance living.' },
+      { name: 'Active-Adult Communities', blurb: 'Age-restricted neighborhoods with their own HOA rules.' },
+    ],
+    marketOverview:
+      'Lakewood has one of the widest ranges of housing types in the county, from older single-family homes to new construction, townhomes, and age-restricted communities. Inventory and pricing vary considerably from one section to another.',
+    buyerTips: [
+      'Compare HOA fees and rules carefully between townhome, condo, and 55+ communities.',
+      'For new construction, review the builder’s warranty and the timeline in writing.',
+      'Check commute routes to the Parkway, Route 9, and I-195 at your travel times.',
+    ],
+    sellerTips: [
+      'Price against recent sales of the same home type in your section of the township.',
+      'Have HOA documents and any permits for additions ready for buyers.',
+      'Clear photos and accurate square footage help listings stand out.',
+    ],
+    marketStats: placeholderStats(),
+    geo: { latitude: 40.0821, longitude: -74.2097 },
+    faqs: [
+      {
+        question: 'What types of homes are in Lakewood?',
+        answer:
+          'Lakewood has single-family homes, townhomes, condominiums, new construction, and active-adult (55+) communities.',
+      },
+      {
+        question: 'How do you get around from Lakewood?',
+        answer:
+          'Lakewood is served by the Garden State Parkway and Routes 9, 70, and 88, with Interstate 195 a short drive north.',
+      },
+    ],
+  },
+  {
+    slug: 'lavallette-nj',
+    name: 'Lavallette',
+    county: 'Ocean County',
+    zipCodes: ['08735'],
+    angle: 'Quiet barrier-island borough between ocean and bay',
+    photo: 'lavallette',
+    metaTitle: 'Lavallette NJ Homes for Sale | Beach & Bay Homes | Jacquelyn Guevara',
+    metaDescription:
+      'Search Lavallette, NJ homes for sale on the barrier island between the ocean and Barnegat Bay, with local guidance from Jacquelyn Guevara of RE/MAX Revolution.',
+    headline: 'Lavallette, NJ Homes for Sale & Real Estate',
+    subheadline: 'Ocean-block and bayside homes in a residential barrier-island borough.',
+    idxCity: 'Lavallette',
+    remaxArea: 'lavallette',
+    intro:
+      'Lavallette is a residential borough on the barrier island between the Atlantic Ocean and Barnegat Bay, north of Seaside Heights. Route 35 runs through town, and residents have both ocean beaches and bayfront within a short walk.',
+    highlights: [
+      'Ocean beaches and Barnegat Bay within walking distance',
+      'Route 35 along the barrier island',
+      'Mostly residential streets with a quieter feel',
+      'Year-round homes, second homes, and seasonal rentals',
+    ],
+    neighborhoods: [
+      { name: 'Ocean Side', blurb: 'Homes east of Route 35, closest to the beach.' },
+      { name: 'Bay Side', blurb: 'Homes west of Route 35 with bay views and access.' },
+      { name: 'Central Lavallette', blurb: 'Streets near the borough’s shops and services.' },
+    ],
+    marketOverview:
+      'Lavallette’s small size and barrier-island location keep inventory limited. Value depends on ocean or bay proximity, elevation, and condition, so careful comparisons with recent nearby sales are important.',
+    buyerTips: [
+      'Review elevation certificates and flood insurance costs before making an offer.',
+      'Ask whether the home has been raised or rebuilt and request permits and documentation.',
+      'If renting, check local rental rules and the home’s rental history.',
+    ],
+    sellerTips: [
+      'Have elevation, permit, and improvement records ready.',
+      'Highlight walking distance to the beach and bay.',
+      'Share rental history if the home has been rented.',
+    ],
+    marketStats: placeholderStats(),
+    geo: { latitude: 39.9704, longitude: -74.069 },
+    faqs: [
+      {
+        question: 'Is Lavallette on the ocean or the bay?',
+        answer:
+          'Both. Lavallette stretches across the barrier island, with ocean beaches on the east side and Barnegat Bay on the west.',
+      },
+      {
+        question: 'Do I need flood insurance in Lavallette?',
+        answer:
+          'Many homes are in FEMA flood zones, and lenders typically require flood insurance there. Review the elevation certificate and get quotes before you make an offer.',
+      },
+    ],
+  },
+  {
+    slug: 'little-egg-harbor-nj',
+    name: 'Little Egg Harbor',
+    county: 'Ocean County',
+    zipCodes: ['08087'],
+    angle: 'Mystic Island lagoons & Pinelands neighborhoods',
+    photo: 'little-egg-harbor',
+    metaTitle: 'Little Egg Harbor NJ Homes for Sale | Mystic Island | Jacquelyn Guevara',
+    metaDescription:
+      'Search Little Egg Harbor, NJ homes for sale, including Mystic Island lagoon homes and wooded neighborhoods, with local guidance from Jacquelyn Guevara of RE/MAX Revolution.',
+    headline: 'Little Egg Harbor, NJ Homes for Sale & Real Estate',
+    subheadline: 'Lagoon homes in Mystic Island and wooded neighborhoods inland.',
+    idxCity: ['Little Egg Harbor', 'Mystic Island'],
+    remaxArea: 'little+egg+harbor',
+    intro:
+      'Little Egg Harbor Township sits at the southern end of Ocean County, next to Tuckerton. It includes Mystic Island, a large lagoon community with bay access, along with wooded neighborhoods and active-adult communities inland.',
+    highlights: [
+      'Mystic Island lagoon homes with access to the bay',
+      'Garden State Parkway and Route 9 nearby',
+      'Little Egg Harbor schools for younger grades; Pinelands Regional for grades 7–12',
+      'Single-family homes and active-adult (55+) communities',
+    ],
+    neighborhoods: [
+      { name: 'Mystic Island', blurb: 'Lagoon-front homes with docks and bay access.' },
+      { name: 'Inland Neighborhoods', blurb: 'Single-family homes on wooded lots.' },
+      { name: 'Active-Adult Communities', blurb: 'Age-restricted neighborhoods with HOA rules and fees.' },
+    ],
+    marketOverview:
+      'Little Egg Harbor offers lagoon living in Mystic Island alongside inland single-family homes and 55+ communities. For waterfront homes, elevation, bulkheads, and flood insurance weigh heavily on value.',
+    buyerTips: [
+      'For lagoon homes, check bulkheads, elevation, and flood insurance costs early.',
+      'Ask whether a home has been raised or rebuilt and request documentation.',
+      'In 55+ communities, review HOA fees and rules before you offer.',
+    ],
+    sellerTips: [
+      'Have elevation and bulkhead documentation ready for waterfront homes.',
+      'Highlight boating access and updates.',
+      'Price against recent sales on similar lagoons or streets.',
+    ],
+    marketStats: placeholderStats(),
+    geo: { latitude: 39.5965, longitude: -74.3418 },
+    faqs: [
+      {
+        question: 'Is Mystic Island part of Little Egg Harbor?',
+        answer: 'Yes. Mystic Island is a lagoon community within Little Egg Harbor Township.',
+      },
+      {
+        question: 'Which schools serve Little Egg Harbor?',
+        answer:
+          'Younger students attend the Little Egg Harbor Township School District, and students in grades 7–12 attend the Pinelands Regional School District. The NJ Department of Education publishes School Performance Reports for each school.',
+      },
+    ],
+  },
+  {
+    slug: 'manchester-nj',
+    name: 'Manchester',
+    county: 'Ocean County',
+    zipCodes: ['08759'],
+    angle: 'Large Pinelands township including Whiting',
+    photo: 'manchester',
+    metaTitle: 'Manchester Township NJ Homes for Sale | Jacquelyn Guevara',
+    metaDescription:
+      'Search Manchester Township, NJ homes for sale, including Whiting, Ridgeway, and active-adult communities, with local guidance from Jacquelyn Guevara of RE/MAX Revolution.',
+    headline: 'Manchester Township, NJ Homes for Sale & Real Estate',
+    subheadline: 'Single-family neighborhoods and active-adult communities across a wooded Pinelands township.',
+    idxCity: 'Manchester',
+    remaxArea: 'manchester',
+    intro:
+      'Manchester Township is a large township in central Ocean County, much of it within the New Jersey Pinelands. It includes Whiting, Ridgeway, and Pine Lake Park, and it surrounds the separate Borough of Lakehurst. Routes 37 and 70 cross the township.',
+    highlights: [
+      'Includes Whiting, Ridgeway, and Pine Lake Park',
+      'Routes 37 and 70 cross the township',
+      'Manchester Township School District, including Manchester Township High School',
+      'Many active-adult (55+) communities, plus single-family neighborhoods',
+    ],
+    neighborhoods: [
+      { name: 'Whiting', blurb: 'Many active-adult communities in a wooded setting.', },
+      { name: 'Pine Lake Park', blurb: 'Single-family neighborhoods in the township’s eastern section.' },
+      { name: 'Ridgeway', blurb: 'Quieter, wooded areas in the northern part of the township.' },
+    ],
+    marketOverview:
+      'Manchester’s market is shaped by its many active-adult communities and its single-family neighborhoods on wooded lots. HOA terms, land-lease arrangements, and location within the township all affect pricing.',
+    buyerTips: [
+      'In 55+ communities, review HOA fees, rules, and age requirements early.',
+      'Ask whether a home is on owned land or in a land-lease community.',
+      'Check drive times to Route 37, Route 70, and shopping.',
+    ],
+    sellerTips: [
+      'Have HOA and community documents ready for buyers.',
+      'Price against recent sales inside your community or neighborhood.',
+      'Highlight updates and low-maintenance features.',
+    ],
+    marketStats: placeholderStats(),
+    geo: { latitude: 39.992, longitude: -74.364 },
+    faqs: [
+      {
+        question: 'Is Whiting part of Manchester Township?',
+        answer:
+          'Yes. Whiting is a community within Manchester Township. See the Whiting page for more about its neighborhoods.',
+      },
+      {
+        question: 'Is Lakehurst part of Manchester?',
+        answer:
+          'No. Lakehurst is a separate borough surrounded by Manchester Township.',
+      },
+    ],
+  },
+  {
+    slug: 'seaside-heights-nj',
+    name: 'Seaside Heights',
+    county: 'Ocean County',
+    zipCodes: ['08751'],
+    angle: 'Boardwalk borough on the barrier island',
+    photo: 'seaside-heights',
+    metaTitle: 'Seaside Heights NJ Homes for Sale | Condos & Shore Homes | Jacquelyn Guevara',
+    metaDescription:
+      'Search Seaside Heights, NJ homes and condos for sale near the boardwalk and the bay, with local guidance from Jacquelyn Guevara of RE/MAX Revolution.',
+    headline: 'Seaside Heights, NJ Homes for Sale & Real Estate',
+    subheadline: 'Condos and shore homes near the boardwalk, the beach, and Barnegat Bay.',
+    idxCity: 'Seaside Heights',
+    remaxArea: 'seaside+heights',
+    intro:
+      'Seaside Heights is a barrier-island borough known for its boardwalk, amusement pier, and beaches. The Route 37 bridges connect it to Toms River on the mainland. Housing ranges from condominiums and small cottages to multi-family homes.',
+    highlights: [
+      'Boardwalk with an amusement pier, arcades, and food',
+      'Route 37 bridges to Toms River',
+      'Ocean beaches and Barnegat Bay within a few blocks',
+      'Condos, cottages, and multi-family homes',
+    ],
+    neighborhoods: [
+      { name: 'Boardwalk Blocks', blurb: 'Homes and condos closest to the beach and boardwalk.' },
+      { name: 'Bay Side', blurb: 'Streets west of the main corridors, closer to the bay.' },
+      { name: 'Central Seaside Heights', blurb: 'Cottages and multi-family homes between ocean and bay.' },
+    ],
+    marketOverview:
+      'Seaside Heights draws second-home buyers and investors as well as year-round owners. Rental history, condo association rules, and flood considerations are central to evaluating a property here.',
+    buyerTips: [
+      'For condos, review association budgets, reserves, and rental rules.',
+      'If you plan to rent, ask for rental history and check borough rental requirements.',
+      'Review flood zone, elevation, and insurance costs before you offer.',
+    ],
+    sellerTips: [
+      'Share rental income history and association documents up front.',
+      'Highlight distance to the beach and boardwalk.',
+      'Time the listing with Jacquelyn around peak buyer interest.',
+    ],
+    marketStats: placeholderStats(),
+    geo: { latitude: 39.9443, longitude: -74.0729 },
+    faqs: [
+      {
+        question: 'How do you get to Seaside Heights?',
+        answer:
+          'Seaside Heights is on the barrier island. From the mainland, take Route 37 east from Toms River across the bridges over Barnegat Bay.',
+      },
+      {
+        question: 'Can I rent out a home in Seaside Heights?',
+        answer:
+          'Many owners do, but rental rules and registration requirements apply. Check the borough’s current requirements, and for condos, the association’s rules, before you buy.',
+      },
+    ],
+  },
+  {
+    slug: 'seaside-park-nj',
+    name: 'Seaside Park',
+    county: 'Ocean County',
+    zipCodes: ['08752'],
+    angle: 'Gateway to Island Beach State Park',
+    photo: 'seaside-park',
+    metaTitle: 'Seaside Park NJ Homes for Sale | Beach & Bay Homes | Jacquelyn Guevara',
+    metaDescription:
+      'Search Seaside Park, NJ homes for sale between the ocean and Barnegat Bay, next to Island Beach State Park, with local guidance from Jacquelyn Guevara of RE/MAX Revolution.',
+    headline: 'Seaside Park, NJ Homes for Sale & Real Estate',
+    subheadline: 'Beach and bay homes at the entrance to Island Beach State Park.',
+    idxCity: 'Seaside Park',
+    remaxArea: 'seaside+park',
+    intro:
+      'Seaside Park is a barrier-island borough just south of Seaside Heights, at the entrance to Island Beach State Park. Its streets run between ocean beaches and Barnegat Bay, with a mostly residential feel.',
+    highlights: [
+      'At the entrance to Island Beach State Park',
+      'Ocean beaches and bay access within walking distance',
+      'Route 35 along the barrier island; Route 37 to the mainland nearby',
+      'Year-round homes, second homes, and seasonal rentals',
+    ],
+    neighborhoods: [
+      { name: 'Ocean Side', blurb: 'Homes on the blocks closest to the beach.' },
+      { name: 'Bay Side', blurb: 'Homes near Barnegat Bay and its marinas.' },
+      { name: 'South End', blurb: 'Streets closest to Island Beach State Park.' },
+    ],
+    marketOverview:
+      'Seaside Park’s limited inventory and barrier-island setting make each sale significant. Elevation, distance to the ocean or bay, and condition drive value.',
+    buyerTips: [
+      'Review elevation certificates and flood insurance costs before you offer.',
+      'Ask whether the home has been raised or rebuilt and request permits.',
+      'If you plan to rent, check rental rules and the home’s rental history.',
+    ],
+    sellerTips: [
+      'Have elevation, permit, and improvement records ready.',
+      'Highlight access to the beach, the bay, and Island Beach State Park.',
+      'Share rental history if the home has been rented.',
+    ],
+    marketStats: placeholderStats(),
+    geo: { latitude: 39.9265, longitude: -74.0771 },
+    faqs: [
+      {
+        question: 'Is Seaside Park the same as Seaside Heights?',
+        answer:
+          'No. They are separate boroughs. Seaside Park is just south of Seaside Heights and borders the entrance to Island Beach State Park.',
+      },
+      {
+        question: 'Do I need flood insurance in Seaside Park?',
+        answer:
+          'Many homes are in FEMA flood zones, and lenders typically require flood insurance there. Review the elevation certificate and get quotes before you make an offer.',
+      },
+    ],
+  },
+  {
+    slug: 'tuckerton-nj',
+    name: 'Tuckerton',
+    county: 'Ocean County',
+    zipCodes: ['08087'],
+    angle: 'Historic bayside borough on Route 9',
+    photo: 'tuckerton',
+    metaTitle: 'Tuckerton NJ Homes for Sale & Real Estate | Jacquelyn Guevara',
+    metaDescription:
+      'Search Tuckerton, NJ homes for sale in this historic borough near the bay, with local guidance from Jacquelyn Guevara of RE/MAX Revolution.',
+    headline: 'Tuckerton, NJ Homes for Sale & Real Estate',
+    subheadline: 'A historic Route 9 borough near Little Egg Harbor Bay.',
+    idxCity: 'Tuckerton',
+    remaxArea: 'tuckerton',
+    intro:
+      'Tuckerton is a small borough on Route 9 in southern Ocean County, surrounded by Little Egg Harbor Township. It is home to the Tuckerton Seaport, a maritime village and museum, and Lake Pohatcong, with lagoon neighborhoods leading toward the bay.',
+    highlights: [
+      'Tuckerton Seaport maritime village and museum',
+      'Lake Pohatcong and lagoon neighborhoods',
+      'Route 9, with the Garden State Parkway nearby',
+      'Tuckerton schools for younger grades; Pinelands Regional for grades 7–12',
+    ],
+    neighborhoods: [
+      { name: 'Historic Center', blurb: 'Older homes along and near Route 9.' },
+      { name: 'Tuckerton Beach', blurb: 'Lagoon homes with access toward the bay.' },
+      { name: 'Lakeside', blurb: 'Streets near Lake Pohatcong.' },
+    ],
+    marketOverview:
+      'Tuckerton combines historic in-town homes with lagoon properties toward the bay. For waterfront homes, elevation and flood insurance weigh heavily on value; in town, condition and updates matter most.',
+    buyerTips: [
+      'For lagoon homes, check bulkheads, elevation, and flood insurance early.',
+      'For older homes, plan for a thorough inspection of systems and foundation.',
+      'Compare recent sales in Tuckerton and neighboring Little Egg Harbor.',
+    ],
+    sellerTips: [
+      'Have elevation, bulkhead, and improvement records ready.',
+      'Highlight historic character and recent updates.',
+      'Price against recent sales of similar homes nearby.',
+    ],
+    marketStats: placeholderStats(),
+    geo: { latitude: 39.6032, longitude: -74.3404 },
+    faqs: [
+      {
+        question: 'Is Tuckerton the same as Little Egg Harbor?',
+        answer:
+          'No. Tuckerton is a separate borough surrounded by Little Egg Harbor Township. The two share the 08087 ZIP code and the Pinelands Regional School District for grades 7–12.',
+      },
+      {
+        question: 'What is the Tuckerton Seaport?',
+        answer:
+          'The Tuckerton Seaport is a maritime village and museum on Route 9 that celebrates the area’s bay and boating history.',
+      },
+    ],
+  },
+  {
     slug: 'tinton-falls-nj',
     name: 'Tinton Falls',
     county: 'Monmouth County',
@@ -347,61 +1064,6 @@ export const towns: Town[] = [
         question: 'Is Tinton Falls near the Garden State Parkway?',
         answer:
           'Yes. Parkway interchanges are in and near the borough, which makes trips along the shore and toward northern New Jersey convenient.',
-      },
-    ],
-  },
-  {
-    slug: 'point-pleasant-nj',
-    name: 'Point Pleasant',
-    county: 'Ocean County',
-    zipCodes: ['08742'],
-    angle: 'Waterfront homes, river & beach living',
-    photo: 'point-pleasant',
-    metaTitle: 'Point Pleasant NJ Waterfront Homes for Sale | Beach & Riverfront',
-    metaDescription:
-      'Browse Point Pleasant & Point Pleasant Beach, NJ waterfront homes for sale — riverfront, lagoon, and beach-block properties. Local guidance from Jacquelyn Guevara of RE/MAX Revolution.',
-    headline: 'Coastal Charm & Prime Real Estate in Point Pleasant, NJ',
-    subheadline:
-      'Experience classic shore living with easy access to local beaches and rivers.',
-    idxCity: 'Point Pleasant',
-    remaxArea: 'point+pleasant',
-    intro:
-      'Point Pleasant (Point Pleasant Borough) is the quintessential Jersey Shore coastal town. Known for its community feel, its own public school district, the Riverfront park system, and proximity to the Manasquan Inlet, it is one of the most desirable places to call home along the Jersey coast.',
-    highlights: [
-      'Two distinct towns: Point Pleasant Borough & Point Pleasant Beach',
-      'Manasquan Inlet access for ocean boating and fishing',
-      'Boardwalk, beaches, and a walkable downtown in Point Pleasant Beach',
-      'NJ Transit North Jersey Coast Line station in Point Pleasant Beach',
-    ],
-    neighborhoods: [
-      { name: 'Manasquan Riverfront', blurb: 'Deep-water homes with quick inlet access.' },
-      { name: 'Beaver Dam Creek', blurb: 'Lagoon homes with docks, close to the bay.' },
-      { name: 'Point Pleasant Beach', blurb: 'Beach-block living steps from the boardwalk.' },
-    ],
-    marketOverview:
-      'Inventory in Point Pleasant moves rapidly, especially for properties within cycling distance of the water or downtown merchant areas. Demand spans both year-round residents seeking a vibrant coastal lifestyle and investors looking for premium shore properties.',
-    buyerTips: [
-      'Move decisively when you find a well-maintained home; properties in Point Pleasant rarely sit long on the market.',
-      'Evaluate elevation and insurance requirements, as proximity to the Manasquan River and the ocean impacts flood zone designations.',
-      'Look beyond surface cosmetics—prime location and lot orientation are the hardest things to change later.',
-    ],
-    sellerTips: [
-      'Curb appeal is king in Point Pleasant; coastal landscaping and fresh exterior paint instantly attract eager buyers.',
-      'Highlight lifestyle perks in your listing descriptions, such as walkability to local marinas, parks, and dining.',
-      'Use professional twilight photography to showcase outdoor entertaining spaces.',
-    ],
-    marketStats: placeholderStats(),
-    geo: { latitude: 40.0832, longitude: -74.0682 },
-    faqs: [
-      {
-        question: 'What is the difference between Point Pleasant and Point Pleasant Beach?',
-        answer:
-          'Point Pleasant (the Borough) is a primarily residential town with its own school district and river access, whereas Point Pleasant Beach is directly on the oceanfront and features the commercial boardwalk.',
-      },
-      {
-        question: 'Are there good commuter options from Point Pleasant?',
-        answer:
-          'Yes, residents enjoy easy access to the nearby Point Pleasant Beach station on the NJ Transit North Jersey Coast Line, offering convenient rail service north toward Newark and New York City.',
       },
     ],
   },
@@ -463,10 +1125,10 @@ export const towns: Town[] = [
 ];
 
 /**
- * Other areas listed on her RE/MAX Revolution site without a community page here yet.
- * Shown only as a preview note; add a full entry above to give one a page.
+ * Areas without a community page yet (shown only as a preview note).
+ * Every area listed on her RE/MAX Revolution site now has a page.
  */
-export const candidateAreas = ['Bayville', 'Beachwood', 'Lacey', 'Lavallette', 'Seaside Park', 'Barnegat'];
+export const candidateAreas: string[] = [];
 
 /** "Toms River, Brick, Manahawkin, Whiting, and Tinton Falls": the first `n` towns in page order. */
 export const townList = (n = towns.length) => {
@@ -475,3 +1137,21 @@ export const townList = (n = towns.length) => {
 };
 
 export const getTown = (slug: string) => towns.find((t) => t.slug === slug);
+
+/**
+ * Her service areas, as listed on her RE/MAX Revolution site, plus Tinton Falls
+ * and Manalapan. Aliases (e.g. "Point Pleasant Boro") link to their main page.
+ */
+export const serviceAreas = towns
+  .flatMap((t) => [{ name: t.name, slug: t.slug }, ...(t.aliases ?? []).map((a) => ({ name: a, slug: t.slug }))])
+  .sort((a, b) => a.name.localeCompare(b.name));
+
+/** Towns shown as photo cards on the homepage (the rest appear in the service-area list). */
+const FEATURED: TownSlug[] = ['toms-river-nj', 'brick-nj', 'manahawkin-nj', 'point-pleasant-nj', 'seaside-heights-nj', 'beach-haven-nj', 'whiting-nj', 'seaside-park-nj'];
+export const featuredTowns = () => FEATURED.map((slug) => towns.find((t) => t.slug === slug)!);
+
+/** The `n` towns closest to `town`, for "nearby communities". */
+export function nearbyTowns(town: Town, n = 4) {
+  const dist = (a: Town) => Math.hypot(a.geo.latitude - town.geo.latitude, (a.geo.longitude - town.geo.longitude) * Math.cos((town.geo.latitude * Math.PI) / 180));
+  return towns.filter((t) => t.slug !== town.slug).sort((a, b) => dist(a) - dist(b)).slice(0, n);
+}

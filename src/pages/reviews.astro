@@ -1,0 +1,68 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHeader from '@/components/ui/PageHeader.astro';
+import AwaitingContent from '@/components/ui/AwaitingContent.astro';
+import ReviewCard from '@/components/reviews/ReviewCard.astro';
+import ContactSection from '@/components/home/ContactSection.astro';
+import { publishedTestimonials, reviewSummary } from '@/data/testimonials';
+import { reviewProfiles } from '@/lib/reviews';
+import { breadcrumbSchema } from '@/lib/schema';
+import { site } from '@/data/site';
+
+const crumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Reviews', url: '/reviews/' },
+];
+const reviews = publishedTestimonials();
+const profiles = reviewProfiles();
+const platforms = reviewSummary.platforms;
+const platformList = `${platforms.slice(0, -1).join(', ')}, and ${platforms.at(-1)}`;
+---
+
+<BaseLayout
+  title={`Client Reviews | ${site.agent.legalName}, ${site.brokerage.name}`}
+  description={`Read what clients say about working with Jacquelyn Guevara of ${site.brokerage.name}: ${reviewSummary.total} five-star reviews on ${platformList}.`}
+  schema={[breadcrumbSchema(crumbs)]}
+>
+  <PageHeader
+    crumbs={crumbs}
+    eyebrow="Client Reviews"
+    title={`${reviewSummary.total} five-star reviews`}
+    intro={`Past clients have left ${reviewSummary.total} five-star reviews for Jacquelyn on ${platformList}. Here are some of their stories in their own words.`}
+  >
+    {
+      profiles.map((p) => (
+        <a href={p.url} class="btn-outline" rel="noopener" target="_blank">
+          Read all reviews on {p.source}<span class="sr-only"> (opens in a new tab)</span>
+        </a>
+      ))
+    }
+  </PageHeader>
+
+  <section class="section" aria-label="Client stories">
+    <div class="container-page">
+      <p class="mb-8 flex items-center gap-3 text-muted">
+        <span class="text-lg tracking-widest text-gold-700" role="img" aria-label={`${reviewSummary.rating} out of 5 stars`}>{'★'.repeat(reviewSummary.rating)}</span>
+        Showing {reviews.length} {reviews.length === 1 ? 'review' : 'reviews'}, newest first
+      </p>
+      <div class="grid gap-6 md:grid-cols-2">
+        {reviews.map((t) => <ReviewCard review={t} />)}
+      </div>
+      {
+        profiles.length < platforms.length && (
+          <div class="mt-12">
+            <AwaitingContent title="Links to all reviews">
+              <p>
+                Add Jacquelyn’s profile links for {platforms.filter((pl) => !profiles.some((p) => p.source === pl)).join(', ')} in
+                <code class="text-sm">src/data/site.ts</code> (<code class="text-sm">social</code>) so visitors can read every review.
+                Paste more review text into <code class="text-sm">src/data/testimonials.ts</code> to show it here.
+              </p>
+            </AwaitingContent>
+          </div>
+        )
+      }
+    </div>
+  </section>
+
+  <ContactSection formId="reviews-contact" />
+</BaseLayout>

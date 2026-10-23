@@ -5,6 +5,7 @@ import SectionHeading from '@/components/ui/SectionHeading.astro';
 import Steps from '@/components/ui/Steps.astro';
 import IdxSearch from '@/components/idx/IdxSearch.astro';
 import LeadForm from '@/components/forms/LeadForm.astro';
+import MortgageCalculator from '@/components/tools/MortgageCalculator.astro';
 import FeaturedListings from '@/components/home/FeaturedListings.astro';
 import CommunityGrid from '@/components/home/CommunityGrid.astro';
 import { breadcrumbSchema } from '@/lib/schema';
@@ -57,6 +58,7 @@ const steps = [
   >
     <a href="#buyer-inquiry" class="btn-primary">Start My Home Search</a>
     <a href="#home-search" class="btn-outline">Browse Homes</a>
+    <a href="#mortgage-calculator" class="btn-outline">Payment Calculator</a>
   </PageHeader>
 
   <section class="section" aria-labelledby="buy-steps-heading">
@@ -65,6 +67,8 @@ const steps = [
       <div class="mt-12"><Steps steps={steps} /></div>
     </div>
   </section>
+
+  <MortgageCalculator />
 
   <section id="home-search" class="section bg-white/60 pt-0 sm:pt-0" aria-label="Home search">
     <div class="container-page pt-16 sm:pt-20">

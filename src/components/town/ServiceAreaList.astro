@@ -1,0 +1,26 @@
+---
+/** Compact, multi-column list of every service area (aliases link to their main page). */
+import { serviceAreas } from '@/data/towns';
+import { withBase } from '@/lib/paths';
+
+interface Props {
+  dark?: boolean;
+  class?: string;
+}
+const { dark = false, class: className } = Astro.props;
+---
+
+<ul class:list={['columns-2 gap-x-6 sm:columns-3 lg:columns-4', className]}>
+  {
+    serviceAreas.map((a) => (
+      <li class="break-inside-avoid py-1">
+        <a
+          href={withBase(`/${a.slug}/`)}
+          class:list={[dark ? 'hover:text-white' : 'text-navy underline decoration-gold/70 underline-offset-4 hover:decoration-navy']}
+        >
+          {a.name}
+        </a>
+      </li>
+    ))
+  }
+</ul>

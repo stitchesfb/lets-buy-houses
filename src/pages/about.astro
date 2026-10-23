@@ -5,10 +5,10 @@ import Breadcrumbs from '@/components/ui/Breadcrumbs.astro';
 import AwaitingContent from '@/components/ui/AwaitingContent.astro';
 import WhyJacquelyn from '@/components/home/WhyJacquelyn.astro';
 import Testimonials from '@/components/home/Testimonials.astro';
+import ServiceAreaList from '@/components/town/ServiceAreaList.astro';
 import ContactSection from '@/components/home/ContactSection.astro';
 import portrait from '@/assets/jacquelyn-guevara.jpg';
 import { site } from '@/data/site';
-import { towns } from '@/data/towns';
 import { breadcrumbSchema } from '@/lib/schema';
 import { withBase } from '@/lib/paths';
 
@@ -67,21 +67,7 @@ const facts = [
           </div>
 
           <h2 class="mt-12 text-2xl sm:text-3xl">Where Jacquelyn works</h2>
-          <ul class="mt-5 grid gap-3 sm:grid-cols-2">
-            {
-              towns.map((t) => (
-                <li>
-                  <a href={withBase(`/${t.slug}/`)} class="card flex items-center justify-between gap-3 px-5 py-4 hover:border-navy/40">
-                    <span>
-                      <span class="block font-semibold text-navy">{t.name}, NJ</span>
-                      <span class="text-sm text-muted">{t.county}</span>
-                    </span>
-                    <span aria-hidden="true" class="text-gold-700">→</span>
-                  </a>
-                </li>
-              ))
-            }
-          </ul>
+          <ServiceAreaList class="mt-5" />
 
           <div class="mt-10 flex flex-col gap-3 sm:flex-row">
             <a href={withBase('/contact/')} class="btn-primary">Schedule a Conversation</a>
@@ -102,6 +88,6 @@ const facts = [
   </section>
 
   <WhyJacquelyn />
-  <Testimonials limit={8} />
+  <Testimonials />
   <ContactSection formId="about-contact" />
 </BaseLayout>

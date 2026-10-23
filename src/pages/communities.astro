@@ -1,7 +1,9 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import CommunityGrid from '@/components/home/CommunityGrid.astro';
+import PageHeader from '@/components/ui/PageHeader.astro';
+import CommunityCard from '@/components/town/CommunityCard.astro';
 import ContactSection from '@/components/home/ContactSection.astro';
+import { serviceAreas, towns } from '@/data/towns';
 import { breadcrumbSchema } from '@/lib/schema';
 import { site } from '@/data/site';
 
@@ -9,13 +11,41 @@ const crumbs = [
   { name: 'Home', url: '/' },
   { name: 'Communities', url: '/communities/' },
 ];
+const counties = ['Ocean County', 'Monmouth County'] as const;
+const names = serviceAreas.map((a) => a.name);
 ---
 
 <BaseLayout
-  title={`Communities: Toms River, Brick, Manahawkin, Whiting & More | ${site.agent.legalName}`}
-  description="Local guides to Toms River, Brick, Manahawkin, Whiting, Tinton Falls, Point Pleasant, and Manalapan, NJ from Jacquelyn Guevara of RE/MAX Revolution: housing, getting around, local resources, and homes for sale."
+  title={`Communities: Toms River, Brick, Manahawkin & More | ${site.agent.legalName}`}
+  description={`Local guides to the New Jersey communities Jacquelyn Guevara of ${site.brokerage.name} serves: ${names.join(', ')}.`}
   schema={[breadcrumbSchema(crumbs)]}
 >
-  <CommunityGrid asPageTitle heading="Communities Jacquelyn serves" />
+  <PageHeader
+    crumbs={crumbs}
+    eyebrow="Communities"
+    title="Communities Jacquelyn serves"
+    intro={`Housing, getting around, and local resources in ${towns.length} Ocean and Monmouth County communities, with links to current listings in each.`}
+  />
+
+  {
+    counties.map((county) => {
+      const list = towns.filter((t) => t.county === county);
+      const id = county.toLowerCase().replace(/\s+/g, '-');
+      return (
+        <section class="section pb-0 sm:pb-0 last-of-type:pb-16 sm:last-of-type:pb-24" aria-labelledby={id}>
+          <div class="container-page">
+            <div class="flex items-baseline justify-between gap-4 border-b border-line pb-3">
+              <h2 id={id} class="text-3xl">{county}</h2>
+              <p class="text-muted">{list.length} communities</p>
+            </div>
+            <ul class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+              {list.map((t) => <li><CommunityCard town={t} /></li>)}
+            </ul>
+          </div>
+        </section>
+      );
+    })
+  }
+
   <ContactSection formId="communities-contact" />
 </BaseLayout>

@@ -2,7 +2,7 @@
 import { Picture } from 'astro:assets';
 import portrait from '@/assets/jacquelyn-guevara.jpg';
 import { site } from '@/data/site';
-import { towns } from '@/data/towns';
+import { featuredTowns, serviceAreas } from '@/data/towns';
 import { withBase } from '@/lib/paths';
 
 const { agent, brokerage } = site;
@@ -47,7 +47,8 @@ const facts = [
 
       <p class="mt-6 text-muted">
         <span class="font-semibold text-ink">Areas served:</span>{' '}
-        {towns.map((t, i) => <>{i > 0 && ', '}<a href={withBase(`/${t.slug}/`)} class="text-navy underline decoration-gold underline-offset-4 hover:decoration-navy">{t.name}</a></>)}
+        {featuredTowns().slice(0, 5).map((t) => <><a href={withBase(`/${t.slug}/`)} class="text-navy underline decoration-gold underline-offset-4 hover:decoration-navy">{t.name}</a>{', '}</>)}
+        and <a href={withBase('/communities/')} class="text-navy underline decoration-gold underline-offset-4 hover:decoration-navy">{serviceAreas.length - 5} more communities</a>
       </p>
 
       <div class="mt-8 flex flex-col gap-3 sm:flex-row">

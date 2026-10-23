@@ -15,7 +15,7 @@ import AgentCta from '@/components/ui/AgentCta.astro';
 import VideoHub from '@/components/home/VideoHub.astro';
 import CommunityGrid from '@/components/home/CommunityGrid.astro';
 import ContactSection from '@/components/home/ContactSection.astro';
-import { towns, type Town } from '@/data/towns';
+import { nearbyTowns, towns, type Town } from '@/data/towns';
 import { photo } from '@/data/photos';
 import { videos } from '@/data/videos';
 import { breadcrumbSchema, faqSchema, townPageSchema } from '@/lib/schema';
@@ -115,5 +115,5 @@ const heroPhoto = photo(town.photo);
 
   <ContactSection formId={`${town.slug}-contact`} town={town.name} />
 
-  <CommunityGrid heading="Explore nearby communities" intro="" exclude={town.slug} />
+  <CommunityGrid heading="Explore nearby communities" intro="" items={nearbyTowns(town)} />
 </BaseLayout>

@@ -3,7 +3,7 @@
  * Validate output at https://search.google.com/test/rich-results
  */
 import { site } from '@/data/site';
-import { towns, type Faq, type Town } from '@/data/towns';
+import { townList, towns, type Faq, type Town } from '@/data/towns';
 import { absoluteUrl } from '@/lib/paths';
 
 const agentId = `${site.url}/#agent`;
@@ -19,7 +19,7 @@ export function realEstateAgentSchema() {
     url: site.url,
     image: absoluteUrl(agent.headshot),
     logo: absoluteUrl('/favicon.svg'),
-    description: `${agent.legalName}, ${agent.title} with ${brokerage.name}, helping buyers and sellers in Manalapan, Brick, Point Pleasant, and Manahawkin, NJ.`,
+    description: `${agent.legalName}, ${agent.title} with ${brokerage.name}, helping buyers and sellers in ${townList()}, NJ.`,
     telephone: contact.phone,
     email: contact.email,
     address: {

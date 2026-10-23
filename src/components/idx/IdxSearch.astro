@@ -23,9 +23,11 @@ interface Props {
   /** Vendor-specific widget ID (script provider), e.g. a per-town saved search widget. */
   widgetId?: string;
   minHeight?: number;
+  /** Live listings on her RE/MAX site, shown while no IDX widget is connected. */
+  listingsUrl?: string;
 }
 
-const { city, heading, widgetId, minHeight = 720 } = Astro.props;
+const { city, heading, widgetId, minHeight = 720, listingsUrl } = Astro.props;
 const town = Astro.props.town ?? toCityList(city)[0];
 const { provider, scriptSrc } = idxConfig;
 const url = idxSearchUrl(city);
@@ -61,8 +63,9 @@ const connected = ((provider === 'iframe' || provider === 'idx-broker') && Boole
         <div>
           <p class="font-serif text-2xl text-navy">Looking for homes in {label}?</p>
           <p class="mt-2 max-w-xl text-muted">
-            Tell Jackie your must-haves and price range, and she’ll send you homes for sale that match, including new
-            listings as they come up.
+            {listingsUrl
+              ? 'Browse every current MLS listing on Jacquelyn’s RE/MAX Revolution search, or tell her your must-haves and she’ll send homes that match.'
+              : 'Tell Jacquelyn your must-haves and price range, and she’ll send you homes for sale that match, including new listings as they come up.'}
           </p>
           {isPreview && (
             <p class="mt-3 text-sm text-gold-700">
@@ -71,9 +74,16 @@ const connected = ((provider === 'iframe' || provider === 'idx-broker') && Boole
             </p>
           )}
         </div>
-        <a href={withBase(`/buy/${town ? `?town=${encodeURIComponent(town)}` : ''}#buyer-inquiry`)} class="btn-primary">
-          Send Me Matching Homes
-        </a>
+        <div class="flex flex-col gap-3">
+          {listingsUrl && (
+            <a href={listingsUrl} class="btn-primary" target="_blank" rel="noopener">
+              Browse Current Listings<span class="sr-only"> (opens Jacquelyn’s RE/MAX Revolution search in a new tab)</span>
+            </a>
+          )}
+          <a href={withBase(`/buy/${town ? `?town=${encodeURIComponent(town)}` : ''}#buyer-inquiry`)} class={listingsUrl ? 'btn-outline' : 'btn-primary'}>
+            Send Me Matching Homes
+          </a>
+        </div>
       </div>
     )
   }

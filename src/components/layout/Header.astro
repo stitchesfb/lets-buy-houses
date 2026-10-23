@@ -22,10 +22,7 @@ const isActive = (href: string) =>
 <header class="sticky top-0 z-40 border-b border-line bg-ivory/95 backdrop-blur supports-[backdrop-filter]:bg-ivory/85">
   <div class="container-page flex h-16 items-center justify-between gap-4 lg:h-20">
     <a href={withBase('/')} class="group flex flex-col leading-tight" aria-label={`${site.agent.name}, home`}>
-      <span class="font-serif text-lg whitespace-nowrap text-navy sm:text-xl">
-        <span class="hidden min-[380px]:inline">{site.agent.name}</span>
-        <span class="min-[380px]:hidden">{site.agent.firstName} Guevara</span>
-      </span>
+      <span class="font-serif text-lg whitespace-nowrap text-navy sm:text-xl">{site.agent.name}</span>
       <span class="text-[0.6875rem] font-semibold tracking-[0.16em] text-muted uppercase">{site.brokerage.name}</span>
     </a>
 

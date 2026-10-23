@@ -20,6 +20,7 @@ import { photo } from '@/data/photos';
 import { videos } from '@/data/videos';
 import { breadcrumbSchema, faqSchema, townPageSchema } from '@/lib/schema';
 import { withBase } from '@/lib/paths';
+import { listingsUrl } from '@/lib/listings-links';
 
 export const getStaticPaths = (() => towns.map((town) => ({ params: { town: town.slug }, props: { town } }))) satisfies GetStaticPaths;
 
@@ -83,7 +84,7 @@ const heroPhoto = photo(town.photo);
       <MarketStats town={town} />
 
       <div id="homes">
-        <IdxSearch city={town.idxCity} town={town.name} heading={`Homes for sale in ${town.name}`} />
+        <IdxSearch city={town.idxCity} town={town.name} heading={`Homes for sale in ${town.name}`} listingsUrl={listingsUrl(town)} />
       </div>
 
       <section aria-labelledby="hoods-heading">

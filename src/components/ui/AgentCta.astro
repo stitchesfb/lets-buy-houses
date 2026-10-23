@@ -1,7 +1,7 @@
 ---
 /** Compact agent card for page sidebars. */
 import { Picture } from 'astro:assets';
-import portrait from '@/assets/jackie-guevara.jpg';
+import portrait from '@/assets/jacquelyn-guevara.jpg';
 import { site } from '@/data/site';
 import { withBase } from '@/lib/paths';
 
@@ -16,10 +16,10 @@ const { agent, contact, brokerage } = site;
   <Picture src={portrait} alt="" widths={[112, 224]} sizes="112px" formats={['avif', 'webp']} class="mx-auto h-28 w-28 rounded-full object-cover" />
   <p class="mt-4 font-serif text-xl text-navy">{agent.name}</p>
   <p class="text-sm text-muted">{agent.title} · {brokerage.name}</p>
-  {town && <p class="mt-3 text-[0.9375rem]">Questions about {town}? Jackie is glad to help.</p>}
+  {town && <p class="mt-3 text-[0.9375rem]">Questions about {town}? Jacquelyn is glad to help.</p>}
   <div class="mt-5 grid gap-2">
     <a href={contact.phoneHref} class="btn-primary">Call {contact.phone}</a>
-    <a href={contact.smsHref} class="btn-outline">Text Jackie</a>
+    <a href={contact.smsHref} class="btn-outline">Text Jacquelyn</a>
     <a href={withBase('/contact/')} class="btn-outline">Send a Message</a>
   </div>
 </aside>

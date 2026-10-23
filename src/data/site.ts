@@ -1,7 +1,7 @@
 /**
- * Single source of truth for Jackie's verified business details.
+ * Single source of truth for Jacquelyn's verified business details.
  *
- * Everything here is confirmed by Jackie or her family unless marked TODO.
+ * Everything here is confirmed by Jacquelyn or her family unless marked TODO.
  * Do not add awards, sales numbers, testimonials, languages or affiliations
  * until they are confirmed in writing. Keep name, address and phone identical
  * to her Google Business Profile and brokerage listings (local SEO "NAP").
@@ -17,15 +17,14 @@ export const site = {
    * `base` to '/' in astro.config.mjs.
    */
   liveOrigin: 'https://stitchesfb.github.io',
-  /** Page language. Spanish can be added later once Jackie confirms she serves Spanish-speaking clients. */
+  /** Page language. Spanish can be added later once Jacquelyn confirms she serves Spanish-speaking clients. */
   lang: 'en-US',
 
   agent: {
-    /** Working display name, pending Jackie's confirmation of her preferred professional name. */
-    name: 'Jacquelyn “Jackie” Guevara',
-    /** Name without the nickname, for structured data and anywhere quotes read awkwardly. */
+    /** Her professional name. Do not use a nickname anywhere on the site. */
+    name: 'Jacquelyn Guevara',
     legalName: 'Jacquelyn Guevara',
-    firstName: 'Jackie',
+    firstName: 'Jacquelyn',
     title: 'Associate',
     /** From her bio: "a licensed real estate professional with RE/MAX Revolution for over 15 years". */
     yearsLicensed: '15+',
@@ -33,14 +32,14 @@ export const site = {
     yearsInOceanCounty: '35+',
     /** NJ Real Estate Commission license — must appear on all advertising. */
     licenseNumber: '1005595',
-    headshot: '/images/jackie-guevara.jpg', // 1200x1200, also used for social previews
+    headshot: '/images/jacquelyn-guevara.jpg', // 1200x1200, also used for social previews
     /** Two sentences taken verbatim from her bio, for short introductions. */
     intro: [
       'As an Ocean County resident for over 35 years and a licensed real estate professional with RE/MAX Revolution for over 15 years, I don’t just know the Jersey Shore and Monmouth County markets—I’ve lived them.',
       'When you work with me, you don’t get an agent who waits for things to happen—you get a partner who makes them happen.',
     ],
-    bio: 'Hello, I’m Jacquelyn \'Jackie\' Guevara. As an Ocean County resident for over 35 years and a licensed real estate professional with RE/MAX Revolution for over 15 years, I don’t just know the Jersey Shore and Monmouth County markets—I’ve lived them. When you work with me, you don’t get an agent who waits for things to happen—you get a partner who makes them happen. I’ve built my career on relentless work ethic, rapid communication, and fierce negotiation. Whether marketing a listing in Manalapan, navigating waterfront properties in Point Pleasant and Brick, or guiding buyers near Manahawkin, I treat every home as if it were my own investment. Over 15+ years, my reputation has been built on quick turnarounds, seamless closings, and exceptional outcomes. Whether selling a family estate, acquiring an investment, or relocating to the Shore, I deliver what you need—faster, smarter, and stronger than expected.',
-    /** How she works, drawn from her bio. Shown in "Why Work With Jackie?". */
+    bio: 'Hello, I’m Jacquelyn Guevara. As an Ocean County resident for over 35 years and a licensed real estate professional with RE/MAX Revolution for over 15 years, I don’t just know the Jersey Shore and Monmouth County markets—I’ve lived them. When you work with me, you don’t get an agent who waits for things to happen—you get a partner who makes them happen. I’ve built my career on relentless work ethic, rapid communication, and fierce negotiation. Whether marketing a listing in Manalapan, navigating waterfront properties in Point Pleasant and Brick, or guiding buyers near Manahawkin, I treat every home as if it were my own investment. Over 15+ years, my reputation has been built on quick turnarounds, seamless closings, and exceptional outcomes. Whether selling a family estate, acquiring an investment, or relocating to the Shore, I deliver what you need—faster, smarter, and stronger than expected.',
+    /** How she works, drawn from her bio. Shown in "Why Work With Jacquelyn?". */
     approach: [
       {
         title: 'Rapid, clear communication',
@@ -48,7 +47,7 @@ export const site = {
       },
       {
         title: 'Determined negotiation',
-        body: 'Whether you are buying or selling, Jackie works hard for the strongest possible terms and treats your home as if it were her own investment.',
+        body: 'Whether you are buying or selling, Jacquelyn works hard for the strongest possible terms and treats your home as if it were her own investment.',
       },
       {
         title: 'Organized from start to closing',
@@ -66,7 +65,8 @@ export const site = {
       postalCode: '08723',
       country: 'US',
     },
-    officePhone: '' as string, // TODO: brokerage office number (shown in the footer when set)
+    /** Listed as her "Work Phone" on her RE/MAX Revolution agent page. */
+    officePhone: '(732) 678-1328' as string,
   },
 
   contact: {
@@ -78,6 +78,12 @@ export const site = {
 
   /** Office coordinates for schema. TODO: copy from the Google Business Profile pin. */
   geo: null as { latitude: number; longitude: number } | null,
+
+  /**
+   * Her RE/MAX Revolution website, which runs the live MLS search (Monmouth County
+   * Association of REALTORS). Used for "Browse current listings" links.
+   */
+  listingsSite: 'https://jguevara.remaxbb.com',
 
   social: {
     youtube: '', // TODO: add once the channel exists

@@ -1,11 +1,11 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Hero from '@/components/home/Hero.astro';
-import MeetJackie from '@/components/home/MeetJackie.astro';
+import MeetJacquelyn from '@/components/home/MeetJacquelyn.astro';
 import Paths from '@/components/home/Paths.astro';
 import FeaturedListings from '@/components/home/FeaturedListings.astro';
 import CommunityGrid from '@/components/home/CommunityGrid.astro';
-import WhyJackie from '@/components/home/WhyJackie.astro';
+import WhyJacquelyn from '@/components/home/WhyJacquelyn.astro';
 import Testimonials from '@/components/home/Testimonials.astro';
 import VideoHub from '@/components/home/VideoHub.astro';
 import SellerInvite from '@/components/home/SellerInvite.astro';
@@ -13,18 +13,18 @@ import ContactSection from '@/components/home/ContactSection.astro';
 import { site } from '@/data/site';
 import { videos } from '@/data/videos';
 
-const title = `${site.agent.legalName} | Real Estate in Brick, Point Pleasant, Manahawkin & Manalapan, NJ`;
-const description = `Jacquelyn “Jackie” Guevara of ${site.brokerage.name} helps buyers and sellers in Brick, Point Pleasant, Manahawkin, and Manalapan, NJ. Licensed for over 15 years.`;
+const title = `${site.agent.legalName} | Toms River, Brick & Jersey Shore Real Estate`;
+const description = `Jacquelyn Guevara of ${site.brokerage.name} helps buyers and sellers in Toms River, Brick, Manahawkin, Whiting, Tinton Falls, and nearby Ocean and Monmouth County towns. Licensed for over 15 years.`;
 const hasVideos = videos.some((v) => v.id);
 ---
 
 <BaseLayout title={title} description={description}>
   <Hero />
-  <MeetJackie />
+  <MeetJacquelyn />
   <Paths />
   <FeaturedListings />
   <CommunityGrid />
-  <WhyJackie />
+  <WhyJacquelyn />
   <Testimonials />
   {hasVideos && <VideoHub />}
   <SellerInvite />

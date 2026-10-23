@@ -1,8 +1,8 @@
 /**
  * Featured properties: REAL, approved listings only.
  *
- * Add an entry when Jackie has a listing to feature. `source` controls the label:
- *   'jackie'    → "Jackie’s Listing"
+ * Add an entry when Jacquelyn has a listing to feature. `source` controls the label:
+ *   'agent'     → "Jacquelyn’s Listing"
  *   'brokerage' → "RE/MAX Revolution Listing"
  *   'mls'       → "MLS Listing", with `listingBrokerage` shown as "Courtesy of …"
  *                 (IDX rules require crediting the listing brokerage).
@@ -23,7 +23,7 @@ export interface Listing {
   beds: number;
   baths: number;
   sqft?: number;
-  source: 'jackie' | 'brokerage' | 'mls';
+  source: 'agent' | 'brokerage' | 'mls';
   listingBrokerage?: string;
   /** Property page (e.g. the MLS or brokerage listing). Required for real listings. */
   url?: string;

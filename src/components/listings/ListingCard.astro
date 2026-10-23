@@ -11,7 +11,7 @@ const { listing: l } = Astro.props;
 
 const price = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(l.price);
 const sourceLabel = {
-  jackie: 'Jackie’s Listing',
+  agent: 'Jacquelyn’s Listing',
   brokerage: `${site.brokerage.name} Listing`,
   mls: 'MLS Listing',
 }[l.source];
@@ -48,7 +48,7 @@ const address = `${l.street}, ${l.city}, NJ${l.zip ? ` ${l.zip}` : ''}`;
         l.demo ? (
           <p class="rounded-md border border-dashed border-line px-4 py-3 text-center text-sm text-muted">Demonstration listing · not a real property</p>
         ) : (
-          <a href={l.url} class="btn-outline w-full" rel={l.source === 'jackie' ? undefined : 'noopener'}>
+          <a href={l.url} class="btn-outline w-full" rel={l.source === 'agent' ? undefined : 'noopener'}>
             View Property<span class="sr-only">: {address}</span>
           </a>
         )

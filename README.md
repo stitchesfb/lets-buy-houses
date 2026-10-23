@@ -41,6 +41,7 @@ confirms receipt.
 | Featured listings (real, approved only) | `src/data/listings.ts` |
 | Sample listings for the preview | `src/data/demo/listings.ts` |
 | Client reviews (exact text) and the review total shown in the header | `src/data/testimonials.ts` |
+| Home Transformations (renovation projects with before/after photos; hidden live until added) | `src/data/transformations.ts` |
 | Links to her Zillow, Realtor.com, and RealSatisfied profiles (for “Read all reviews”) | `src/data/site.ts` (`social`) |
 | Photos and their credits | `src/assets/photos/` + `src/data/photos.ts` |
 | Interface text (nav, buttons, form messages) | `src/i18n/en.ts` |

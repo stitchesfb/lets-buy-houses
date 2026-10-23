@@ -5,6 +5,7 @@ import SectionHeading from '@/components/ui/SectionHeading.astro';
 import Steps from '@/components/ui/Steps.astro';
 import AwaitingContent from '@/components/ui/AwaitingContent.astro';
 import SellerInvite from '@/components/home/SellerInvite.astro';
+import RenovationInsight from '@/components/sell/RenovationInsight.astro';
 import { breadcrumbSchema } from '@/lib/schema';
 import { site } from '@/data/site';
 
@@ -70,6 +71,8 @@ const steps = [
       </div>
     </div>
   </section>
+
+  <RenovationInsight />
 
   <SellerInvite formId="sell-home-value" />
 

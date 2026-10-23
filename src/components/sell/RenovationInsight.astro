@@ -1,0 +1,59 @@
+---
+/**
+ * Sell page: how Jacquelyn's renovation and resale experience informs pre-listing
+ * advice. Real estate guidance only; see the disclaimer at the end.
+ */
+import SectionHeading from '@/components/ui/SectionHeading.astro';
+import { withBase } from '@/lib/paths';
+
+const points = [
+  {
+    title: 'Prioritize what buyers notice',
+    body: 'Put your budget where it’s most likely to pay off before a sale, often fresh paint, lighting, small repairs, and curb appeal, instead of large projects buyers may not value.',
+  },
+  {
+    title: 'Know what to leave alone',
+    body: 'Some projects cost more than they add. Jacquelyn helps you weigh cost, time, and disruption against your timeline so you don’t overspend before listing.',
+  },
+  {
+    title: 'Present it for photos and showings',
+    body: 'Get practical staging advice on decluttering, furniture placement, and presentation so your home shows well online and in person.',
+  },
+];
+---
+
+<section class="section bg-white/60" aria-labelledby="renovation-insight-heading">
+  <div class="container-page">
+    <div class="grid gap-10 lg:grid-cols-[5fr_7fr] lg:gap-16">
+      <div>
+        <SectionHeading
+          id="renovation-insight-heading"
+          eyebrow="Renovation Insight"
+          title="Know what’s worth doing before you list"
+          intro="Jacquelyn has managed home renovation and resale projects from start to finish. She walks through your home the way buyers will, and the way a renovator would, so you can decide what to improve and what to leave as is."
+        />
+        <a href={withBase('/contact/?interest=Selling')} class="btn-primary mt-8">Discuss Your Home’s Potential</a>
+      </div>
+      <ol class="space-y-5">
+        {
+          points.map((p, i) => (
+            <li class="card flex gap-5 p-6">
+              <span class="font-serif text-2xl text-gold-700" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+              <div>
+                <h3 class="text-xl sm:text-2xl">{p.title}</h3>
+                <p class="mt-2 text-muted">{p.body}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+    <p class="mt-10 max-w-4xl border-t border-line pt-6 text-sm text-muted">
+      <strong class="font-semibold text-ink">Please note:</strong> Jacquelyn provides real estate guidance based on her market and
+      renovation experience. She is not acting as a contractor, home inspector, appraiser, or engineer, and her suggestions are not a
+      substitute for a professional inspection or estimate. Use licensed or registered professionals for repairs and improvements (New
+      Jersey requires home improvement contractors to be registered), obtain any required permits, and keep in mind that no improvement
+      guarantees a particular sale price.
+    </p>
+  </div>
+</section>

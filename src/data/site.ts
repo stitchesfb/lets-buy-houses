@@ -41,20 +41,20 @@ export const site = {
     bio: 'Hello, I’m Jacquelyn Guevara. As an Ocean County resident for over 35 years and a licensed real estate professional with RE/MAX Revolution for over 15 years, I don’t just know the Jersey Shore and Monmouth County markets—I’ve lived them. When you work with me, you don’t get an agent who waits for things to happen—you get a partner who makes them happen. I’ve built my career on relentless work ethic, rapid communication, and fierce negotiation. Whether marketing a listing in Manalapan, navigating waterfront properties in Point Pleasant and Brick, or guiding buyers near Manahawkin, I treat every home as if it were my own investment. Over 15+ years, my reputation has been built on quick turnarounds, seamless closings, and exceptional outcomes. Whether selling a family estate, acquiring an investment, or relocating to the Shore, I deliver what you need—faster, smarter, and stronger than expected.',
     /** Her renovation and resale experience, as provided. Shown at the top of the About page. */
     renovation:
-      'Alongside her work in real estate, Jacquelyn has managed home renovation and resale projects from start to finish. That hands-on experience gives her a practical understanding of a home’s potential, the decisions involved in improving it, and how to prepare it for the market.',
+      'Alongside my work in real estate, I’ve managed home renovation and resale projects from start to finish. That hands-on experience gives me a practical understanding of a home’s potential, the decisions involved in improving it, and how to prepare it for the market.',
     /** How she works, drawn from her bio. Shown in "Why Work With Jacquelyn?". */
     approach: [
       {
         title: 'Rapid, clear communication',
-        body: 'Calls, texts and questions get prompt answers, so you always know where things stand and what comes next.',
+        body: 'I answer calls, texts and questions promptly, so you always know where things stand and what comes next.',
       },
       {
         title: 'Determined negotiation',
-        body: 'Whether you are buying or selling, Jacquelyn works hard for the strongest possible terms and treats your home as if it were her own investment.',
+        body: 'Whether you’re buying or selling, I negotiate hard for the strongest possible terms on your behalf.',
       },
       {
         title: 'Organized from start to closing',
-        body: 'From the first conversation to the closing table, she keeps the details moving so the process stays smooth and on schedule.',
+        body: 'From our first conversation to the closing table, I keep the details moving so the process stays smooth and on schedule.',
       },
     ],
   },

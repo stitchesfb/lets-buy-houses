@@ -28,7 +28,7 @@ const platformList = `${platforms.slice(0, -1).join(', ')}, and ${platforms.at(-
     crumbs={crumbs}
     eyebrow="Client Reviews"
     title={`${reviewSummary.total} five-star reviews`}
-    intro={`Past clients have left ${reviewSummary.total} five-star reviews for Jacquelyn on ${platformList}. Here are some of their stories in their own words.`}
+    intro={`Past clients have left ${reviewSummary.total} five-star reviews for me on ${platformList}. Here are some of their stories, in their own words.`}
   >
     {
       profiles.map((p) => (
@@ -53,7 +53,7 @@ const platformList = `${platforms.slice(0, -1).join(', ')}, and ${platforms.at(-
           <div class="mt-12">
             <AwaitingContent title="Links to all reviews">
               <p>
-                Add Jacquelyn’s profile links for {platforms.filter((pl) => !profiles.some((p) => p.source === pl)).join(', ')} in
+                Add Jacquelyn’s profile links for {platforms.filter((pl) => !profiles.some((p) => p.source === pl)).join(', ')} in{' '}
                 <code class="text-sm">src/data/site.ts</code> (<code class="text-sm">social</code>) so visitors can read every review.
                 Paste more review text into <code class="text-sm">src/data/testimonials.ts</code> to show it here.
               </p>

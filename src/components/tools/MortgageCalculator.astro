@@ -90,7 +90,7 @@ const f = (name: string) => `${id}-${name}`;
             <span class="pointer-events-none absolute top-1/2 left-4 -translate-y-1/2 text-muted" aria-hidden="true">$</span>
             <input id={f('taxes')} name="taxes" type="number" inputmode="numeric" min="0" step="100" value={defaults.taxesYearly} class="form-input pl-8" aria-describedby={f('taxes-hint')} />
           </div>
-          <p id={f('taxes-hint')} class="mt-1 text-sm text-muted">Taxes vary widely by town. Check the listing or ask Jacquelyn.</p>
+          <p id={f('taxes-hint')} class="mt-1 text-sm text-muted">Taxes vary widely by town. Check the listing, or ask me.</p>
         </div>
 
         <div>
@@ -150,7 +150,7 @@ const f = (name: string) => `${id}-${name}`;
         </p>
 
         <div class="mt-auto pt-6">
-          <a href={withBase('/buy/#buyer-inquiry')} class="btn-light w-full">Talk With Jacquelyn About Buying</a>
+          <a href={withBase('/buy/#buyer-inquiry')} class="btn-light w-full">Talk With Me About Buying</a>
         </div>
       </div>
     </div>

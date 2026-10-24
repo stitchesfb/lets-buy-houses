@@ -511,7 +511,7 @@ export const towns: Town[] = [
     sellerTips: [
       'Share rental income history if the home has been rented; investors will ask.',
       'Have elevation certificates and recent improvements documented.',
-      'Time your listing with Jacquelyn around the season buyers are searching most.',
+      'I can help you time your listing around the season buyers are searching most.',
     ],
     marketStats: placeholderStats(),
     geo: { latitude: 39.5593, longitude: -74.2432 },
@@ -888,7 +888,7 @@ export const towns: Town[] = [
     sellerTips: [
       'Share rental income history and association documents up front.',
       'Highlight distance to the beach and boardwalk.',
-      'Time the listing with Jacquelyn around peak buyer interest.',
+      'I can help you time your listing around peak buyer interest.',
     ],
     marketStats: placeholderStats(),
     geo: { latitude: 39.9443, longitude: -74.0729 },
@@ -1079,7 +1079,7 @@ export const towns: Town[] = [
       'Search Manalapan, NJ homes for sale — colonials, 55+ communities, and established neighborhoods, with local guidance from Jacquelyn Guevara of RE/MAX Revolution.',
     headline: 'Luxury Living & Premier Estates in Manalapan, NJ',
     subheadline:
-      'Discover upscale suburban neighborhoods and spacious properties with guidance from an agent licensed for over 15 years.',
+      'Discover upscale suburban neighborhoods and spacious properties with my guidance and over 15 years of licensed experience.',
     idxCity: 'Manalapan',
     remaxArea: 'manalapan',
     intro:
@@ -1100,7 +1100,7 @@ export const towns: Town[] = [
     buyerTips: [
       'Be prepared to act quickly on homes in prime school districts as inventory moves fast.',
       'Factor in property taxes and lot sizes when evaluating long-term value in different sections of the township.',
-      'Work with an agent who has deep neighborhood relationships to find off-market or coming-soon opportunities.',
+      'I can draw on my deep neighborhood relationships to help you find off-market or coming-soon opportunities.',
     ],
     sellerTips: [
       'First impressions matter: manicured lawns and professional staging yield top-dollar offers in Manalapan.',

@@ -38,11 +38,11 @@ const launchReview = [
     <div>
       <p class="font-serif text-2xl text-white">{agent.name}</p>
       <p class="mt-1 text-sm tracking-wide">{agent.title} · {brokerage.name}</p>
-      <address class="mt-5 grid gap-x-10 gap-y-1.5 text-[0.9375rem] not-italic sm:grid-cols-2">
+      <address class="mt-5 grid gap-x-10 gap-y-1.5 text-[0.9375rem] not-italic sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2">
         <p>{address.street}, {address.city}, {address.region} {address.postalCode}</p>
         <p>Direct: <a href={contact.phoneHref} class="text-white underline-offset-4 hover:underline">{contact.phone}</a></p>
         <p>NJ License #{agent.licenseNumber}</p>
-        <p><a href={`mailto:${contact.email}`} class="break-all text-white underline-offset-4 hover:underline">{contact.email}</a></p>
+        <p><a href={`mailto:${contact.email}`} class="break-words text-white underline-offset-4 hover:underline">{contact.email}</a></p>
       </address>
       {
         socialLinks.length > 0 && (

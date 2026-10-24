@@ -41,7 +41,8 @@ confirms receipt.
 | Featured listings (real, approved only) | `src/data/listings.ts` |
 | Sample listings for the preview | `src/data/demo/listings.ts` |
 | Client reviews (exact text) and the review total shown in the header | `src/data/testimonials.ts` |
-| Home Transformations (renovation projects with before/after photos; hidden live until added) | `src/data/transformations.ts` |
+| Home Transformations (renovation projects with before/after photos, original condition, improvements, her role; hidden live until added) | `src/data/transformations.ts` |
+| Explore Available Homes (three live MLS cards from an approved IDX feed; hidden until added) | `src/data/available-homes.ts` |
 | Links to her Zillow, Realtor.com, and RealSatisfied profiles (for “Read all reviews”) | `src/data/site.ts` (`social`) |
 | Photos and their credits | `src/assets/photos/` + `src/data/photos.ts` |
 | Interface text (nav, buttons, form messages) | `src/i18n/en.ts` |
@@ -66,9 +67,17 @@ credited on `/photo-credits/`.
 
 ## Integrations
 
-- **Forms:** set `PUBLIC_FORM_ENDPOINT` to a service that accepts a POST and answers JSON
-  (e.g. a free Formspree form set to deliver to Jacquelyn’s email). Forms validate input and show
-  sending, error and success states.
+- **Forms:** set `PUBLIC_FORM_ENDPOINT` to a service that accepts a POST and answers JSON.
+  GitHub Pages can't run a backend, and the endpoint URL is public by design, so no secret goes in the site.
+  With Formspree (free tier):
+  1. Sign up at formspree.io with jackienguevara@gmail.com and confirm the email.
+  2. Create a form; copy its endpoint (`https://formspree.io/f/xxxxxxx`).
+  3. GitHub → Settings → Secrets and variables → Actions → Variables → `PUBLIC_FORM_ENDPOINT` = that URL, then re-run the deploy.
+  4. Send a test from /contact/ marked “TEST – please ignore” and confirm it arrives.
+
+  Forms validate required fields and email, show sending, error and success states (success only after
+  the service answers 200), keep what was typed if sending fails, and block bots with a hidden honeypot
+  field plus a minimum fill time.
 - **Listings:** until an IDX widget is connected, each community’s listings section links to the live MLS
   search on her RE/MAX Revolution site (`site.listingsSite` + each town’s `remaxArea`).
 - **MLS/IDX search:** see `docs/IDX-INTEGRATION.md`. Without a provider, search areas invite

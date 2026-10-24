@@ -1,7 +1,8 @@
 ---
 /**
  * Compact contact bar on phones. The layout adds matching bottom padding
- * (see BaseLayout) so it never covers page content or form controls.
+ * (see BaseLayout) so it never covers page content or form controls, and the bar
+ * steps aside while a form field has focus so it can't sit over the field or keyboard.
  */
 import { site } from '@/data/site';
 import { ui } from '@/i18n/en';
@@ -16,7 +17,8 @@ const items = [
 
 <nav
   aria-label="Quick contact"
-  class="fixed inset-x-0 bottom-0 z-40 grid grid-cols-3 border-t border-line bg-white pb-[env(safe-area-inset-bottom)] md:hidden"
+  data-contact-bar
+  class="fixed inset-x-0 bottom-0 z-40 grid grid-cols-3 border-t border-line bg-white pb-[env(safe-area-inset-bottom)] transition-transform duration-200 data-[typing]:translate-y-full md:hidden"
 >
   {
     items.map((item, i) => (
@@ -36,3 +38,10 @@ const items = [
     ))
   }
 </nav>
+
+<script>
+  const bar = document.querySelector<HTMLElement>('[data-contact-bar]');
+  const isField = (el: EventTarget | null) => el instanceof HTMLElement && el.matches('input, textarea, select');
+  document.addEventListener('focusin', (e) => bar?.toggleAttribute('data-typing', isField(e.target)));
+  document.addEventListener('focusout', () => bar?.removeAttribute('data-typing'));
+</script>

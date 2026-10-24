@@ -26,7 +26,7 @@ export const site = {
     legalName: 'Jacquelyn Guevara',
     firstName: 'Jacquelyn',
     title: 'Associate',
-    /** From her bio: "a licensed real estate professional with RE/MAX Revolution for over 15 years". */
+    /** Total years as a licensed real estate professional (across brokerages, not only RE/MAX Revolution). */
     yearsLicensed: '15+',
     /** From her bio: "an Ocean County resident for over 35 years". */
     yearsInOceanCounty: '35+',
@@ -35,10 +35,10 @@ export const site = {
     headshot: '/images/jacquelyn-guevara.jpg', // 1200x1200, also used for social previews
     /** Two sentences taken verbatim from her bio, for short introductions. */
     intro: [
-      'As an Ocean County resident for over 35 years and a licensed real estate professional with RE/MAX Revolution for over 15 years, I don’t just know the Jersey Shore and Monmouth County markets—I’ve lived them.',
+      'I’ve called Ocean County home for over 35 years and have more than 15 years of experience as a licensed real estate professional. I know the Jersey Shore and Monmouth County markets firsthand.',
       'When you work with me, you don’t get an agent who waits for things to happen—you get a partner who makes them happen.',
     ],
-    bio: 'Hello, I’m Jacquelyn Guevara. As an Ocean County resident for over 35 years and a licensed real estate professional with RE/MAX Revolution for over 15 years, I don’t just know the Jersey Shore and Monmouth County markets—I’ve lived them. When you work with me, you don’t get an agent who waits for things to happen—you get a partner who makes them happen. I’ve built my career on relentless work ethic, rapid communication, and fierce negotiation. Whether marketing a listing in Manalapan, navigating waterfront properties in Point Pleasant and Brick, or guiding buyers near Manahawkin, I treat every home as if it were my own investment. Over 15+ years, my reputation has been built on quick turnarounds, seamless closings, and exceptional outcomes. Whether selling a family estate, acquiring an investment, or relocating to the Shore, I deliver what you need—faster, smarter, and stronger than expected.',
+    bio: 'Hello, I’m Jacquelyn Guevara. As an Ocean County resident for over 35 years and a licensed real estate professional for over 15 years, I don’t just know the Jersey Shore and Monmouth County markets—I’ve lived them. When you work with me, you don’t get an agent who waits for things to happen—you get a partner who makes them happen. I’ve built my career on relentless work ethic, rapid communication, and fierce negotiation. Whether marketing a listing in Manalapan, navigating waterfront properties in Point Pleasant and Brick, or guiding buyers near Manahawkin, I treat every home as if it were my own investment. Over 15+ years, my reputation has been built on quick turnarounds, seamless closings, and exceptional outcomes. Whether selling a family estate, acquiring an investment, or relocating to the Shore, I deliver what you need—faster, smarter, and stronger than expected.',
     /** Her renovation and resale experience, as provided. Shown at the top of the About page. */
     renovation:
       'Alongside my work in real estate, I’ve managed home renovation and resale projects from start to finish. That hands-on experience gives me a practical understanding of a home’s potential, the decisions involved in improving it, and how to prepare it for the market.',

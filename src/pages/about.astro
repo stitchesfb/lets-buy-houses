@@ -21,7 +21,7 @@ const crumbs = [
 const facts = [
   { label: 'Brokerage', value: `${brokerage.name}, ${brokerage.address.city}, NJ` },
   { label: 'Title', value: agent.title },
-  { label: 'Licensed', value: `${agent.yearsLicensed} years` },
+  { label: 'In real estate', value: `${agent.yearsLicensed} years` },
   { label: 'Ocean County resident', value: `${agent.yearsInOceanCounty} years` },
   { label: 'NJ license', value: `#${agent.licenseNumber}` },
 ];
@@ -29,7 +29,7 @@ const facts = [
 
 <BaseLayout
   title={`About ${agent.legalName} | ${brokerage.name}`}
-  description={`Get to know Jacquelyn Guevara: an Ocean County resident for over 35 years and a real estate professional with ${brokerage.name} for over 15.`}
+  description={`Get to know Jacquelyn Guevara: an Ocean County resident for over 35 years with more than 15 years in real estate, now an ${agent.title} with ${brokerage.name}.`}
   schema={[breadcrumbSchema(crumbs)]}
 >
   <section class="section pt-10 sm:pt-12" aria-labelledby="about-heading">

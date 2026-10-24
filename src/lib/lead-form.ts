@@ -83,6 +83,7 @@ export function initLeadForms() {
     const previewPanel = form.querySelector<HTMLElement>('[data-result="preview"]');
     const successPanel = document.querySelector<HTMLElement>(`[data-success-for="${form.id}"]`);
 
+    const startedAt = performance.now();
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
       show(errorPanel, false);
@@ -97,12 +98,19 @@ export function initLeadForms() {
 
       const data = new FormData(form);
       if (data.get('company_website')) return; // bot honeypot
+      data.delete('company_website');
 
       const endpoint = form.dataset.endpoint;
       if (!endpoint) {
         // Preview: never pretend the message was sent.
         show(previewPanel);
         previewPanel?.focus();
+        return;
+      }
+
+      // Bots tend to submit instantly. A person who is this fast just sees the retry message.
+      if (performance.now() - startedAt < 2000) {
+        show(errorPanel);
         return;
       }
 

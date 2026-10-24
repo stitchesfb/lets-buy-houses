@@ -11,10 +11,12 @@ import type { ImageMetadata } from 'astro';
 export interface Transformation {
   title: string; // e.g. "Kitchen and main-floor refresh"
   town?: string; // e.g. "Toms River"
-  summary: string; // one or two sentences on the plan and the result
+  condition: string; // the home's original condition, in a sentence
+  improvements: string; // what was done, in a sentence or two
+  role: string; // Jacquelyn's role, first person, e.g. "I managed the project from purchase through resale."
   scope?: string[]; // e.g. ['Kitchen', 'Flooring', 'Exterior paint']
-  before?: ImageMetadata;
-  after?: ImageMetadata;
+  before: ImageMetadata;
+  after: ImageMetadata;
 }
 
 export const transformations: Transformation[] = [];

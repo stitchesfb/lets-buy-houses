@@ -1,66 +1,70 @@
 ---
 /**
  * Home Transformations: renovation and resale projects Jacquelyn managed.
- * The first project gets a wide feature layout; the rest form a grid.
- * Real projects come from src/data/transformations.ts. With none, preview
- * builds show clearly labeled placeholders and the live site omits the section.
+ * The first project gets a wide feature layout; any others follow in a grid.
+ * Before/after photos sit side by side from the sm breakpoint and stack on phones,
+ * with no slider to operate. Real projects come from src/data/transformations.ts.
+ * With none, preview builds show clearly labeled placeholders and the live site
+ * omits the section.
  */
 import { Picture } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
 import Photo from '@/components/ui/Photo.astro';
 import { transformations, type Transformation } from '@/data/transformations';
 import { isPreview } from '@/lib/mode';
-import { withBase } from '@/lib/paths';
 
 interface Props {
   id?: string;
+  /** Where "Discuss Your Home's Potential" goes; the page's contact section by default. */
+  ctaHref?: string;
 }
-const { id = 'transformations' } = Astro.props;
+const { id = 'transformations', ctaHref = '#contact' } = Astro.props;
 
+type Item = Omit<Transformation, 'before' | 'after'> & { before?: ImageMetadata; after?: ImageMetadata; placeholder?: boolean };
 const placeholderMode = transformations.length === 0 && isPreview;
-const items: (Transformation & { placeholder?: boolean })[] = placeholderMode
+const items: Item[] = placeholderMode
   ? [
-      { placeholder: true, title: 'Featured project', summary: 'One or two sentences on the plan, the work, and the result.', scope: ['Kitchen', 'Flooring', 'Exterior'] },
-      { placeholder: true, title: 'Second project', summary: 'A short description of the transformation.' },
-      { placeholder: true, title: 'Third project', summary: 'A short description of the transformation.' },
+      {
+        placeholder: true,
+        title: 'Project title',
+        condition: 'Original condition: one sentence on where the home started.',
+        improvements: 'Improvements: one or two sentences on what changed.',
+        role: 'My role: one sentence on how I managed the project.',
+        scope: ['Kitchen', 'Flooring', 'Exterior'],
+      },
     ]
   : transformations;
 const [featured, ...rest] = items;
-const cta = withBase('/contact/?interest=Selling');
+const labels = ['Before', 'After'] as const;
 ---
 
 {
   featured && (
-    <section id={id} class="bg-ivory-deep py-16 sm:py-24" aria-labelledby={`${id}-heading`}>
+    <section id={id} class="scroll-mt-24 bg-ivory-deep py-16 sm:py-24" aria-labelledby={`${id}-heading`}>
       <div class="container-page">
-        <div class="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
-          <div class="max-w-2xl">
-            <p class="eyebrow">Home Transformations</p>
-            <h2 id={`${id}-heading`} class="mt-3 text-3xl sm:text-4xl">Seeing what a home can become</h2>
-            <p class="mt-4 text-lg text-muted">Renovation and resale projects I managed from start to finish.</p>
-          </div>
-          <a href={cta} class="font-semibold text-navy underline decoration-gold underline-offset-8 hover:decoration-navy">
-            Discuss Your Home’s Potential <span aria-hidden="true">→</span>
-          </a>
+        <div class="max-w-2xl">
+          <p class="eyebrow">Home Transformations</p>
+          <h2 id={`${id}-heading`} class="mt-3 text-3xl sm:text-4xl">Seeing what a home can become</h2>
+          <p class="mt-4 text-lg text-muted">Complete renovation and resale projects I managed from start to finish.</p>
         </div>
 
         {placeholderMode && (
           <p class="mt-6 border-l-2 border-gold pl-4 text-sm text-muted">
-            <strong class="text-ink">Preview only:</strong> placeholders show the layout. Add real projects with before-and-after
+            <strong class="text-ink">Preview only:</strong> placeholders show the layout. Add a real project with before-and-after
             photos in <code class="text-xs">src/data/transformations.ts</code>; this section stays off the live site until then.
           </p>
         )}
 
-        <article class="mt-10 grid gap-8 lg:grid-cols-[2fr_1fr] lg:items-end">
-          <div class="grid grid-cols-2 gap-2">
-            {(['Before', 'After'] as const).map((label) => {
-              const img = (label === 'Before' ? featured.before : featured.after) as ImageMetadata | undefined;
+        <article class="mt-10 grid gap-8 lg:grid-cols-[3fr_2fr] lg:items-center lg:gap-12">
+          <div class="grid gap-2 sm:grid-cols-2">
+            {labels.map((label) => {
+              const img = label === 'Before' ? featured.before : featured.after;
               return (
-                <figure class="relative aspect-[4/5] overflow-hidden rounded-sm sm:aspect-[4/3]">
+                <figure class="relative aspect-[4/3] overflow-hidden rounded-sm">
                   {img ? (
-                    <Picture src={img} alt={`${label}: ${featured.title}`} widths={[480, 800, 1200]} sizes="(min-width: 1024px) 33vw, 50vw" formats={['avif', 'webp']} class="h-full w-full object-cover" />
+                    <Picture src={img} alt={`${label}: ${featured.title}`} widths={[480, 800, 1200]} sizes="(min-width: 1024px) 30vw, (min-width: 640px) 50vw, 100vw" formats={['avif', 'webp']} class="h-full w-full object-cover" />
                   ) : (
-                    <Photo label={featured.placeholder ? 'Placeholder' : `${label} photo coming`} />
+                    <Photo label="Placeholder" />
                   )}
                   <figcaption class="absolute top-3 left-3 bg-navy px-2.5 py-1 text-xs font-semibold tracking-wide text-white uppercase">{label}</figcaption>
                 </figure>
@@ -71,12 +75,17 @@ const cta = withBase('/contact/?interest=Selling');
             {featured.placeholder && <p class="text-xs font-semibold tracking-[0.16em] text-gold-700 uppercase">Placeholder</p>}
             {featured.town && <p class="text-xs font-semibold tracking-[0.16em] text-muted uppercase">{featured.town}</p>}
             <h3 class="mt-2 text-2xl sm:text-3xl">{featured.title}</h3>
-            <p class="mt-3 text-muted">{featured.summary}</p>
+            <dl class="mt-4 space-y-3">
+              <div><dt class="sr-only">Original condition</dt><dd class="text-muted">{featured.condition}</dd></div>
+              <div><dt class="sr-only">Improvements</dt><dd class="text-muted">{featured.improvements}</dd></div>
+              <div><dt class="sr-only">My role</dt><dd class="font-medium text-ink">{featured.role}</dd></div>
+            </dl>
             {featured.scope && (
-              <ul class="mt-5 flex flex-wrap gap-2">
+              <ul class="mt-5 flex flex-wrap gap-2" aria-label="Scope of work">
                 {featured.scope.map((s) => <li class="border border-gold/60 px-3 py-1 text-xs font-semibold text-gold-700">{s}</li>)}
               </ul>
             )}
+            <a href={ctaHref} class="btn-primary mt-8">Discuss Your Home’s Potential</a>
           </div>
         </article>
 
@@ -84,24 +93,18 @@ const cta = withBase('/contact/?interest=Selling');
           <ul class="mt-14 grid gap-x-6 gap-y-10 md:grid-cols-2">
             {rest.map((p) => (
               <li>
-                <div class="grid grid-cols-2 gap-2">
-                  {(['Before', 'After'] as const).map((label) => {
-                    const img = (label === 'Before' ? p.before : p.after) as ImageMetadata | undefined;
-                    return (
-                      <figure class="relative aspect-[4/3] overflow-hidden rounded-sm">
-                        {img ? (
-                          <Picture src={img} alt={`${label}: ${p.title}`} widths={[320, 640]} sizes="(min-width: 768px) 25vw, 50vw" formats={['avif', 'webp']} class="h-full w-full object-cover" />
-                        ) : (
-                          <Photo label={p.placeholder ? 'Placeholder' : `${label} photo coming`} />
-                        )}
-                        <figcaption class="absolute top-2 left-2 bg-navy px-2 py-0.5 text-xs font-semibold text-white uppercase">{label}</figcaption>
-                      </figure>
-                    );
-                  })}
+                <div class="grid gap-2 sm:grid-cols-2">
+                  {labels.map((label) => (
+                    <figure class="relative aspect-[4/3] overflow-hidden rounded-sm">
+                      <Picture src={label === 'Before' ? p.before! : p.after!} alt={`${label}: ${p.title}`} widths={[320, 640]} sizes="(min-width: 768px) 25vw, (min-width: 640px) 50vw, 100vw" formats={['avif', 'webp']} class="h-full w-full object-cover" />
+                      <figcaption class="absolute top-2 left-2 bg-navy px-2 py-0.5 text-xs font-semibold text-white uppercase">{label}</figcaption>
+                    </figure>
+                  ))}
                 </div>
                 {p.town && <p class="mt-4 text-xs font-semibold tracking-[0.16em] text-muted uppercase">{p.town}</p>}
                 <h3 class="mt-2 text-xl sm:text-2xl">{p.title}</h3>
-                <p class="mt-2 text-muted">{p.summary}</p>
+                <p class="mt-2 text-muted">{p.condition} {p.improvements}</p>
+                <p class="mt-2 font-medium text-ink">{p.role}</p>
               </li>
             ))}
           </ul>

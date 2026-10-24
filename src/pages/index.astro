@@ -4,6 +4,7 @@ import Hero from '@/components/home/Hero.astro';
 import MeetJacquelyn from '@/components/home/MeetJacquelyn.astro';
 import Paths from '@/components/home/Paths.astro';
 import FeaturedListings from '@/components/home/FeaturedListings.astro';
+import AvailableHomes from '@/components/home/AvailableHomes.astro';
 import HomeTransformations from '@/components/about/HomeTransformations.astro';
 import CommunityGrid from '@/components/home/CommunityGrid.astro';
 import Testimonials from '@/components/home/Testimonials.astro';
@@ -14,7 +15,7 @@ import { site } from '@/data/site';
 import { videos } from '@/data/videos';
 
 const title = `${site.agent.legalName} | Toms River, Brick & Jersey Shore Real Estate`;
-const description = `Jacquelyn Guevara of ${site.brokerage.name} helps buyers and sellers in Toms River, Brick, Manahawkin, Point Pleasant, Seaside Heights, Beach Haven, and more Ocean and Monmouth County towns. Licensed for over 15 years.`;
+const description = `Jacquelyn Guevara, ${site.agent.title} with ${site.brokerage.name}, helps buyers and sellers in Toms River, Brick, Manahawkin, Point Pleasant, Seaside Heights, Beach Haven, and more Ocean and Monmouth County towns, with more than 15 years in real estate.`;
 const hasVideos = videos.some((v) => v.id);
 ---
 
@@ -22,9 +23,10 @@ const hasVideos = videos.some((v) => v.id);
   <Hero />
   <MeetJacquelyn />
   <Paths />
-  <FeaturedListings />
   <HomeTransformations />
   <CommunityGrid />
+  <AvailableHomes />
+  <FeaturedListings />
   <Testimonials />
   {hasVideos && <VideoHub />}
   <SellerBand />

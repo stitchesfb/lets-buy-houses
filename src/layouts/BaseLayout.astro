@@ -9,9 +9,7 @@ import JsonLd from '@/components/seo/JsonLd.astro';
 import Header from '@/components/layout/Header.astro';
 import Footer from '@/components/layout/Footer.astro';
 import MobileCtaBar from '@/components/layout/MobileCtaBar.astro';
-import PreviewBanner from '@/components/layout/PreviewBanner.astro';
 import { site } from '@/data/site';
-import { isPreview } from '@/lib/mode';
 import { realEstateAgentSchema, websiteSchema } from '@/lib/schema';
 
 interface Props {
@@ -21,9 +19,11 @@ interface Props {
   noindex?: boolean;
   /** Page-specific JSON-LD, merged with the sitewide agent + website schema. */
   schema?: object[];
+  /** Homepage: transparent header over the hero photo on desktop. */
+  overlayHeader?: boolean;
 }
 
-const { title, description, image, noindex, schema = [] } = Astro.props;
+const { title, description, image, noindex, schema = [], overlayHeader = false } = Astro.props;
 const gaId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
 ---
 
@@ -56,8 +56,7 @@ const gaId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
     <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:rounded focus:bg-white focus:px-4 focus:py-2">
       Skip to content
     </a>
-    {isPreview && <PreviewBanner />}
-    <Header />
+    <Header overlay={overlayHeader} />
     <main id="main" class="flex-1">
       <slot />
     </main>

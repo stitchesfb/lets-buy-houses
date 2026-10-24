@@ -51,8 +51,10 @@ confirms receipt.
 confirmed in writing. Community copy should describe housing, amenities, transportation and local
 resources. It must not describe who lives there or who a town “appeals to” (fair housing).
 
-**Photos:** add a JPG to `src/assets/photos/` named after its key (`hero`, `brick`, `point-pleasant`,
-`manahawkin`, `manalapan`, `path-buy`, `path-sell`), then add its credit in `src/data/photos.ts`.
+**Photos:** add a JPG to `src/assets/photos/` named after its key, then add its credit in `src/data/photos.ts`.
+Homepage keys: `home-hero` (opening screen), `path-buy` and `path-sell` (buying/selling panels), `seller-band`
+(“Thinking About Selling?”). Community keys match each town's `photo` field in `src/data/towns.ts`; the six homepage
+tiles are set by `FEATURED` in that file.
 Astro resizes it automatically. Current photos are public-domain or Creative Commons images,
 credited on `/photo-credits/`.
 
@@ -96,6 +98,7 @@ https://stitchesfb.github.io/lets-buy-houses/. Wrap root-relative links in `with
 - [ ] Privacy page reviewed by the broker or an attorney
 - [ ] Add her Zillow, Realtor.com, and RealSatisfied profile links so visitors can read all 30+ reviews
 - [ ] Photos for Bayville, Lacey, Lakewood, Little Egg Harbor, and Tinton Falls (placeholders today)
+- [ ] Replace the Sea Girt stand-in photos (`home-hero`, `path-buy`, `seller-band`) and the generic `path-sell` porch with photos from her own service area
 - [ ] Real listings added to `src/data/listings.ts`, plus market stats and marketing services (or left hidden)
 - [ ] IDX approved and connected, with the MLS disclaimer added (or leave the inquiry fallback)
 - [ ] `PUBLIC_SITE_MODE=production`

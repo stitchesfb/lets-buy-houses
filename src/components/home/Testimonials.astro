@@ -1,23 +1,16 @@
 ---
 /**
- * Genuine client reviews from src/data/testimonials.ts, with the review total
- * in the header. No carousel: a few quotes, then "View All Reviews".
- * Hidden on the live site until at least one review has its text.
+ * Compact review excerpts (exact words, "…" marks omissions) with attribution,
+ * source, and a link to the full review. Hidden on the live site until at
+ * least one review has its text.
  */
 import AwaitingContent from '@/components/ui/AwaitingContent.astro';
-import ReviewCard from '@/components/reviews/ReviewCard.astro';
-import { pendingTestimonials, publishedTestimonials, reviewSummary } from '@/data/testimonials';
+import { pendingTestimonials, publishedTestimonials, reviewId, reviewSummary } from '@/data/testimonials';
 import { isPreview } from '@/lib/mode';
 import { withBase } from '@/lib/paths';
 
-interface Props {
-  /** How many reviews to show (the homepage shows three). */
-  limit?: number;
-  /** Show the "View All Reviews" button (off on the reviews page itself). */
-  showAllLink?: boolean;
-}
-const { limit = 3, showAllLink = true } = Astro.props;
-const quotes = publishedTestimonials().slice(0, limit);
+const all = publishedTestimonials();
+const quotes = [...all.filter((t) => t.featured), ...all.filter((t) => !t.featured)].slice(0, 3);
 const pending = pendingTestimonials();
 const platforms = reviewSummary.platforms;
 const platformList = `${platforms.slice(0, -1).join(', ')}, and ${platforms.at(-1)}`;
@@ -25,30 +18,38 @@ const platformList = `${platforms.slice(0, -1).join(', ')}, and ${platforms.at(-
 
 {
   quotes.length > 0 && (
-    <section class="section bg-white/60" aria-labelledby="testimonials-heading">
+    <section class="border-y border-line bg-white/70 py-16 sm:py-20" aria-labelledby="testimonials-heading">
       <div class="container-page">
-        <div class="flex flex-col justify-between gap-6 md:flex-row md:items-end">
-          <div class="max-w-2xl">
+        <div class="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+          <div>
             <p class="eyebrow">Client Reviews</p>
-            <h2 id="testimonials-heading" class="mt-3 text-3xl sm:text-4xl">
-              {reviewSummary.total} five-star reviews
-            </h2>
-            <span class="rule-gold mt-5" />
-            <p class="mt-5 flex flex-wrap items-center gap-x-3 gap-y-1 text-lg text-muted">
-              <span class="tracking-widest text-gold-700" role="img" aria-label={`${reviewSummary.rating} out of 5 stars`}>
-                {'★'.repeat(reviewSummary.rating)}
-              </span>
-              <span>From verified clients on {platformList}.</span>
+            <h2 id="testimonials-heading" class="mt-3 text-3xl sm:text-4xl">{reviewSummary.total} five-star reviews</h2>
+            <p class="mt-3 flex flex-wrap items-center gap-x-3 text-muted">
+              <span class="tracking-widest text-gold-700" role="img" aria-label={`${reviewSummary.rating} out of 5 stars`}>{'★'.repeat(reviewSummary.rating)}</span>
+              From verified clients on {platformList}
             </p>
           </div>
-          {showAllLink && (
-            <a href={withBase('/reviews/')} class="btn-primary self-start md:self-auto">
-              View All Reviews
-            </a>
-          )}
+          <a href={withBase('/reviews/')} class="font-semibold text-navy underline decoration-gold underline-offset-8 hover:decoration-navy">
+            View All Reviews <span aria-hidden="true">→</span>
+          </a>
         </div>
-        <div class:list={['mt-10 grid gap-6', quotes.length > 1 && 'md:grid-cols-2', quotes.length === 3 && 'lg:grid-cols-3']}>
-          {quotes.map((t) => <ReviewCard review={t} />)}
+
+        <div class="mt-12 grid items-start gap-10 md:grid-cols-3 md:gap-8">
+          {quotes.map((t) => (
+            <figure class="border-t-2 border-gold pt-6">
+              <blockquote class="font-serif text-xl leading-snug text-navy">“{t.excerpt ?? t.quote}”</blockquote>
+              <figcaption class="mt-5 text-sm">
+                <span class="font-semibold text-ink">{t.name}</span>
+                {t.town && <span class="text-muted"> · {t.town}</span>}
+                <span class="mt-1 block text-muted">
+                  {t.source && `${t.source}`}{t.date && ` · ${t.date}`}
+                </span>
+                <a href={withBase(`/reviews/#${reviewId(t)}`)} class="mt-3 inline-block font-semibold text-navy underline decoration-gold underline-offset-4 hover:decoration-navy">
+                  Read full review<span class="sr-only"> from {t.name}</span>
+                </a>
+              </figcaption>
+            </figure>
+          ))}
         </div>
       </div>
     </section>
@@ -56,13 +57,10 @@ const platformList = `${platforms.slice(0, -1).join(', ')}, and ${platforms.at(-
 }
 {
   isPreview && pending.length > 0 && (
-    <section class="py-12 sm:py-16" aria-label="Client reviews awaiting text">
+    <section class="py-12" aria-label="Client reviews awaiting text">
       <div class="container-page">
         <AwaitingContent title={`${pending.length} client review${pending.length > 1 ? 's' : ''} waiting for their text`}>
-          <p>
-            {pending.map((t) => t.name).join(', ')}. Paste each review’s exact wording into{' '}
-            <code class="text-sm">src/data/testimonials.ts</code> and it will appear automatically.
-          </p>
+          <p>{pending.map((t) => t.name).join(', ')}</p>
         </AwaitingContent>
       </div>
     </section>

@@ -4,11 +4,11 @@ import Hero from '@/components/home/Hero.astro';
 import MeetJacquelyn from '@/components/home/MeetJacquelyn.astro';
 import Paths from '@/components/home/Paths.astro';
 import FeaturedListings from '@/components/home/FeaturedListings.astro';
+import HomeTransformations from '@/components/about/HomeTransformations.astro';
 import CommunityGrid from '@/components/home/CommunityGrid.astro';
-import WhyJacquelyn from '@/components/home/WhyJacquelyn.astro';
 import Testimonials from '@/components/home/Testimonials.astro';
 import VideoHub from '@/components/home/VideoHub.astro';
-import SellerInvite from '@/components/home/SellerInvite.astro';
+import SellerBand from '@/components/home/SellerBand.astro';
 import ContactSection from '@/components/home/ContactSection.astro';
 import { site } from '@/data/site';
 import { videos } from '@/data/videos';
@@ -18,15 +18,15 @@ const description = `Jacquelyn Guevara of ${site.brokerage.name} helps buyers an
 const hasVideos = videos.some((v) => v.id);
 ---
 
-<BaseLayout title={title} description={description}>
+<BaseLayout title={title} description={description} image="/images/jacquelyn-guevara.jpg" overlayHeader>
   <Hero />
   <MeetJacquelyn />
   <Paths />
   <FeaturedListings />
+  <HomeTransformations />
   <CommunityGrid />
-  <WhyJacquelyn />
   <Testimonials />
   {hasVideos && <VideoHub />}
-  <SellerInvite />
+  <SellerBand />
   <ContactSection formId="home-contact" />
 </BaseLayout>

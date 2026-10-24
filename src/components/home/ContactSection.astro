@@ -13,18 +13,14 @@ const { contact, brokerage } = site;
 const Heading = asPageTitle ? 'h1' : 'h2';
 ---
 
-<section class="section" aria-labelledby={`${formId}-heading`}>
+<section class="py-16 sm:py-20" aria-labelledby={`${formId}-heading`}>
   <div class="container-page grid gap-10 lg:grid-cols-[5fr_7fr] lg:gap-16">
     <div>
       <p class="eyebrow">Contact</p>
       <Heading id={`${formId}-heading`} class:list={['mt-3 text-3xl sm:text-4xl', asPageTitle && 'sm:text-5xl']}>
         {town ? `Questions about ${town}?` : 'Let’s talk about your next move'}
       </Heading>
-      <span class="rule-gold mt-5"></span>
-      <p class="mt-6 text-lg text-muted">
-        Whether you’re just starting to think about a move or ready to go, Jacquelyn is glad to talk it through. Send a note, or reach
-        her directly.
-      </p>
+      <p class="mt-5 text-lg text-muted">Send a note, or reach Jacquelyn directly.</p>
       <dl class="mt-8 space-y-5">
         <div>
           <dt class="text-sm font-semibold text-muted">Call or text</dt>
@@ -44,7 +40,7 @@ const Heading = asPageTitle ? 'h1' : 'h2';
         </div>
       </dl>
     </div>
-    <div class="card p-6 sm:p-8">
+    <div class="rounded-sm bg-white p-6 sm:p-8">
       <LeadForm variant="contact" id={formId} />
     </div>
   </div>

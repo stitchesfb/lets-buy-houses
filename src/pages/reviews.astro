@@ -45,7 +45,7 @@ const platformList = `${platforms.slice(0, -1).join(', ')}, and ${platforms.at(-
         <span class="text-lg tracking-widest text-gold-700" role="img" aria-label={`${reviewSummary.rating} out of 5 stars`}>{'★'.repeat(reviewSummary.rating)}</span>
         Showing {reviews.length} {reviews.length === 1 ? 'review' : 'reviews'}, newest first
       </p>
-      <div class="grid gap-6 md:grid-cols-2">
+      <div class="gap-6 md:columns-2">
         {reviews.map((t) => <ReviewCard review={t} />)}
       </div>
       {

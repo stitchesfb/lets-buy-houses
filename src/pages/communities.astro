@@ -2,6 +2,7 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import PageHeader from '@/components/ui/PageHeader.astro';
 import CommunityCard from '@/components/town/CommunityCard.astro';
+import ServiceAreaList from '@/components/town/ServiceAreaList.astro';
 import ContactSection from '@/components/home/ContactSection.astro';
 import { serviceAreas, towns } from '@/data/towns';
 import { breadcrumbSchema } from '@/lib/schema';
@@ -26,6 +27,13 @@ const names = serviceAreas.map((a) => a.name);
     title="Communities Jacquelyn serves"
     intro={`Housing, getting around, and local resources in ${towns.length} Ocean and Monmouth County communities, with links to current listings in each.`}
   />
+
+  <section class="border-b border-line py-10 sm:py-12" aria-labelledby="directory-heading">
+    <div class="container-page">
+      <h2 id="directory-heading" class="text-2xl">All {names.length} service areas, A–Z</h2>
+      <ServiceAreaList class="mt-5" />
+    </div>
+  </section>
 
   {
     counties.map((county) => {

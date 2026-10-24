@@ -1,6 +1,5 @@
 ---
 import { site } from '@/data/site';
-import ServiceAreaList from '@/components/town/ServiceAreaList.astro';
 import { ui } from '@/i18n/en';
 import { isPreview } from '@/lib/mode';
 import { withBase } from '@/lib/paths';
@@ -35,16 +34,15 @@ const launchReview = [
 ---
 
 <footer class="on-dark bg-navy text-navy-soft">
-  <div class="container-page grid gap-10 py-14 md:grid-cols-[1.4fr_1fr]">
+  <div class="container-page grid gap-10 py-12 md:grid-cols-[1fr_auto] md:gap-16">
     <div>
       <p class="font-serif text-2xl text-white">{agent.name}</p>
       <p class="mt-1 text-sm tracking-wide">{agent.title} · {brokerage.name}</p>
-      <span class="rule-gold mt-5"></span>
-      <address class="mt-5 space-y-1.5 not-italic">
-        <p>{brokerage.name}<br />{address.street}, {address.city}, {address.region} {address.postalCode}</p>
+      <address class="mt-5 grid gap-x-10 gap-y-1.5 text-[0.9375rem] not-italic sm:grid-cols-2">
+        <p>{address.street}, {address.city}, {address.region} {address.postalCode}</p>
         <p>Direct: <a href={contact.phoneHref} class="text-white underline-offset-4 hover:underline">{contact.phone}</a></p>
-        <p>Email: <a href={`mailto:${contact.email}`} class="break-all text-white underline-offset-4 hover:underline">{contact.email}</a></p>
         <p>NJ License #{agent.licenseNumber}</p>
+        <p><a href={`mailto:${contact.email}`} class="break-all text-white underline-offset-4 hover:underline">{contact.email}</a></p>
       </address>
       {
         socialLinks.length > 0 && (
@@ -62,47 +60,37 @@ const launchReview = [
     </div>
 
     <nav aria-label="Footer">
-      <p class="font-semibold text-white">Explore</p>
-      <ul class="mt-4 space-y-2.5">
+      <ul class="grid grid-cols-2 gap-x-10 gap-y-2 text-[0.9375rem]">
         <li><a href={withBase('/buy/')} class="hover:text-white">Buying a Home</a></li>
-        <li><a href={withBase('/sell/')} class="hover:text-white">Selling Your Home</a></li>
         <li><a href={withBase('/communities/')} class="hover:text-white">Communities</a></li>
+        <li><a href={withBase('/sell/')} class="hover:text-white">Selling Your Home</a></li>
         <li><a href={withBase('/reviews/')} class="hover:text-white">Client Reviews</a></li>
         <li><a href={withBase('/buy/#mortgage-calculator')} class="hover:text-white">Mortgage Calculator</a></li>
         <li><a href={withBase('/about/')} class="hover:text-white">{ui.nav.about}</a></li>
         <li><a href={withBase('/contact/')} class="hover:text-white">{ui.nav.contact}</a></li>
       </ul>
     </nav>
-
   </div>
 
-  <nav aria-label="Service areas" class="container-page pb-12">
-    <p class="font-semibold text-white">Service areas</p>
-    <ServiceAreaList dark class="mt-4 text-[0.9375rem]" />
-  </nav>
-
   <div class="border-t border-white/10">
-    <div class="container-page space-y-3 py-8 text-sm leading-relaxed">
+    <div class="container-page space-y-2 py-6 text-xs leading-relaxed sm:text-[0.8125rem]">
       <p>{disclosure}</p>
-      <p class="flex items-center gap-2">
-        <svg class="h-5 w-5 shrink-0 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-          <path d="M3 11 12 4l9 7" stroke-linejoin="round"></path><path d="M5 10v10h14V10"></path><path d="M9 14h6M9 17h6"></path>
-        </svg>
-        <span class="font-semibold text-white">Equal Housing Opportunity</span>
-      </p>
-      <p class="flex flex-wrap gap-x-5 gap-y-1">
+      <p class="flex flex-wrap items-center gap-x-5 gap-y-1">
+        <span class="inline-flex items-center gap-1.5 font-semibold text-white">
+          <svg class="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+            <path d="M3 11 12 4l9 7" stroke-linejoin="round"></path><path d="M5 10v10h14V10"></path><path d="M9 14h6M9 17h6"></path>
+          </svg>
+          Equal Housing Opportunity
+        </span>
         <a href={withBase('/privacy/')} class="text-white underline-offset-4 hover:underline">Privacy</a>
         <a href={withBase('/photo-credits/')} class="text-white underline-offset-4 hover:underline">Photo credits</a>
         <span>&copy; {year} {agent.legalName}</span>
       </p>
       {
         isPreview && (
-          <div class="rounded-md border border-gold/50 p-4 text-navy-soft">
-            <p class="font-semibold text-gold">Preview note: confirm before launch</p>
-            <ul class="mt-1 list-disc pl-5">
-              {launchReview.map((item) => <li>{item}</li>)}
-            </ul>
-          </div>
+          <p class="pt-2 text-gold">
+            Preview note, confirm before launch: {launchReview.join('; ')}.
+          </p>
         )
       }
     </div>

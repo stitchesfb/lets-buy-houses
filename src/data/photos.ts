@@ -28,21 +28,53 @@ const BY2 = { license: 'CC BY 2.0', licenseUrl: 'https://creativecommons.org/lic
 const BYSA2 = { license: 'CC BY-SA 2.0', licenseUrl: 'https://creativecommons.org/licenses/by-sa/2.0/' };
 
 export const credits: Record<string, PhotoCredit> = {
-  hero: {
+  'home-hero': {
+    title: 'Sea Girt, New Jersey',
+    author: 'Doug Kerr',
+    ...BYSA2,
+    sourceUrl: 'https://www.flickr.com/photos/dougtone/16070173405/',
+    alt: 'A classic Jersey Shore home with a turret and wraparound porch in Sea Girt, New Jersey',
+    position: '50% 62%',
+  },
+  'path-buy': {
+    title: 'Sea Girt, New Jersey',
+    author: 'Doug Kerr',
+    ...BYSA2,
+    sourceUrl: 'https://www.flickr.com/photos/dougtone/15882749868/',
+    alt: 'A shingled shore home with a covered front porch',
+    position: '62% 55%',
+  },
+  'path-sell': {
+    title: 'Porch',
+    author: 'cdanna2003',
+    ...BYSA2,
+    sourceUrl: 'https://www.flickr.com/photos/49565454@N00/835706654/',
+    alt: 'A colonial home’s front entry with hanging flower baskets',
+    position: '45% 55%',
+  },
+  'seller-band': {
+    title: 'Sea Girt, New Jersey',
+    author: 'Doug Kerr',
+    ...BYSA2,
+    sourceUrl: 'https://www.flickr.com/photos/dougtone/15447879494/',
+    alt: 'A white shore home with flower beds along the front walk',
+    position: '40% 60%',
+  },
+  brick: {
+    title: '5:07 PM Friday Night on the Metedeconk River',
+    author: 'James Loesch',
+    ...BY2,
+    sourceUrl: 'https://www.flickr.com/photos/jal33/52634442304/',
+    alt: 'Sunset over a dock on the Metedeconk River in Brick',
+    position: '50% 55%',
+  },
+  manahawkin: {
     title: 'Aerial view of Manahawkin, New Jersey',
     author: 'Lauren Owens Lambert / U.S. Fish and Wildlife Service',
     ...PD,
     sourceUrl: 'https://www.flickr.com/photos/usfwsnortheast/51856403896/',
-    alt: 'Aerial view of lagoon-front homes in Manahawkin, New Jersey, beside the bay',
+    alt: 'Aerial view of lagoon-front homes in Manahawkin, beside the bay',
     position: '55% 40%',
-  },
-  manahawkin: {
-    title: 'Manahawkin – Sunset',
-    author: 'thisisbossi',
-    ...BYSA2,
-    sourceUrl: 'https://www.flickr.com/photos/thisisbossi/3903167556/',
-    alt: 'Sunset over the bay at Manahawkin, New Jersey',
-    position: '50% 65%',
   },
   'toms-river': {
     title: 'Just After Sunrise On Toms River',
@@ -139,13 +171,6 @@ export const credits: Record<string, PhotoCredit> = {
     sourceUrl: 'https://www.flickr.com/photos/65047661@N00/7776410346/',
     alt: 'Wildflowers in a meadow at Monmouth Battlefield State Park, which extends into Manalapan',
     position: '50% 60%',
-  },
-  brick: {
-    title: 'Forsythe After Cleanup – Brick Township',
-    author: 'Virginia Rettig / U.S. Fish and Wildlife Service',
-    ...PD,
-    sourceUrl: 'https://www.flickr.com/photos/usfwsnortheast/14060417632/',
-    alt: 'Marsh and pine woods at the Edwin B. Forsythe National Wildlife Refuge in Brick Township',
   },
 };
 

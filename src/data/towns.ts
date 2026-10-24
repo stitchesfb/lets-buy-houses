@@ -1146,8 +1146,8 @@ export const serviceAreas = towns
   .flatMap((t) => [{ name: t.name, slug: t.slug }, ...(t.aliases ?? []).map((a) => ({ name: a, slug: t.slug }))])
   .sort((a, b) => a.name.localeCompare(b.name));
 
-/** Towns shown as photo cards on the homepage (the rest appear in the service-area list). */
-const FEATURED: TownSlug[] = ['toms-river-nj', 'brick-nj', 'manahawkin-nj', 'point-pleasant-nj', 'seaside-heights-nj', 'beach-haven-nj', 'whiting-nj', 'seaside-park-nj'];
+/** Towns shown as photo tiles on the homepage (all towns are on /communities/). */
+const FEATURED: TownSlug[] = ['toms-river-nj', 'brick-nj', 'point-pleasant-nj', 'seaside-heights-nj', 'beach-haven-nj', 'manahawkin-nj'];
 export const featuredTowns = () => FEATURED.map((slug) => towns.find((t) => t.slug === slug)!);
 
 /** The `n` towns closest to `town`, for "nearby communities". */

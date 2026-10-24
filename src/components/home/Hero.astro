@@ -1,75 +1,35 @@
 ---
 /**
- * Opening section: local photo (or calm navy fallback), headline, Jacquelyn's
- * name and portrait, and the two primary paths.
+ * Opening screen: a full-bleed residential photograph, Jacquelyn's name, a
+ * service-area line, one headline, and the two primary paths. A restrained
+ * corner gradient keeps the text readable without darkening the whole photo.
  */
-import { Picture } from 'astro:assets';
 import Photo from '@/components/ui/Photo.astro';
-import portrait from '@/assets/jacquelyn-guevara.jpg';
 import { site } from '@/data/site';
 import { photo } from '@/data/photos';
-import { townList } from '@/data/towns';
 import { withBase } from '@/lib/paths';
 
-const hero = photo('hero');
+const hero = photo('home-hero');
 const { agent, brokerage } = site;
 ---
 
-<section class="on-dark relative isolate overflow-hidden bg-navy text-white">
-  {
-    hero && (
-      <div class="absolute inset-0 -z-10">
-        <Photo photo={hero} eager sizes="100vw" widths={[640, 1024, 1600, 2200]} />
-        <div class="absolute inset-0 bg-gradient-to-r from-navy/90 via-navy/70 to-navy/30" />
-        <div class="absolute inset-0 bg-gradient-to-t from-navy/60 to-transparent sm:hidden" />
-      </div>
-    )
-  }
+<section class="on-dark relative isolate flex min-h-[78svh] items-end overflow-hidden bg-navy text-white lg:min-h-[82vh]">
+  <div class="absolute inset-0 -z-10">
+    <Photo photo={hero} eager sizes="100vw" widths={[640, 1024, 1600, 2400]} />
+    <!-- Top fade for the transparent header; corner fade for the headline -->
+    <div class="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-navy/55 to-transparent"></div>
+    <div class="absolute inset-0 bg-gradient-to-t from-navy/90 via-navy/45 via-50% to-transparent sm:via-navy/25 sm:bg-gradient-to-tr sm:from-navy/85 sm:via-navy/30 sm:via-45% sm:to-transparent"></div>
+  </div>
 
-  <div class="container-page grid min-h-[34rem] items-end gap-10 py-14 sm:py-20 lg:min-h-[40rem] lg:grid-cols-[1.35fr_1fr] lg:items-center lg:py-24">
-    <div class="max-w-2xl">
-      <div class="flex items-center gap-4">
-        <Picture
-          src={portrait}
-          alt=""
-          widths={[96, 192]}
-          sizes="64px"
-          formats={['avif', 'webp']}
-          loading="eager"
-          pictureAttributes={{ class: 'shrink-0 lg:hidden' }}
-          class="h-16 w-16 rounded-full object-cover ring-2 ring-gold"
-        />
-        <p class="leading-snug">
-          <span class="block font-serif text-xl text-white sm:text-2xl">{agent.name}</span>
-          <span class="text-sm tracking-wide text-navy-soft">{agent.title} · {brokerage.name}</span>
-        </p>
-      </div>
-
-      <h1 class="mt-8 text-[2.6rem] leading-[1.08] !text-white sm:text-6xl lg:text-7xl">Your Next Chapter Starts at Home.</h1>
-      <p class="mt-6 max-w-xl text-lg text-navy-soft sm:text-xl">
-        Jacquelyn helps buyers and sellers find their way home in {townList(4).replace(', and', ',')}, and nearby Ocean and Monmouth County towns.
-      </p>
-
-      <div class="mt-9 flex flex-col gap-3 sm:flex-row">
-        <a href={withBase('/buy/')} class="btn-light text-lg">Find a Home</a>
-        <a href={withBase('/sell/')} class="btn-ghost-light text-lg">Sell My Home</a>
-      </div>
+  <div class="container-page w-full pt-28 pb-12 sm:pb-16 lg:pb-20">
+    <p class="font-serif text-2xl text-white sm:text-3xl">{agent.name}</p>
+    <p class="mt-1 text-xs tracking-[0.14em] sm:text-sm text-white/85 uppercase">
+      <span class="block sm:inline">{brokerage.name}</span><span class="hidden sm:inline"> · </span><span class="block sm:inline">Ocean &amp; Monmouth County, NJ</span>
+    </p>
+    <h1 class="mt-6 max-w-2xl text-[2.5rem] leading-[1.06] !text-white sm:text-6xl lg:text-7xl">Your next chapter starts at home.</h1>
+    <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+      <a href={withBase('/buy/')} class="btn-light text-lg">Find a Home</a>
+      <a href={withBase('/sell/')} class="btn-ghost-light text-lg backdrop-blur-sm">Sell My Home</a>
     </div>
-
-    <figure class="hidden justify-self-end lg:block">
-      <div class="relative">
-        <span class="absolute -top-4 -left-4 h-full w-full border border-gold" aria-hidden="true"></span>
-        <Picture
-          src={portrait}
-          alt={`${agent.legalName}, ${agent.title} with ${brokerage.name}`}
-          widths={[380, 760]}
-          sizes="380px"
-          formats={['avif', 'webp']}
-          loading="eager"
-          fetchpriority={hero ? undefined : 'high'}
-          class="relative aspect-[4/5] w-[22rem] object-cover object-[50%_30%] xl:w-[24rem]"
-        />
-      </div>
-    </figure>
   </div>
 </section>

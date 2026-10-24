@@ -1,0 +1,27 @@
+---
+/** Large photographic community tile with the name overlaid near the bottom. */
+import Photo from '@/components/ui/Photo.astro';
+import { photo } from '@/data/photos';
+import type { Town } from '@/data/towns';
+import { withBase } from '@/lib/paths';
+
+interface Props {
+  town: Town;
+  sizes?: string;
+}
+const { town: t, sizes = '(min-width: 1024px) 33vw, 50vw' } = Astro.props;
+---
+
+<a href={withBase(`/${t.slug}/`)} class="group on-dark relative isolate block aspect-[4/5] overflow-hidden rounded-sm text-white sm:aspect-[5/4]">
+  <div class="absolute inset-0 -z-10 transition-transform duration-700 group-hover:scale-[1.04]">
+    <Photo photo={photo(t.photo)} sizes={sizes} widths={[400, 640, 900, 1200]} />
+  </div>
+  <div class="absolute inset-0 -z-10 bg-gradient-to-t from-navy/80 via-navy/10 to-transparent"></div>
+  <div class="absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 p-4 sm:p-6">
+    <div>
+      <p class="text-[0.65rem] font-semibold tracking-[0.16em] text-white/80 sm:text-xs uppercase">{t.county}</p>
+      <h3 class="mt-1 text-xl leading-tight !text-white sm:text-3xl">{t.name}</h3>
+    </div>
+    <span aria-hidden="true" class="hidden text-xl transition-transform sm:inline group-hover:translate-x-1">→</span>
+  </div>
+</a>

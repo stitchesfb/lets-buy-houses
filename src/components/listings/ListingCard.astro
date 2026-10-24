@@ -23,8 +23,8 @@ const statusTone = {
 const address = `${l.street}, ${l.city}, NJ${l.zip ? ` ${l.zip}` : ''}`;
 ---
 
-<article class="card flex flex-col overflow-hidden">
-  <div class="relative aspect-[4/3] overflow-hidden">
+<article class="group flex flex-col">
+  <div class="relative aspect-[4/3] overflow-hidden rounded-sm">
     {
       l.photo ? (
         <Picture src={l.photo} alt={`Exterior of ${address}`} widths={[400, 640, 900]} sizes="(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 92vw" formats={['avif', 'webp']} class="h-full w-full object-cover" />
@@ -35,7 +35,7 @@ const address = `${l.street}, ${l.city}, NJ${l.zip ? ` ${l.zip}` : ''}`;
     <span class:list={['absolute top-3 left-3 rounded px-2.5 py-1 text-xs font-semibold tracking-wide uppercase', statusTone]}>{l.status}</span>
     {l.demo && <span class="absolute top-3 right-3 rounded bg-red-800 px-2.5 py-1 text-xs font-semibold tracking-wide text-white uppercase">Sample</span>}
   </div>
-  <div class="flex flex-1 flex-col p-5">
+  <div class="flex flex-1 flex-col pt-5">
     <p class="eyebrow">{sourceLabel}</p>
     <p class="mt-2 font-serif text-2xl text-navy">{price}</p>
     <h3 class="mt-1 font-sans text-base font-medium text-ink">{address}</h3>
@@ -43,13 +43,13 @@ const address = `${l.street}, ${l.city}, NJ${l.zip ? ` ${l.zip}` : ''}`;
       {l.beds} beds · {l.baths} baths{l.sqft && ` · ${l.sqft.toLocaleString('en-US')} sq ft`}
     </p>
     {l.source === 'mls' && l.listingBrokerage && <p class="mt-2 text-sm text-muted">Courtesy of {l.listingBrokerage}</p>}
-    <div class="mt-auto pt-5">
+    <div class="mt-auto pt-4">
       {
         l.demo ? (
-          <p class="rounded-md border border-dashed border-line px-4 py-3 text-center text-sm text-muted">Demonstration listing · not a real property</p>
+          <p class="text-sm text-muted italic">Demonstration listing · not a real property</p>
         ) : (
-          <a href={l.url} class="btn-outline w-full" rel={l.source === 'agent' ? undefined : 'noopener'}>
-            View Property<span class="sr-only">: {address}</span>
+          <a href={l.url} class="inline-flex items-center gap-2 font-semibold text-navy underline decoration-gold underline-offset-8 hover:decoration-navy" rel={l.source === 'agent' ? undefined : 'noopener'}>
+            View Property<span class="sr-only">: {address}</span> <span aria-hidden="true">→</span>
           </a>
         )
       }

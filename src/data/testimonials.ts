@@ -35,12 +35,21 @@ export interface Testimonial {
   url?: string;
   /** Review date as shown on the platform, e.g. "March 2025". */
   date?: string;
+  /**
+   * Short excerpt for the homepage: exact words from `quote`, with "…" marking
+   * any omitted text. Never reword. Omit to show the full quote.
+   */
+  excerpt?: string;
+  /** Show on the homepage (up to three). */
+  featured?: boolean;
 }
 
 // Exact review text as published on each platform. Do not edit the wording.
 export const testimonials: Testimonial[] = [
   {
     name: 'Danielle Melapioni',
+    excerpt: '…She had sold our house within 4 days pending us finding something. Encouraged us not to settle and we would find something. She kept her word.…',
+    featured: true,
     town: 'Forked River',
     source: 'RealSatisfied',
     date: 'March 11, 2023',
@@ -50,6 +59,7 @@ export const testimonials: Testimonial[] = [
   },
   {
     name: 'Domenica Bergin',
+    featured: true,
     town: 'Freehold',
     source: 'RealSatisfied',
     date: 'March 6, 2023',
@@ -58,6 +68,7 @@ export const testimonials: Testimonial[] = [
   },
   {
     name: 'Steven Humphrey',
+    excerpt: '…She did flawless execution of both sale and purchase of our new home to both close the same day.…',
     town: 'Barnegat',
     source: 'RealSatisfied',
     date: 'May 13, 2022',
@@ -67,6 +78,8 @@ export const testimonials: Testimonial[] = [
   },
   {
     name: 'John',
+    excerpt: '…With a smile and encouragement, she guided us through the whole process, always quick to respond to an e-mail, text or call.…',
+    featured: true,
     town: 'Toms River',
     source: 'Realtor.com',
     date: 'January 2, 2020',
@@ -82,3 +95,6 @@ export const publishedTestimonials = () =>
   testimonials.filter((t) => t.quote.trim().length > 0).sort((a, b) => time(b) - time(a));
 /** Reviews still waiting for their text (shown as a preview note only). */
 export const pendingTestimonials = () => testimonials.filter((t) => !t.quote.trim());
+
+/** Anchor id for a review on /reviews/. */
+export const reviewId = (t: Testimonial) => 'review-' + t.name.toLowerCase().replace(/[^a-z]+/g, '-').replace(/^-|-$/g, '');

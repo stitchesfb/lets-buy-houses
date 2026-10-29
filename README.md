@@ -87,16 +87,20 @@ credited on `/photo-credits/`.
 Pushing to `main` deploys to GitHub Pages via `.github/workflows/deploy.yml`. Set the `PUBLIC_*`
 values as repository variables (Settings → Secrets and variables → Actions → Variables).
 
-The site currently builds with `base: '/lets-buy-houses'` for the preview at
-https://stitchesfb.github.io/lets-buy-houses/. Wrap root-relative links in `withBase()` from
-`src/lib/paths.ts`.
+The site builds for the root of **https://letsbuyhouses.com** (`base: '/'` in `astro.config.mjs`;
+`site.url` in `src/data/site.ts` drives canonical URLs, the sitemap, social previews and structured
+data). Wrap root-relative links in `withBase()` from `src/lib/paths.ts`, so a subpath preview still works
+if `base` is ever changed.
 
-**Moving to letsbuyhouses.com later:**
-1. Set `base` to `'/'` in `astro.config.mjs`, and `liveOrigin` to `site.url` in `src/data/site.ts`.
-2. Enter the domain under Settings → Pages → Custom domain. Actions deploys ignore a `CNAME` file.
-3. At the registrar, remove any forwarding. Point the apex `A` records to 185.199.108.153,
-   185.199.109.153, 185.199.110.153 and 185.199.111.153, and `www` (CNAME) to `stitchesfb.github.io`.
-4. Turn on Enforce HTTPS.
+**Custom domain (GitHub Pages):**
+1. At the registrar, remove domain forwarding. Point the apex `A` records to 185.199.108.153,
+   185.199.109.153, 185.199.110.153 and 185.199.111.153 (optionally `AAAA` 2606:50c0:8000::153,
+   2606:50c0:8001::153, 2606:50c0:8002::153, 2606:50c0:8003::153) and `www` (CNAME) to `stitchesfb.github.io`.
+2. Settings → Pages → Custom domain: `letsbuyhouses.com` → Save. Actions deploys ignore a `CNAME` file.
+3. Deploy the root build (push to `main`). Until steps 1–2 are done, a root build breaks the
+   `stitchesfb.github.io/lets-buy-houses/` address, so deploy right after saving the domain.
+4. Once GitHub has issued the certificate, turn on **Enforce HTTPS**.
+5. If the Formspree form restricts allowed domains, add `letsbuyhouses.com`.
 
 ## Before launch
 

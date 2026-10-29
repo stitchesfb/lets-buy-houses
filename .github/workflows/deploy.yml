@@ -2,10 +2,9 @@
 #
 # One-time setup in the GitHub repo:
 #   1. Settings → Pages → Build and deployment → Source: "GitHub Actions"
-#   2. The site is built with base '/lets-buy-houses' (astro.config.mjs) for the
-#      <owner>.github.io/lets-buy-houses/ preview. When moving to a custom domain, set it
-#      under Settings → Pages → Custom domain (Actions deploys ignore a CNAME file) and
-#      change `base` to '/'.
+#   2. The site is built for the root of https://letsbuyhouses.com (base '/' in
+#      astro.config.mjs). Settings → Pages → Custom domain must be letsbuyhouses.com
+#      (Actions deploys ignore a CNAME file), with "Enforce HTTPS" on.
 #   3. Settings → Secrets and variables → Actions → Variables: add the PUBLIC_* values
 #      from .env.example. Forms post to Jacquelyn's Formspree form unless PUBLIC_FORM_ENDPOINT
 #      overrides it. Deploys build in production mode (no sample content) unless PUBLIC_SITE_MODE=preview.

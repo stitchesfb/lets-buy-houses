@@ -11,12 +11,6 @@ export const site = {
   url: 'https://letsbuyhouses.com',
   /** Website name; not her brokerage. */
   brand: "Let's Buy Houses",
-  /**
-   * Origin the built site is served from right now. Used for absolute asset URLs
-   * (social preview images, schema images). At launch, set this to `url` and
-   * `base` to '/' in astro.config.mjs.
-   */
-  liveOrigin: 'https://stitchesfb.github.io',
   /** Page language. Spanish can be added later once Jacquelyn confirms she serves Spanish-speaking clients. */
   lang: 'en-US',
 

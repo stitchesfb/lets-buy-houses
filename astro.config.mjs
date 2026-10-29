@@ -4,9 +4,9 @@ import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
 
 // https://astro.build/config
-// Serves the site from https://stitchesfb.github.io/lets-buy-houses/ (GitHub Pages preview).
-// Set to '/' once a custom domain serves the site from its root.
-const base = '/lets-buy-houses';
+// Served from the root of https://letsbuyhouses.com (GitHub Pages custom domain).
+// For a project-path preview such as <owner>.github.io/lets-buy-houses/, set base to that path.
+const base = '/';
 
 export default defineConfig({
   site: 'https://letsbuyhouses.com',
@@ -15,8 +15,6 @@ export default defineConfig({
   integrations: [
     sitemap({
       filter: (page) => !/\/(search|home-valuation|point-pleasant-boro-nj)\/$/.test(page),
-      // List production URLs (no preview base path), matching each page's canonical.
-      serialize: (item) => ({ ...item, url: item.url.replace(`${base}/`, '/') }),
     }),
   ],
   vite: {

@@ -30,11 +30,20 @@ const isActive = (href: string) =>
 <header class="site-header sticky top-0 z-40" data-overlay={overlay ? 'true' : 'false'} data-solid="false">
   {isPreview && <PreviewBanner />}
   <div class="border-b border-line bg-ivory/95 backdrop-blur transition-colors duration-300 supports-[backdrop-filter]:bg-ivory/90 lg:overlay:border-white/15 lg:overlay:bg-transparent lg:overlay:backdrop-blur-none">
-  <div class="container-page flex h-16 items-center justify-between gap-4 lg:h-20">
-    <a href={withBase('/')} class="group flex flex-col leading-tight" aria-label={`${site.agent.name}, home`}>
-      <span class="font-serif text-lg whitespace-nowrap text-navy transition-colors sm:text-xl lg:overlay:text-white">{site.agent.name}</span>
-      <span class="mt-0.5 text-[0.6875rem] leading-snug font-medium tracking-wide text-muted transition-colors sm:text-xs lg:overlay:text-white/85">
+  <div class="container-page flex min-h-16 items-center justify-between gap-3 py-2 sm:gap-4 lg:h-20 lg:py-0">
+    <a href={withBase('/')} class="group flex min-w-0 items-center gap-2.5 sm:gap-3" aria-label={`${site.agent.name}, ${site.team.name} | ${site.brokerage.name}, home`}>
+      <img
+        src={withBase(site.brokerage.logo.src)}
+        width={site.brokerage.logo.width}
+        height={site.brokerage.logo.height}
+        alt=""
+        class="h-8 w-auto shrink-0 rounded-sm min-[360px]:h-10 sm:h-12 xl:h-14"
+      />
+      <span class="flex min-w-0 flex-col leading-tight">
+      <span class="font-serif text-base whitespace-nowrap min-[380px]:text-lg text-navy transition-colors sm:text-xl lg:overlay:text-white">{site.agent.name}</span>
+      <span class="mt-0.5 text-[0.625rem] leading-snug min-[360px]:text-[0.6875rem] font-medium tracking-wide text-muted transition-colors sm:text-xs lg:overlay:text-white/85">
         <span class="block sm:inline lg:block xl:inline">{site.team.name}</span><span class="hidden sm:inline lg:hidden xl:inline" aria-hidden="true"> | </span><span class="block sm:inline lg:block xl:inline">{site.brokerage.name}</span>
+      </span>
       </span>
     </a>
 
@@ -60,7 +69,7 @@ const isActive = (href: string) =>
       <a href={withBase('/contact/')} class="btn-primary hidden !min-h-11 !px-5 whitespace-nowrap !py-2 text-[0.9375rem] sm:inline-flex lg:overlay:bg-white lg:overlay:text-navy lg:overlay:hover:bg-ivory">{ui.nav.cta}</a>
       <button
         type="button"
-        class="inline-flex min-h-11 min-w-[5.75rem] items-center justify-center gap-2 rounded-md border border-line bg-white px-3 text-sm font-semibold whitespace-nowrap text-navy lg:hidden"
+        class="inline-flex min-h-11 min-w-11 shrink-0 items-center min-[380px]:min-w-[5.75rem] justify-center gap-2 rounded-md border border-line bg-white px-3 text-sm font-semibold whitespace-nowrap text-navy lg:hidden"
         aria-expanded="false"
         aria-controls="mobile-menu"
         data-menu-toggle
@@ -69,7 +78,7 @@ const isActive = (href: string) =>
           <path data-icon-open stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16"></path>
           <path data-icon-close class="hidden" stroke-linecap="round" d="M6 6l12 12M18 6 6 18"></path>
         </svg>
-        <span data-menu-label>{ui.nav.menu}</span>
+        <span data-menu-label class="max-[379px]:sr-only">{ui.nav.menu}</span>
       </button>
     </div>
   </div>

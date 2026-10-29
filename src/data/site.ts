@@ -77,8 +77,11 @@ export const site = {
     },
     officePhone: '(848) 333-3249' as string,
     officePhoneHref: 'tel:+18483333249',
-    /** The brokerage's official logo, used as supplied (no recoloring or cropping). 500x246 PNG on white. */
-    logo: { src: '/images/1st-class-real-estate-agency-logo.png', width: 500, height: 246 },
+    /**
+     * The brokerage's official logo: transparent background, black lettering, so it needs a
+     * white or ivory background. Artwork unchanged; only the empty transparent margin was trimmed.
+     */
+    logo: { src: '/images/1st-class-real-estate-agency-logo.png', width: 1680, height: 742 },
   },
 
   contact: {

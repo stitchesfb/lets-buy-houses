@@ -9,7 +9,7 @@ interface Props {
   town?: string;
 }
 const { town } = Astro.props;
-const { agent, contact, brokerage } = site;
+const { agent, contact } = site;
 ---
 
 <aside class="card p-6 text-center" aria-label={`Contact ${agent.legalName}`}>

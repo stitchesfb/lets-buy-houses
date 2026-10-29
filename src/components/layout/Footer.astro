@@ -1,5 +1,5 @@
 ---
-import { affiliation, site } from '@/data/site';
+import { site } from '@/data/site';
 import { ui } from '@/i18n/en';
 import { isPreview } from '@/lib/mode';
 import { withBase } from '@/lib/paths';
@@ -39,24 +39,24 @@ const launchReview = [
   <div class="container-page grid gap-10 py-12 md:grid-cols-[1fr_auto] md:gap-16">
     <div>
       <p class="font-serif text-2xl text-white">{agent.name}</p>
-      <p class="mt-1 text-sm tracking-wide">{affiliation}</p>
-      <div class="mt-6 inline-block rounded-sm bg-white px-5 py-4">
+      <p class="mt-1 text-sm tracking-wide">{team.name}</p>
+      <div class="mt-4 inline-block rounded-sm bg-white px-3 py-2.5">
         <img
           src={withBase(brokerage.logo.src)}
           width={brokerage.logo.width}
           height={brokerage.logo.height}
           alt={brokerage.name}
           loading="lazy"
-          class="h-auto w-[13.75rem]"
+          class="h-auto w-[12.5rem] sm:w-60"
         />
       </div>
-      <address class="mt-6 grid gap-x-10 gap-y-1.5 text-[0.9375rem] not-italic sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2">
+      <address class="mt-5 grid gap-x-10 gap-y-1.5 text-[0.9375rem] not-italic sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2">
         <p>{brokerage.name}<br />{address.street}, {address.city}, {address.region} {address.postalCode}</p>
         <p>
-          Direct (call or text): <a href={contact.phoneHref} class="text-white underline decoration-white/40 underline-offset-4 hover:decoration-white">{contact.phone}</a><br />
-          Office: <a href={brokerage.officePhoneHref} class="text-white underline decoration-white/40 underline-offset-4 hover:decoration-white">{brokerage.officePhone}</a>
+          Direct (call or text): <a href={contact.phoneHref} class="whitespace-nowrap text-white underline decoration-white/40 underline-offset-4 hover:decoration-white">{contact.phone}</a><br />
+          Office: <a href={brokerage.officePhoneHref} class="whitespace-nowrap text-white underline decoration-white/40 underline-offset-4 hover:decoration-white">{brokerage.officePhone}</a>
         </p>
-        <p>NJ License #{agent.licenseNumber}</p>
+        <p>{agent.firstName}’s NJ License #{agent.licenseNumber}</p>
         <p><a href={`mailto:${contact.email}`} class="break-words text-white underline-offset-4 hover:underline">{contact.email}</a></p>
       </address>
       {

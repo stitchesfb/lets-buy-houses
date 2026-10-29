@@ -24,8 +24,6 @@
   --font-serif: 'Playfair Display Variable', ui-serif, Georgia, serif;
 }
 
-/* Header over a full-bleed photo (homepage, desktop): transparent until the page scrolls. */
-@custom-variant overlay (&:where(.site-header[data-overlay='true'][data-solid='false'] *));
 
 @layer base {
   html {
@@ -101,9 +99,3 @@
   @apply mb-1.5 block text-sm font-semibold text-ink;
 }
 
-@media (min-width: 1024px) {
-  .site-header[data-overlay='true'] {
-    position: fixed;
-    inset-inline: 0;
-  }
-}

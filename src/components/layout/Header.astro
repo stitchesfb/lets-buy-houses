@@ -6,12 +6,6 @@ import { stripBase, withBase } from '@/lib/paths';
 import { isPreview } from '@/lib/mode';
 import PreviewBanner from '@/components/layout/PreviewBanner.astro';
 
-interface Props {
-  /** Transparent over a full-bleed hero on desktop, solid once the page scrolls. */
-  overlay?: boolean;
-}
-const { overlay = false } = Astro.props;
-
 const nav = [
   { label: ui.nav.home, href: '/' },
   { label: ui.nav.buy, href: '/buy/' },
@@ -27,27 +21,25 @@ const isActive = (href: string) =>
   href === '/' ? path === '/' : path.startsWith(href) || (href === '/communities/' && townPaths.includes(path));
 ---
 
-<header class="site-header sticky top-0 z-40" data-overlay={overlay ? 'true' : 'false'} data-solid="false">
+<header class="site-header sticky top-0 z-40">
   {isPreview && <PreviewBanner />}
-  <div class="border-b border-line bg-ivory/95 backdrop-blur transition-colors duration-300 supports-[backdrop-filter]:bg-ivory/90 lg:overlay:border-white/15 lg:overlay:bg-transparent lg:overlay:backdrop-blur-none">
-  <div class="container-page flex min-h-16 items-center justify-between gap-3 py-2 sm:gap-4 lg:h-20 lg:py-0">
-    <a href={withBase('/')} class="group flex min-w-0 items-center gap-2.5 sm:gap-3" aria-label={`${site.agent.name}, ${site.team.name} | ${site.brokerage.name}, home`}>
+  <div class="border-b border-line bg-ivory/95 backdrop-blur supports-[backdrop-filter]:bg-ivory/90">
+  <div class="container-page flex min-h-16 items-center justify-between gap-3 py-2 sm:min-h-20 sm:gap-4 xl:min-h-24">
+    <a href={withBase('/')} class="flex min-w-0 items-center gap-3 sm:gap-5" aria-label={`${site.agent.name}, ${site.team.name}, ${site.brokerage.name}: home`}>
       <img
         src={withBase(site.brokerage.logo.src)}
         width={site.brokerage.logo.width}
         height={site.brokerage.logo.height}
-        alt=""
-        class="h-8 w-auto shrink-0 rounded-sm min-[360px]:h-10 sm:h-12 xl:h-14"
+        alt={site.brokerage.name}
+        class="h-8 w-auto shrink-0 min-[360px]:h-10 min-[380px]:h-11 sm:h-14 xl:h-[4.5rem]"
       />
       <span class="flex min-w-0 flex-col leading-tight">
-      <span class="font-serif text-base whitespace-nowrap min-[380px]:text-lg text-navy transition-colors sm:text-xl lg:overlay:text-white">{site.agent.name}</span>
-      <span class="mt-0.5 text-[0.625rem] leading-snug min-[360px]:text-[0.6875rem] font-medium tracking-wide text-muted transition-colors sm:text-xs lg:overlay:text-white/85">
-        <span class="block sm:inline lg:block xl:inline">{site.team.name}</span><span class="hidden sm:inline lg:hidden xl:inline" aria-hidden="true"> | </span><span class="block sm:inline lg:block xl:inline">{site.brokerage.name}</span>
-      </span>
+        <span class="font-serif text-base whitespace-nowrap text-navy min-[380px]:text-lg sm:text-xl">{site.agent.name}</span>
+        <span class="mt-0.5 text-xs font-medium tracking-wide whitespace-nowrap text-muted sm:text-sm">{site.team.name}</span>
       </span>
     </a>
 
-    <nav aria-label="Main" class="hidden lg:block">
+    <nav aria-label="Main" class="hidden xl:block">
       <ul class="flex items-center gap-1">
         {
           nav.map((item) => (
@@ -55,7 +47,7 @@ const isActive = (href: string) =>
               <a
                 href={withBase(item.href)}
                 aria-current={isActive(item.href) ? 'page' : undefined}
-                class="relative rounded-md px-3 py-2 text-[0.9375rem] font-medium whitespace-nowrap text-ink transition-colors hover:text-navy aria-[current=page]:text-navy lg:overlay:text-white lg:overlay:hover:text-white/75 lg:overlay:aria-[current=page]:text-white aria-[current=page]:after:absolute aria-[current=page]:after:inset-x-3 aria-[current=page]:after:-bottom-0.5 aria-[current=page]:after:h-px aria-[current=page]:after:bg-gold"
+                class="relative rounded-md px-3 py-2 text-[0.9375rem] font-medium whitespace-nowrap text-ink transition-colors hover:text-navy aria-[current=page]:text-navy aria-[current=page]:after:absolute aria-[current=page]:after:inset-x-3 aria-[current=page]:after:-bottom-0.5 aria-[current=page]:after:h-px aria-[current=page]:after:bg-gold"
               >
                 {item.label}
               </a>
@@ -66,10 +58,10 @@ const isActive = (href: string) =>
     </nav>
 
     <div class="flex items-center gap-2">
-      <a href={withBase('/contact/')} class="btn-primary hidden !min-h-11 !px-5 whitespace-nowrap !py-2 text-[0.9375rem] sm:inline-flex lg:overlay:bg-white lg:overlay:text-navy lg:overlay:hover:bg-ivory">{ui.nav.cta}</a>
+      <a href={withBase('/contact/')} class="btn-primary hidden !min-h-11 !px-5 whitespace-nowrap !py-2 text-[0.9375rem] sm:inline-flex">{ui.nav.cta}</a>
       <button
         type="button"
-        class="inline-flex min-h-11 min-w-11 shrink-0 items-center min-[380px]:min-w-[5.75rem] justify-center gap-2 rounded-md border border-line bg-white px-3 text-sm font-semibold whitespace-nowrap text-navy lg:hidden"
+        class="inline-flex min-h-11 min-w-11 shrink-0 items-center min-[420px]:min-w-[5.75rem] justify-center gap-2 rounded-md border border-line bg-white px-3 text-sm font-semibold whitespace-nowrap text-navy xl:hidden"
         aria-expanded="false"
         aria-controls="mobile-menu"
         data-menu-toggle
@@ -78,14 +70,14 @@ const isActive = (href: string) =>
           <path data-icon-open stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16"></path>
           <path data-icon-close class="hidden" stroke-linecap="round" d="M6 6l12 12M18 6 6 18"></path>
         </svg>
-        <span data-menu-label class="max-[379px]:sr-only">{ui.nav.menu}</span>
+        <span data-menu-label class="max-[419px]:sr-only">{ui.nav.menu}</span>
       </button>
     </div>
   </div>
 
   </div>
 
-  <nav id="mobile-menu" aria-label="Mobile" class="border-t border-line bg-ivory lg:hidden" hidden>
+  <nav id="mobile-menu" aria-label="Mobile" class="border-t border-line bg-ivory xl:hidden" hidden>
     <ul class="container-page divide-y divide-line py-2">
       {
         nav.map((item) => (
@@ -111,15 +103,6 @@ const isActive = (href: string) =>
 <script>
   import { ui } from '@/i18n/en';
 
-  // Overlay header: solid once the page scrolls or the menu opens.
-  const header = document.querySelector<HTMLElement>('.site-header[data-overlay="true"]');
-  const setSolid = (solid: boolean) => header?.setAttribute('data-solid', String(solid));
-  if (header) {
-    const onScroll = () => setSolid(window.scrollY > 40);
-    onScroll();
-    window.addEventListener('scroll', onScroll, { passive: true });
-  }
-
   const toggle = document.querySelector<HTMLButtonElement>('[data-menu-toggle]');
   const menu = document.getElementById('mobile-menu');
   if (toggle && menu) {
@@ -130,7 +113,6 @@ const isActive = (href: string) =>
       toggle.querySelector('[data-icon-open]')?.classList.toggle('hidden', open);
       toggle.querySelector('[data-icon-close]')?.classList.toggle('hidden', !open);
       if (label) label.textContent = open ? ui.nav.close : ui.nav.menu;
-      if (header) setSolid(open || window.scrollY > 40);
     };
     const isOpen = () => toggle.getAttribute('aria-expanded') === 'true';
     toggle.addEventListener('click', () => setOpen(!isOpen()));

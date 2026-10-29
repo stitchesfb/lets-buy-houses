@@ -2,9 +2,11 @@
 /**
  * Lead form: general contact, home value review, or buyer inquiry.
  *
- * Submissions go to PUBLIC_FORM_ENDPOINT (Formspree, Basin, a CRM webhook, …),
- * which decides where the email is delivered. With no endpoint the form is
- * clearly marked preview-only and never pretends to have sent anything.
+ * Submissions go to PUBLIC_FORM_ENDPOINT (Jacquelyn's Formspree form on the published
+ * site), which emails them to her. Local and test builds have no endpoint: the form is
+ * clearly marked as not connected and never pretends to have sent anything.
+ * Formspree conventions used: `_replyto` (reply goes to the visitor), `_subject`, and the
+ * `_gotcha` honeypot (submissions with it filled are silently dropped).
  * Behaviour (validation, sending, error, success) lives in src/lib/lead-form.ts.
  */
 import Field from './Field.astro';
@@ -37,6 +39,7 @@ const townOptions = [
   { value: 'Other', label: 'Somewhere else' },
 ];
 const { phone, phoneHref, smsHref, email } = site.contact;
+const inquiryType = { contact: 'General inquiry', 'home-value': 'Home value review', buyer: 'Home search (buyer)' }[variant];
 ---
 
 <form
@@ -48,11 +51,14 @@ const { phone, phoneHref, smsHref, email } = site.contact;
   data-endpoint={formEndpoint}
   class:list={['grid gap-5 sm:grid-cols-2', dark && 'on-dark']}
 >
+  <input type="hidden" name="inquiry_type" value={inquiryType} />
   <input type="hidden" name="form_type" value={variant} />
+  {variant !== 'buyer' && town && <input type="hidden" name="community" value={town} />}
   <input type="hidden" name="source_page" value={Astro.url.pathname} />
+  <input type="hidden" name="page_url" value="" data-page-url />
   <input type="hidden" name="attribution" value="" data-attribution />
   <div class="hidden" aria-hidden="true">
-    <label>Leave this field blank <input name="company_website" tabindex="-1" autocomplete="off" /></label>
+    <label>Leave this field blank <input name="_gotcha" tabindex="-1" autocomplete="off" /></label>
   </div>
 
   <p class="hidden rounded-md border border-red-700/30 bg-red-50 p-3 text-sm font-medium text-red-800 sm:col-span-2" role="alert" data-error-summary>

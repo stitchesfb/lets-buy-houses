@@ -43,7 +43,7 @@ function showFieldError(form: HTMLFormElement, control: Control, message: string
 
 function validate(form: HTMLFormElement): Control | null {
   let firstInvalid: Control | null = null;
-  form.querySelectorAll<Control>('input:not([type=hidden]):not([name=company_website]), select, textarea').forEach((control) => {
+  form.querySelectorAll<Control>('input:not([type=hidden]):not([name=_gotcha]), select, textarea').forEach((control) => {
     const message = fieldError(control);
     showFieldError(form, control, message);
     if (message && !firstInvalid) firstInvalid = control;
@@ -64,6 +64,7 @@ export function initLeadForms() {
     form.dataset.enhanced = 'true';
 
     form.querySelectorAll<HTMLInputElement>('[data-attribution]').forEach((el) => (el.value = attribution));
+    form.querySelectorAll<HTMLInputElement>('[data-page-url]').forEach((el) => (el.value = location.href.split('#')[0]));
     form.querySelectorAll<HTMLSelectElement>('select[data-prefill]').forEach((el) => {
       const v = params.get(el.dataset.prefill!);
       if (v && [...el.options].some((o) => o.value === v)) el.value = v;
@@ -84,8 +85,10 @@ export function initLeadForms() {
     const successPanel = document.querySelector<HTMLElement>(`[data-success-for="${form.id}"]`);
 
     const startedAt = performance.now();
+    let sending = false;
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
+      if (sending) return; // one submission at a time
       show(errorPanel, false);
       show(previewPanel, false);
 
@@ -97,8 +100,12 @@ export function initLeadForms() {
       }
 
       const data = new FormData(form);
-      if (data.get('company_website')) return; // bot honeypot
-      data.delete('company_website');
+      if (data.get('_gotcha')) return; // bot honeypot (Formspree also drops these)
+      data.delete('_gotcha');
+      // Formspree: replies go to the visitor; the subject line says what the inquiry is about.
+      const context = [data.get('community'), data.get('town'), data.get('interest')].find((v) => typeof v === 'string' && v);
+      data.set('_replyto', String(data.get('email') ?? ''));
+      data.set('_subject', `Website inquiry: ${data.get('inquiry_type')}${context ? ` (${context})` : ''} from ${data.get('name')}`);
 
       const endpoint = form.dataset.endpoint;
       if (!endpoint) {
@@ -114,20 +121,24 @@ export function initLeadForms() {
         return;
       }
 
+      sending = true;
       submit?.setAttribute('disabled', '');
       form.setAttribute('aria-busy', 'true');
       if (submitLabel) submitLabel.textContent = ui.form.sending;
       try {
         const res = await fetch(endpoint, { method: 'POST', body: data, headers: { Accept: 'application/json' } });
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const body = (await res.json().catch(() => ({}))) as { ok?: boolean; errors?: unknown };
+        // Success only when the service accepted the submission.
+        if (!res.ok || body.ok === false || body.errors) throw new Error(`HTTP ${res.status}`);
         const w = window as unknown as { gtag?: (...args: unknown[]) => void };
         w.gtag?.('event', 'generate_lead', { form_type: data.get('form_type') });
         form.hidden = true;
         show(successPanel);
         successPanel?.focus();
       } catch {
-        show(errorPanel);
+        show(errorPanel); // entered information stays in the form
       } finally {
+        sending = false;
         submit?.removeAttribute('disabled');
         form.removeAttribute('aria-busy');
         if (submitLabel) submitLabel.textContent = idleLabel;

@@ -7,8 +7,8 @@
 #      under Settings → Pages → Custom domain (Actions deploys ignore a CNAME file) and
 #      change `base` to '/'.
 #   3. Settings → Secrets and variables → Actions → Variables: add the PUBLIC_* values
-#      from .env.example. Forms send nothing until PUBLIC_FORM_ENDPOINT is set, and
-#      Deploys build in production mode (no sample content) unless PUBLIC_SITE_MODE=preview.
+#      from .env.example. Forms post to Jacquelyn's Formspree form unless PUBLIC_FORM_ENDPOINT
+#      overrides it. Deploys build in production mode (no sample content) unless PUBLIC_SITE_MODE=preview.
 name: Deploy to GitHub Pages
 
 on:
@@ -33,10 +33,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v7
 
-      - name: Warn if lead forms have no endpoint
-        if: vars.PUBLIC_FORM_ENDPOINT == ''
-        run: echo "::warning::PUBLIC_FORM_ENDPOINT is not set, so lead forms are preview-only and send nothing. Add it under Settings → Secrets and variables → Actions → Variables."
-
       - name: Install, type-check and build
         uses: withastro/action@v6
         with:
@@ -44,7 +40,8 @@ jobs:
         env:
           # The live site hides sample content; set the variable to 'preview' to show it.
           PUBLIC_SITE_MODE: ${{ vars.PUBLIC_SITE_MODE || 'production' }}
-          PUBLIC_FORM_ENDPOINT: ${{ vars.PUBLIC_FORM_ENDPOINT }}
+          # Jacquelyn's Formspree form. Only the published site gets it; local and test builds send nothing.
+          PUBLIC_FORM_ENDPOINT: ${{ vars.PUBLIC_FORM_ENDPOINT || 'https://formspree.io/f/xkjjzkwg' }}
           PUBLIC_IDX_PROVIDER: ${{ vars.PUBLIC_IDX_PROVIDER }}
           PUBLIC_IDX_BROKER_DOMAIN: ${{ vars.PUBLIC_IDX_BROKER_DOMAIN }}
           PUBLIC_IDX_IFRAME_URL: ${{ vars.PUBLIC_IDX_IFRAME_URL }}

@@ -67,17 +67,14 @@ credited on `/photo-credits/`.
 
 ## Integrations
 
-- **Forms:** set `PUBLIC_FORM_ENDPOINT` to a service that accepts a POST and answers JSON.
-  GitHub Pages can't run a backend, and the endpoint URL is public by design, so no secret goes in the site.
-  With Formspree (free tier):
-  1. Sign up at formspree.io with jackienguevara@gmail.com and confirm the email.
-  2. Create a form; copy its endpoint (`https://formspree.io/f/xxxxxxx`).
-  3. GitHub → Settings → Secrets and variables → Actions → Variables → `PUBLIC_FORM_ENDPOINT` = that URL, then re-run the deploy.
-  4. Send a test from /contact/ marked “TEST – please ignore” and confirm it arrives.
-
-  Forms validate required fields and email, show sending, error and success states (success only after
-  the service answers 200), keep what was typed if sending fails, and block bots with a hidden honeypot
-  field plus a minimum fill time.
+- **Forms:** every inquiry form posts to Jacquelyn's Formspree form (`https://formspree.io/f/xkjjzkwg`),
+  set in `.github/workflows/deploy.yml` (a `PUBLIC_FORM_ENDPOINT` repository variable overrides it). Only the
+  published site gets the endpoint; local, preview and test builds send nothing and say so beside each form.
+  Each submission includes the visitor's fields plus `inquiry_type`, `community` (on community pages),
+  `page_url`, `source_page` and campaign attribution; `_replyto` makes replies go to the visitor and `_subject`
+  names the inquiry. Spam protection: Formspree's `_gotcha` honeypot plus a minimum fill time. Success shows
+  only after Formspree accepts the submission; on failure the entries stay and her phone and email are shown.
+  Avoid live test submissions (they use the monthly allowance); automated tests use a mock endpoint.
 - **Listings:** there is no live listings link while no IDX provider is connected; search sections
   invite visitors to send their criteria instead. (The old RE/MAX Revolution search links were removed
   when she changed brokerages.) An IDX account must be set up under her current brokerage.

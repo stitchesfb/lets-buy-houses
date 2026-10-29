@@ -9,7 +9,7 @@ import ServiceAreaList from '@/components/town/ServiceAreaList.astro';
 import HomeTransformations from '@/components/about/HomeTransformations.astro';
 import ContactSection from '@/components/home/ContactSection.astro';
 import portrait from '@/assets/jacquelyn-guevara.jpg';
-import { site } from '@/data/site';
+import { affiliation, site } from '@/data/site';
 import { breadcrumbSchema } from '@/lib/schema';
 import { withBase } from '@/lib/paths';
 
@@ -19,8 +19,8 @@ const crumbs = [
   { name: 'About Jacquelyn', url: '/about/' },
 ];
 const facts = [
+  { label: 'Team', value: site.team.name },
   { label: 'Brokerage', value: `${brokerage.name}, ${brokerage.address.city}, NJ` },
-  { label: 'Title', value: agent.title },
   { label: 'In real estate', value: `${agent.yearsLicensed} years` },
   { label: 'Ocean County resident', value: `${agent.yearsInOceanCounty} years` },
   { label: 'NJ license', value: `#${agent.licenseNumber}` },
@@ -28,8 +28,8 @@ const facts = [
 ---
 
 <BaseLayout
-  title={`About ${agent.legalName} | ${brokerage.name}`}
-  description={`Get to know Jacquelyn Guevara: an Ocean County resident for over 35 years with more than 15 years in real estate, now an ${agent.title} with ${brokerage.name}.`}
+  title={`About ${agent.legalName} | ${affiliation}`}
+  description={`Get to know Jacquelyn Guevara: an Ocean County resident for over 35 years with more than 15 years in real estate, now with ${affiliation}.`}
   schema={[breadcrumbSchema(crumbs)]}
 >
   <section class="section pt-10 sm:pt-12" aria-labelledby="about-heading">
@@ -61,7 +61,7 @@ const facts = [
         <div>
           <p class="eyebrow">About Jacquelyn</p>
           <h1 id="about-heading" class="mt-3 text-4xl sm:text-5xl">{agent.name}</h1>
-          <p class="mt-2 text-lg text-muted">{agent.title} · {brokerage.name}</p>
+          <p class="mt-2 text-lg text-muted">{affiliation}</p>
           <span class="rule-gold mt-6"></span>
           <p class="mt-6 font-serif text-xl leading-relaxed text-navy sm:text-2xl">{agent.renovation}</p>
           <p class="eyebrow mt-10">My story</p>

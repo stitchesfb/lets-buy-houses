@@ -1,6 +1,6 @@
 # Jacquelyn Guevara: Real Estate Website
 
-The personal website of Jacquelyn Guevara, Associate with RE/MAX Revolution, serving **20 Ocean and Monmouth County service areas**, from Toms River, Brick, and Manahawkin to
+The personal website of Jacquelyn Guevara of The Integrity Group | 1st Class Real Estate Agency (since October 28, 2026), serving **20 Ocean and Monmouth County service areas**, from Toms River, Brick, and Manahawkin to
 Long Beach Island and the barrier-island towns (full list in `src/data/towns.ts`). The site name is Let's Buy
 Houses (letsbuyhouses.com).
 
@@ -36,7 +36,7 @@ confirms receipt.
 
 | What | Where |
 |---|---|
-| Name, title, license, brokerage, phone, email, bio, “Why work with Jacquelyn” points | `src/data/site.ts` |
+| Name, title, license, team, brokerage (name, office address and phone, logo), phone, email, bio, “Why work with Jacquelyn” points | `src/data/site.ts` |
 | Community pages (copy, highlights, neighborhoods, tips, FAQs, market stats) | `src/data/towns.ts` |
 | Featured listings (real, approved only) | `src/data/listings.ts` |
 | Sample listings for the preview | `src/data/demo/listings.ts` |
@@ -78,8 +78,9 @@ credited on `/photo-credits/`.
   Forms validate required fields and email, show sending, error and success states (success only after
   the service answers 200), keep what was typed if sending fails, and block bots with a hidden honeypot
   field plus a minimum fill time.
-- **Listings:** until an IDX widget is connected, each community’s listings section links to the live MLS
-  search on her RE/MAX Revolution site (`site.listingsSite` + each town’s `remaxArea`).
+- **Listings:** there is no live listings link while no IDX provider is connected; search sections
+  invite visitors to send their criteria instead. (The old RE/MAX Revolution search links were removed
+  when she changed brokerages.) An IDX account must be set up under her current brokerage.
 - **MLS/IDX search:** see `docs/IDX-INTEGRATION.md`. Without a provider, search areas invite
   visitors to send Jacquelyn their criteria instead of showing a fake search.
 - **Analytics:** off unless `PUBLIC_GA_MEASUREMENT_ID` is set. If you turn it on, update `/privacy/`.
@@ -102,7 +103,9 @@ https://stitchesfb.github.io/lets-buy-houses/. Wrap root-relative links in `with
 
 ## Before launch
 
-- [ ] Broker reviews the footer disclosure; add the brokerage office phone (`site.brokerage.officePhone`)
+- [ ] 1st Class Real Estate Agency reviews the footer disclosure and how the team name appears with the brokerage name
+- [ ] Confirm her title at 1st Class Real Estate Agency (`site.agent.title`, currently “Real Estate Agent”)
+- [ ] Higher-resolution brokerage logo (SVG or a PNG at least 1000px wide); `public/images/1st-class-real-estate-agency-logo.png` is 500px
 - [ ] Form service connected (`PUBLIC_FORM_ENDPOINT`) and a test message received
 - [ ] Privacy page reviewed by the broker or an attorney
 - [ ] Add her Zillow, Realtor.com, and RealSatisfied profile links so visitors can read all 30+ reviews

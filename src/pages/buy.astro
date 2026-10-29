@@ -9,8 +9,7 @@ import MortgageCalculator from '@/components/tools/MortgageCalculator.astro';
 import FeaturedListings from '@/components/home/FeaturedListings.astro';
 import CommunityGrid from '@/components/home/CommunityGrid.astro';
 import { breadcrumbSchema } from '@/lib/schema';
-import { site } from '@/data/site';
-import { listingsUrl } from '@/lib/listings-links';
+import { affiliation, site } from '@/data/site';
 
 const crumbs = [
   { name: 'Home', url: '/' },
@@ -47,7 +46,7 @@ const steps = [
 
 <BaseLayout
   title={`Buying a Home in Toms River, Brick & Ocean County, NJ | ${site.agent.legalName}`}
-  description={`How Jacquelyn Guevara of ${site.brokerage.name} helps buyers search, tour, negotiate, and close on homes in Ocean and Monmouth County, NJ.`}
+  description={`How Jacquelyn Guevara of ${affiliation} helps buyers search, tour, negotiate, and close on homes in Ocean and Monmouth County, NJ.`}
   schema={[breadcrumbSchema(crumbs)]}
 >
   <PageHeader
@@ -72,7 +71,7 @@ const steps = [
 
   <section id="home-search" class="section bg-white/60 pt-0 sm:pt-0" aria-label="Home search">
     <div class="container-page pt-16 sm:pt-20">
-      <IdxSearch heading="Search homes for sale" minHeight={900} listingsUrl={listingsUrl()} />
+      <IdxSearch heading="Search homes for sale" minHeight={900} />
     </div>
   </section>
 

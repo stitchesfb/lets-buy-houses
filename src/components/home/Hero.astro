@@ -10,23 +10,24 @@ import { photo } from '@/data/photos';
 import { withBase } from '@/lib/paths';
 
 const hero = photo('home-hero');
-const { agent, brokerage } = site;
+const { agent, team, brokerage } = site;
 ---
 
 <section class="on-dark relative isolate flex min-h-[78svh] items-end overflow-hidden bg-navy text-white lg:min-h-[82vh]">
   <div class="absolute inset-0 -z-10">
     <Photo photo={hero} eager sizes="100vw" widths={[640, 1024, 1600, 2400]} />
     <!-- Light top fade for the transparent header, and a gradient only behind the headline and buttons -->
-    <div class="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-navy/45 to-transparent"></div>
+    <div class="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-navy/60 to-transparent"></div>
     <div class="absolute inset-x-0 bottom-0 h-[70%] bg-gradient-to-t from-navy/90 via-navy/50 to-transparent sm:hidden"></div>
     <div class="absolute inset-0 hidden bg-[radial-gradient(ellipse_75%_85%_at_0%_100%,rgb(20_40_63/0.88)_0%,rgb(20_40_63/0.6)_40%,rgb(20_40_63/0)_75%)] sm:block"></div>
   </div>
 
   <div class="container-page w-full pt-28 pb-12 sm:pb-16 lg:pb-20">
     <p class="font-serif text-2xl text-white sm:text-3xl">{agent.name}</p>
-    <p class="mt-1 text-xs tracking-[0.14em] sm:text-sm text-white/85 uppercase">
-      <span class="block sm:inline">{brokerage.name}</span><span class="hidden sm:inline"> · </span><span class="block sm:inline">Ocean &amp; Monmouth County, NJ</span>
+    <p class="mt-1.5 text-sm font-medium text-white/90 sm:text-base">
+      <span class="block sm:inline">{team.name}</span><span class="hidden sm:inline" aria-hidden="true"> | </span><span class="block sm:inline">{brokerage.name}</span>
     </p>
+    <p class="mt-1 text-xs tracking-[0.14em] text-white/80 uppercase sm:text-sm">Ocean &amp; Monmouth County, NJ</p>
     <h1 class="mt-6 max-w-2xl text-[2.5rem] leading-[1.06] !text-white sm:text-5xl lg:text-6xl">Your next chapter starts at home.</h1>
     <div class="mt-8 flex flex-col gap-3 sm:flex-row">
       <a href={withBase('/buy/')} class="btn-light text-lg">Find a Home</a>

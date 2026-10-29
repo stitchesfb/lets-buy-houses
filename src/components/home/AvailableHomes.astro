@@ -5,11 +5,10 @@
  */
 import ListingCard from '@/components/listings/ListingCard.astro';
 import { availableHomes, idxDisclaimer } from '@/data/available-homes';
-import { listingsUrl } from '@/lib/listings-links';
 import { withBase } from '@/lib/paths';
 
 const items = availableHomes.filter((l) => l.source === 'mls' && l.url && l.listingBrokerage && !l.demo).slice(0, 3);
-const browseHref = listingsUrl() || withBase('/buy/#home-search');
+const browseHref = withBase('/buy/#home-search');
 const external = browseHref.startsWith('http');
 ---
 

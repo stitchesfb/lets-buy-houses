@@ -2,14 +2,14 @@
  * JSON-LD structured data builders (schema.org).
  * Validate output at https://search.google.com/test/rich-results
  */
-import { site } from '@/data/site';
+import { affiliation, site } from '@/data/site';
 import { townList, towns, type Faq, type Town } from '@/data/towns';
 import { absoluteUrl } from '@/lib/paths';
 
 const agentId = `${site.url}/#agent`;
 
 export function realEstateAgentSchema() {
-  const { agent, brokerage, contact, geo, social } = site;
+  const { agent, team, brokerage, contact, geo, social } = site;
   return {
     '@context': 'https://schema.org',
     '@type': 'RealEstateAgent',
@@ -19,7 +19,7 @@ export function realEstateAgentSchema() {
     url: site.url,
     image: absoluteUrl(agent.headshot),
     logo: absoluteUrl('/favicon.svg'),
-    description: `${agent.legalName}, ${agent.title} with ${brokerage.name}, helping buyers and sellers in ${townList()}, NJ.`,
+    description: `${agent.legalName} of ${affiliation}, helping buyers and sellers in ${townList()}, NJ.`,
     telephone: contact.phone,
     email: contact.email,
     address: {
@@ -39,8 +39,18 @@ export function realEstateAgentSchema() {
     parentOrganization: {
       '@type': 'RealEstateOrganization',
       name: brokerage.name,
-      ...(brokerage.officePhone ? { telephone: brokerage.officePhone } : {}),
+      logo: absoluteUrl(brokerage.logo.src),
+      telephone: brokerage.officePhone,
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: brokerage.address.street,
+        addressLocality: brokerage.address.city,
+        addressRegion: brokerage.address.region,
+        postalCode: brokerage.address.postalCode,
+        addressCountry: brokerage.address.country,
+      },
     },
+    memberOf: { '@type': 'Organization', name: team.name },
     sameAs: Object.values(social).filter(Boolean),
     // Only verified facts belong here: no ratings, awards or credentials until confirmed.
   };

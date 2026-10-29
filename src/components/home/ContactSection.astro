@@ -1,6 +1,6 @@
 ---
 import LeadForm from '@/components/forms/LeadForm.astro';
-import { site } from '@/data/site';
+import { affiliation, site } from '@/data/site';
 
 interface Props {
   formId?: string;
@@ -23,7 +23,7 @@ const Heading = asPageTitle ? 'h1' : 'h2';
       <p class="mt-5 text-lg text-muted">Send me a note, or reach me directly. I’d love to hear from you.</p>
       <dl class="mt-8 space-y-5">
         <div>
-          <dt class="text-sm font-semibold text-muted">Call or text</dt>
+          <dt class="text-sm font-semibold text-muted">My direct line (call or text)</dt>
           <dd class="mt-1 text-xl">
             <a href={contact.phoneHref} class="text-navy underline decoration-gold underline-offset-4">{contact.phone}</a>
           </dd>
@@ -36,7 +36,10 @@ const Heading = asPageTitle ? 'h1' : 'h2';
         </div>
         <div>
           <dt class="text-sm font-semibold text-muted">Office</dt>
-          <dd class="mt-1">{brokerage.name}<br />{brokerage.address.street}, {brokerage.address.city}, {brokerage.address.region} {brokerage.address.postalCode}</dd>
+          <dd class="mt-1">
+            {affiliation}<br />{brokerage.address.street}, {brokerage.address.city}, {brokerage.address.region} {brokerage.address.postalCode}<br />
+            Office phone: <a href={brokerage.officePhoneHref} class="text-navy underline decoration-gold underline-offset-4">{brokerage.officePhone}</a>
+          </dd>
         </div>
       </dl>
     </div>

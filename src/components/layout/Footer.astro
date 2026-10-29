@@ -1,19 +1,19 @@
 ---
-import { site } from '@/data/site';
+import { affiliation, site } from '@/data/site';
 import { ui } from '@/i18n/en';
 import { isPreview } from '@/lib/mode';
 import { withBase } from '@/lib/paths';
 
-const { agent, brokerage, contact, social } = site;
+const { agent, team, brokerage, contact, social } = site;
 const { address } = brokerage;
 const year = new Date().getFullYear();
 
-// NJ advertising disclosure: licensee name, license #, and brokerage.
+// NJ advertising disclosure: licensee name, license #, and brokerage. Broker to confirm the wording.
 const disclosure = [
   `${agent.legalName} is a licensed real estate salesperson (NJ License #${agent.licenseNumber}) affiliated with`,
   `${brokerage.name}, ${address.street}, ${address.city}, ${address.region} ${address.postalCode}.`,
   brokerage.officePhone && `Office: ${brokerage.officePhone}.`,
-  'Each RE/MAX office is independently owned and operated.',
+  `${agent.firstName} is a member of ${team.name}.`,
 ]
   .filter(Boolean)
   .join(' ');
@@ -28,6 +28,8 @@ const socialLinks = [
 // Items a broker or attorney should confirm before launch (shown in preview only).
 const launchReview = [
   !brokerage.officePhone && 'Brokerage office phone number',
+  `${brokerage.name} approval of this disclosure and of how the team name appears with the brokerage name`,
+  `Her title at ${brokerage.name}`,
   'MLS/IDX disclaimer wording (required once listings are shown)',
   'Privacy policy review',
 ].filter(Boolean);
@@ -37,10 +39,23 @@ const launchReview = [
   <div class="container-page grid gap-10 py-12 md:grid-cols-[1fr_auto] md:gap-16">
     <div>
       <p class="font-serif text-2xl text-white">{agent.name}</p>
-      <p class="mt-1 text-sm tracking-wide">{agent.title} · {brokerage.name}</p>
-      <address class="mt-5 grid gap-x-10 gap-y-1.5 text-[0.9375rem] not-italic sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2">
-        <p>{address.street}, {address.city}, {address.region} {address.postalCode}</p>
-        <p>Direct: <a href={contact.phoneHref} class="text-white underline-offset-4 hover:underline">{contact.phone}</a></p>
+      <p class="mt-1 text-sm tracking-wide">{affiliation}</p>
+      <div class="mt-6 inline-block rounded-sm bg-white px-5 py-4">
+        <img
+          src={withBase(brokerage.logo.src)}
+          width={brokerage.logo.width}
+          height={brokerage.logo.height}
+          alt={brokerage.name}
+          loading="lazy"
+          class="h-auto w-[13.75rem]"
+        />
+      </div>
+      <address class="mt-6 grid gap-x-10 gap-y-1.5 text-[0.9375rem] not-italic sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2">
+        <p>{brokerage.name}<br />{address.street}, {address.city}, {address.region} {address.postalCode}</p>
+        <p>
+          Direct (call or text): <a href={contact.phoneHref} class="text-white underline decoration-white/40 underline-offset-4 hover:decoration-white">{contact.phone}</a><br />
+          Office: <a href={brokerage.officePhoneHref} class="text-white underline decoration-white/40 underline-offset-4 hover:decoration-white">{brokerage.officePhone}</a>
+        </p>
         <p>NJ License #{agent.licenseNumber}</p>
         <p><a href={`mailto:${contact.email}`} class="break-words text-white underline-offset-4 hover:underline">{contact.email}</a></p>
       </address>

@@ -23,7 +23,7 @@ interface Props {
   /** Vendor-specific widget ID (script provider), e.g. a per-town saved search widget. */
   widgetId?: string;
   minHeight?: number;
-  /** Live listings on her RE/MAX site, shown while no IDX widget is connected. */
+  /** Optional link to a live listings search she controls, shown while no IDX widget is connected. */
   listingsUrl?: string;
 }
 
@@ -64,7 +64,7 @@ const connected = ((provider === 'iframe' || provider === 'idx-broker') && Boole
           <p class="font-serif text-2xl text-navy">Looking for homes in {label}?</p>
           <p class="mt-2 max-w-xl text-muted">
             {listingsUrl
-              ? 'Browse every current MLS listing on my RE/MAX Revolution search, or tell me your must-haves and I’ll send you homes that match.'
+              ? 'Browse current MLS listings, or tell me your must-haves and I’ll send you homes that match.'
               : 'Tell me your must-haves and price range, and I’ll send you homes for sale that match, including new listings as they come up.'}
           </p>
           {isPreview && (
@@ -77,7 +77,7 @@ const connected = ((provider === 'iframe' || provider === 'idx-broker') && Boole
         <div class="flex flex-col gap-3">
           {listingsUrl && (
             <a href={listingsUrl} class="btn-primary" target="_blank" rel="noopener">
-              Browse Current Listings<span class="sr-only"> (opens my RE/MAX Revolution search in a new tab)</span>
+              Browse Current Listings<span class="sr-only"> (opens in a new tab)</span>
             </a>
           )}
           <a href={withBase(`/buy/${town ? `?town=${encodeURIComponent(town)}` : ''}#buyer-inquiry`)} class={listingsUrl ? 'btn-outline' : 'btn-primary'}>

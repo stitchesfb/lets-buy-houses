@@ -25,8 +25,9 @@ export const site = {
     name: 'Jacquelyn Guevara',
     legalName: 'Jacquelyn Guevara',
     firstName: 'Jacquelyn',
-    title: 'Associate',
-    /** Total years as a licensed real estate professional (across brokerages, not only RE/MAX Revolution). */
+    /** Job title shown with her name. TODO: confirm the title 1st Class Real Estate Agency uses for her. */
+    title: 'Real Estate Agent',
+    /** Total years as a licensed real estate professional, across brokerages (not time with her current team or brokerage). */
     yearsLicensed: '15+',
     /** From her bio: "an Ocean County resident for over 35 years". */
     yearsInOceanCounty: '35+',
@@ -59,17 +60,25 @@ export const site = {
     ],
   },
 
+  /** The team she belongs to (she is a member, not the team leader). Effective October 28, 2026. */
+  team: {
+    name: 'The Integrity Group',
+  },
+
+  /** Her brokerage since October 28, 2026. */
   brokerage: {
-    name: 'RE/MAX Revolution',
+    name: '1st Class Real Estate Agency',
     address: {
-      street: '48 Brick Blvd',
-      city: 'Brick',
+      street: '26 Main St., Suite R',
+      city: 'Toms River',
       region: 'NJ',
-      postalCode: '08723',
+      postalCode: '08753',
       country: 'US',
     },
-    /** Listed as her "Work Phone" on her RE/MAX Revolution agent page. */
-    officePhone: '(732) 678-1328' as string,
+    officePhone: '(848) 333-3249' as string,
+    officePhoneHref: 'tel:+18483333249',
+    /** The brokerage's official logo, used as supplied (no recoloring or cropping). 500x246 PNG on white. */
+    logo: { src: '/images/1st-class-real-estate-agency-logo.png', width: 500, height: 246 },
   },
 
   contact: {
@@ -81,12 +90,6 @@ export const site = {
 
   /** Office coordinates for schema. TODO: copy from the Google Business Profile pin. */
   geo: null as { latitude: number; longitude: number } | null,
-
-  /**
-   * Her RE/MAX Revolution website, which runs the live MLS search (Monmouth County
-   * Association of REALTORS). Used for "Browse current listings" links.
-   */
-  listingsSite: 'https://jguevara.remaxbb.com',
 
   social: {
     youtube: '', // TODO: add once the channel exists
@@ -100,3 +103,6 @@ export const site = {
 } as const;
 
 export type Site = typeof site;
+
+/** Team and brokerage, as they appear together: "The Integrity Group | 1st Class Real Estate Agency". */
+export const affiliation = `${site.team.name} | ${site.brokerage.name}`;

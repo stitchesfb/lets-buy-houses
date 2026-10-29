@@ -63,8 +63,6 @@ export interface Town {
   idxCity: IdxCity;
   /** Other names the MLS or her service-area list uses for this same place (e.g. "Point Pleasant Boro"). */
   aliases?: string[];
-  /** Area slug on her RE/MAX Revolution site's live MLS search, e.g. 'toms+river'. */
-  remaxArea: string;
   intro: string;
   highlights: string[];
   neighborhoods: { name: string; blurb: string }[];
@@ -96,11 +94,10 @@ export const towns: Town[] = [
     photo: 'toms-river',
     metaTitle: 'Toms River NJ Homes for Sale & Real Estate | Jacquelyn Guevara',
     metaDescription:
-      'Search Toms River, NJ homes for sale, from established neighborhoods to riverfront, bay, and Ortley Beach homes, with local guidance from Jacquelyn Guevara of RE/MAX Revolution.',
+      'Search Toms River, NJ homes for sale, from established neighborhoods to riverfront, bay, and Ortley Beach homes, with local guidance from Jacquelyn Guevara of The Integrity Group at 1st Class Real Estate Agency.',
     headline: 'Toms River, NJ Homes for Sale & Real Estate',
     subheadline: 'Ocean County’s seat, with neighborhoods along the river, the bay, and the barrier island.',
     idxCity: 'Toms River',
-    remaxArea: 'toms+river',
     intro:
       'Toms River Township is the county seat of Ocean County and one of the largest municipalities in New Jersey. It stretches from inland neighborhoods west of the Garden State Parkway to homes along the Toms River and Barnegat Bay, and it includes Ortley Beach on the barrier island. Downtown, along the river, is home to county offices, shops, and restaurants.',
     highlights: [
@@ -159,7 +156,6 @@ export const towns: Town[] = [
     headline: 'Waterfront Living & Established Neighborhoods in Brick, NJ',
     subheadline: 'From tranquil lagoon-front properties to thriving suburban communities near the Jersey Shore.',
     idxCity: 'Brick',
-    remaxArea: 'brick',
     intro:
       'Brick Township is a boater’s paradise and a well-established year-round community rolled into one. Bordered by the Metedeconk River, Barnegat Bay, and just minutes from the Atlantic Ocean, Brick offers incredible waterfront access, a thriving local dining scene, and diverse housing options ranging from cozy starter homes to grand waterfront estates.',
     highlights: [
@@ -215,7 +211,6 @@ export const towns: Town[] = [
       'Enjoy spacious suburban neighborhoods, excellent value, and immediate access to Long Beach Island.',
     // Manahawkin listings are filed under any of these names depending on the listing agent.
     idxCity: ['Manahawkin', 'Stafford Township', 'Stafford Twp'],
-    remaxArea: 'manahawkin',
     intro:
       'Manahawkin (Stafford Township) serves as the vibrant mainland gateway to Long Beach Island. It offers the best of both worlds: larger residential lots, modern suburban developments, and lower price points than the barrier island, all while keeping you just minutes away from LBI beaches, dining, and bay activities.',
     highlights: [
@@ -265,11 +260,10 @@ export const towns: Town[] = [
     photo: 'whiting',
     metaTitle: 'Whiting NJ Homes for Sale | Manchester Township | Jacquelyn Guevara',
     metaDescription:
-      'Search Whiting, NJ homes for sale in Manchester Township, including single-family homes and 55+ communities, with local guidance from Jacquelyn Guevara of RE/MAX Revolution.',
+      'Search Whiting, NJ homes for sale in Manchester Township, including single-family homes and 55+ communities, with local guidance from Jacquelyn Guevara of The Integrity Group at 1st Class Real Estate Agency.',
     headline: 'Whiting, NJ Homes for Sale & Real Estate',
     subheadline: 'A wooded Manchester Township community with single-family homes and many 55+ neighborhoods.',
     idxCity: ['Whiting', 'Manchester'],
-    remaxArea: 'whiting',
     intro:
       'Whiting is an unincorporated community in Manchester Township, in western Ocean County, surrounded by the pine forests of the New Jersey Pinelands. Many of its homes are in active-adult (55+) communities, alongside single-family neighborhoods on wooded lots.',
     highlights: [
@@ -319,12 +313,11 @@ export const towns: Town[] = [
     photo: 'point-pleasant',
     metaTitle: 'Point Pleasant NJ Waterfront Homes for Sale | Beach & Riverfront',
     metaDescription:
-      'Browse Point Pleasant & Point Pleasant Beach, NJ waterfront homes for sale — riverfront, lagoon, and beach-block properties. Local guidance from Jacquelyn Guevara of RE/MAX Revolution.',
+      'Browse Point Pleasant & Point Pleasant Beach, NJ waterfront homes for sale — riverfront, lagoon, and beach-block properties. Local guidance from Jacquelyn Guevara of The Integrity Group at 1st Class Real Estate Agency.',
     headline: 'Coastal Charm & Prime Real Estate in Point Pleasant, NJ',
     subheadline:
       'Experience classic shore living with easy access to local beaches and rivers.',
     idxCity: 'Point Pleasant',
-    remaxArea: 'point+pleasant',
     aliases: ['Point Pleasant Boro'],
     intro:
       'Point Pleasant (Point Pleasant Borough) is the quintessential Jersey Shore coastal town. Known for its community feel, its own public school district, the Riverfront park system, and proximity to the Manasquan Inlet, it is one of the most desirable places to call home along the Jersey coast.',
@@ -375,11 +368,10 @@ export const towns: Town[] = [
     photo: 'barnegat',
     metaTitle: 'Barnegat NJ Homes for Sale & Real Estate | Jacquelyn Guevara',
     metaDescription:
-      'Search Barnegat, NJ homes for sale, from bayfront neighborhoods to 55+ communities, with local guidance from Jacquelyn Guevara of RE/MAX Revolution.',
+      'Search Barnegat, NJ homes for sale, from bayfront neighborhoods to 55+ communities, with local guidance from Jacquelyn Guevara of The Integrity Group at 1st Class Real Estate Agency.',
     headline: 'Barnegat, NJ Homes for Sale & Real Estate',
     subheadline: 'Bay access, a historic village center, and neighborhoods on both sides of the Parkway.',
     idxCity: 'Barnegat',
-    remaxArea: 'barnegat',
     intro:
       'Barnegat Township sits along Barnegat Bay in southern Ocean County. Its historic village center lines Route 9, neighborhoods east of Route 9 reach toward the bay and the municipal dock, and newer developments and active-adult communities spread west toward the Pinelands.',
     highlights: [
@@ -429,11 +421,10 @@ export const towns: Town[] = [
     photo: 'bayville',
     metaTitle: 'Bayville NJ Homes for Sale | Berkeley Township | Jacquelyn Guevara',
     metaDescription:
-      'Search Bayville, NJ homes for sale in Berkeley Township, including bay-area neighborhoods and single-family homes, with local guidance from Jacquelyn Guevara of RE/MAX Revolution.',
+      'Search Bayville, NJ homes for sale in Berkeley Township, including bay-area neighborhoods and single-family homes, with local guidance from Jacquelyn Guevara of The Integrity Group at 1st Class Real Estate Agency.',
     headline: 'Bayville, NJ Homes for Sale & Real Estate',
     subheadline: 'Berkeley Township neighborhoods between Route 9 and Barnegat Bay.',
     idxCity: ['Bayville', 'Berkeley'],
-    remaxArea: 'bayville',
     intro:
       'Bayville is a community within Berkeley Township, set along Route 9 and the western shore of Barnegat Bay. It offers established single-family neighborhoods, homes on lagoons and near the bay, and easy access to Toms River to the north.',
     highlights: [
@@ -483,11 +474,10 @@ export const towns: Town[] = [
     photo: 'beach-haven',
     metaTitle: 'Beach Haven NJ Homes for Sale | Long Beach Island | Jacquelyn Guevara',
     metaDescription:
-      'Search Beach Haven, NJ homes for sale on Long Beach Island, from ocean-block homes to bayside properties, with local guidance from Jacquelyn Guevara of RE/MAX Revolution.',
+      'Search Beach Haven, NJ homes for sale on Long Beach Island, from ocean-block homes to bayside properties, with local guidance from Jacquelyn Guevara of The Integrity Group at 1st Class Real Estate Agency.',
     headline: 'Beach Haven, NJ Homes for Sale on Long Beach Island',
     subheadline: 'Ocean-block, bayside, and in-town homes in one of LBI’s most walkable boroughs.',
     idxCity: 'Beach Haven',
-    remaxArea: 'beach+haven',
     intro:
       'Beach Haven is a borough on the southern end of Long Beach Island, reached from the mainland by the Route 72 causeway from Manahawkin. Its compact grid of streets puts beaches, the bay, shops, restaurants, and summer attractions within walking or biking distance.',
     highlights: [
@@ -537,11 +527,10 @@ export const towns: Town[] = [
     photo: 'beachwood',
     metaTitle: 'Beachwood NJ Homes for Sale & Real Estate | Jacquelyn Guevara',
     metaDescription:
-      'Search Beachwood, NJ homes for sale in this borough on the Toms River, with local guidance from Jacquelyn Guevara of RE/MAX Revolution.',
+      'Search Beachwood, NJ homes for sale in this borough on the Toms River, with local guidance from Jacquelyn Guevara of The Integrity Group at 1st Class Real Estate Agency.',
     headline: 'Beachwood, NJ Homes for Sale & Real Estate',
     subheadline: 'A residential borough on the south shore of the Toms River.',
     idxCity: 'Beachwood',
-    remaxArea: 'beachwood',
     intro:
       'Beachwood is a small, mostly residential borough on the south shore of the Toms River, next to Pine Beach and South Toms River. It has a river beach and marina area, single-family neighborhoods, and quick access to Route 9 and downtown Toms River.',
     highlights: [
@@ -591,11 +580,10 @@ export const towns: Town[] = [
     photo: 'lacey',
     metaTitle: 'Lacey Township NJ Homes for Sale | Forked River | Jacquelyn Guevara',
     metaDescription:
-      'Search Lacey Township, NJ homes for sale in Forked River and Lanoka Harbor, from lagoon homes to wooded neighborhoods, with local guidance from Jacquelyn Guevara of RE/MAX Revolution.',
+      'Search Lacey Township, NJ homes for sale in Forked River and Lanoka Harbor, from lagoon homes to wooded neighborhoods, with local guidance from Jacquelyn Guevara of The Integrity Group at 1st Class Real Estate Agency.',
     headline: 'Lacey Township, NJ Homes for Sale & Real Estate',
     subheadline: 'Lagoon homes in Forked River and Lanoka Harbor, plus wooded neighborhoods to the west.',
     idxCity: ['Lacey', 'Forked River', 'Lanoka Harbor'],
-    remaxArea: 'lacey',
     intro:
       'Lacey Township includes the communities of Forked River and Lanoka Harbor. East of Route 9, lagoon neighborhoods reach toward Barnegat Bay; to the west, wooded neighborhoods stretch toward the Pinelands.',
     highlights: [
@@ -645,11 +633,10 @@ export const towns: Town[] = [
     photo: 'lakewood',
     metaTitle: 'Lakewood NJ Homes for Sale & Real Estate | Jacquelyn Guevara',
     metaDescription:
-      'Search Lakewood, NJ homes for sale, from single-family homes and townhomes to active-adult communities, with local guidance from Jacquelyn Guevara of RE/MAX Revolution.',
+      'Search Lakewood, NJ homes for sale, from single-family homes and townhomes to active-adult communities, with local guidance from Jacquelyn Guevara of The Integrity Group at 1st Class Real Estate Agency.',
     headline: 'Lakewood, NJ Homes for Sale & Real Estate',
     subheadline: 'Single-family homes, townhomes, condos, and active-adult communities in northern Ocean County.',
     idxCity: 'Lakewood',
-    remaxArea: 'lakewood',
     intro:
       'Lakewood Township is one of the largest municipalities in Ocean County. It is home to Lake Carasaljo, Georgian Court University, and ShoreTown Ballpark, and it is served by the Garden State Parkway, Routes 9, 70, and 88, and nearby Interstate 195.',
     highlights: [
@@ -699,11 +686,10 @@ export const towns: Town[] = [
     photo: 'lavallette',
     metaTitle: 'Lavallette NJ Homes for Sale | Beach & Bay Homes | Jacquelyn Guevara',
     metaDescription:
-      'Search Lavallette, NJ homes for sale on the barrier island between the ocean and Barnegat Bay, with local guidance from Jacquelyn Guevara of RE/MAX Revolution.',
+      'Search Lavallette, NJ homes for sale on the barrier island between the ocean and Barnegat Bay, with local guidance from Jacquelyn Guevara of The Integrity Group at 1st Class Real Estate Agency.',
     headline: 'Lavallette, NJ Homes for Sale & Real Estate',
     subheadline: 'Ocean-block and bayside homes in a residential barrier-island borough.',
     idxCity: 'Lavallette',
-    remaxArea: 'lavallette',
     intro:
       'Lavallette is a residential borough on the barrier island between the Atlantic Ocean and Barnegat Bay, north of Seaside Heights. Route 35 runs through town, and residents have both ocean beaches and bayfront within a short walk.',
     highlights: [
@@ -753,11 +739,10 @@ export const towns: Town[] = [
     photo: 'little-egg-harbor',
     metaTitle: 'Little Egg Harbor NJ Homes for Sale | Mystic Island | Jacquelyn Guevara',
     metaDescription:
-      'Search Little Egg Harbor, NJ homes for sale, including Mystic Island lagoon homes and wooded neighborhoods, with local guidance from Jacquelyn Guevara of RE/MAX Revolution.',
+      'Search Little Egg Harbor, NJ homes for sale, including Mystic Island lagoon homes and wooded neighborhoods, with local guidance from Jacquelyn Guevara of The Integrity Group at 1st Class Real Estate Agency.',
     headline: 'Little Egg Harbor, NJ Homes for Sale & Real Estate',
     subheadline: 'Lagoon homes in Mystic Island and wooded neighborhoods inland.',
     idxCity: ['Little Egg Harbor', 'Mystic Island'],
-    remaxArea: 'little+egg+harbor',
     intro:
       'Little Egg Harbor Township sits at the southern end of Ocean County, next to Tuckerton. It includes Mystic Island, a large lagoon community with bay access, along with wooded neighborhoods and active-adult communities inland.',
     highlights: [
@@ -806,11 +791,10 @@ export const towns: Town[] = [
     photo: 'manchester',
     metaTitle: 'Manchester Township NJ Homes for Sale | Jacquelyn Guevara',
     metaDescription:
-      'Search Manchester Township, NJ homes for sale, including Whiting, Ridgeway, and active-adult communities, with local guidance from Jacquelyn Guevara of RE/MAX Revolution.',
+      'Search Manchester Township, NJ homes for sale, including Whiting, Ridgeway, and active-adult communities, with local guidance from Jacquelyn Guevara of The Integrity Group at 1st Class Real Estate Agency.',
     headline: 'Manchester Township, NJ Homes for Sale & Real Estate',
     subheadline: 'Single-family neighborhoods and active-adult communities across a wooded Pinelands township.',
     idxCity: 'Manchester',
-    remaxArea: 'manchester',
     intro:
       'Manchester Township is a large township in central Ocean County, much of it within the New Jersey Pinelands. It includes Whiting, Ridgeway, and Pine Lake Park, and it surrounds the separate Borough of Lakehurst. Routes 37 and 70 cross the township.',
     highlights: [
@@ -860,11 +844,10 @@ export const towns: Town[] = [
     photo: 'seaside-heights',
     metaTitle: 'Seaside Heights NJ Homes for Sale | Condos & Shore Homes | Jacquelyn Guevara',
     metaDescription:
-      'Search Seaside Heights, NJ homes and condos for sale near the boardwalk and the bay, with local guidance from Jacquelyn Guevara of RE/MAX Revolution.',
+      'Search Seaside Heights, NJ homes and condos for sale near the boardwalk and the bay, with local guidance from Jacquelyn Guevara of The Integrity Group at 1st Class Real Estate Agency.',
     headline: 'Seaside Heights, NJ Homes for Sale & Real Estate',
     subheadline: 'Condos and shore homes near the boardwalk, the beach, and Barnegat Bay.',
     idxCity: 'Seaside Heights',
-    remaxArea: 'seaside+heights',
     intro:
       'Seaside Heights is a barrier-island borough known for its boardwalk, amusement pier, and beaches. The Route 37 bridges connect it to Toms River on the mainland. Housing ranges from condominiums and small cottages to multi-family homes.',
     highlights: [
@@ -914,11 +897,10 @@ export const towns: Town[] = [
     photo: 'seaside-park',
     metaTitle: 'Seaside Park NJ Homes for Sale | Beach & Bay Homes | Jacquelyn Guevara',
     metaDescription:
-      'Search Seaside Park, NJ homes for sale between the ocean and Barnegat Bay, next to Island Beach State Park, with local guidance from Jacquelyn Guevara of RE/MAX Revolution.',
+      'Search Seaside Park, NJ homes for sale between the ocean and Barnegat Bay, next to Island Beach State Park, with local guidance from Jacquelyn Guevara of The Integrity Group at 1st Class Real Estate Agency.',
     headline: 'Seaside Park, NJ Homes for Sale & Real Estate',
     subheadline: 'Beach and bay homes at the entrance to Island Beach State Park.',
     idxCity: 'Seaside Park',
-    remaxArea: 'seaside+park',
     intro:
       'Seaside Park is a barrier-island borough just south of Seaside Heights, at the entrance to Island Beach State Park. Its streets run between ocean beaches and Barnegat Bay, with a mostly residential feel.',
     highlights: [
@@ -968,11 +950,10 @@ export const towns: Town[] = [
     photo: 'tuckerton',
     metaTitle: 'Tuckerton NJ Homes for Sale & Real Estate | Jacquelyn Guevara',
     metaDescription:
-      'Search Tuckerton, NJ homes for sale in this historic borough near the bay, with local guidance from Jacquelyn Guevara of RE/MAX Revolution.',
+      'Search Tuckerton, NJ homes for sale in this historic borough near the bay, with local guidance from Jacquelyn Guevara of The Integrity Group at 1st Class Real Estate Agency.',
     headline: 'Tuckerton, NJ Homes for Sale & Real Estate',
     subheadline: 'A historic Route 9 borough near Little Egg Harbor Bay.',
     idxCity: 'Tuckerton',
-    remaxArea: 'tuckerton',
     intro:
       'Tuckerton is a small borough on Route 9 in southern Ocean County, surrounded by Little Egg Harbor Township. It is home to the Tuckerton Seaport, a maritime village and museum, and Lake Pohatcong, with lagoon neighborhoods leading toward the bay.',
     highlights: [
@@ -1022,11 +1003,10 @@ export const towns: Town[] = [
     photo: 'tinton-falls',
     metaTitle: 'Tinton Falls NJ Homes for Sale & Real Estate | Jacquelyn Guevara',
     metaDescription:
-      'Search Tinton Falls, NJ homes for sale, from single-family neighborhoods to townhomes and condos, with local guidance from Jacquelyn Guevara of RE/MAX Revolution.',
+      'Search Tinton Falls, NJ homes for sale, from single-family neighborhoods to townhomes and condos, with local guidance from Jacquelyn Guevara of The Integrity Group at 1st Class Real Estate Agency.',
     headline: 'Tinton Falls, NJ Homes for Sale & Real Estate',
     subheadline: 'Single-family neighborhoods, townhomes, and condos in central Monmouth County.',
     idxCity: 'Tinton Falls',
-    remaxArea: 'tinton+falls',
     intro:
       'Tinton Falls is a borough in central Monmouth County, named for the waterfall on Pine Brook in its historic area. Its location near the Garden State Parkway makes it convenient to the shore towns, Red Bank, and routes toward northern New Jersey.',
     highlights: [
@@ -1076,12 +1056,11 @@ export const towns: Town[] = [
     photo: 'manalapan',
     metaTitle: 'Manalapan NJ Homes for Sale & Real Estate | Local Expert',
     metaDescription:
-      'Search Manalapan, NJ homes for sale — colonials, 55+ communities, and established neighborhoods, with local guidance from Jacquelyn Guevara of RE/MAX Revolution.',
+      'Search Manalapan, NJ homes for sale — colonials, 55+ communities, and established neighborhoods, with local guidance from Jacquelyn Guevara of The Integrity Group at 1st Class Real Estate Agency.',
     headline: 'Luxury Living & Premier Estates in Manalapan, NJ',
     subheadline:
       'Discover upscale suburban neighborhoods and spacious properties with my guidance and over 15 years of licensed experience.',
     idxCity: 'Manalapan',
-    remaxArea: 'manalapan',
     intro:
       'Manalapan offers the ultimate suburban lifestyle in Western Monmouth County, blending sprawling estate properties, community amenities, and established school districts. Whether you are looking for custom luxury homes or private acreage, living here provides a sophisticated retreat while staying connected to major commuting routes.',
     highlights: [
@@ -1126,7 +1105,7 @@ export const towns: Town[] = [
 
 /**
  * Areas without a community page yet (shown only as a preview note).
- * Every area listed on her RE/MAX Revolution site now has a page.
+ * Every service area has a page.
  */
 export const candidateAreas: string[] = [];
 
@@ -1139,7 +1118,7 @@ export const townList = (n = towns.length) => {
 export const getTown = (slug: string) => towns.find((t) => t.slug === slug);
 
 /**
- * Her service areas, as listed on her RE/MAX Revolution site, plus Tinton Falls
+ * Her service areas (originally from her former brokerage profile), plus Tinton Falls
  * and Manalapan. Aliases (e.g. "Point Pleasant Boro") link to their main page.
  */
 export const serviceAreas = towns

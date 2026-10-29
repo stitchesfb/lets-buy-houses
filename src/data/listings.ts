@@ -3,7 +3,7 @@
  *
  * Add an entry when Jacquelyn has a listing to feature. `source` controls the label:
  *   'agent'     → "Jacquelyn’s Listing"
- *   'brokerage' → "RE/MAX Revolution Listing"
+ *   'brokerage' → "1st Class Real Estate Agency Listing"
  *   'mls'       → "MLS Listing", with `listingBrokerage` shown as "Courtesy of …"
  *                 (IDX rules require crediting the listing brokerage).
  * Photos: put files in src/assets/listings/ and import them here.

@@ -21,7 +21,22 @@ const isActive = (href: string) =>
   href === '/' ? path === '/' : path.startsWith(href) || (href === '/communities/' && townPaths.includes(path));
 ---
 
-<header class="site-header sticky top-0 z-40">
+<!--
+  Phones: the complete logo gets its own row at a readable size (72px tall, like desktop).
+  The negative sticky offset lets that row scroll away, so only the name/Menu row stays pinned.
+-->
+<header class="site-header sticky top-0 z-40 max-sm:-top-[5.5rem]">
+  <div class="flex h-[5.5rem] items-center bg-ivory sm:hidden">
+    <div class="container-page">
+      <img
+        src={withBase(site.brokerage.logo.src)}
+        width={site.brokerage.logo.width}
+        height={site.brokerage.logo.height}
+        alt={site.brokerage.name}
+        class="h-[4.5rem] w-auto"
+      />
+    </div>
+  </div>
   {isPreview && <PreviewBanner />}
   <div class="border-b border-line bg-ivory/95 backdrop-blur supports-[backdrop-filter]:bg-ivory/90">
   <div class="container-page flex min-h-16 items-center justify-between gap-3 py-2 sm:min-h-20 sm:gap-4 xl:min-h-24">
@@ -31,10 +46,10 @@ const isActive = (href: string) =>
         width={site.brokerage.logo.width}
         height={site.brokerage.logo.height}
         alt={site.brokerage.name}
-        class="h-9 w-auto shrink-0 min-[360px]:h-12 min-[380px]:h-14 xl:h-[4.5rem]"
+        class="hidden h-14 w-auto shrink-0 sm:block xl:h-[4.5rem]"
       />
       <span class="flex min-w-0 flex-col leading-tight">
-        <span class="font-serif text-base whitespace-nowrap text-navy min-[380px]:text-lg sm:text-xl">{site.agent.name}</span>
+        <span class="font-serif text-lg whitespace-nowrap text-navy sm:text-xl">{site.agent.name}</span>
         <span class="mt-0.5 text-xs font-medium tracking-wide whitespace-nowrap text-muted sm:text-sm">{site.team.name}</span>
       </span>
     </a>
@@ -61,7 +76,7 @@ const isActive = (href: string) =>
       <a href={withBase('/contact/')} class="btn-primary hidden !min-h-11 !px-5 whitespace-nowrap !py-2 text-[0.9375rem] sm:inline-flex">{ui.nav.cta}</a>
       <button
         type="button"
-        class="inline-flex min-h-11 min-w-11 shrink-0 items-center min-[420px]:min-w-[5.75rem] justify-center gap-2 rounded-md border border-line bg-white px-3 text-sm font-semibold whitespace-nowrap text-navy xl:hidden"
+        class="inline-flex min-h-11 min-w-[5.75rem] shrink-0 items-center justify-center gap-2 rounded-md border border-line bg-white px-3 text-sm font-semibold whitespace-nowrap text-navy xl:hidden"
         aria-expanded="false"
         aria-controls="mobile-menu"
         data-menu-toggle
@@ -70,7 +85,7 @@ const isActive = (href: string) =>
           <path data-icon-open stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16"></path>
           <path data-icon-close class="hidden" stroke-linecap="round" d="M6 6l12 12M18 6 6 18"></path>
         </svg>
-        <span data-menu-label class="max-[419px]:sr-only">{ui.nav.menu}</span>
+        <span data-menu-label>{ui.nav.menu}</span>
       </button>
     </div>
   </div>

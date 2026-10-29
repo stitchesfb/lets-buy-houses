@@ -28,8 +28,8 @@ export const ui = {
       summary: 'Please fix the highlighted fields.',
       network: 'Your message couldn’t be sent. Please try again, or reach me directly:',
     },
-    previewNotice: 'Preview form: not connected yet. Nothing you enter here is sent.',
-    previewResult: 'Nothing was sent. This preview form isn’t connected yet. To reach me now:',
+    previewNotice: 'This form isn’t connected yet, so nothing you enter here is sent. Please call, text, or email me instead.',
+    previewResult: 'Nothing was sent. This form isn’t connected yet. To reach me now:',
     successTitle: 'Thank you, your message was sent.',
     successBody: 'I’ll be in touch soon. If it’s urgent, please call or text me directly.',
     consent:

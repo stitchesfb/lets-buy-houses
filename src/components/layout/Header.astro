@@ -40,7 +40,7 @@ const isActive = (href: string) =>
   {isPreview && <PreviewBanner />}
   <div class="border-b border-line bg-ivory/95 backdrop-blur supports-[backdrop-filter]:bg-ivory/90">
   <div class="container-page flex min-h-16 items-center justify-between gap-3 py-2 sm:min-h-20 sm:gap-4 xl:min-h-24">
-    <a href={withBase('/')} class="flex min-w-0 items-center gap-3 sm:gap-5" aria-label={`${site.agent.name}, ${site.team.name}, ${site.brokerage.name}: home`}>
+    <a href={withBase('/')} class="flex min-w-0 items-center gap-3 sm:gap-5" aria-label={`${site.agent.name}, ${site.brokerage.name}: home`}>
       <img
         src={withBase(site.brokerage.logo.src)}
         width={site.brokerage.logo.width}
@@ -48,10 +48,7 @@ const isActive = (href: string) =>
         alt={site.brokerage.name}
         class="hidden h-[4.5rem] w-auto shrink-0 sm:block"
       />
-      <span class="flex min-w-0 flex-col leading-tight">
-        <span class="font-serif text-lg whitespace-nowrap text-navy sm:text-xl">{site.agent.name}</span>
-        <span class="mt-0.5 text-xs font-medium tracking-wide whitespace-nowrap text-muted sm:text-sm">{site.team.name}</span>
-      </span>
+      <span class="font-serif text-lg leading-tight whitespace-nowrap text-navy sm:text-xl">{site.agent.name}</span>
     </a>
 
     <nav aria-label="Main" class="hidden xl:block">

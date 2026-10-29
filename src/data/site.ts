@@ -27,7 +27,7 @@ export const site = {
     firstName: 'Jacquelyn',
     /** Job title shown with her name. TODO: confirm the title 1st Class Real Estate Agency uses for her. */
     title: 'Real Estate Agent',
-    /** Total years as a licensed real estate professional, across brokerages (not time with her current team or brokerage). */
+    /** Total years as a licensed real estate professional, across brokerages (not time with her current brokerage). */
     yearsLicensed: '15+',
     /** From her bio: "an Ocean County resident for over 35 years". */
     yearsInOceanCounty: '35+',
@@ -60,11 +60,6 @@ export const site = {
     ],
   },
 
-  /** The team she belongs to (she is a member, not the team leader). Effective October 28, 2026. */
-  team: {
-    name: 'The Integrity Group',
-  },
-
   /** Her brokerage since October 28, 2026. */
   brokerage: {
     name: '1st Class Real Estate Agency',
@@ -75,8 +70,13 @@ export const site = {
       postalCode: '08753',
       country: 'US',
     },
-    officePhone: '(848) 333-3249' as string,
-    officePhoneHref: 'tel:+18483333249',
+    /**
+     * Shown ONLY in the footer disclosure, as plain text (not a call link). N.J.A.C. 11:5-6.1(d)
+     * requires the brokerage office number in any advertising that includes a licensee's own
+     * number, and (b)2 requires it on a licensee website not linked to the broker's site.
+     * Every call/text action uses her direct number.
+     */
+    officePhone: '(848) 333-3249',
     /**
      * The brokerage's official logo: transparent background, black lettering, so it needs a
      * white or ivory background. Artwork unchanged; only the empty transparent margin was trimmed.
@@ -106,6 +106,3 @@ export const site = {
 } as const;
 
 export type Site = typeof site;
-
-/** Team and brokerage, as they appear together: "The Integrity Group | 1st Class Real Estate Agency". */
-export const affiliation = `${site.team.name} | ${site.brokerage.name}`;

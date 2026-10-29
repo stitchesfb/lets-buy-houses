@@ -7,7 +7,7 @@ import ContactSection from '@/components/home/ContactSection.astro';
 import { publishedTestimonials, reviewSummary } from '@/data/testimonials';
 import { reviewProfiles } from '@/lib/reviews';
 import { breadcrumbSchema } from '@/lib/schema';
-import { affiliation, site } from '@/data/site';
+import { site } from '@/data/site';
 
 const crumbs = [
   { name: 'Home', url: '/' },
@@ -21,7 +21,7 @@ const platformList = `${platforms.slice(0, -1).join(', ')}, and ${platforms.at(-
 
 <BaseLayout
   title={`Client Reviews | ${site.agent.legalName}, ${site.brokerage.name}`}
-  description={`Read what clients say about working with Jacquelyn Guevara of ${affiliation}: ${reviewSummary.total} five-star reviews on ${platformList}.`}
+  description={`Read what clients say about working with Jacquelyn Guevara of ${site.brokerage.name}: ${reviewSummary.total} five-star reviews on ${platformList}.`}
   schema={[breadcrumbSchema(crumbs)]}
 >
   <PageHeader

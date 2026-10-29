@@ -11,11 +11,11 @@ import Testimonials from '@/components/home/Testimonials.astro';
 import VideoHub from '@/components/home/VideoHub.astro';
 import SellerBand from '@/components/home/SellerBand.astro';
 import ContactSection from '@/components/home/ContactSection.astro';
-import { affiliation, site } from '@/data/site';
+import { site } from '@/data/site';
 import { videos } from '@/data/videos';
 
 const title = `${site.agent.legalName} | Toms River, Brick & Jersey Shore Real Estate`;
-const description = `Jacquelyn Guevara of ${affiliation} helps buyers and sellers in Toms River, Brick, Manahawkin, Point Pleasant, Seaside Heights, Beach Haven, and more Ocean and Monmouth County towns, with more than 15 years in real estate.`;
+const description = `Jacquelyn Guevara of ${site.brokerage.name} helps buyers and sellers in Toms River, Brick, Manahawkin, Point Pleasant, Seaside Heights, Beach Haven, and more Ocean and Monmouth County towns, with more than 15 years in real estate.`;
 const hasVideos = videos.some((v) => v.id);
 ---
 

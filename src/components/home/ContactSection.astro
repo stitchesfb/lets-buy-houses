@@ -1,6 +1,6 @@
 ---
 import LeadForm from '@/components/forms/LeadForm.astro';
-import { affiliation, site } from '@/data/site';
+import { site } from '@/data/site';
 
 interface Props {
   formId?: string;
@@ -37,8 +37,7 @@ const Heading = asPageTitle ? 'h1' : 'h2';
         <div>
           <dt class="text-sm font-semibold text-muted">Office</dt>
           <dd class="mt-1">
-            {affiliation}<br />{brokerage.address.street}, {brokerage.address.city}, {brokerage.address.region} {brokerage.address.postalCode}<br />
-            Office phone: <a href={brokerage.officePhoneHref} class="text-navy underline decoration-gold underline-offset-4">{brokerage.officePhone}</a>
+            {site.brokerage.name}<br />{brokerage.address.street}, {brokerage.address.city}, {brokerage.address.region} {brokerage.address.postalCode}
           </dd>
         </div>
       </dl>

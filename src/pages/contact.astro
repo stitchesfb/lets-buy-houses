@@ -1,12 +1,12 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import ContactSection from '@/components/home/ContactSection.astro';
-import { affiliation, site } from '@/data/site';
+import { site } from '@/data/site';
 ---
 
 <BaseLayout
-  title={`Contact ${site.agent.legalName} | ${affiliation}`}
-  description={`Call, text, or email Jacquelyn Guevara of ${affiliation}, ${site.brokerage.address.street}, ${site.brokerage.address.city}, NJ. Direct: ${site.contact.phone}.`}
+  title={`Contact ${site.agent.legalName} | ${site.brokerage.name}`}
+  description={`Call, text, or email Jacquelyn Guevara of ${site.brokerage.name}, ${site.brokerage.address.street}, ${site.brokerage.address.city}, NJ. Direct: ${site.contact.phone}.`}
 >
   <ContactSection formId="contact-page" asPageTitle />
 </BaseLayout>

@@ -2,7 +2,7 @@
 /** Compact agent card for page sidebars. */
 import { Picture } from 'astro:assets';
 import portrait from '@/assets/jacquelyn-guevara.jpg';
-import { affiliation, site } from '@/data/site';
+import { site } from '@/data/site';
 import { withBase } from '@/lib/paths';
 
 interface Props {
@@ -15,7 +15,7 @@ const { agent, contact } = site;
 <aside class="card p-6 text-center" aria-label={`Contact ${agent.legalName}`}>
   <Picture src={portrait} alt="" widths={[112, 224]} sizes="112px" formats={['avif', 'webp']} class="mx-auto h-28 w-28 rounded-full object-cover" />
   <p class="mt-4 font-serif text-xl text-navy">{agent.name}</p>
-  <p class="text-sm text-muted">{affiliation}</p>
+  <p class="text-sm text-muted">{site.brokerage.name}</p>
   {town && <p class="mt-3 text-[0.9375rem]">Questions about {town}? I’m glad to help.</p>}
   <div class="mt-5 grid gap-2">
     <a href={contact.phoneHref} class="btn-primary">Call {contact.phone}</a>

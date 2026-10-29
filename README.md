@@ -1,6 +1,6 @@
 # Jacquelyn Guevara: Real Estate Website
 
-The personal website of Jacquelyn Guevara of The Integrity Group | 1st Class Real Estate Agency (since October 28, 2026), serving **20 Ocean and Monmouth County service areas**, from Toms River, Brick, and Manahawkin to
+The personal website of Jacquelyn Guevara of 1st Class Real Estate Agency (since October 28, 2026), serving **20 Ocean and Monmouth County service areas**, from Toms River, Brick, and Manahawkin to
 Long Beach Island and the barrier-island towns (full list in `src/data/towns.ts`). The site name is Let's Buy
 Houses (letsbuyhouses.com).
 
@@ -36,7 +36,7 @@ confirms receipt.
 
 | What | Where |
 |---|---|
-| Name, title, license, team, brokerage (name, office address and phone, logo), phone, email, bio, “Why work with Jacquelyn” points | `src/data/site.ts` |
+| Name, title, license, brokerage (name, office address and phone, logo), phone, email, bio, “Why work with Jacquelyn” points | `src/data/site.ts` |
 | Community pages (copy, highlights, neighborhoods, tips, FAQs, market stats) | `src/data/towns.ts` |
 | Featured listings (real, approved only) | `src/data/listings.ts` |
 | Sample listings for the preview | `src/data/demo/listings.ts` |
@@ -103,7 +103,7 @@ https://stitchesfb.github.io/lets-buy-houses/. Wrap root-relative links in `with
 
 ## Before launch
 
-- [ ] 1st Class Real Estate Agency reviews the footer disclosure and how the team name appears with the brokerage name
+- [ ] 1st Class Real Estate Agency reviews the footer disclosure. The brokerage office number appears only there (plain text), because N.J.A.C. 11:5-6.1(d) requires it in advertising that shows her own number; (b)2 also asks for it in wording as large as the page's main text unless the site links to the broker's site
 - [ ] Confirm her title at 1st Class Real Estate Agency (`site.agent.title`, currently “Real Estate Agent”)
 - [ ] Higher-resolution brokerage logo (SVG or a PNG at least 1000px wide); `public/images/1st-class-real-estate-agency-logo.png` is 500px
 - [ ] Form service connected (`PUBLIC_FORM_ENDPOINT`) and a test message received

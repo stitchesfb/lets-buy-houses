@@ -9,7 +9,7 @@ import MortgageCalculator from '@/components/tools/MortgageCalculator.astro';
 import FeaturedListings from '@/components/home/FeaturedListings.astro';
 import CommunityGrid from '@/components/home/CommunityGrid.astro';
 import { breadcrumbSchema } from '@/lib/schema';
-import { affiliation, site } from '@/data/site';
+import { site } from '@/data/site';
 
 const crumbs = [
   { name: 'Home', url: '/' },
@@ -46,7 +46,7 @@ const steps = [
 
 <BaseLayout
   title={`Buying a Home in Toms River, Brick & Ocean County, NJ | ${site.agent.legalName}`}
-  description={`How Jacquelyn Guevara of ${affiliation} helps buyers search, tour, negotiate, and close on homes in Ocean and Monmouth County, NJ.`}
+  description={`How Jacquelyn Guevara of ${site.brokerage.name} helps buyers search, tour, negotiate, and close on homes in Ocean and Monmouth County, NJ.`}
   schema={[breadcrumbSchema(crumbs)]}
 >
   <PageHeader

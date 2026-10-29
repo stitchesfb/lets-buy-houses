@@ -7,7 +7,7 @@ import AwaitingContent from '@/components/ui/AwaitingContent.astro';
 import SellerInvite from '@/components/home/SellerInvite.astro';
 import RenovationInsight from '@/components/sell/RenovationInsight.astro';
 import { breadcrumbSchema } from '@/lib/schema';
-import { affiliation, site } from '@/data/site';
+import { site } from '@/data/site';
 
 const crumbs = [
   { name: 'Home', url: '/' },
@@ -44,7 +44,7 @@ const steps = [
 
 <BaseLayout
   title={`Selling Your Home in Toms River, Brick & Ocean County, NJ | ${site.agent.legalName}`}
-  description={`Request a personal home value review and learn how Jacquelyn Guevara of ${affiliation} prepares, prices, and markets homes in Ocean and Monmouth County, NJ.`}
+  description={`Request a personal home value review and learn how Jacquelyn Guevara of ${site.brokerage.name} prepares, prices, and markets homes in Ocean and Monmouth County, NJ.`}
   schema={[breadcrumbSchema(crumbs)]}
 >
   <PageHeader

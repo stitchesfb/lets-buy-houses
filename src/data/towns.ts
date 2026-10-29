@@ -94,7 +94,7 @@ export const towns: Town[] = [
     photo: 'toms-river',
     metaTitle: 'Toms River NJ Homes for Sale & Real Estate | Jacquelyn Guevara',
     metaDescription:
-      'Search Toms River, NJ homes for sale, from established neighborhoods to riverfront, bay, and Ortley Beach homes, with local guidance from Jacquelyn Guevara of The Integrity Group at 1st Class Real Estate Agency.',
+      'Search Toms River, NJ homes for sale, from established neighborhoods to riverfront, bay, and Ortley Beach homes, with local guidance from Jacquelyn Guevara of 1st Class Real Estate Agency.',
     headline: 'Toms River, NJ Homes for Sale & Real Estate',
     subheadline: 'Ocean County’s seat, with neighborhoods along the river, the bay, and the barrier island.',
     idxCity: 'Toms River',
@@ -260,7 +260,7 @@ export const towns: Town[] = [
     photo: 'whiting',
     metaTitle: 'Whiting NJ Homes for Sale | Manchester Township | Jacquelyn Guevara',
     metaDescription:
-      'Search Whiting, NJ homes for sale in Manchester Township, including single-family homes and 55+ communities, with local guidance from Jacquelyn Guevara of The Integrity Group at 1st Class Real Estate Agency.',
+      'Search Whiting, NJ homes for sale in Manchester Township, including single-family homes and 55+ communities, with local guidance from Jacquelyn Guevara of 1st Class Real Estate Agency.',
     headline: 'Whiting, NJ Homes for Sale & Real Estate',
     subheadline: 'A wooded Manchester Township community with single-family homes and many 55+ neighborhoods.',
     idxCity: ['Whiting', 'Manchester'],
@@ -313,7 +313,7 @@ export const towns: Town[] = [
     photo: 'point-pleasant',
     metaTitle: 'Point Pleasant NJ Waterfront Homes for Sale | Beach & Riverfront',
     metaDescription:
-      'Browse Point Pleasant & Point Pleasant Beach, NJ waterfront homes for sale — riverfront, lagoon, and beach-block properties. Local guidance from Jacquelyn Guevara of The Integrity Group at 1st Class Real Estate Agency.',
+      'Browse Point Pleasant & Point Pleasant Beach, NJ waterfront homes for sale — riverfront, lagoon, and beach-block properties. Local guidance from Jacquelyn Guevara of 1st Class Real Estate Agency.',
     headline: 'Coastal Charm & Prime Real Estate in Point Pleasant, NJ',
     subheadline:
       'Experience classic shore living with easy access to local beaches and rivers.',
@@ -368,7 +368,7 @@ export const towns: Town[] = [
     photo: 'barnegat',
     metaTitle: 'Barnegat NJ Homes for Sale & Real Estate | Jacquelyn Guevara',
     metaDescription:
-      'Search Barnegat, NJ homes for sale, from bayfront neighborhoods to 55+ communities, with local guidance from Jacquelyn Guevara of The Integrity Group at 1st Class Real Estate Agency.',
+      'Search Barnegat, NJ homes for sale, from bayfront neighborhoods to 55+ communities, with local guidance from Jacquelyn Guevara of 1st Class Real Estate Agency.',
     headline: 'Barnegat, NJ Homes for Sale & Real Estate',
     subheadline: 'Bay access, a historic village center, and neighborhoods on both sides of the Parkway.',
     idxCity: 'Barnegat',
@@ -421,7 +421,7 @@ export const towns: Town[] = [
     photo: 'bayville',
     metaTitle: 'Bayville NJ Homes for Sale | Berkeley Township | Jacquelyn Guevara',
     metaDescription:
-      'Search Bayville, NJ homes for sale in Berkeley Township, including bay-area neighborhoods and single-family homes, with local guidance from Jacquelyn Guevara of The Integrity Group at 1st Class Real Estate Agency.',
+      'Search Bayville, NJ homes for sale in Berkeley Township, including bay-area neighborhoods and single-family homes, with local guidance from Jacquelyn Guevara of 1st Class Real Estate Agency.',
     headline: 'Bayville, NJ Homes for Sale & Real Estate',
     subheadline: 'Berkeley Township neighborhoods between Route 9 and Barnegat Bay.',
     idxCity: ['Bayville', 'Berkeley'],
@@ -474,7 +474,7 @@ export const towns: Town[] = [
     photo: 'beach-haven',
     metaTitle: 'Beach Haven NJ Homes for Sale | Long Beach Island | Jacquelyn Guevara',
     metaDescription:
-      'Search Beach Haven, NJ homes for sale on Long Beach Island, from ocean-block homes to bayside properties, with local guidance from Jacquelyn Guevara of The Integrity Group at 1st Class Real Estate Agency.',
+      'Search Beach Haven, NJ homes for sale on Long Beach Island, from ocean-block homes to bayside properties, with local guidance from Jacquelyn Guevara of 1st Class Real Estate Agency.',
     headline: 'Beach Haven, NJ Homes for Sale on Long Beach Island',
     subheadline: 'Ocean-block, bayside, and in-town homes in one of LBI’s most walkable boroughs.',
     idxCity: 'Beach Haven',
@@ -527,7 +527,7 @@ export const towns: Town[] = [
     photo: 'beachwood',
     metaTitle: 'Beachwood NJ Homes for Sale & Real Estate | Jacquelyn Guevara',
     metaDescription:
-      'Search Beachwood, NJ homes for sale in this borough on the Toms River, with local guidance from Jacquelyn Guevara of The Integrity Group at 1st Class Real Estate Agency.',
+      'Search Beachwood, NJ homes for sale in this borough on the Toms River, with local guidance from Jacquelyn Guevara of 1st Class Real Estate Agency.',
     headline: 'Beachwood, NJ Homes for Sale & Real Estate',
     subheadline: 'A residential borough on the south shore of the Toms River.',
     idxCity: 'Beachwood',
@@ -580,7 +580,7 @@ export const towns: Town[] = [
     photo: 'lacey',
     metaTitle: 'Lacey Township NJ Homes for Sale | Forked River | Jacquelyn Guevara',
     metaDescription:
-      'Search Lacey Township, NJ homes for sale in Forked River and Lanoka Harbor, from lagoon homes to wooded neighborhoods, with local guidance from Jacquelyn Guevara of The Integrity Group at 1st Class Real Estate Agency.',
+      'Search Lacey Township, NJ homes for sale in Forked River and Lanoka Harbor, from lagoon homes to wooded neighborhoods, with local guidance from Jacquelyn Guevara of 1st Class Real Estate Agency.',
     headline: 'Lacey Township, NJ Homes for Sale & Real Estate',
     subheadline: 'Lagoon homes in Forked River and Lanoka Harbor, plus wooded neighborhoods to the west.',
     idxCity: ['Lacey', 'Forked River', 'Lanoka Harbor'],
@@ -633,7 +633,7 @@ export const towns: Town[] = [
     photo: 'lakewood',
     metaTitle: 'Lakewood NJ Homes for Sale & Real Estate | Jacquelyn Guevara',
     metaDescription:
-      'Search Lakewood, NJ homes for sale, from single-family homes and townhomes to active-adult communities, with local guidance from Jacquelyn Guevara of The Integrity Group at 1st Class Real Estate Agency.',
+      'Search Lakewood, NJ homes for sale, from single-family homes and townhomes to active-adult communities, with local guidance from Jacquelyn Guevara of 1st Class Real Estate Agency.',
     headline: 'Lakewood, NJ Homes for Sale & Real Estate',
     subheadline: 'Single-family homes, townhomes, condos, and active-adult communities in northern Ocean County.',
     idxCity: 'Lakewood',
@@ -686,7 +686,7 @@ export const towns: Town[] = [
     photo: 'lavallette',
     metaTitle: 'Lavallette NJ Homes for Sale | Beach & Bay Homes | Jacquelyn Guevara',
     metaDescription:
-      'Search Lavallette, NJ homes for sale on the barrier island between the ocean and Barnegat Bay, with local guidance from Jacquelyn Guevara of The Integrity Group at 1st Class Real Estate Agency.',
+      'Search Lavallette, NJ homes for sale on the barrier island between the ocean and Barnegat Bay, with local guidance from Jacquelyn Guevara of 1st Class Real Estate Agency.',
     headline: 'Lavallette, NJ Homes for Sale & Real Estate',
     subheadline: 'Ocean-block and bayside homes in a residential barrier-island borough.',
     idxCity: 'Lavallette',
@@ -739,7 +739,7 @@ export const towns: Town[] = [
     photo: 'little-egg-harbor',
     metaTitle: 'Little Egg Harbor NJ Homes for Sale | Mystic Island | Jacquelyn Guevara',
     metaDescription:
-      'Search Little Egg Harbor, NJ homes for sale, including Mystic Island lagoon homes and wooded neighborhoods, with local guidance from Jacquelyn Guevara of The Integrity Group at 1st Class Real Estate Agency.',
+      'Search Little Egg Harbor, NJ homes for sale, including Mystic Island lagoon homes and wooded neighborhoods, with local guidance from Jacquelyn Guevara of 1st Class Real Estate Agency.',
     headline: 'Little Egg Harbor, NJ Homes for Sale & Real Estate',
     subheadline: 'Lagoon homes in Mystic Island and wooded neighborhoods inland.',
     idxCity: ['Little Egg Harbor', 'Mystic Island'],
@@ -791,7 +791,7 @@ export const towns: Town[] = [
     photo: 'manchester',
     metaTitle: 'Manchester Township NJ Homes for Sale | Jacquelyn Guevara',
     metaDescription:
-      'Search Manchester Township, NJ homes for sale, including Whiting, Ridgeway, and active-adult communities, with local guidance from Jacquelyn Guevara of The Integrity Group at 1st Class Real Estate Agency.',
+      'Search Manchester Township, NJ homes for sale, including Whiting, Ridgeway, and active-adult communities, with local guidance from Jacquelyn Guevara of 1st Class Real Estate Agency.',
     headline: 'Manchester Township, NJ Homes for Sale & Real Estate',
     subheadline: 'Single-family neighborhoods and active-adult communities across a wooded Pinelands township.',
     idxCity: 'Manchester',
@@ -844,7 +844,7 @@ export const towns: Town[] = [
     photo: 'seaside-heights',
     metaTitle: 'Seaside Heights NJ Homes for Sale | Condos & Shore Homes | Jacquelyn Guevara',
     metaDescription:
-      'Search Seaside Heights, NJ homes and condos for sale near the boardwalk and the bay, with local guidance from Jacquelyn Guevara of The Integrity Group at 1st Class Real Estate Agency.',
+      'Search Seaside Heights, NJ homes and condos for sale near the boardwalk and the bay, with local guidance from Jacquelyn Guevara of 1st Class Real Estate Agency.',
     headline: 'Seaside Heights, NJ Homes for Sale & Real Estate',
     subheadline: 'Condos and shore homes near the boardwalk, the beach, and Barnegat Bay.',
     idxCity: 'Seaside Heights',
@@ -897,7 +897,7 @@ export const towns: Town[] = [
     photo: 'seaside-park',
     metaTitle: 'Seaside Park NJ Homes for Sale | Beach & Bay Homes | Jacquelyn Guevara',
     metaDescription:
-      'Search Seaside Park, NJ homes for sale between the ocean and Barnegat Bay, next to Island Beach State Park, with local guidance from Jacquelyn Guevara of The Integrity Group at 1st Class Real Estate Agency.',
+      'Search Seaside Park, NJ homes for sale between the ocean and Barnegat Bay, next to Island Beach State Park, with local guidance from Jacquelyn Guevara of 1st Class Real Estate Agency.',
     headline: 'Seaside Park, NJ Homes for Sale & Real Estate',
     subheadline: 'Beach and bay homes at the entrance to Island Beach State Park.',
     idxCity: 'Seaside Park',
@@ -950,7 +950,7 @@ export const towns: Town[] = [
     photo: 'tuckerton',
     metaTitle: 'Tuckerton NJ Homes for Sale & Real Estate | Jacquelyn Guevara',
     metaDescription:
-      'Search Tuckerton, NJ homes for sale in this historic borough near the bay, with local guidance from Jacquelyn Guevara of The Integrity Group at 1st Class Real Estate Agency.',
+      'Search Tuckerton, NJ homes for sale in this historic borough near the bay, with local guidance from Jacquelyn Guevara of 1st Class Real Estate Agency.',
     headline: 'Tuckerton, NJ Homes for Sale & Real Estate',
     subheadline: 'A historic Route 9 borough near Little Egg Harbor Bay.',
     idxCity: 'Tuckerton',
@@ -1003,7 +1003,7 @@ export const towns: Town[] = [
     photo: 'tinton-falls',
     metaTitle: 'Tinton Falls NJ Homes for Sale & Real Estate | Jacquelyn Guevara',
     metaDescription:
-      'Search Tinton Falls, NJ homes for sale, from single-family neighborhoods to townhomes and condos, with local guidance from Jacquelyn Guevara of The Integrity Group at 1st Class Real Estate Agency.',
+      'Search Tinton Falls, NJ homes for sale, from single-family neighborhoods to townhomes and condos, with local guidance from Jacquelyn Guevara of 1st Class Real Estate Agency.',
     headline: 'Tinton Falls, NJ Homes for Sale & Real Estate',
     subheadline: 'Single-family neighborhoods, townhomes, and condos in central Monmouth County.',
     idxCity: 'Tinton Falls',
@@ -1056,7 +1056,7 @@ export const towns: Town[] = [
     photo: 'manalapan',
     metaTitle: 'Manalapan NJ Homes for Sale & Real Estate | Local Expert',
     metaDescription:
-      'Search Manalapan, NJ homes for sale — colonials, 55+ communities, and established neighborhoods, with local guidance from Jacquelyn Guevara of The Integrity Group at 1st Class Real Estate Agency.',
+      'Search Manalapan, NJ homes for sale — colonials, 55+ communities, and established neighborhoods, with local guidance from Jacquelyn Guevara of 1st Class Real Estate Agency.',
     headline: 'Luxury Living & Premier Estates in Manalapan, NJ',
     subheadline:
       'Discover upscale suburban neighborhoods and spacious properties with my guidance and over 15 years of licensed experience.',

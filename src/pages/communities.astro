@@ -6,7 +6,7 @@ import ServiceAreaList from '@/components/town/ServiceAreaList.astro';
 import ContactSection from '@/components/home/ContactSection.astro';
 import { serviceAreas, towns } from '@/data/towns';
 import { breadcrumbSchema } from '@/lib/schema';
-import { affiliation, site } from '@/data/site';
+import { site } from '@/data/site';
 
 const crumbs = [
   { name: 'Home', url: '/' },
@@ -18,7 +18,7 @@ const names = serviceAreas.map((a) => a.name);
 
 <BaseLayout
   title={`Communities: Toms River, Brick, Manahawkin & More | ${site.agent.legalName}`}
-  description={`Local guides to the New Jersey communities Jacquelyn Guevara of ${affiliation} serves: ${names.join(', ')}.`}
+  description={`Local guides to the New Jersey communities Jacquelyn Guevara of ${site.brokerage.name} serves: ${names.join(', ')}.`}
   schema={[breadcrumbSchema(crumbs)]}
 >
   <PageHeader

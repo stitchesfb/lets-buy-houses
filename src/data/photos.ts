@@ -130,14 +130,6 @@ export const credits: Record<string, PhotoCredit> = {
     alt: 'A sailboat on Barnegat Bay off Barnegat Township, with Barnegat Lighthouse in the distance',
     position: '60% 50%',
   },
-  'tuckerton': {
-    title: 'Tuckerton Seaport',
-    author: 'LancerE',
-    ...BY2,
-    sourceUrl: 'https://www.flickr.com/photos/34132829@N07/3481271146',
-    alt: 'The lighthouse at the Tuckerton Seaport',
-    position: '60% 50%',
-  },
   'manchester': {
     title: 'Harry Wright Lake',
     author: 'ManchesterTwp',
@@ -203,12 +195,13 @@ export const credits: Record<string, PhotoCredit> = {
     position: '50% 60%',
   },
   'red-bank': {
-    title: 'Navesink River 2023',
-    author: 'Antony-22',
-    ...BYSA4,
-    sourceUrl: commons('Navesink_River_2023.jpg'),
-    alt: 'Aerial view of Red Bank and the Navesink River',
-    position: '50% 50%',
+    title: 'Aerial view of Red Bank',
+    author: 'JTFeldmus',
+    license: 'Public domain (released by the author)',
+    licenseUrl: commons('Aerial_view_of_Red_Bank.jpg'),
+    sourceUrl: commons('Aerial_view_of_Red_Bank.jpg'),
+    alt: 'Red Bank’s riverfront and downtown seen from above the Navesink River',
+    position: '50% 60%',
   },
   'asbury-park': {
     title: 'Asbury Park Oceanfront Aerial (October 15, 2025)',
@@ -257,14 +250,6 @@ export const credits: Record<string, PhotoCredit> = {
     sourceUrl: commons('TintonFalls_Falls1.jpg'),
     alt: 'The waterfall in the historic district of Tinton Falls',
     position: '50% 55%',
-  },
-  manalapan: {
-    title: 'Monmouth Battlefield SP',
-    author: 'Jim Lukach',
-    ...BY2,
-    sourceUrl: 'https://www.flickr.com/photos/65047661@N00/7776410346/',
-    alt: 'Wildflowers in a meadow at Monmouth Battlefield State Park, which extends into Manalapan',
-    position: '50% 60%',
   },
 };
 

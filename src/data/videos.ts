@@ -13,12 +13,7 @@ export interface Video {
 }
 
 export const videos: Video[] = [
-  {
-    id: '',
-    title: 'Living in Manalapan, NJ: Full Town Tour',
-    description: 'Neighborhoods, schools, commute, and what homes actually cost.',
-    town: 'manalapan-nj',
-  },
+
   {
     id: '',
     title: 'Point Pleasant Waterfront Homes: What Buyers Need to Know',

@@ -35,7 +35,7 @@ const submitLabel =
 
 const townOptions = [
   { value: '', label: 'Not sure yet' },
-  ...towns.map((t) => ({ value: t.name, label: `${t.name}, NJ` })),
+  ...towns.map((t) => ({ value: t.name, label: `${t.name}, NJ` })).sort((a, b) => a.label.localeCompare(b.label)),
   { value: 'Other', label: 'Somewhere else' },
 ];
 const { phone, phoneHref, smsHref, email } = site.contact;

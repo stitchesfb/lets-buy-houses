@@ -1,6 +1,6 @@
 ---
 /**
- * Community page template → /manalapan-nj/, /brick-nj/, /point-pleasant-nj/, /manahawkin-nj/
+ * Community page template → /brick-nj/, /point-pleasant-nj/, /manahawkin-nj/
  * Content lives in src/data/towns.ts. Add a town there and a page is generated.
  */
 import type { GetStaticPaths } from 'astro';
@@ -15,13 +15,13 @@ import AgentCta from '@/components/ui/AgentCta.astro';
 import VideoHub from '@/components/home/VideoHub.astro';
 import CommunityGrid from '@/components/home/CommunityGrid.astro';
 import ContactSection from '@/components/home/ContactSection.astro';
-import { UNLISTED, allTowns, nearbyTowns, type Town } from '@/data/towns';
+import { nearbyTowns, towns, type Town } from '@/data/towns';
 import { photo } from '@/data/photos';
 import { videos } from '@/data/videos';
 import { breadcrumbSchema, faqSchema, townPageSchema } from '@/lib/schema';
 import { withBase } from '@/lib/paths';
 
-export const getStaticPaths = (() => allTowns.map((town) => ({ params: { town: town.slug }, props: { town } }))) satisfies GetStaticPaths;
+export const getStaticPaths = (() => towns.map((town) => ({ params: { town: town.slug }, props: { town } }))) satisfies GetStaticPaths;
 
 interface Props {
   town: Town;
@@ -40,7 +40,6 @@ const heroPhoto = photo(town.photo);
 <BaseLayout
   title={town.metaTitle}
   description={town.metaDescription}
-  noindex={UNLISTED.includes(town.slug)}
   schema={[townPageSchema(town), breadcrumbSchema(crumbs), faqSchema(town.faqs)]}
 >
   <section class="on-dark relative isolate overflow-hidden bg-navy text-white">

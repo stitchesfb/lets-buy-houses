@@ -14,8 +14,7 @@ export default defineConfig({
   trailingSlash: 'always',
   integrations: [
     sitemap({
-      // Unlisted former service areas (UNLISTED in src/data/towns.ts) stay out of the sitemap.
-      filter: (page) => !/\/(search|home-valuation|point-pleasant-boro-nj|manalapan-nj|lakewood-nj|tuckerton-nj|little-egg-harbor-nj)\/$/.test(page),
+      filter: (page) => !/\/(search|home-valuation|point-pleasant-boro-nj)\/$/.test(page),
     }),
   ],
   vite: {

@@ -21,15 +21,11 @@ export type TownSlug =
   | 'beach-haven-nj'
   | 'beachwood-nj'
   | 'lacey-nj'
-  | 'lakewood-nj'
   | 'lavallette-nj'
-  | 'little-egg-harbor-nj'
   | 'manchester-nj'
   | 'seaside-heights-nj'
   | 'seaside-park-nj'
-  | 'tuckerton-nj'
   | 'tinton-falls-nj'
-  | 'manalapan-nj'
   | 'pine-beach-nj'
   | 'ocean-gate-nj'
   | 'jackson-nj'
@@ -98,7 +94,7 @@ const placeholderStats = (): Town['marketStats'] => ({
   ],
 });
 
-const allTownData: Town[] = [
+export const towns: Town[] = [
   {
     slug: 'toms-river-nj',
     name: 'Toms River',
@@ -660,60 +656,6 @@ const allTownData: Town[] = [
     ],
   },
   {
-    slug: 'lakewood-nj',
-    name: 'Lakewood',
-    county: 'Ocean County',
-    zipCodes: ['08701'],
-    angle: 'Large township with a wide range of housing',
-    photo: 'lakewood',
-    metaTitle:
-      'Lakewood, NJ Homes & Real Estate | Jacquelyn Guevara',
-    metaDescription:
-      'Lakewood real estate guidance from Jacquelyn Guevara: single-family homes, townhomes, condos, and active-adult communities near Lake Carasaljo’s parkland.',
-    headline: 'Lakewood, NJ Homes for Sale & Real Estate',
-    subheadline: 'Single-family homes, townhomes, condos, and active-adult communities in northern Ocean County.',
-    idxCity: 'Lakewood',
-    intro:
-      'Lakewood’s centerpiece is Lake Carasaljo, set within 176 acres of parkland where people fish, bike, run, and picnic, with Georgian Court University along its shore. The township is also home to ShoreTown Ballpark and the Jersey Shore BlueClaws, and the Garden State Parkway and Routes 9, 70, and 88 all pass through.',
-    highlights: [
-      'Garden State Parkway and Routes 9, 70, and 88',
-      'Lake Carasaljo and 176 acres of surrounding parkland',
-      'Georgian Court University and ShoreTown Ballpark',
-      'Single-family homes, townhomes, condos, and active-adult communities',
-    ],
-    neighborhoods: [
-      { name: 'Lake Carasaljo Area', blurb: 'Neighborhoods near the lake, its parkland, and Georgian Court University.' },
-      { name: 'Townhomes & Condos', blurb: 'Planned communities with lower-maintenance living.' },
-      { name: 'Active-Adult Communities', blurb: 'Age-restricted neighborhoods with their own HOA rules.' },
-    ],
-    marketOverview:
-      'Lakewood has a wide range of housing types, from older single-family homes to new construction, townhomes, and age-restricted communities. Inventory and pricing vary considerably from one section to another, so I compare homes of the same type in the same area.',
-    buyerTips: [
-      'Compare HOA fees and rules carefully between townhome, condo, and 55+ communities.',
-      'For new construction, review the builder’s warranty and the timeline in writing.',
-      'Check commute routes to the Parkway and Route 9 at your travel times.',
-    ],
-    sellerTips: [
-      'Price against recent sales of the same home type in your section of the township.',
-      'Have HOA documents and any permits for additions ready for buyers.',
-      'Clear photos and accurate square footage help listings stand out.',
-    ],
-    marketStats: placeholderStats(),
-    geo: { latitude: 40.0821, longitude: -74.2097 },
-    faqs: [
-      {
-        question: 'What types of homes are in Lakewood?',
-        answer:
-          'Lakewood has single-family homes, townhomes, condominiums, new construction, and active-adult (55+) communities.',
-      },
-      {
-        question: 'How do you get around from Lakewood?',
-        answer:
-          'The Garden State Parkway passes through the eastern part of the township, and Routes 9, 70, and 88 also pass through Lakewood.',
-      },
-    ],
-  },
-  {
     slug: 'lavallette-nj',
     name: 'Lavallette',
     county: 'Ocean County',
@@ -764,60 +706,6 @@ const allTownData: Town[] = [
         question: 'Do I need flood insurance in Lavallette?',
         answer:
           'Many homes are in FEMA flood zones, and lenders typically require flood insurance there. Review the elevation certificate and get quotes before you make an offer.',
-      },
-    ],
-  },
-  {
-    slug: 'little-egg-harbor-nj',
-    name: 'Little Egg Harbor',
-    county: 'Ocean County',
-    zipCodes: ['08087'],
-    angle: 'Mystic Island lagoons & Pinelands neighborhoods',
-    photo: 'little-egg-harbor',
-    metaTitle:
-      'Little Egg Harbor, NJ Real Estate | Jacquelyn Guevara',
-    metaDescription:
-      'Little Egg Harbor real estate guidance from Jacquelyn Guevara: Mystic Island lagoon homes, inland neighborhoods, and retirement communities in southern Ocean County.',
-    headline: 'Little Egg Harbor, NJ Homes for Sale & Real Estate',
-    subheadline:
-      'Mystic Island lagoon homes and inland neighborhoods at the southern end of Ocean County.',
-    idxCity: ['Little Egg Harbor', 'Mystic Island'],
-    intro:
-      'Little Egg Harbor Township is Ocean County’s southernmost municipality, and it surrounds the borough of Tuckerton. Mystic Island, a large lagoon community, has waterways leading out to Great Bay, and inland you’ll find established neighborhoods and many newer retirement communities.',
-    highlights: [
-      'Mystic Island, a large lagoon development with boat access to Great Bay',
-      'Garden State Parkway and Route 9 pass through the township',
-      'Little Egg Harbor schools through grade 6; Pinelands Regional for grades 7–12',
-      'Many newer retirement communities',
-    ],
-    neighborhoods: [
-      { name: 'Mystic Island', blurb: 'A large, mostly waterfront lagoon development, with lagoons leading to Great Bay.' },
-      { name: 'Inland Neighborhoods', blurb: 'Homes away from the lagoons.' },
-      { name: 'Retirement Communities', blurb: 'Newer neighborhoods for older adults, each with its own rules and fees.' },
-    ],
-    marketOverview:
-      'Little Egg Harbor offers lagoon homes in Mystic Island, inland neighborhoods, and retirement communities. For waterfront homes, elevation, bulkheads, and flood insurance weigh heavily on value, and I’ll help you review them early.',
-    buyerTips: [
-      'For lagoon homes, check bulkheads, elevation, and flood insurance costs early.',
-      'Ask whether a home has been raised or rebuilt and request documentation.',
-      'In 55+ communities, review HOA fees and rules before you offer.',
-    ],
-    sellerTips: [
-      'Have elevation and bulkhead documentation ready for waterfront homes.',
-      'Highlight boating access and updates.',
-      'Price against recent sales on similar lagoons or streets.',
-    ],
-    marketStats: placeholderStats(),
-    geo: { latitude: 39.5965, longitude: -74.3418 },
-    faqs: [
-      {
-        question: 'Is Mystic Island part of Little Egg Harbor?',
-        answer: 'Yes. Mystic Island is a lagoon community within Little Egg Harbor Township.',
-      },
-      {
-        question: 'Which schools serve Little Egg Harbor?',
-        answer:
-          'Younger students attend the Little Egg Harbor Township School District, and students in grades 7–12 attend the Pinelands Regional School District. The NJ Department of Education publishes School Performance Reports for each school.',
       },
     ],
   },
@@ -986,61 +874,6 @@ const allTownData: Town[] = [
     ],
   },
   {
-    slug: 'tuckerton-nj',
-    name: 'Tuckerton',
-    county: 'Ocean County',
-    zipCodes: ['08087'],
-    angle: 'Historic bayside borough on Route 9',
-    photo: 'tuckerton',
-    metaTitle:
-      'Tuckerton, NJ Homes & Real Estate | Jacquelyn Guevara',
-    metaDescription:
-      'Tuckerton real estate guidance from Jacquelyn Guevara: in-town homes on Route 9 near the Tuckerton Seaport and Lake Pohatcong, in southern Ocean County.',
-    headline: 'Tuckerton, NJ Homes for Sale & Real Estate',
-    subheadline:
-      'Seaport history on Route 9, nestled between the Pine Barrens and the bay.',
-    idxCity: 'Tuckerton',
-    intro:
-      'Tuckerton, nestled between the Pine Barrens and the bay, was once a thriving seaport, and the Tuckerton Seaport, a working maritime museum and village on Route 9, keeps that history alive. Main Street runs along Lake Pohatcong, and lagoon communities in the Tuckerton Beach area lead toward Little Egg Harbor Bay. The borough is surrounded by Little Egg Harbor Township.',
-    highlights: [
-      'Tuckerton Seaport maritime museum and village',
-      'Main Street along Lake Pohatcong',
-      'Route 9, with the Garden State Parkway nearby',
-      'Tuckerton schools through grade 6; Pinelands Regional for grades 7–12',
-    ],
-    neighborhoods: [
-      { name: 'Historic Center', blurb: 'Older homes along and near Route 9.' },
-      { name: 'Lakeside', blurb: 'Streets near Lake Pohatcong.' },
-      { name: 'Tuckerton Beach', blurb: 'Lagoon homes toward Little Egg Harbor Bay.' },
-    ],
-    marketOverview:
-      'Tuckerton has older in-town homes near Route 9 and Lake Pohatcong, plus lagoon homes in the Tuckerton Beach area. Near the water, elevation and flood insurance weigh heavily on value; in town, condition and updates matter most.',
-    buyerTips: [
-      'For lagoon homes, check bulkheads, elevation, and flood insurance early.',
-      'For older homes, plan for a thorough inspection of systems and foundation.',
-      'Compare recent sales in Tuckerton and neighboring Little Egg Harbor.',
-    ],
-    sellerTips: [
-      'Have elevation, bulkhead, and improvement records ready.',
-      'Highlight historic character and recent updates.',
-      'Price against recent sales of similar homes nearby.',
-    ],
-    marketStats: placeholderStats(),
-    geo: { latitude: 39.6032, longitude: -74.3404 },
-    faqs: [
-      {
-        question: 'Is Tuckerton the same as Little Egg Harbor?',
-        answer:
-          'No. Tuckerton is a separate borough surrounded by Little Egg Harbor Township. The two share the 08087 ZIP code and the Pinelands Regional School District for grades 7–12.',
-      },
-      {
-        question: 'What is the Tuckerton Seaport?',
-        answer:
-          'The Tuckerton Seaport is a working maritime museum and village on Route 9 (West Main Street) in the borough.',
-      },
-    ],
-  },
-  {
     slug: 'tinton-falls-nj',
     name: 'Tinton Falls',
     county: 'Monmouth County',
@@ -1092,67 +925,6 @@ const allTownData: Town[] = [
         question: 'Is Tinton Falls near the Garden State Parkway?',
         answer:
           'Yes. Garden State Parkway exits 100, 102, 105, and 109 are in the borough.',
-      },
-    ],
-  },
-  {
-    slug: 'manalapan-nj',
-    name: 'Manalapan',
-    county: 'Monmouth County',
-    zipCodes: ['07726'],
-    angle: 'Spacious homes & established suburban neighborhoods',
-    photo: 'manalapan',
-    metaTitle:
-      'Manalapan, NJ Homes & Real Estate | Jacquelyn Guevara',
-    metaDescription:
-      'Manalapan real estate guidance from Jacquelyn Guevara: single-family homes and 55+ communities in western Monmouth County, near Monmouth Battlefield State Park.',
-    headline:
-      'Manalapan, NJ Homes for Sale & Real Estate',
-    subheadline:
-      'Established neighborhoods and 55+ communities in western Monmouth County.',
-    idxCity: 'Manalapan',
-    intro:
-      'Manalapan blends established single-family neighborhoods, 55+ communities such as Covered Bridge, and plenty of green space, with Monmouth Battlefield State Park extending right into the township. With more than 15 years of real estate experience, I’ll help you compare neighborhoods, commutes, and schools so you can find the home that fits the way you live.',
-    highlights: [
-      'Manalapan-Englishtown Regional Schools through grade 8, then the Freehold Regional High School District',
-      'Single-family homes and 55+ communities such as Covered Bridge',
-      'U.S. Route 9, Route 33, County Routes 522 and 527, and NJ Transit’s Route 139 bus to New York',
-      'Monmouth Battlefield State Park and the Manalapan Recreation Center',
-    ],
-    neighborhoods: [
-      { name: 'Gordons Corner', blurb: 'A community within the township, with its own fire company.' },
-      { name: '55+ Communities', blurb: 'Active-adult options including Covered Bridge, near the county’s Pine Brook Golf Course.' },
-      { name: 'Established Subdivisions', blurb: 'Single-family neighborhoods across the township.' },
-    ],
-    marketOverview:
-      'Manalapan offers single-family homes in established subdivisions as well as 55+ communities. Prices vary with neighborhood, lot size, and the age and condition of the home, so recent nearby sales are the best guide.',
-    buyerTips: [
-      'Confirm which high school serves a specific address: Manalapan students attend Manalapan High School or Freehold Township High School.',
-      'Factor in property taxes and lot sizes when evaluating long-term value in different sections of the township.',
-      'Consider commute routes such as Route 9, Route 33, and NJ Transit’s Route 139 bus to New York when comparing sections of the township.',
-    ],
-    sellerTips: [
-      'First impressions matter: a well-kept lawn and thoughtful staging help a home show well.',
-      'Highlight custom upgrades, outdoor living spaces, and energy-efficient home features in your listing marketing.',
-      'Price against recent sales in your neighborhood rather than county-wide averages.',
-    ],
-    marketStats: placeholderStats(),
-    geo: { latitude: 40.2807, longitude: -74.3437 },
-    faqs: [
-      {
-        question: 'What areas are in Manalapan?',
-        answer:
-          'Manalapan includes the community of Gordons Corner, established single-family subdivisions, and 55+ communities such as Covered Bridge.',
-      },
-      {
-        question: 'How are the schools in Manalapan?',
-        answer:
-          'Students attend the Manalapan-Englishtown Regional School District through grade 8, then Manalapan High School or Freehold Township High School in the Freehold Regional High School District. The NJ Department of Education publishes School Performance Reports for each school.',
-      },
-      {
-        question: 'How do people commute from Manalapan?',
-        answer:
-          'U.S. Route 9, Route 33, and County Routes 522 and 527 cross the township, and NJ Transit’s Route 139 bus runs to the Port Authority Bus Terminal in New York.',
       },
     ],
   },
@@ -1370,7 +1142,7 @@ const allTownData: Town[] = [
       {
         question: 'How do people commute from Middletown to New York?',
         answer:
-          'NJ Transit’s North Jersey Coast Line stops at the Middletown station on Church Street (parking permits come from the Township Clerk), and SeaStreak runs weekday ferries from the Belford Ferry Terminal.',
+          'NJ Transit runs direct North Jersey Coast Line trains between the Middletown station on Church Street and New York Penn Station (parking permits come from the Township Clerk), and SeaStreak runs weekday ferries from the Belford Ferry Terminal to Manhattan.',
       },
       {
         question: 'Where is Hartshorne Woods Park?',
@@ -1431,7 +1203,7 @@ const allTownData: Town[] = [
       {
         question: 'Is there a train station in Red Bank?',
         answer:
-          'Yes. NJ Transit’s Red Bank station on Bridge Avenue is on the North Jersey Coast Line.',
+          'Yes. NJ Transit’s Red Bank station on Bridge Avenue is on the North Jersey Coast Line, with direct trains to New York Penn Station.',
       },
     ],
   },
@@ -1505,7 +1277,7 @@ const allTownData: Town[] = [
     headline:
       'Asbury Park, NJ Homes for Sale & Real Estate',
     subheadline:
-      'A mile of beach, a boardwalk full of music and dining, and rail service to New York.',
+      'A mile of beach, a boardwalk full of music and dining, and an NJ Transit train station.',
     idxCity: 'Asbury Park',
     intro:
       'Asbury Park is full of energy, with a mile of beach and a boardwalk lined with restaurants, shops, music, mini golf, and a splash park, plus summer concerts at the Stone Pony Summer Stage. The historic Convention Hall complex, including the Paramount Theatre, is closed while a major restoration moves forward. Deal Lake has a boat launch with kayak storage, and the NJ Transit station near Cookman Avenue is a short walk from the boardwalk.',
@@ -1543,7 +1315,7 @@ const allTownData: Town[] = [
       {
         question: 'Is there a train to New York from Asbury Park?',
         answer:
-          'Yes. NJ Transit’s North Jersey Coast Line serves the Asbury Park station, a short walk from Cookman Avenue and the boardwalk.',
+          'Yes, though most trips require changing trains at Long Branch. NJ Transit’s North Jersey Coast Line serves the Asbury Park station, a short walk from Cookman Avenue and the boardwalk, and a few weekday express trains run directly to New York Penn Station.',
       },
     ],
   },
@@ -1715,25 +1487,13 @@ const allTownData: Town[] = [
       {
         question: 'Is there a train station in Point Pleasant Beach?',
         answer:
-          'Yes. NJ Transit’s North Jersey Coast Line stops at the Point Pleasant Beach station at Route 35 and Arnold Avenue.',
+          'Yes. NJ Transit’s North Jersey Coast Line stops at the Point Pleasant Beach station at Route 35 and Arnold Avenue. Most trips to New York require changing trains at Long Branch; a few weekday express trains run directly.',
       },
     ],
     related: ['point-pleasant-nj'],
   },
 ];
 
-/**
- * Former service areas Jackie no longer promotes. Their pages still build at the same URLs
- * (noindex, out of the sitemap and every list) until the handling of those URLs is approved.
- * Keep in sync with the sitemap filter in astro.config.mjs.
- */
-export const UNLISTED: TownSlug[] = ['manalapan-nj', 'lakewood-nj', 'tuckerton-nj', 'little-egg-harbor-nj'];
-
-/** Every page that builds, including unlisted ones. */
-export const allTowns = allTownData;
-
-/** Her current service areas: the only towns shown in grids, forms, schema, and the sitemap. */
-export const towns: Town[] = allTownData.filter((t) => !UNLISTED.includes(t.slug));
 
 /**
  * Areas without a community page yet (shown only as a preview note).

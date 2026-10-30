@@ -1,0 +1,38 @@
+---
+/**
+ * The 1st Class Real Estate Agency logo, served at the size each screen needs.
+ * Variants in public/images/brokerage-logo/ are straight resizes of the approved
+ * transparent artwork (public/images/1st-class-real-estate-agency-logo.png), which stays
+ * the master file and the structured-data logo. WebP with a PNG fallback. The aspect
+ * ratio is pinned to the master so rounding in the smaller files can't change the shape.
+ */
+import { site } from '@/data/site';
+import { withBase } from '@/lib/paths';
+
+interface Props {
+  /** Rendered width, for the browser to pick a file (e.g. "163px"). */
+  sizes: string;
+  class?: string;
+  loading?: 'lazy' | 'eager';
+}
+const { sizes, class: className, loading } = Astro.props;
+const { logo, name } = site.brokerage;
+const widths = [200, 400, 600, 800];
+const srcset = (ext: string) => widths.map((w) => `${withBase(`/images/brokerage-logo/1st-class-${w}.${ext}`)} ${w}w`).join(', ');
+---
+
+<picture class="contents">
+  <source type="image/webp" srcset={srcset('webp')} sizes={sizes} />
+  <img
+    src={withBase('/images/brokerage-logo/1st-class-400.png')}
+    srcset={srcset('png')}
+    sizes={sizes}
+    width={logo.width}
+    height={logo.height}
+    alt={name}
+    loading={loading}
+    decoding="async"
+    class={className}
+    style={`aspect-ratio: ${logo.width} / ${logo.height}`}
+  />
+</picture>

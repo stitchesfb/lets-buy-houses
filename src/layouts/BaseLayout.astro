@@ -10,7 +10,7 @@ import Header from '@/components/layout/Header.astro';
 import Footer from '@/components/layout/Footer.astro';
 import MobileCtaBar from '@/components/layout/MobileCtaBar.astro';
 import { site } from '@/data/site';
-import { realEstateAgentSchema, websiteSchema } from '@/lib/schema';
+import { identitySchema, websiteSchema } from '@/lib/schema';
 
 interface Props {
   title: string;
@@ -35,7 +35,7 @@ const gaId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
     <link rel="icon" type="image/svg+xml" href={withBase('/favicon.svg')} />
     <link rel="sitemap" href={withBase('/sitemap-index.xml')} />
         <SEO title={title} description={description} image={image} noindex={noindex} />
-    <JsonLd schema={[realEstateAgentSchema(), websiteSchema(), ...schema]} />
+    <JsonLd schema={[...identitySchema(), websiteSchema(), ...schema]} />
     <slot name="head" />
     {
       gaId && (

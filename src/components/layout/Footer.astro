@@ -38,7 +38,7 @@ const launchReview = [
   <div class="container-page grid gap-10 py-12 md:grid-cols-[1fr_auto] md:gap-16">
     <div>
       <p class="font-serif text-2xl text-white">{agent.name}</p>
-      <div class="mt-4 inline-block rounded-sm bg-white px-3 py-2.5">
+      <div class="mt-4 w-fit rounded-sm bg-white px-3 py-2.5">
         <img
           src={withBase(brokerage.logo.src)}
           width={brokerage.logo.width}
@@ -48,7 +48,8 @@ const launchReview = [
           class="h-auto w-[12.5rem] sm:w-60"
         />
       </div>
-      <address class="mt-5 grid gap-x-10 gap-y-3 text-[0.9375rem] not-italic sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2">
+      <p class="mt-2.5 text-[0.8125rem] leading-snug text-white/85">Each office is independently owned and operated.</p>
+      <address class="mt-4 grid gap-x-10 gap-y-3 text-[0.9375rem] not-italic sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2">
         <div class="space-y-1.5">
           <p>{brokerage.name}<br />{address.street}, {address.city}, {address.region} {address.postalCode}</p>
           <p>{agent.firstName}’s NJ License #{agent.licenseNumber}</p>
@@ -89,8 +90,8 @@ const launchReview = [
   <div class="border-t border-white/10">
     <div class="container-page space-y-2 py-6 text-xs leading-relaxed sm:text-[0.8125rem]">
       <p>{disclosure} <span class="whitespace-nowrap">{brokerage.officePhone}</span>.</p>
-      <!-- Equal Housing Opportunity, the official NAR REALTOR® logo (white reverse for dark
-           backgrounds, used unaltered with its clear space), and the required statement -->
+      <!-- Equal Housing Opportunity and the official NAR REALTOR® logo (white reverse for dark
+           backgrounds, used unaltered with its clear space) -->
       <div class="flex flex-wrap items-center gap-x-6 gap-y-3 pt-3">
         <span class="inline-flex items-center gap-2 font-semibold text-white">
           <svg class="h-9 w-9 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
@@ -108,7 +109,6 @@ const launchReview = [
             class="block h-20 w-20"
           />
         </span>
-        <p class="basis-full text-white sm:basis-auto">Each office is independently owned and operated.</p>
       </div>
       <p class="flex flex-wrap items-center gap-x-5 gap-y-1 pt-1">
         <a href={withBase('/privacy/')} class="text-white underline-offset-4 hover:underline">Privacy</a>

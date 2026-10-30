@@ -1,4 +1,5 @@
 ---
+import BrokerageLogo from '@/components/ui/BrokerageLogo.astro';
 import { site } from '@/data/site';
 import { towns } from '@/data/towns';
 import { ui } from '@/i18n/en';
@@ -28,26 +29,14 @@ const isActive = (href: string) =>
 <header class="site-header sticky top-0 z-40 max-sm:-top-[5.5rem]">
   <div class="flex h-[5.5rem] items-center bg-ivory sm:hidden">
     <div class="container-page">
-      <img
-        src={withBase(site.brokerage.logo.src)}
-        width={site.brokerage.logo.width}
-        height={site.brokerage.logo.height}
-        alt={site.brokerage.name}
-        class="h-[4.5rem] w-auto"
-      />
+      <BrokerageLogo sizes="163px" class="h-[4.5rem] w-auto" />
     </div>
   </div>
   {isPreview && <PreviewBanner />}
   <div class="border-b border-line bg-ivory/95 backdrop-blur supports-[backdrop-filter]:bg-ivory/90">
   <div class="container-page flex min-h-16 items-center justify-between gap-3 py-2 sm:min-h-20 sm:gap-4 xl:min-h-24">
     <a href={withBase('/')} class="flex min-w-0 items-center gap-3 sm:gap-5" aria-label={`${site.agent.name}, ${site.brokerage.name}: home`}>
-      <img
-        src={withBase(site.brokerage.logo.src)}
-        width={site.brokerage.logo.width}
-        height={site.brokerage.logo.height}
-        alt={site.brokerage.name}
-        class="hidden h-[4.5rem] w-auto shrink-0 sm:block"
-      />
+      <BrokerageLogo sizes="163px" class="hidden h-[4.5rem] w-auto shrink-0 sm:block" />
       <span class="font-serif text-lg leading-tight whitespace-nowrap text-navy sm:text-xl">{site.agent.name}</span>
     </a>
 

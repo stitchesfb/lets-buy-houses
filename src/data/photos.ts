@@ -201,7 +201,7 @@ export const credits: Record<string, PhotoCredit> = {
     licenseUrl: commons('Aerial_view_of_Red_Bank.jpg'),
     sourceUrl: commons('Aerial_view_of_Red_Bank.jpg'),
     alt: 'Red Bank’s riverfront and downtown seen from above the Navesink River',
-    position: '50% 60%',
+    position: '50% 70%',
   },
   'asbury-park': {
     title: 'Asbury Park Oceanfront Aerial (October 15, 2025)',

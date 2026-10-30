@@ -1,4 +1,5 @@
 ---
+import BrokerageLogo from '@/components/ui/BrokerageLogo.astro';
 import { site } from '@/data/site';
 import { ui } from '@/i18n/en';
 import { isPreview } from '@/lib/mode';
@@ -39,14 +40,7 @@ const launchReview = [
     <div>
       <p class="font-serif text-2xl text-white">{agent.name}</p>
       <div class="mt-4 inline-block rounded-sm bg-white px-3 py-2.5">
-        <img
-          src={withBase(brokerage.logo.src)}
-          width={brokerage.logo.width}
-          height={brokerage.logo.height}
-          alt={brokerage.name}
-          loading="lazy"
-          class="h-auto w-[12.5rem] sm:w-60"
-        />
+        <BrokerageLogo sizes="(min-width: 640px) 240px, 200px" loading="lazy" class="h-auto w-[12.5rem] sm:w-60" />
       </div>
       <address class="mt-5 grid gap-x-10 gap-y-3 text-[0.9375rem] not-italic sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2">
         <div class="space-y-1.5">

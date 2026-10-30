@@ -89,13 +89,28 @@ const launchReview = [
   <div class="border-t border-white/10">
     <div class="container-page space-y-2 py-6 text-xs leading-relaxed sm:text-[0.8125rem]">
       <p>{disclosure} <span class="whitespace-nowrap">{brokerage.officePhone}</span>.</p>
-      <p class="flex flex-wrap items-center gap-x-5 gap-y-1">
-        <span class="inline-flex items-center gap-1.5 font-semibold text-white">
-          <svg class="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+      <!-- Equal Housing Opportunity, the official NAR REALTOR® logo (white reverse for dark
+           backgrounds, used unaltered with its clear space), and the required statement -->
+      <div class="flex flex-wrap items-center gap-x-6 gap-y-3 pt-3">
+        <span class="inline-flex items-center gap-2 font-semibold text-white">
+          <svg class="h-9 w-9 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
             <path d="M3 11 12 4l9 7" stroke-linejoin="round"></path><path d="M5 10v10h14V10"></path><path d="M9 14h6M9 17h6"></path>
           </svg>
           Equal Housing Opportunity
         </span>
+        <span class="inline-block px-4 py-5">
+          <img
+            src={withBase('/images/realtor-logo-white.png')}
+            width="600"
+            height="600"
+            alt="REALTOR® — member of the National Association of REALTORS®"
+            loading="lazy"
+            class="block h-20 w-20"
+          />
+        </span>
+        <p class="basis-full text-white sm:basis-auto">Each office is independently owned and operated.</p>
+      </div>
+      <p class="flex flex-wrap items-center gap-x-5 gap-y-1 pt-1">
         <a href={withBase('/privacy/')} class="text-white underline-offset-4 hover:underline">Privacy</a>
         <a href={withBase('/photo-credits/')} class="text-white underline-offset-4 hover:underline">Photo credits</a>
         <span>&copy; {year} {agent.legalName}</span>
@@ -108,5 +123,6 @@ const launchReview = [
         )
       }
     </div>
+    <p class="border-t border-white/10 py-3 text-center text-[0.75rem] leading-5 text-navy-soft/80">Website by Agent Signature Studio</p>
   </div>
 </footer>

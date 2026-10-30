@@ -343,7 +343,6 @@ const allTownData: Town[] = [
     subheadline:
       'Riverfront, canal, and creekside living in a borough with its own school district.',
     idxCity: 'Point Pleasant',
-    aliases: ['Point Pleasant Boro'],
     intro:
       'Point Pleasant Borough is shaped by its waterways: the Manasquan River along its northern edge, Beaver Dam Creek to the south, and the Point Pleasant Canal running through town. On the river, Riverfront Park has a pavilion, a walking pier, a playground, and benches for watching the boats. The borough is separate from neighboring Point Pleasant Beach, though the two share the 08742 ZIP code, and the Point Pleasant School District serves students from pre-kindergarten through Point Pleasant Borough High School.',
     highlights: [

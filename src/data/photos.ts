@@ -4,7 +4,7 @@
  * and converts it to WebP/AVIF at build time). Missing files fall back to a
  * styled placeholder, so the layout never breaks.
  *
- * Current photos are public-domain or Creative Commons images from Flickr,
+ * Current photos are public-domain or Creative Commons images from Flickr and Wikimedia Commons,
  * credited on /photo-credits/ (CC BY licenses require it). Replace them with
  * Jacquelyn's own photography whenever it's available.
  */
@@ -26,6 +26,7 @@ export interface PhotoCredit {
 const PD = { license: 'Public Domain Mark 1.0', licenseUrl: 'https://creativecommons.org/publicdomain/mark/1.0/' };
 const BY2 = { license: 'CC BY 2.0', licenseUrl: 'https://creativecommons.org/licenses/by/2.0/' };
 const BYSA2 = { license: 'CC BY-SA 2.0', licenseUrl: 'https://creativecommons.org/licenses/by-sa/2.0/' };
+const BYSA4 = { license: 'CC BY-SA 4.0', licenseUrl: 'https://creativecommons.org/licenses/by-sa/4.0/' };
 
 export const credits: Record<string, PhotoCredit> = {
   'home-hero': {
@@ -158,11 +159,12 @@ export const credits: Record<string, PhotoCredit> = {
     position: '50% 55%',
   },
   'point-pleasant': {
-    title: 'Above the Manasquan Inlet jetty and Point Pleasant Beach',
-    author: 'James Loesch',
-    ...BY2,
-    sourceUrl: 'https://www.flickr.com/photos/jal33/51695142307/',
-    alt: 'Aerial view of the Manasquan Inlet jetty and the beach at Point Pleasant Beach',
+    title: 'Manasquan River downstream from NJ Route 70, July 2026',
+    author: 'Mr. Matté',
+    ...BYSA4,
+    sourceUrl: 'https://commons.wikimedia.org/wiki/File:Manasquan_River_downstream_from_NJ_Route_70,_July_2026.jpg',
+    alt: 'Boats and marinas along the Point Pleasant Borough shore of the Manasquan River',
+    position: '70% 75%',
   },
   manalapan: {
     title: 'Monmouth Battlefield SP',

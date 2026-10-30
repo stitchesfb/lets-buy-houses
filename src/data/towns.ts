@@ -1091,14 +1091,14 @@ export const towns: Town[] = [
     headline:
       'Manalapan, NJ Homes for Sale & Real Estate',
     subheadline:
-      'Established neighborhoods and 55+ communities in western Monmouth County, with my guidance and more than 15 years of real estate experience.',
+      'Established neighborhoods and 55+ communities in western Monmouth County.',
     idxCity: 'Manalapan',
     intro:
-      'Manalapan offers established single-family neighborhoods and 55+ communities, with Monmouth Battlefield State Park extending into the township. U.S. Route 9, Route 33, and County Routes 522 and 527 cross Manalapan, and NJ Transit’s Route 139 bus runs to the Port Authority Bus Terminal in New York. Students attend the Manalapan-Englishtown Regional School District through grade 8, then Manalapan High School or Freehold Township High School.',
+      'Manalapan blends established single-family neighborhoods, 55+ communities such as Covered Bridge, and plenty of green space, with Monmouth Battlefield State Park extending right into the township. With more than 15 years of real estate experience, I’ll help you compare neighborhoods, commutes, and schools so you can find the home that fits the way you live.',
     highlights: [
-      'Manalapan-Englishtown Regional Schools and the Freehold Regional High School District',
+      'Manalapan-Englishtown Regional Schools through grade 8, then the Freehold Regional High School District',
       'Single-family homes and 55+ communities such as Covered Bridge',
-      'NJ Transit Route 139 bus to the Port Authority Bus Terminal in New York',
+      'U.S. Route 9, Route 33, County Routes 522 and 527, and NJ Transit’s Route 139 bus to New York',
       'Monmouth Battlefield State Park and the Manalapan Recreation Center',
     ],
     neighborhoods: [
@@ -1129,7 +1129,12 @@ export const towns: Town[] = [
       {
         question: 'How are the schools in Manalapan?',
         answer:
-          'Manalapan-Englishtown Regional School District and the Freehold Regional High School District (including Manalapan High School) serve the township. The NJ Department of Education publishes School Performance Reports for each school.',
+          'Students attend the Manalapan-Englishtown Regional School District through grade 8, then Manalapan High School or Freehold Township High School in the Freehold Regional High School District. The NJ Department of Education publishes School Performance Reports for each school.',
+      },
+      {
+        question: 'How do people commute from Manalapan?',
+        answer:
+          'U.S. Route 9, Route 33, and County Routes 522 and 527 cross the township, and NJ Transit’s Route 139 bus runs to the Port Authority Bus Terminal in New York.',
       },
     ],
   },

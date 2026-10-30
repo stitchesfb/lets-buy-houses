@@ -27,6 +27,10 @@ const PD = { license: 'Public Domain Mark 1.0', licenseUrl: 'https://creativecom
 const BY2 = { license: 'CC BY 2.0', licenseUrl: 'https://creativecommons.org/licenses/by/2.0/' };
 const BYSA2 = { license: 'CC BY-SA 2.0', licenseUrl: 'https://creativecommons.org/licenses/by-sa/2.0/' };
 const BYSA4 = { license: 'CC BY-SA 4.0', licenseUrl: 'https://creativecommons.org/licenses/by-sa/4.0/' };
+const BYSA3 = { license: 'CC BY-SA 3.0', licenseUrl: 'https://creativecommons.org/licenses/by-sa/3.0/' };
+const BY3 = { license: 'CC BY 3.0', licenseUrl: 'https://creativecommons.org/licenses/by/3.0/' };
+const BY4 = { license: 'CC BY 4.0', licenseUrl: 'https://creativecommons.org/licenses/by/4.0/' };
+const commons = (file: string) => `https://commons.wikimedia.org/wiki/File:${file}`;
 
 export const credits: Record<string, PhotoCredit> = {
   'home-hero': {
@@ -94,12 +98,12 @@ export const credits: Record<string, PhotoCredit> = {
     position: '55% 50%',
   },
   'seaside-park': {
-    title: 'Island Beach State Park',
-    author: 'James Loesch',
-    ...BY2,
-    sourceUrl: 'https://www.flickr.com/photos/34920192@N02/52378074308',
-    alt: 'Aerial view of Island Beach State Park, just south of Seaside Park',
-    position: '50% 50%',
+    title: 'Sunrise Over Seaside Park New Jersey, Jersey Shore',
+    author: 'Michael Vadon',
+    ...BYSA2,
+    sourceUrl: 'https://www.flickr.com/photos/80038275@N00/19605571783/',
+    alt: 'Sunrise over the ocean from the beach in Seaside Park',
+    position: '50% 45%',
   },
   'beach-haven': {
     title: 'Beach Haven, Long Beach Island, New Jersey — 2022',
@@ -119,12 +123,12 @@ export const credits: Record<string, PhotoCredit> = {
     position: '50% 50%',
   },
   'barnegat': {
-    title: 'Barnegat Bay Sunset',
-    author: 'Garden State Hiker',
-    ...BY2,
-    sourceUrl: 'https://www.flickr.com/photos/42693172@N05/9543327812',
-    alt: 'Sunset over Barnegat Bay',
-    position: '50% 60%',
+    title: 'Barnegat Bay - Summer 2008',
+    author: 'James Hertan',
+    ...BY3,
+    sourceUrl: commons('Barnegat_Bay_-_Summer_2008_-_panoramio.jpg'),
+    alt: 'A sailboat on Barnegat Bay off Barnegat Township, with Barnegat Lighthouse in the distance',
+    position: '60% 50%',
   },
   'tuckerton': {
     title: 'Tuckerton Seaport',
@@ -135,11 +139,11 @@ export const credits: Record<string, PhotoCredit> = {
     position: '60% 50%',
   },
   'manchester': {
-    title: 'New Jersey Pine Barrens Fall Colors #2',
-    author: 'James Loesch',
-    ...BY2,
-    sourceUrl: 'https://www.flickr.com/photos/34920192@N02/51671948499',
-    alt: 'Aerial view of fall color in the New Jersey Pine Barrens',
+    title: 'Harry Wright Lake',
+    author: 'ManchesterTwp',
+    ...BYSA4,
+    sourceUrl: commons('Harry_Wright_Lake.jpg'),
+    alt: 'The beach and swimming area at Harry Wright Lake in Manchester Township',
     position: '50% 50%',
   },
   'whiting': {
@@ -165,6 +169,94 @@ export const credits: Record<string, PhotoCredit> = {
     sourceUrl: 'https://commons.wikimedia.org/wiki/File:Manasquan_River_downstream_from_NJ_Route_70,_July_2026.jpg',
     alt: 'Boats and marinas along the Point Pleasant Borough shore of the Manasquan River',
     position: '70% 75%',
+  },
+  'pine-beach': {
+    title: 'View of Island Heights, NJ from Pine Beach, Dec. 2024',
+    author: 'Mr. Matté',
+    ...BYSA4,
+    sourceUrl: commons('View_of_Island_Heights,_NJ_from_Pine_Beach,_Dec._2024.jpg'),
+    alt: 'The Toms River seen from the Pine Beach shoreline on a clear day',
+    position: '50% 60%',
+  },
+  'ocean-gate': {
+    title: 'Jeffreys Creek, Ocean Gate, NJ, Dec. 2024',
+    author: 'Mr. Matté',
+    ...BYSA4,
+    sourceUrl: commons('Jeffreys_Creek,_Ocean_Gate,_NJ,_Dec._2024.jpg'),
+    alt: 'Homes along Jeffreys Creek in Ocean Gate',
+    position: '50% 50%',
+  },
+  mantoloking: {
+    title: 'Above Mantoloking',
+    author: 'James Loesch',
+    ...BY2,
+    sourceUrl: 'https://www.flickr.com/photos/jal33/48015407501/',
+    alt: 'Aerial view of Mantoloking, with homes between the dunes and Route 35 along the ocean',
+    position: '50% 55%',
+  },
+  'point-pleasant-beach': {
+    title: 'Point Pleasant Beach boardwalk',
+    author: 'Leif Knutsen',
+    ...BYSA3,
+    sourceUrl: commons('Point_Pleasant_Beach_boardw.jpg'),
+    alt: 'The beach and boardwalk in Point Pleasant Beach',
+    position: '50% 60%',
+  },
+  'red-bank': {
+    title: 'Navesink River 2023',
+    author: 'Antony-22',
+    ...BYSA4,
+    sourceUrl: commons('Navesink_River_2023.jpg'),
+    alt: 'Aerial view of Red Bank and the Navesink River',
+    position: '50% 50%',
+  },
+  'asbury-park': {
+    title: 'Asbury Park Oceanfront Aerial (October 15, 2025)',
+    author: 'Szeremeta',
+    ...BY4,
+    sourceUrl: commons('Asbury_Park_Oceanfront_Aerial_(October_15,_2025).jpg'),
+    alt: 'Aerial view of the Asbury Park beach, boardwalk, and oceanfront',
+    position: '50% 55%',
+  },
+  neptune: {
+    title: 'Golden Hour at Ocean Grove Fishing Pier',
+    author: 'Sri Reddy Photography',
+    ...BYSA4,
+    sourceUrl: commons('Golden_Hour_at_Ocean_Grove_Fishing_Pier.jpg'),
+    alt: 'Sunrise over the fishing pier in Ocean Grove, part of Neptune Township',
+    position: '50% 45%',
+  },
+  middletown: {
+    title: 'Black Fish Cove, Hartshorne Woods Park - beach',
+    author: 'Zeete',
+    ...BYSA4,
+    sourceUrl: commons('Black_Fish_Cove,_Hartshorne_Woods_Park_-_beach.jpg'),
+    alt: 'A sandy cove on the Navesink River at Hartshorne Woods Park in Middletown',
+    position: '50% 55%',
+  },
+  jackson: {
+    title: 'Autumn view east from the northwest shore of Prospertown Lake',
+    author: 'Famartin',
+    ...BYSA4,
+    sourceUrl: commons('2024-10-21_12_27_23_Autumn_view_east_from_the_northwest_shore_of_Prospertown_Lake_in_Jackson_Township,_Ocean_County,_New_Jersey.jpg'),
+    alt: 'Prospertown Lake in Jackson Township on an autumn day',
+    position: '50% 55%',
+  },
+  lacey: {
+    title: 'Lake along Davenport Branch west of Ocean CR 614, Lacey Township, NJ, July 2025',
+    author: 'Mr. Matté',
+    ...BYSA4,
+    sourceUrl: commons('Lake_along_Davenport_Branch_west_of_Ocean_CR_614,_Lacey_Township,_NJ,_July_2025.jpg'),
+    alt: 'A lake surrounded by pine forest along the Davenport Branch in Lacey Township',
+    position: '50% 60%',
+  },
+  'tinton-falls': {
+    title: 'TintonFalls Falls1',
+    author: 'Wikijazz (Flickr4Jazz)',
+    ...BYSA3,
+    sourceUrl: commons('TintonFalls_Falls1.jpg'),
+    alt: 'The waterfall in the historic district of Tinton Falls',
+    position: '50% 55%',
   },
   manalapan: {
     title: 'Monmouth Battlefield SP',

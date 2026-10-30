@@ -1,7 +1,7 @@
 ---
 import BrokerageLogo from '@/components/ui/BrokerageLogo.astro';
 import { site } from '@/data/site';
-import { towns } from '@/data/towns';
+import { allTowns } from '@/data/towns';
 import { ui } from '@/i18n/en';
 import { stripBase, withBase } from '@/lib/paths';
 import { isPreview } from '@/lib/mode';
@@ -17,7 +17,7 @@ const nav = [
 ];
 
 const path = stripBase(Astro.url.pathname);
-const townPaths = towns.map((t) => `/${t.slug}/`);
+const townPaths = allTowns.map((t) => `/${t.slug}/`);
 const isActive = (href: string) =>
   href === '/' ? path === '/' : path.startsWith(href) || (href === '/communities/' && townPaths.includes(path));
 ---

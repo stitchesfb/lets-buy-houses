@@ -21,11 +21,13 @@ const brokerageAddress = () => ({
   addressCountry: site.brokerage.address.country,
 });
 
-const city = (t: Pick<Town, 'name' | 'county'>) => ({
-  '@type': 'City',
-  name: `${t.name}, NJ`,
-  containedInPlace: { '@type': 'AdministrativeArea', name: `${t.county}, NJ` },
-});
+const county = (t: Pick<Town, 'county'>) => ({ '@type': 'AdministrativeArea', name: `${t.county}, NJ` });
+
+/** A municipality, or a section of one (e.g. Ortley Beach, part of Toms River). */
+const city = (t: Pick<Town, 'name' | 'county' | 'partOf'>) =>
+  t.partOf
+    ? { '@type': 'Place', name: `${t.name}, NJ`, containedInPlace: { '@type': 'City', name: `${t.partOf}, NJ`, containedInPlace: county(t) } }
+    : { '@type': 'City', name: `${t.name}, NJ`, containedInPlace: county(t) };
 
 /**
  * Jacquelyn (Person), her brokerage (a separate business), and the services she provides.

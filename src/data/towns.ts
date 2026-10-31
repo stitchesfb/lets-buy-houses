@@ -273,7 +273,6 @@ export const towns: Town[] = [
     county: 'Ocean County',
     zipCodes: ['08759'],
     angle: 'Pinelands setting & active-adult communities',
-    photo: 'whiting',
     metaTitle:
       'Whiting, NJ Homes & Real Estate | Jacquelyn Guevara',
     metaDescription:
@@ -1326,6 +1325,7 @@ export const towns: Town[] = [
     county: 'Ocean County',
     zipCodes: ['08751'],
     angle: 'Toms River’s oceanfront section',
+    photo: 'ortley-beach',
     metaTitle:
       'Ortley Beach, NJ Homes & Real Estate | Jacquelyn Guevara',
     metaDescription:

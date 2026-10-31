@@ -16,9 +16,11 @@ interface Props {
   class?: string;
   /** Placeholder label when no photo is available. */
   label?: string;
+  /** `navy`: a plain navy panel instead of the sketched placeholder (community cards). */
+  tone?: 'default' | 'navy';
 }
 
-const { photo, aspect, sizes = '100vw', widths = [480, 800, 1200, 1600], eager = false, class: className, label } = Astro.props;
+const { photo, aspect, sizes = '100vw', widths = [480, 800, 1200, 1600], eager = false, class: className, label, tone = 'default' } = Astro.props;
 const frame = aspect ? `aspect-ratio:${aspect}` : undefined;
 ---
 
@@ -37,12 +39,12 @@ const frame = aspect ? `aspect-ratio:${aspect}` : undefined;
     />
   ) : (
     <div
-      class:list={['relative flex h-full w-full items-end overflow-hidden bg-navy-100', className]}
+      class:list={['relative flex h-full w-full items-end overflow-hidden', tone === 'navy' ? 'bg-navy' : 'bg-navy-100', className]}
       style={frame}
       role={label ? 'img' : undefined}
       aria-label={label}
     >
-      <svg class="absolute inset-0 h-full w-full text-navy/10" preserveAspectRatio="xMidYMax slice" viewBox="0 0 400 300" aria-hidden="true">
+      <svg class:list={['absolute inset-0 h-full w-full text-navy/10', tone === 'navy' && 'hidden']} preserveAspectRatio="xMidYMax slice" viewBox="0 0 400 300" aria-hidden="true">
         <path fill="currentColor" d="M0 230 L60 190 L110 215 L170 170 L230 205 L290 160 L350 195 L400 175 V300 H0Z" />
         <path fill="currentColor" d="M0 262 Q100 245 200 262 T400 258 V300 H0Z" />
       </svg>

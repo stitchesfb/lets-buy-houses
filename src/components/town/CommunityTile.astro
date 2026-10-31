@@ -14,7 +14,7 @@ const { town: t, sizes = '(min-width: 1024px) 33vw, 50vw' } = Astro.props;
 
 <a href={withBase(`/${t.slug}/`)} class="group on-dark relative isolate block aspect-[4/5] overflow-hidden rounded-sm text-white sm:aspect-[5/4]">
   <div class="absolute inset-0 -z-10 transition-transform duration-700 group-hover:scale-[1.04]">
-    <Photo photo={photo(t.photo)} sizes={sizes} widths={[400, 640, 900, 1200]} />
+    <Photo photo={photo(t.photo)} sizes={sizes} widths={[400, 640, 900, 1200]} tone="navy" />
   </div>
   <div class="absolute inset-0 -z-10 bg-gradient-to-t from-navy/80 via-navy/10 to-transparent"></div>
   <div class="absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 p-4 sm:p-6">

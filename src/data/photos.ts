@@ -7,6 +7,11 @@
  * Current photos are public-domain or Creative Commons images from Flickr and Wikimedia Commons,
  * credited on /photo-credits/ (CC BY licenses require it). Replace them with
  * Jacquelyn's own photography whenever it's available.
+ *
+ * Follow-up photography (location-accurate, landscape, no faces, plates, or business signs):
+ *  - Bayville and Whiting: no photo yet (plain navy hero and cards).
+ *  - Ortley Beach: temporary Route 35 street photo; replace with a beach view.
+ *  - Red Bank: the aerial dates to 2007; replace with a current riverfront view.
  */
 import type { ImageMetadata } from 'astro';
 
@@ -138,14 +143,6 @@ export const credits: Record<string, PhotoCredit> = {
     alt: 'The beach and swimming area at Harry Wright Lake in Manchester Township',
     position: '50% 50%',
   },
-  'whiting': {
-    title: 'New Jersey Pine Barrens Fall Colors',
-    author: 'James Loesch',
-    ...BY2,
-    sourceUrl: 'https://www.flickr.com/photos/34920192@N02/51641253719',
-    alt: 'Aerial view of a pond and fall foliage in the New Jersey Pine Barrens',
-    position: '50% 50%',
-  },
   beachwood: {
     title: 'Jakes Branch County Park',
     author: 'Hypnotica Studios Infinite',
@@ -161,6 +158,14 @@ export const credits: Record<string, PhotoCredit> = {
     sourceUrl: 'https://commons.wikimedia.org/wiki/File:Manasquan_River_downstream_from_NJ_Route_70,_July_2026.jpg',
     alt: 'Boats and marinas along the Point Pleasant Borough shore of the Manasquan River',
     position: '70% 75%',
+  },
+  'ortley-beach': {
+    title: 'NJ Route 35 sb in Ortley Beach, Dec. 2024',
+    author: 'Mr. Matté',
+    ...BYSA4,
+    sourceUrl: commons('NJ_Route_35_sb_in_Ortley_Beach,_Dec._2024.jpg'),
+    alt: 'Route 35 and the Ortley Beach water tower',
+    position: '50% 40%',
   },
   'pine-beach': {
     title: 'View of Island Heights, NJ from Pine Beach, Dec. 2024',

@@ -159,6 +159,14 @@ export const credits: Record<string, PhotoCredit> = {
     alt: 'Boats and marinas along the Point Pleasant Borough shore of the Manasquan River',
     position: '70% 75%',
   },
+  'spring-lake': {
+    title: 'Spring Lake bridge',
+    author: 'hill10003',
+    ...BYSA3,
+    sourceUrl: commons('Spring_Lake_bridge_-_panoramio.jpg'),
+    alt: 'The wooden footbridge over the lake in Spring Lake',
+    position: '50% 55%',
+  },
   'ortley-beach': {
     title: 'NJ Route 35 sb in Ortley Beach, Dec. 2024',
     author: 'Mr. Matté',

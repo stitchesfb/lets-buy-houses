@@ -33,6 +33,7 @@ export type TownSlug =
   | 'red-bank-nj'
   | 'neptune-township-nj'
   | 'asbury-park-nj'
+  | 'spring-lake-nj'
   | 'ortley-beach-nj'
   | 'mantoloking-nj'
   | 'point-pleasant-beach-nj';
@@ -1315,6 +1316,67 @@ export const towns: Town[] = [
         question: 'Is there a train to New York from Asbury Park?',
         answer:
           'Yes, though most trips require changing trains at Long Branch. NJ Transit’s North Jersey Coast Line serves the Asbury Park station, a short walk from Cookman Avenue and the boardwalk, and a few weekday express trains run directly to New York Penn Station.',
+      },
+    ],
+  },
+  {
+    slug: 'spring-lake-nj',
+    name: 'Spring Lake',
+    county: 'Monmouth County',
+    zipCodes: ['07762'],
+    angle: 'A lakeside town with a two-mile boardwalk',
+    photo: 'spring-lake',
+    metaTitle:
+      'Spring Lake, NJ Homes & Real Estate | Jacquelyn Guevara',
+    metaDescription:
+      'Spring Lake real estate guidance from Jacquelyn Guevara: homes near the lake and a two-mile non-commercial boardwalk in a Monmouth County borough.',
+    headline:
+      'Spring Lake, NJ Homes for Sale & Real Estate',
+    subheadline:
+      'A Monmouth County borough built around its namesake lake, with a two-mile boardwalk along the beach.',
+    idxCity: 'Spring Lake',
+    intro:
+      'Spring Lake is a charming shore borough that grew up around the clear pond it’s named for. Today it offers a two-mile, non-commercial boardwalk along a sandy beach, with beach pavilions and pools run by the borough. Students attend H.W. Mountz Elementary School through eighth grade, then Manasquan High School. Spring Lake is its own borough, separate from Spring Lake Heights.',
+    highlights: [
+      'A two-mile, non-commercial boardwalk along the beach',
+      'The lake at the heart of town',
+      'H.W. Mountz Elementary through grade 8; Manasquan High School for grades 9–12',
+      'NJ Transit North Jersey Coast Line station',
+    ],
+    neighborhoods: [
+      { name: 'Oceanfront', blurb: 'Homes closest to the beach and boardwalk.' },
+      { name: 'Around the Lake', blurb: 'Streets near the lake and its footbridges.' },
+      { name: 'Inland Spring Lake', blurb: 'Residential streets a short walk or ride from the beach.' },
+    ],
+    marketOverview:
+      'Spring Lake is a residential borough where distance to the beach, the boardwalk, and the lake shapes value. I compare recent Spring Lake sales closely and keep them separate from Spring Lake Heights, a different borough with its own taxes and services.',
+    buyerTips: [
+      'Confirm the municipality: Spring Lake and Spring Lake Heights are separate boroughs.',
+      'For homes near the water, ask for an elevation certificate and flood insurance quotes early.',
+      'If you’ll commute by train, check NJ Transit’s timetable; most trips to New York change at Long Branch.',
+    ],
+    sellerTips: [
+      'Highlight your distance to the beach, the boardwalk, and the lake.',
+      'Have records of updates, permits, and any elevation work ready for buyers.',
+      'Price against recent Spring Lake sales, not Spring Lake Heights.',
+    ],
+    marketStats: placeholderStats(),
+    geo: { latitude: 40.1534, longitude: -74.0282 },
+    faqs: [
+      {
+        question: 'Is Spring Lake the same as Spring Lake Heights?',
+        answer:
+          'No. Spring Lake and Spring Lake Heights are separate boroughs, with separate taxes and municipal services.',
+      },
+      {
+        question: 'Which schools serve Spring Lake?',
+        answer:
+          'Spring Lake students attend H.W. Mountz Elementary School from preschool through grade 8, then Manasquan High School, which also serves Spring Lake Heights and several nearby towns.',
+      },
+      {
+        question: 'Is there a train station in Spring Lake?',
+        answer:
+          'Yes. NJ Transit’s North Jersey Coast Line stops in Spring Lake. Most trips to New York require changing trains at Long Branch, so check NJ Transit’s current timetable.',
       },
     ],
   },

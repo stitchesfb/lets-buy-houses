@@ -1,0 +1,40 @@
+---
+/**
+ * IDX Broker dynamic wrapper: IDX Broker fetches this page and places its hosted
+ * search, listing, and account pages between the idxStart/idxStop markers, so they
+ * carry Jackie's header and footer. After the build, every root-relative link and
+ * asset here is rewritten to https://letsbuyhouses.com/... (see astro.config.mjs),
+ * because the page is shown on IDX Broker's domain.
+ *
+ * Not linked anywhere and kept out of the sitemap. No robots/canonical tags: IDX
+ * copies this head onto its own pages. The phone contact bar is left out so it
+ * can't cover IDX's map and search controls.
+ */
+import '@fontsource-variable/inter';
+import '@fontsource-variable/playfair-display';
+import '@/styles/idx-wrapper.css';
+
+import Header from '@/components/layout/Header.astro';
+import Footer from '@/components/layout/Footer.astro';
+import { site } from '@/data/site';
+import { withBase } from '@/lib/paths';
+---
+
+<!doctype html>
+<html lang={site.lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#14283f" />
+    <link rel="icon" type="image/svg+xml" href={withBase('/favicon.svg')} />
+    <title>{`Homes for Sale | ${site.agent.name}, ${site.brokerage.name}`}</title>
+  </head>
+  <body class="flex min-h-screen flex-col">
+    <Header />
+    <main id="main" class="flex-1">
+      <div id="idxStart"></div>
+      <div id="idxStop"></div>
+    </main>
+    <Footer />
+  </body>
+</html>

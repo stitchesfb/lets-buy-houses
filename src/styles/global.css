@@ -1,29 +1,6 @@
 @import 'tailwindcss';
 
-/*
- * Design tokens — change these to re-skin the whole site.
- * Contrast (WCAG): ink/navy on ivory ≥12:1. Gold #B69A63 is decorative only on
- * light backgrounds (2.5:1); use gold-700 for gold-tinted text on light (5.2:1)
- * and plain gold for text only on navy (5.6:1).
- */
-@theme {
-  --color-ivory: #f8f6f2;
-  --color-ivory-deep: #f0ebe2;
-  --color-navy: #14283f;
-  --color-navy-800: #1d3754;
-  --color-navy-100: #dfe5ec;
-  --color-navy-soft: #c9d2dc; /* body text on navy */
-  --color-gold: #b69a63;
-  --color-gold-200: #e6dac3;
-  --color-gold-700: #7c6436;
-  --color-ink: #26313b;
-  --color-muted: #5b6670;
-  --color-line: #e3ddd2;
-
-  --font-sans: 'Inter Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-  --font-serif: 'Playfair Display Variable', ui-serif, Georgia, serif;
-}
-
+@import './tokens.css';
 
 @layer base {
   html {
@@ -59,43 +36,3 @@
     }
   }
 }
-
-@utility container-page {
-  @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
-}
-@utility section {
-  @apply py-16 sm:py-24;
-}
-/* Small caps label above headings */
-@utility eyebrow {
-  @apply text-xs font-semibold tracking-[0.18em] text-gold-700 uppercase;
-}
-/* Short gold rule used as a restrained decorative accent */
-@utility rule-gold {
-  @apply block h-px w-12 bg-gold;
-}
-@utility btn {
-  @apply inline-flex min-h-12 items-center justify-center gap-2 rounded-md px-6 py-3 text-base font-semibold transition-colors;
-}
-@utility btn-primary {
-  @apply btn bg-navy text-white hover:bg-navy-800;
-}
-@utility btn-outline {
-  @apply btn border border-navy/30 bg-white text-navy hover:border-navy hover:bg-ivory;
-}
-@utility btn-light {
-  @apply btn bg-white text-navy hover:bg-ivory;
-}
-@utility btn-ghost-light {
-  @apply btn border border-white/60 text-white hover:bg-white/10;
-}
-@utility card {
-  @apply rounded-xl border border-line bg-white;
-}
-@utility form-input {
-  @apply block min-h-12 w-full rounded-md border border-line bg-white px-4 py-3 text-base text-ink placeholder:text-muted/70 focus:border-navy focus:ring-2 focus:ring-navy/20 focus:outline-none aria-[invalid=true]:border-red-700;
-}
-@utility form-label {
-  @apply mb-1.5 block text-sm font-semibold text-ink;
-}
-

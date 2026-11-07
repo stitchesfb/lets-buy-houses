@@ -1,0 +1,91 @@
+/*
+ * Styles for the IDX Broker wrapper (src/pages/idx-wrapper.astro). Same tokens and
+ * utilities as the site, but Tailwind's global reset (preflight) is left out and
+ * re-applied only inside Jackie's header and footer, so IDX Broker's own search,
+ * listing, and account pages keep the browser defaults they rely on.
+ */
+@layer theme, base, components, utilities;
+@import 'tailwindcss/theme.css' layer(theme);
+@import 'tailwindcss/utilities.css' layer(utilities);
+@import './tokens.css';
+
+@layer base {
+  html {
+    scroll-padding-top: 6rem;
+  }
+  body {
+    @apply bg-ivory font-sans text-ink antialiased;
+  }
+
+  /* Preflight, scoped to the header and footer */
+  :where(.site-header, .site-footer) {
+    @apply font-sans text-[1.0625rem] leading-relaxed;
+  }
+  :where(.site-header, .site-footer),
+  :where(.site-header, .site-footer) *,
+  :where(.site-header, .site-footer) ::before,
+  :where(.site-header, .site-footer) ::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    border: 0 solid;
+  }
+  :where(.site-header, .site-footer) :is(ul, ol) {
+    list-style: none;
+  }
+  :where(.site-header, .site-footer) a {
+    color: inherit;
+    text-decoration: inherit;
+  }
+  :where(.site-header, .site-footer) :is(img, svg, picture, video) {
+    display: block;
+    vertical-align: middle;
+  }
+  :where(.site-header, .site-footer) :is(img, video) {
+    max-width: 100%;
+    height: auto;
+  }
+  :where(.site-header, .site-footer) button {
+    font: inherit;
+    letter-spacing: inherit;
+    color: inherit;
+    background-color: transparent;
+    border-radius: 0;
+    cursor: pointer;
+  }
+  :where(.site-header, .site-footer) :is(h1, h2, h3, h4, h5, h6) {
+    font-size: inherit;
+    font-weight: inherit;
+  }
+  :where(.site-header, .site-footer) [hidden]:where(:not([hidden='until-found'])) {
+    display: none !important;
+  }
+
+  /* The site's own base styles, scoped the same way */
+  :where(.site-header, .site-footer) :is(h1, h2, h3) {
+    @apply font-serif font-medium tracking-tight text-navy;
+  }
+  :where(.site-header, .site-footer) :focus-visible {
+    @apply outline-2 outline-offset-2 outline-navy;
+  }
+  :where(.site-header, .site-footer) .on-dark :focus-visible,
+  .site-footer.on-dark :focus-visible {
+    @apply outline-gold;
+  }
+}
+
+/*
+ * IDX Broker's own stylesheets are unlayered, so they outrank every Tailwind layer;
+ * the map search even sets `* { position: relative; margin: 0; font-weight: 400 }`.
+ * Inside the header and footer, send every property back to the site's own layered
+ * styles so IDX rules can't change them (inline styles still apply).
+ */
+:is(.site-header, .site-footer),
+:is(.site-header, .site-footer) *,
+:is(.site-header, .site-footer) *::before,
+:is(.site-header, .site-footer) *::after {
+  all: revert-layer;
+}
+body {
+  margin: 0;
+}

@@ -1,0 +1,208 @@
+---
+/**
+ * An IDX Broker "Listings Carousel" widget in the site's section layout.
+ *
+ * The widget renders inside its own shadow root, so the site's CSS can't reach it.
+ * The script below adds a small stylesheet to that shadow root so the cards use the
+ * site's fonts and colors, fill three columns on desktop and one on phones, and keep
+ * IDX's own links, arrows, and MLS logos. IDX's duplicate heading is hidden; the
+ * section's own heading replaces it, and IDX's "View All" link (when the widget has
+ * it enabled) is mirrored next to that heading with the same URL.
+ */
+interface Props {
+  /** IDX Broker widget ID, e.g. 184978 */
+  widgetId: number;
+  eyebrow: string;
+  title: string;
+  /** Extra classes for the outer section (spacing between stacked carousels). */
+  class?: string;
+}
+
+const { widgetId, eyebrow, title, class: className } = Astro.props;
+const headingId = `idx-carousel-${widgetId}-heading`;
+const src = `https://letsbuyhouses.idxbroker.com/idx/widgets/${widgetId}`;
+---
+
+<section class:list={['idx-carousel-section', className]} aria-labelledby={headingId} data-idx-carousel={widgetId}>
+  <div class="container-page">
+    <div class="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+      <div>
+        <p class="eyebrow">{eyebrow}</p>
+        <h2 id={headingId} class="mt-3 text-3xl sm:text-4xl">{title}</h2>
+      </div>
+      <a
+        data-view-all
+        hidden
+        class="font-semibold text-navy underline decoration-gold underline-offset-8 hover:decoration-navy"
+      >
+        View all<span class="sr-only"> {title.toLowerCase()}</span> <span aria-hidden="true">→</span>
+      </a>
+    </div>
+    <div class="idx-carousel-slot mt-8 min-h-[27rem] sm:mt-10" data-idx-slot>
+      <script is:inline charset="UTF-8" type="text/javascript" id={`idxwidgetsrc-${widgetId}`} src={src} defer></script>
+    </div>
+  </div>
+</section>
+
+<style is:global>
+  /*
+   * IDX adds its listing tooltips (e.g. open house dates) to <body> and parks hidden
+   * ones beside the off-screen cards, which made the whole page scroll sideways.
+   * Take them out of the layout until IDX shows them.
+   */
+  body > .idx-tooltip[aria-hidden='true'] {
+    display: none;
+  }
+</style>
+
+<script>
+  // Styles added inside each carousel's shadow root. IDX sets its colors as inline
+  // custom properties, so those overrides need !important.
+  const SHADOW_CSS = `
+    .idx-listings-carousel.idx-listings-carousel {
+      --idx-banners-color: #14283f !important;
+      --idx-text-color: #26313b !important;
+      --idx-arrows-color: #ffffff !important;
+      --idx-arrowBackground-color: #14283f !important;
+      font-family: var(--font-sans, system-ui, sans-serif);
+      background: transparent;
+      padding: 0;
+      min-width: 0;
+      color: #26313b;
+    }
+    .idx-listings-carousel .idx-listings-carousel__header { display: none; }
+    .idx-listings-carousel .idx-listings-carousel__properties {
+      width: 100% !important; /* IDX sets fixed pixel widths per size class */
+      gap: 1.5rem;
+      scroll-snap-type: x mandatory;
+      /* IDX's arrows add 320px to the current position; with smooth scrolling, quick
+         repeat clicks read a mid-animation position and snap back to the same card. */
+      scroll-behavior: auto;
+      align-items: stretch;
+    }
+    .idx-listings-carousel .idx-listings-carousel__property {
+      flex: 0 0 100%;
+      min-width: 0;
+      scroll-snap-align: start;
+      background: transparent;
+    }
+    @media (min-width: 640px) {
+      .idx-listings-carousel .idx-listings-carousel__property { flex-basis: calc((100% - 1.5rem) / 2); }
+    }
+    @media (min-width: 1024px) {
+      .idx-listings-carousel .idx-listings-carousel__property { flex-basis: calc((100% - 3rem) / 3); }
+    }
+    .idx-listings-carousel .idx-listing-card__wrap {
+      height: auto;
+      min-width: 0;
+      min-height: 0;
+      aspect-ratio: 4 / 3;
+      border-radius: 2px;
+      text-shadow: none;
+    }
+    .idx-listings-carousel .idx-listing-card__image--wrap img { object-fit: cover; }
+    .idx-listings-carousel .idx-listing-card__prop-status {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background: rgb(20 40 63 / 0.88);
+      border-radius: 2px;
+      padding: 0.25rem 0.5rem;
+      left: 0.75rem;
+      bottom: 0.75rem;
+    }
+    .idx-listings-carousel .idx-listing-card__details { padding: 1.25rem 0 0; }
+    .idx-listings-carousel .idx-listing-card__listing-price {
+      font-family: var(--font-serif, Georgia, serif);
+      font-size: 1.5rem;
+      font-weight: 400;
+      line-height: 2rem;
+      color: #14283f;
+    }
+    .idx-listings-carousel .idx-listing-card__core-fields { margin-top: 0.25rem; }
+    .idx-listings-carousel .idx-listing-card__core-fields .idx-listing-card__single-item { color: #5b6670; font-size: 0.9375rem; }
+    .idx-listings-carousel .idx-listing-card__address { margin-top: 0.25rem; font-size: 1rem; font-weight: 500; color: #26313b; }
+    .idx-listings-carousel .idx-listing-card__courtesy { font-size: 0.75rem; color: #5b6670; }
+    .idx-listings-carousel .idx-listing-card__link:focus-visible { outline: 2px solid #14283f; outline-offset: 2px; }
+    .idx-listings-carousel .idx-listings-carousel__arrows { width: auto; gap: 0.75rem; margin-top: 1.5rem; justify-content: center; }
+    .idx-listings-carousel .idx-listings-carousel__arrow { cursor: pointer; transition: background-color 150ms; }
+    .idx-listings-carousel .idx-listings-carousel__arrow:hover { background: #1d3754; }
+    .idx-listings-carousel .idx-listings-carousel__arrow:focus-visible { outline: 2px solid #14283f; outline-offset: 3px; }
+  `;
+
+  const MARK = 'data-site-styles';
+
+  function enhance(section: HTMLElement): boolean {
+    const host = section.querySelector('idx-listings-carousel');
+    const root = host?.shadowRoot;
+    if (!root || !root.querySelector('.idx-listings-carousel')) return false;
+
+    if (!root.querySelector(`style[${MARK}]`)) {
+      const style = document.createElement('style');
+      style.setAttribute(MARK, '');
+      style.textContent = SHADOW_CSS;
+      root.appendChild(style);
+    }
+
+    // IDX's "View All" link, only when the widget has it enabled.
+    const viewAll = root.querySelector<HTMLAnchorElement>('.idx-listings-carousel__header a[href]');
+    const mirror = section.querySelector<HTMLAnchorElement>('[data-view-all]');
+    if (viewAll && mirror) {
+      mirror.href = viewAll.href;
+      if (viewAll.target === '_blank') {
+        mirror.target = '_blank';
+        mirror.rel = 'noopener';
+      }
+      mirror.hidden = false;
+    }
+
+    // IDX's arrows are plain divs; make them reachable and named for keyboards and screen readers.
+    const arrows: [string, string][] = [
+      ['.idx-listings-carousel__arrows-left', 'Previous listings'],
+      ['.idx-listings-carousel__arrows-right', 'Next listings'],
+    ];
+    for (const [sel, label] of arrows) {
+      const el = root.querySelector<HTMLElement>(sel);
+      if (!el || el.hasAttribute('role')) continue;
+      el.setAttribute('role', 'button');
+      el.setAttribute('tabindex', '0');
+      el.setAttribute('aria-label', label);
+      el.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          el.click();
+        }
+      });
+    }
+
+    const slot = section.querySelector<HTMLElement>('[data-idx-slot]');
+    if (slot) slot.style.minHeight = '0';
+
+    // No listings in the feed: hide the whole section rather than show an empty carousel.
+    if (!root.querySelector('.idx-listing-card')) section.hidden = true;
+    updateDisclaimer();
+    return true;
+  }
+
+  function updateDisclaimer() {
+    const shown = [...document.querySelectorAll<HTMLElement>('[data-idx-carousel]')].some((s) => !s.hidden);
+    const note = document.querySelector<HTMLElement>('[data-idx-disclaimer]');
+    if (note) note.hidden = !shown;
+  }
+
+  for (const section of document.querySelectorAll<HTMLElement>('[data-idx-carousel]')) {
+    let tries = 0;
+    const timer = window.setInterval(() => {
+      tries += 1;
+      if (enhance(section)) {
+        window.clearInterval(timer);
+      } else if (tries > 100) {
+        // Widget never rendered (blocked or offline): don't leave an empty gap.
+        window.clearInterval(timer);
+        section.hidden = true;
+        updateDisclaimer();
+      }
+    }, 150);
+  }
+</script>

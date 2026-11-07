@@ -1,0 +1,27 @@
+---
+/**
+ * Homepage IDX Broker carousels, directly below the hero: My Listings, then Just
+ * Listed. One MLS disclaimer covers both; it hides itself if neither widget shows.
+ */
+import IdxListingsCarousel from '@/components/home/IdxListingsCarousel.astro';
+import { site } from '@/data/site';
+
+const year = new Date().getFullYear();
+---
+
+<div class="pt-16 pb-16 sm:pt-24 sm:pb-24">
+  <IdxListingsCarousel widgetId={184978} eyebrow="Featured Properties" title="My Listings" />
+  <IdxListingsCarousel widgetId={184979} eyebrow="New in Ocean & Monmouth Counties" title="Just Listed" class="mt-16 sm:mt-20" />
+  <div class="container-page">
+    <p data-idx-disclaimer class="mt-12 max-w-4xl text-xs leading-5 text-muted">
+      The content relating to real estate for sale on this web site comes in part from the IDX program of the
+      Monmouth Ocean MLS. Listing content is &copy;{year} Monmouth Ocean MLS. All information provided is deemed
+      reliable but is not guaranteed and should be independently verified. The information provided is for
+      consumers’ personal, non-commercial use and may not be used for any purpose other than to identify prospective
+      properties for purchasing. Some properties which appear for sale on this web site may subsequently have sold
+      or may no longer be available. Please contact {site.brokerage.name} directly for additional information
+      pertaining to the status and availability of properties displayed on this website. The listing broker’s offer of compensation is made only to participants of the
+      MLS where the listing is filed.
+    </p>
+  </div>
+</div>

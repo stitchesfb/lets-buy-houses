@@ -1,32 +1,72 @@
 ---
 import BrokerageLogo from '@/components/ui/BrokerageLogo.astro';
 import { site } from '@/data/site';
-import { towns } from '@/data/towns';
+import { featuredTowns, towns } from '@/data/towns';
 import { idxLinks } from '@/lib/idx';
 import { ui } from '@/i18n/en';
 import { stripBase, withBase } from '@/lib/paths';
 import { isPreview } from '@/lib/mode';
 import PreviewBanner from '@/components/layout/PreviewBanner.astro';
 
-const nav = [
-  { label: ui.nav.home, href: '/' },
+interface NavLink {
+  label: string;
+  href: string;
+}
+interface NavItem extends Partial<NavLink> {
+  label: string;
+  /** Dropdown items; the parent is then a button, not a link. */
+  children?: NavLink[];
+  /** Paths that mark this item as the current section. */
+  active?: string[];
+}
+
+const townPaths = towns.map((t) => `/${t.slug}/`);
+
+// "My Listings" joins Your Agent once Jackie's listing feed is verified.
+// "Search by City" waits until town-specific IDX searches are verified.
+const nav: NavItem[] = [
   { label: ui.nav.search, href: idxLinks.search },
-  { label: ui.nav.buy, href: '/buy/' },
-  { label: ui.nav.sell, href: '/sell/' },
-  { label: ui.nav.communities, href: '/communities/' },
-  { label: ui.nav.about, href: '/about/' },
-  { label: ui.nav.contact, href: '/contact/' },
+  { label: ui.nav.homeValue, href: '/sell/#home-value' },
+  {
+    label: ui.nav.yourAgent,
+    active: ['/about/', '/reviews/'],
+    children: [
+      { label: ui.nav.about, href: '/about/' },
+      { label: ui.nav.reviews, href: '/reviews/' },
+    ],
+  },
+  {
+    label: ui.nav.buySell,
+    active: ['/buy/', '/sell/'],
+    children: [
+      { label: ui.nav.buying, href: '/buy/' },
+      { label: ui.nav.selling, href: '/sell/' },
+      { label: ui.nav.calculator, href: '/buy/#mortgage-calculator' },
+    ],
+  },
+  {
+    label: ui.nav.communities,
+    active: ['/communities/', ...townPaths],
+    children: [
+      ...featuredTowns().map((t) => ({ label: t.name, href: `/${t.slug}/` })),
+      { label: ui.nav.allCommunities, href: '/communities/' },
+    ],
+  },
 ];
 
 const path = stripBase(Astro.url.pathname);
-const townPaths = towns.map((t) => `/${t.slug}/`);
-const isActive = (href: string) =>
-  href === '/' ? path === '/' : path.startsWith(href) || (href === '/communities/' && townPaths.includes(path));
+const inSection = (item: NavItem) => (item.active ?? []).includes(path);
+const isCurrent = (href: string) => href === path;
+const id = (label: string) => label.toLowerCase().replace(/[^a-z]+/g, '-').replace(/^-|-$/g, '');
+
+const topLink =
+  'relative inline-flex min-h-11 items-center gap-1 rounded-md px-3 text-[0.9375rem] font-medium whitespace-nowrap text-ink transition-colors hover:text-navy data-[active]:text-navy data-[active]:after:absolute data-[active]:after:inset-x-3 data-[active]:after:bottom-1.5 data-[active]:after:h-px data-[active]:after:bg-gold';
 ---
 
 <!--
   Phones: the complete logo gets its own row at a readable size (72px tall, like desktop).
   The negative sticky offset lets that row scroll away, so only the name/Menu row stays pinned.
+  Desktop (xl): the logo spans the header; Sign In sits in a slim row above the main navigation and Let's Talk.
 -->
 <header class="site-header sticky top-0 z-40 max-sm:-top-[5.5rem]">
   <div class="flex h-[5.5rem] items-center bg-ivory sm:hidden">
@@ -36,71 +76,142 @@ const isActive = (href: string) =>
   </div>
   {isPreview && <PreviewBanner />}
   <div class="border-b border-line bg-ivory/95 backdrop-blur supports-[backdrop-filter]:bg-ivory/90">
-  <div class="container-page flex min-h-16 items-center justify-between gap-3 py-2 sm:min-h-20 sm:gap-4 xl:min-h-24">
-    <a href={withBase('/')} class="flex min-w-0 items-center gap-3 sm:gap-5" aria-label={`${site.agent.name}, ${site.brokerage.name}: home`}>
-      <BrokerageLogo sizes="163px" class="hidden h-[4.5rem] w-auto shrink-0 sm:block" />
-      <span class="font-serif text-lg leading-tight whitespace-nowrap text-navy sm:text-xl">{site.agent.name}</span>
-    </a>
+    <div class="container-page flex min-h-16 items-center justify-between gap-3 py-2 sm:min-h-20 sm:gap-4 xl:min-h-24">
+      <a href={withBase('/')} class="flex min-w-0 items-center gap-3 sm:gap-5" aria-label={`${site.agent.name}, ${site.brokerage.name}: home`}>
+        <BrokerageLogo sizes="163px" class="hidden h-[4.5rem] w-auto shrink-0 sm:block" />
+        <span class="font-serif text-lg leading-tight whitespace-nowrap text-navy sm:text-xl">{site.agent.name}</span>
+      </a>
 
-    <nav aria-label="Main" class="hidden xl:block">
-      <ul class="flex items-center gap-1">
-        {
-          nav.map((item) => (
-            <li>
-              <a
-                href={withBase(item.href)}
-                aria-current={isActive(item.href) ? 'page' : undefined}
-                class="relative rounded-md px-2 py-2 text-[0.9375rem] font-medium whitespace-nowrap text-ink transition-colors hover:text-navy aria-[current=page]:text-navy aria-[current=page]:after:absolute aria-[current=page]:after:inset-x-2 aria-[current=page]:after:-bottom-0.5 aria-[current=page]:after:h-px aria-[current=page]:after:bg-gold"
-              >
-                {item.label}
-              </a>
-            </li>
-          ))
-        }
-      </ul>
-    </nav>
+      <div class="flex flex-col items-end">
+        <a href={idxLinks.signIn} class="hidden min-h-7 items-center gap-1.5 text-sm font-medium text-ink transition-colors hover:text-navy xl:-mt-1 xl:mb-0.5 xl:inline-flex">
+          <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 4h3a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-3M10 16l4-4-4-4M14 12H4"></path>
+          </svg>
+          {ui.nav.signIn}
+        </a>
+        <div class="flex items-center gap-2 xl:gap-4">
+      <nav aria-label="Main" class="hidden xl:block">
+        <ul class="flex items-center gap-1">
+          {
+            nav.map((item) =>
+              item.children ? (
+                <li class="relative" data-dropdown>
+                  <button
+                    type="button"
+                    class={topLink}
+                    aria-expanded="false"
+                    aria-controls={`nav-${id(item.label)}`}
+                    data-active={inSection(item) || undefined}
+                    data-dropdown-toggle
+                  >
+                    {item.label}
+                    <svg class="h-4 w-4 transition-transform" data-chevron viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                      <path d="M5.5 7.5 10 12l4.5-4.5z" />
+                    </svg>
+                  </button>
+                  <ul
+                    id={`nav-${id(item.label)}`}
+                    class="absolute top-full left-0 z-50 mt-1 min-w-60 rounded-md border border-line bg-white py-2 shadow-lg"
+                    hidden
+                  >
+                    {item.children.map((c) => (
+                      <li>
+                        <a
+                          href={withBase(c.href)}
+                          aria-current={isCurrent(c.href) ? 'page' : undefined}
+                          class="block px-5 py-2.5 text-[0.9375rem] whitespace-nowrap text-ink hover:bg-ivory hover:text-navy focus-visible:bg-ivory aria-[current=page]:font-semibold aria-[current=page]:text-navy"
+                        >
+                          {c.label}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </li>
+              ) : (
+                <li>
+                  <a href={withBase(item.href!)} class={topLink}>
+                    {item.label}
+                  </a>
+                </li>
+              ),
+            )
+          }
+        </ul>
+      </nav>
 
-    <div class="flex items-center gap-2">
-      <a href={idxLinks.signIn} class="hidden min-h-11 items-center rounded-md px-2 text-[0.9375rem] font-medium whitespace-nowrap text-ink transition-colors hover:text-navy xl:inline-flex">{ui.nav.signIn}</a>
-      <a href={withBase('/contact/')} class="btn-primary hidden !min-h-11 !px-5 whitespace-nowrap !py-2 text-[0.9375rem] sm:inline-flex">{ui.nav.cta}</a>
-      <button
-        type="button"
-        class="inline-flex min-h-11 min-w-[5.75rem] shrink-0 items-center justify-center gap-2 rounded-md border border-line bg-white px-3 text-sm font-semibold whitespace-nowrap text-navy xl:hidden"
-        aria-expanded="false"
-        aria-controls="mobile-menu"
-        data-menu-toggle
-      >
-        <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75" aria-hidden="true">
-          <path data-icon-open stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16"></path>
-          <path data-icon-close class="hidden" stroke-linecap="round" d="M6 6l12 12M18 6 6 18"></path>
-        </svg>
-        <span data-menu-label>{ui.nav.menu}</span>
-      </button>
+      <div class="flex items-center gap-2">
+        <a href={withBase('/contact/')} class="btn-primary hidden !min-h-11 !px-5 whitespace-nowrap !py-2 text-[0.9375rem] sm:inline-flex">{ui.nav.cta}</a>
+        <button
+          type="button"
+          class="inline-flex min-h-11 min-w-[5.75rem] shrink-0 items-center justify-center gap-2 rounded-md border border-line bg-white px-3 text-sm font-semibold whitespace-nowrap text-navy xl:hidden"
+          aria-expanded="false"
+          aria-controls="mobile-menu"
+          data-menu-toggle
+        >
+          <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75" aria-hidden="true">
+            <path data-icon-open stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16"></path>
+            <path data-icon-close class="hidden" stroke-linecap="round" d="M6 6l12 12M18 6 6 18"></path>
+          </svg>
+          <span data-menu-label>{ui.nav.menu}</span>
+        </button>
+      </div>
+        </div>
+      </div>
     </div>
   </div>
 
-  </div>
-
-  <nav id="mobile-menu" aria-label="Mobile" class="border-t border-line bg-ivory xl:hidden" hidden>
+  <nav id="mobile-menu" aria-label="Mobile" class="overflow-y-auto overscroll-contain border-t border-line bg-ivory xl:hidden" hidden>
     <ul class="container-page divide-y divide-line py-2">
-      {
-        nav.map((item) => (
-          <li>
-            <a
-              href={withBase(item.href)}
-              aria-current={isActive(item.href) ? 'page' : undefined}
-              class="flex min-h-12 items-center py-3 text-lg text-ink aria-[current=page]:font-semibold aria-[current=page]:text-navy"
-            >
-              {item.label}
-            </a>
-          </li>
-        ))
-      }
       <li>
-        <a href={idxLinks.signIn} class="flex min-h-12 items-center py-3 text-lg text-ink">{ui.nav.signIn}</a>
+        <a href={idxLinks.signIn} class="flex min-h-12 items-center gap-2 py-3 text-lg font-semibold text-navy">
+          <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 4h3a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-3M10 16l4-4-4-4M14 12H4"></path>
+          </svg>
+          {ui.nav.signIn}
+        </a>
       </li>
+      {
+        nav.map((item) =>
+          item.children ? (
+            <li data-dropdown>
+              <button
+                type="button"
+                class="flex min-h-12 w-full items-center justify-between py-3 text-left text-lg text-ink data-[active]:font-semibold data-[active]:text-navy"
+                aria-expanded="false"
+                aria-controls={`m-nav-${id(item.label)}`}
+                data-active={inSection(item) || undefined}
+                data-dropdown-toggle
+              >
+                {item.label}
+                <svg class="h-5 w-5 transition-transform" data-chevron viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                  <path d="M5.5 7.5 10 12l4.5-4.5z" />
+                </svg>
+              </button>
+              <ul id={`m-nav-${id(item.label)}`} class="pb-2 pl-4" hidden>
+                {item.children.map((c) => (
+                  <li>
+                    <a
+                      href={withBase(c.href)}
+                      aria-current={isCurrent(c.href) ? 'page' : undefined}
+                      class="flex min-h-11 items-center text-base text-ink aria-[current=page]:font-semibold aria-[current=page]:text-navy"
+                    >
+                      {c.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </li>
+          ) : (
+            <li>
+              <a href={withBase(item.href!)} class="flex min-h-12 items-center py-3 text-lg text-ink">
+                {item.label}
+              </a>
+            </li>
+          ),
+        )
+      }
     </ul>
-    <div class="container-page grid gap-3 pt-2 pb-6 sm:grid-cols-2">
+    <div class="container-page grid gap-3 pt-2 pb-[calc(1.5rem+3.5rem+2px+env(safe-area-inset-bottom))] sm:grid-cols-2 md:pb-6">
       <a href={withBase('/contact/')} class="btn-primary">{ui.nav.cta}</a>
       <a href={site.contact.phoneHref} class="btn-outline">Call {site.contact.phone}</a>
     </div>
@@ -114,17 +225,24 @@ const isActive = (href: string) =>
   const menu = document.getElementById('mobile-menu');
   if (toggle && menu) {
     const label = toggle.querySelector('[data-menu-label]');
+    // Keep the open menu within the screen so its last buttons can always be scrolled to.
+    const fit = () => {
+      if (!menu.hidden) menu.style.maxHeight = `${Math.max(200, window.innerHeight - menu.getBoundingClientRect().top)}px`;
+    };
     const setOpen = (open: boolean) => {
       toggle.setAttribute('aria-expanded', String(open));
       menu.hidden = !open;
+      fit();
       toggle.querySelector('[data-icon-open]')?.classList.toggle('hidden', open);
       toggle.querySelector('[data-icon-close]')?.classList.toggle('hidden', !open);
       if (label) label.textContent = open ? ui.nav.close : ui.nav.menu;
     };
     const isOpen = () => toggle.getAttribute('aria-expanded') === 'true';
     toggle.addEventListener('click', () => setOpen(!isOpen()));
+    window.addEventListener('resize', fit);
+    window.addEventListener('scroll', fit, { passive: true });
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && isOpen()) {
+      if (e.key === 'Escape' && isOpen() && !document.querySelector('#mobile-menu [data-dropdown-toggle][aria-expanded="true"]')) {
         setOpen(false);
         toggle.focus();
       }
@@ -134,4 +252,77 @@ const isActive = (href: string) =>
       if ((e.target as HTMLElement).closest('a')) setOpen(false);
     });
   }
+
+  // Dropdowns (desktop) and expandable groups (mobile menu): disclosure buttons that open
+  // by click/tap or keyboard; desktop ones also open on mouse hover.
+  const dropdowns = [...document.querySelectorAll<HTMLElement>('[data-dropdown]')];
+  const parts = (dd: HTMLElement) => {
+    const button = dd.querySelector<HTMLButtonElement>('[data-dropdown-toggle]')!;
+    const panel = document.getElementById(button.getAttribute('aria-controls')!)!;
+    return { button, panel, links: [...panel.querySelectorAll<HTMLAnchorElement>('a')] };
+  };
+  const setDropdown = (dd: HTMLElement, open: boolean) => {
+    const { button, panel } = parts(dd);
+    button.setAttribute('aria-expanded', String(open));
+    panel.hidden = !open;
+    button.querySelector('[data-chevron]')?.classList.toggle('rotate-180', open);
+  };
+  const isDesktop = (dd: HTMLElement) => Boolean(dd.closest('nav[aria-label="Main"]'));
+  const closeDesktop = (except?: HTMLElement) => dropdowns.filter((d) => d !== except && isDesktop(d)).forEach((d) => setDropdown(d, false));
+
+  dropdowns.forEach((dd) => {
+    const { button, panel, links } = parts(dd);
+    const open = () => button.getAttribute('aria-expanded') === 'true';
+    // A mouse click right after hover-open keeps the menu open instead of toggling it shut.
+    let hoverOpened = false;
+    button.addEventListener('click', () => {
+      if (isDesktop(dd)) closeDesktop(dd);
+      setDropdown(dd, hoverOpened || !open());
+      hoverOpened = false;
+    });
+    button.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        if (isDesktop(dd)) closeDesktop(dd);
+        setDropdown(dd, true);
+        links[0]?.focus();
+      }
+    });
+    panel.addEventListener('keydown', (e) => {
+      const i = links.indexOf(document.activeElement as HTMLAnchorElement);
+      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+        e.preventDefault();
+        const next = e.key === 'ArrowDown' ? Math.min(i + 1, links.length - 1) : i - 1;
+        (next < 0 ? button : links[next]).focus();
+      }
+    });
+    dd.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && open()) {
+        e.stopPropagation();
+        setDropdown(dd, false);
+        button.focus();
+      }
+    });
+    if (isDesktop(dd)) {
+      dd.addEventListener('focusout', (e) => {
+        if (!dd.contains(e.relatedTarget as Node)) setDropdown(dd, false);
+      });
+      let timer: number | undefined;
+      dd.addEventListener('pointerenter', (e) => {
+        if (e.pointerType !== 'mouse') return;
+        clearTimeout(timer);
+        closeDesktop(dd);
+        hoverOpened = !open();
+        setDropdown(dd, true);
+      });
+      dd.addEventListener('pointerleave', (e) => {
+        if (e.pointerType !== 'mouse') return;
+        hoverOpened = false;
+        timer = window.setTimeout(() => setDropdown(dd, false), 150);
+      });
+    }
+  });
+  document.addEventListener('click', (e) => {
+    if (!(e.target as HTMLElement).closest('nav[aria-label="Main"] [data-dropdown]')) closeDesktop();
+  });
 </script>

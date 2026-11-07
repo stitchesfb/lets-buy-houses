@@ -4,7 +4,7 @@
  * re-applied only inside Jackie's header and footer, so IDX Broker's own search,
  * listing, and account pages keep the browser defaults they rely on.
  */
-@layer theme, base, components, utilities;
+@layer theme, base, idx-guard, components, utilities;
 @import 'tailwindcss/theme.css' layer(theme);
 @import 'tailwindcss/utilities.css' layer(utilities);
 @import './tokens.css';
@@ -88,4 +88,57 @@
 }
 body {
   margin: 0;
+}
+
+/*
+ * IDX Broker's signed-in account pages (My Listings Manager, /idx/myaccount) load
+ * Bootstrap 3, which ships `.hidden { display: none !important; visibility: hidden
+ * !important }` and
+ * `html { font-size: 10px }`. Unlayered !important rules beat every layer and the
+ * revert-layer guard above, so every header element that starts hidden and appears
+ * at a breakpoint (logo, navigation, Sign In, Let's Talk) stayed hidden; only the
+ * name showed. Layered !important rules outrank unlayered ones, so this layer
+ * restores the site's own show/hide rules inside the header and footer only.
+ * It sits after `base`, so the [hidden] attribute (closed menus) still wins.
+ * IDX's own markup outside the header and footer is untouched.
+ */
+@layer idx-guard {
+  :is(.site-header, .site-footer) .hidden {
+    display: none !important;
+  }
+  @variant sm {
+    :is(.site-header, .site-footer) .sm\:hidden {
+      display: none !important;
+    }
+    :is(.site-header, .site-footer) .sm\:block {
+      display: block !important;
+      visibility: visible !important;
+    }
+    :is(.site-header, .site-footer) .sm\:inline-flex {
+      display: inline-flex !important;
+      visibility: visible !important;
+    }
+  }
+  @variant xl {
+    :is(.site-header, .site-footer) .xl\:hidden {
+      display: none !important;
+    }
+    :is(.site-header, .site-footer) .xl\:block {
+      display: block !important;
+      visibility: visible !important;
+    }
+    :is(.site-header, .site-footer) .xl\:inline-flex {
+      display: inline-flex !important;
+      visibility: visible !important;
+    }
+  }
+}
+
+/*
+ * Bootstrap 3's `html { font-size: 10px }` would shrink the rem-sized header and
+ * footer to 62.5%. Bootstrap 3 sizes everything in px and IDX's map search expects
+ * the browser default, so put the root size back (`:root` outranks `html`).
+ */
+:root {
+  font-size: 100%;
 }

@@ -123,7 +123,9 @@ const src = `https://letsbuyhouses.idxbroker.com/idx/widgets/${widgetId}`;
     .idx-listings-carousel .idx-listing-card__core-fields { margin-top: 0.25rem; }
     .idx-listings-carousel .idx-listing-card__core-fields .idx-listing-card__single-item { color: #5b6670; font-size: 0.9375rem; }
     .idx-listings-carousel .idx-listing-card__address { margin-top: 0.25rem; font-size: 1rem; font-weight: 500; color: #26313b; }
-    .idx-listings-carousel .idx-listing-card__courtesy { font-size: 0.75rem; color: #5b6670; }
+    /* Listing courtesy ("Listed by: agent from brokerage") when IDX supplies it, aligned with the card text. */
+    .idx-listings-carousel .idx-listing-card__additional-info { padding: 0; margin-top: 0.375rem; align-items: center; gap: 0.75rem; }
+    .idx-listings-carousel .idx-listing-card__courtesy { font-size: 0.8125rem; line-height: 1.25rem; color: #5b6670; }
     .idx-listings-carousel .idx-listing-card__link:focus-visible { outline: 2px solid #14283f; outline-offset: 2px; }
     .idx-listings-carousel .idx-listings-carousel__arrows { width: auto; gap: 0.75rem; margin-top: 1.5rem; justify-content: center; }
     .idx-listings-carousel .idx-listings-carousel__arrow { cursor: pointer; transition: background-color 150ms; }

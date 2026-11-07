@@ -4,7 +4,7 @@
  * re-applied only inside Jackie's header and footer, so IDX Broker's own search,
  * listing, and account pages keep the browser defaults they rely on.
  */
-@layer theme, base, idx-guard, components, utilities;
+@layer theme, base, idx-guard, components, utilities, idx-isolate;
 @import 'tailwindcss/theme.css' layer(theme);
 @import 'tailwindcss/utilities.css' layer(utilities);
 @import './tokens.css';
@@ -141,4 +141,18 @@ body {
  */
 :root {
   font-size: 100%;
+}
+
+/*
+ * `btn-primary` and `container` are both site classes and Bootstrap 3 classes. On
+ * IDX's Bootstrap pages the site's rem-based versions would add to Bootstrap's own
+ * wherever Bootstrap leaves a property unset (a 3rem min-height on IDX buttons, a
+ * rem max-width that narrows IDX's px-width containers). Outside Jackie's header
+ * and footer, roll these back to the browser defaults; IDX's unlayered rules still
+ * apply on top, so IDX's controls look as they would without the wrapper.
+ */
+@layer idx-isolate {
+  :is(.btn-primary, .container):not(:is(.site-header, .site-footer) *) {
+    all: revert;
+  }
 }

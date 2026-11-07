@@ -23,11 +23,13 @@ interface Props {
   /** Vendor-specific widget ID (script provider), e.g. a per-town saved search widget. */
   widgetId?: string;
   minHeight?: number;
-  /** Optional link to a live listings search she controls, shown while no IDX widget is connected. */
-  listingsUrl?: string;
+  /** Hosted MLS search (e.g. IDX Broker's map), shown as the primary action while no widget is embedded. */
+  searchUrl?: string;
+  /** Hosted account sign-up, so buyers can save homes and get listing alerts. */
+  signUpUrl?: string;
 }
 
-const { city, heading, widgetId, minHeight = 720, listingsUrl } = Astro.props;
+const { city, heading, widgetId, minHeight = 720, searchUrl, signUpUrl } = Astro.props;
 const town = Astro.props.town ?? toCityList(city)[0];
 const { provider, scriptSrc } = idxConfig;
 const url = idxSearchUrl(city);
@@ -63,8 +65,8 @@ const connected = ((provider === 'iframe' || provider === 'idx-broker') && Boole
         <div>
           <p class="font-serif text-2xl text-navy">Looking for homes in {label}?</p>
           <p class="mt-2 max-w-xl text-muted">
-            {listingsUrl
-              ? 'Browse current MLS listings, or tell me your must-haves and I’ll send you homes that match.'
+            {searchUrl
+              ? 'Browse current MLS listings on the map, or tell me your must-haves and I’ll send you homes that match.'
               : 'Tell me your must-haves and price range, and I’ll send you homes for sale that match, including new listings as they come up.'}
           </p>
           {isPreview && (
@@ -75,15 +77,23 @@ const connected = ((provider === 'iframe' || provider === 'idx-broker') && Boole
           )}
         </div>
         <div class="flex flex-col gap-3">
-          {listingsUrl && (
-            <a href={listingsUrl} class="btn-primary" target="_blank" rel="noopener">
-              Browse Current Listings<span class="sr-only"> (opens in a new tab)</span>
+          {searchUrl && (
+            <a href={searchUrl} class="btn-primary">
+              Search MLS Listings
             </a>
           )}
-          <a href={withBase(`/buy/${town ? `?town=${encodeURIComponent(town)}` : ''}#buyer-inquiry`)} class={listingsUrl ? 'btn-outline' : 'btn-primary'}>
+          <a href={withBase(`/buy/${town ? `?town=${encodeURIComponent(town)}` : ''}#buyer-inquiry`)} class={searchUrl ? 'btn-outline' : 'btn-primary'}>
             Send Me Matching Homes
           </a>
         </div>
+        {signUpUrl && (
+          <div class="flex flex-col gap-3 border-t border-line pt-5 sm:flex-row sm:items-center sm:justify-between md:col-span-2">
+            <p class="max-w-xl text-muted">Save your favorite homes and get email alerts when new listings match your search.</p>
+            <a href={signUpUrl} class="btn-outline shrink-0">
+              Create an Account
+            </a>
+          </div>
+        )}
       </div>
     )
   }

@@ -2,6 +2,7 @@
 import BrokerageLogo from '@/components/ui/BrokerageLogo.astro';
 import { site } from '@/data/site';
 import { towns } from '@/data/towns';
+import { idxLinks } from '@/lib/idx';
 import { ui } from '@/i18n/en';
 import { stripBase, withBase } from '@/lib/paths';
 import { isPreview } from '@/lib/mode';
@@ -9,6 +10,7 @@ import PreviewBanner from '@/components/layout/PreviewBanner.astro';
 
 const nav = [
   { label: ui.nav.home, href: '/' },
+  { label: ui.nav.search, href: idxLinks.search },
   { label: ui.nav.buy, href: '/buy/' },
   { label: ui.nav.sell, href: '/sell/' },
   { label: ui.nav.communities, href: '/communities/' },
@@ -48,7 +50,7 @@ const isActive = (href: string) =>
               <a
                 href={withBase(item.href)}
                 aria-current={isActive(item.href) ? 'page' : undefined}
-                class="relative rounded-md px-3 py-2 text-[0.9375rem] font-medium whitespace-nowrap text-ink transition-colors hover:text-navy aria-[current=page]:text-navy aria-[current=page]:after:absolute aria-[current=page]:after:inset-x-3 aria-[current=page]:after:-bottom-0.5 aria-[current=page]:after:h-px aria-[current=page]:after:bg-gold"
+                class="relative rounded-md px-2 py-2 text-[0.9375rem] font-medium whitespace-nowrap text-ink transition-colors hover:text-navy aria-[current=page]:text-navy aria-[current=page]:after:absolute aria-[current=page]:after:inset-x-2 aria-[current=page]:after:-bottom-0.5 aria-[current=page]:after:h-px aria-[current=page]:after:bg-gold"
               >
                 {item.label}
               </a>
@@ -59,6 +61,7 @@ const isActive = (href: string) =>
     </nav>
 
     <div class="flex items-center gap-2">
+      <a href={idxLinks.signIn} class="hidden min-h-11 items-center rounded-md px-2 text-[0.9375rem] font-medium whitespace-nowrap text-ink transition-colors hover:text-navy xl:inline-flex">{ui.nav.signIn}</a>
       <a href={withBase('/contact/')} class="btn-primary hidden !min-h-11 !px-5 whitespace-nowrap !py-2 text-[0.9375rem] sm:inline-flex">{ui.nav.cta}</a>
       <button
         type="button"
@@ -93,6 +96,9 @@ const isActive = (href: string) =>
           </li>
         ))
       }
+      <li>
+        <a href={idxLinks.signIn} class="flex min-h-12 items-center py-3 text-lg text-ink">{ui.nav.signIn}</a>
+      </li>
     </ul>
     <div class="container-page grid gap-3 pt-2 pb-6 sm:grid-cols-2">
       <a href={withBase('/contact/')} class="btn-primary">{ui.nav.cta}</a>

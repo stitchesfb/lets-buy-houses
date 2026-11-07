@@ -6,6 +6,8 @@
 export const ui = {
   nav: {
     home: 'Home',
+    search: 'Search Homes',
+    signIn: 'Sign In',
     buy: 'Buy',
     sell: 'Sell',
     communities: 'Communities',

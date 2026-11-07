@@ -6,6 +6,7 @@
  */
 import Photo from '@/components/ui/Photo.astro';
 import { photo } from '@/data/photos';
+import { idxLinks } from '@/lib/idx';
 import { withBase } from '@/lib/paths';
 
 const hero = photo('home-hero');
@@ -23,7 +24,7 @@ const hero = photo('home-hero');
     <p class="text-xs font-semibold tracking-[0.16em] text-white/90 uppercase sm:text-sm">Ocean &amp; Monmouth Counties, NJ</p>
     <h1 class="mt-4 max-w-2xl text-[2.5rem] leading-[1.06] !text-white sm:text-5xl lg:text-6xl">Your next chapter starts at home.</h1>
     <div class="mt-8 flex flex-col gap-3 sm:flex-row">
-      <a href={withBase('/buy/')} class="btn-light text-lg">Find a Home</a>
+      <a href={idxLinks.search} class="btn-light text-lg">Find a Home</a>
       <a href={withBase('/sell/')} class="btn-ghost-light text-lg backdrop-blur-sm">Sell My Home</a>
     </div>
   </div>

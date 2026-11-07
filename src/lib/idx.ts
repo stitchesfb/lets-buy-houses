@@ -23,6 +23,16 @@ export const idxConfig = {
   idxBrokerDomain: (import.meta.env.PUBLIC_IDX_BROKER_DOMAIN || '').replace(/\/$/, ''),
 };
 
+/**
+ * Jacquelyn's hosted IDX Broker pages, linked directly (no embed). Signed-out
+ * visitors can browse the map; an account lets buyers save homes and searches.
+ */
+export const idxLinks = {
+  search: 'https://letsbuyhouses.idxbroker.com/idx/map/mapsearch',
+  signIn: 'https://letsbuyhouses.idxbroker.com/idx/userlogin',
+  signUp: 'https://letsbuyhouses.idxbroker.com/idx/usersignup',
+};
+
 export const toCityList = (city?: IdxCity): string[] => (city === undefined ? [] : Array.isArray(city) ? city : [city]);
 
 /** `city[]=Manahawkin&city[]=Stafford+Township&city[]=Stafford+Twp` */

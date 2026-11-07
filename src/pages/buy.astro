@@ -4,6 +4,7 @@ import PageHeader from '@/components/ui/PageHeader.astro';
 import SectionHeading from '@/components/ui/SectionHeading.astro';
 import Steps from '@/components/ui/Steps.astro';
 import IdxSearch from '@/components/idx/IdxSearch.astro';
+import { idxLinks } from '@/lib/idx';
 import LeadForm from '@/components/forms/LeadForm.astro';
 import MortgageCalculator from '@/components/tools/MortgageCalculator.astro';
 import FeaturedListings from '@/components/home/FeaturedListings.astro';
@@ -71,7 +72,7 @@ const steps = [
 
   <section id="home-search" class="section bg-white/60 pt-0 sm:pt-0" aria-label="Home search">
     <div class="container-page pt-16 sm:pt-20">
-      <IdxSearch heading="Search homes for sale" minHeight={900} />
+      <IdxSearch heading="Search homes for sale" minHeight={900} searchUrl={idxLinks.search} signUpUrl={idxLinks.signUp} />
     </div>
   </section>
 

@@ -28,6 +28,13 @@ import { withBase } from '@/lib/paths';
     <meta name="theme-color" content="#14283f" />
     <link rel="icon" type="image/svg+xml" href={withBase('/favicon.svg')} />
     <title>{`Homes for Sale | ${site.agent.name}, ${site.brokerage.name}`}</title>
+    <!--
+      Property detail page layout (src/pages/idx/details.*.ts). Fixed URLs, so later
+      changes reach IDX pages without IDX re-fetching this wrapper. Both act only on
+      listing detail pages.
+    -->
+    <link rel="stylesheet" href={withBase('/idx/details.css')} />
+    <script is:inline defer src={withBase('/idx/details.js')}></script>
   </head>
   <body class="flex min-h-screen flex-col">
     <Header />

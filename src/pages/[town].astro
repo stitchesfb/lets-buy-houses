@@ -20,6 +20,7 @@ import { photo } from '@/data/photos';
 import { videos } from '@/data/videos';
 import { breadcrumbSchema, faqSchema, townPageSchema } from '@/lib/schema';
 import { withBase } from '@/lib/paths';
+import { idxCommunityUrl } from '@/lib/idx';
 
 export const getStaticPaths = (() => towns.map((town) => ({ params: { town: town.slug }, props: { town } }))) satisfies GetStaticPaths;
 
@@ -57,7 +58,7 @@ const heroPhoto = photo(town.photo);
       <h1 class="mt-3 max-w-3xl text-4xl leading-tight !text-white sm:text-5xl">{town.headline}</h1>
       <p class="mt-5 max-w-2xl text-lg text-navy-soft">{town.subheadline}</p>
       <div class="mt-8 flex flex-col gap-3 sm:flex-row">
-        <a href="#homes" class="btn-light">See Homes in {town.name}</a>
+        <a href={idxCommunityUrl(town.slug)} class="btn-light">View Homes for Sale in {town.name}</a>
         <a href={withBase('/sell/#home-value')} class="btn-ghost-light">Request a Home Value Review</a>
       </div>
     </div>

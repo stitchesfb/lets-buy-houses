@@ -2,6 +2,8 @@
  * IDX provider configuration. Switch providers with env vars only — no
  * component changes needed. See docs/IDX-INTEGRATION.md.
  */
+import type { TownSlug } from '@/data/towns';
+
 export type IdxProvider = 'placeholder' | 'iframe' | 'script' | 'idx-broker';
 
 /** One MLS city name, or every spelling the MLS files a town under. */
@@ -32,6 +34,41 @@ export const idxLinks = {
   signIn: 'https://letsbuyhouses.idxbroker.com/idx/userlogin',
   signUp: 'https://letsbuyhouses.idxbroker.com/idx/usersignup',
 };
+
+/**
+ * Saved IDX searches for each community guide, created in Jacquelyn's IDX Broker
+ * account. Keyed by the guide's route so every published community needs one.
+ */
+const idxCommunitySlugs: Record<TownSlug, string> = {
+  'asbury-park-nj': 'asbury-park-nj-homes-for-sale',
+  'barnegat-nj': 'barnegat-nj-homes-for-sale',
+  'bayville-nj': 'bayville-nj-homes-for-sale',
+  'beach-haven-nj': 'beach-haven-nj-homes-for-sale',
+  'beachwood-nj': 'beachwood-nj-homes-for-sale',
+  'brick-nj': 'brick-nj-homes-for-sale',
+  'jackson-nj': 'jackson-nj-homes-for-sale',
+  'lacey-nj': 'lacey-nj-homes-for-sale',
+  'lavallette-nj': 'lavallette-nj-homes-for-sale',
+  'manahawkin-nj': 'manahawkin-nj-homes-for-sale',
+  'manchester-nj': 'manchester-nj-homes-for-sale',
+  'mantoloking-nj': 'mantoloking-nj-homes-for-sale',
+  'middletown-nj': 'middletown-nj-homes-for-sale',
+  'neptune-township-nj': 'neptune-township-nj-homes-for-sale',
+  'ocean-gate-nj': 'ocean-gate-nj-homes-for-sale',
+  'ortley-beach-nj': 'ortley-beach-nj-homes-for-sale',
+  'pine-beach-nj': 'pine-beach-nj-homes-for-sale',
+  'point-pleasant-nj': 'point-pleasant-borough-nj-homes-for-sale',
+  'point-pleasant-beach-nj': 'point-pleasant-beach-nj-homes-for-sale',
+  'red-bank-nj': 'red-bank-nj-homes-for-sale',
+  'seaside-heights-nj': 'seaside-heights-nj-homes-for-sale',
+  'seaside-park-nj': 'seaside-park-nj-homes-for-sale',
+  'tinton-falls-nj': 'tinton-falls-nj-homes-for-sale',
+  'toms-river-nj': 'toms-river-nj-homes-for-sale',
+  'whiting-nj': 'whiting-nj-homes-for-sale',
+};
+
+/** IDX saved search for a community guide, e.g. https://letsbuyhouses.idxbroker.com/i/brick-nj-homes-for-sale */
+export const idxCommunityUrl = (slug: TownSlug): string => `https://letsbuyhouses.idxbroker.com/i/${idxCommunitySlugs[slug]}`;
 
 export const toCityList = (city?: IdxCity): string[] => (city === undefined ? [] : Array.isArray(city) ? city : [city]);
 

@@ -5,6 +5,7 @@ import SectionHeading from '@/components/ui/SectionHeading.astro';
 import Steps from '@/components/ui/Steps.astro';
 import IdxSearch from '@/components/idx/IdxSearch.astro';
 import { idxLinks } from '@/lib/idx';
+import { ui } from '@/i18n/en';
 import LeadForm from '@/components/forms/LeadForm.astro';
 import MortgageCalculator from '@/components/tools/MortgageCalculator.astro';
 import FeaturedListings from '@/components/home/FeaturedListings.astro';
@@ -56,7 +57,8 @@ const steps = [
     title="Find the home that fits your next chapter"
     intro="Buying a home is a big decision. I’ll help you search with focus, understand each neighborhood, and move confidently from first showing to closing."
   >
-    <a href="#buyer-inquiry" class="btn-primary">Start My Home Search</a>
+    <a href={idxLinks.search} class="btn-primary">{ui.nav.search}</a>
+    <a href="#buyer-inquiry" class="btn-outline">Start My Home Search</a>
     <a href="#home-search" class="btn-outline">Browse Homes</a>
     <a href="#mortgage-calculator" class="btn-outline">Payment Calculator</a>
   </PageHeader>

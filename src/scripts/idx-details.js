@@ -447,8 +447,21 @@
     var picker = h('div', { class: 'lbh-picker' }, [datePicker, tourDetails, announce]);
     function chosenDate() { return dates.querySelector('input:checked'); }
 
+    // IDX rejects a contact form unless one of its own fields has had focus (an anti-bot
+    // check). Signed-in visitors don't see IDX's name/email fields, and the message box is
+    // hidden in the tour flow, so a visitor's own actions here (choosing a date or time,
+    // or typing a note) run IDX's focus handler on its message field.
+    function visitorUsedForm() {
+      if (message && window.idx) {
+        try { window.idx(message).triggerHandler('focus'); } catch (err) { /* IDX not ready */ }
+      }
+    }
+    time.addEventListener('change', visitorUsedForm);
+    notes.addEventListener('focus', visitorUsedForm);
+
     // Picking (or changing) the date: clear only the time; notes and contact details stay.
     dates.addEventListener('change', function () {
+      visitorUsedForm();
       var d = chosenDate();
       time.value = '';
       tourError.hidden = true;

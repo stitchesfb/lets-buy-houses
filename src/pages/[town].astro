@@ -83,6 +83,16 @@ const heroPhoto = photo(town.photo);
 
       <MarketStats town={town} />
 
+      {
+        town.agentSection && (
+          <section aria-labelledby="agent-heading">
+            <h2 id="agent-heading" class="text-3xl">{town.agentSection.heading}</h2>
+            {town.agentSection.paragraphs.map((p) => <p class="mt-4 text-lg">{p}</p>)}
+            <a href={withBase('/contact/#contact')} class="btn-primary mt-8">{town.agentSection.cta}</a>
+          </section>
+        )
+      }
+
       <div id="homes">
         <IdxSearch city={town.idxCity} town={town.name} heading={`Homes for sale in ${town.name}`} />
       </div>

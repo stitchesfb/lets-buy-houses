@@ -48,6 +48,13 @@ export interface Faq {
   answer: string;
 }
 
+export interface AgentSection {
+  heading: string;
+  paragraphs: string[];
+  /** Button label; the button opens the contact form. */
+  cta: string;
+}
+
 export interface Town {
   slug: TownSlug;
   name: string;
@@ -82,6 +89,8 @@ export interface Town {
   faqs: Faq[];
   /** Pages always shown first under "Explore nearby communities" (e.g. Point Pleasant Borough and Beach). */
   related?: TownSlug[];
+  /** Optional "work with me" section shown right after the market overview. */
+  agentSection?: AgentSection;
 }
 
 const placeholderStats = (): Town['marketStats'] => ({
@@ -97,6 +106,14 @@ const placeholderStats = (): Town['marketStats'] => ({
 export const towns: Town[] = [
   {
     slug: 'toms-river-nj',
+    agentSection: {
+      heading: "Work With a Toms River Real Estate Agent",
+      paragraphs: [
+        "Buying or selling in Toms River, NJ? I’m Jacquelyn Guevara with 1st Class Real Estate Agency in Toms River. Before I recommend an asking price or help you decide what to offer, I look at comparable sales in the part of town you’re considering. A home in North Dover and a waterfront home on Barnegat Bay can call for very different strategies.",
+        "If you’re selling, I’ll help you decide which updates are worth doing before listing. If you’re buying, I’ll help you put the asking price in context and identify questions to answer before making an offer, including flood insurance and bulkhead condition when you’re considering a waterfront home.",
+      ],
+      cta: "Talk With Jacquelyn About Toms River",
+    },
     name: 'Toms River',
     county: 'Ocean County',
     zipCodes: ['08753', '08755'],
@@ -268,6 +285,14 @@ export const towns: Town[] = [
   },
   {
     slug: 'whiting-nj',
+    agentSection: {
+      heading: "Your Local Real Estate Agent in Whiting, NJ",
+      paragraphs: [
+        "I’m Jacquelyn Guevara, and I’ve represented sellers in Whiting’s Roosevelt City neighborhood, including on Harry Wright Boulevard. If you’re looking for a single-family home near Harry Wright Park, I’ll help you compare lot sizes, home condition, and recent sales in Roosevelt City. If you’re considering a 55+ home in Crestwood Village, we can look at what the monthly fee covers and what to confirm about ownership and financing before you make an offer.",
+        "If you’re selling in Whiting, I’ll look at comparable homes in your own neighborhood or community to help you set an asking price. If your sale and next purchase need to line up, we can plan that timing before your home goes on the market.",
+      ],
+      cta: "Talk With Jacquelyn About Buying or Selling in Whiting",
+    },
     name: 'Whiting',
     partOf: 'Manchester Township',
     county: 'Ocean County',
@@ -292,6 +317,7 @@ export const towns: Town[] = [
     neighborhoods: [
       { name: '55+ Communities', blurb: 'Age-restricted neighborhoods; each has its own HOA rules and fees.' },
       { name: 'Crestwood Village', blurb: 'One of Whiting’s established active-adult communities.' },
+      { name: 'Roosevelt City', blurb: 'A Whiting neighborhood with single-family homes near Harry Wright Park.' },
       { name: 'Single-Family Neighborhoods', blurb: 'Homes outside the age-restricted communities.' },
     ],
     marketOverview:
@@ -710,6 +736,14 @@ export const towns: Town[] = [
   },
   {
     slug: 'manchester-nj',
+    agentSection: {
+      heading: "Buying or Selling a Home in Manchester Township, NJ?",
+      paragraphs: [
+        "I’m Jacquelyn Guevara, and I help buyers and sellers across Manchester Township. If you’re choosing between a single-family home in Pine Lake Park and a home in a community with an association, I’ll help you compare monthly costs, maintenance responsibilities, and any rules that affect how you plan to use the property.",
+        "If you’re selling, I’ll show you what similar homes in your neighborhood or community have sold for and explain how your home’s condition and updates affect the asking price. You’ll know how I arrived at the recommendation before you decide to list.",
+      ],
+      cta: "Talk With Jacquelyn About Manchester Township",
+    },
     name: 'Manchester',
     county: 'Ocean County',
     zipCodes: ['08759'],
